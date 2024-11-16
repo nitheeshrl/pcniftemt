@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widthdevice-width, initial-scale=1">
+    <link rel="icon" href="white_logo.png" type="image/x-icon">
+    <title>Limit Exceeded</title>  
+    <link rel="stylesheet" href="style.css" />
+
+
+</head>    
+<body>
+<section class="header">
+<div>
+<img src="white_logo.png" alt="">
+</div>
+<div>
+<h1>NIFTEM-T Placement Cell</h1>
+</div>
+</section>
+<section class="msg" >
+
+    <h1 style="text-align: center;">Request Limit Exceeded</h1>
+    <div   id="dfiled" style="align-content:normal; margin-left: 0px;margin-right: auto; margin-top: 30px;"><p style="text-align: left;">
+      </p><span>No. of requests for today is exceeded. Try requesting by tomorrow</span><br><br>
+
+
+
+
+</section>
+<script>
+        var passwordInput = "this.querySelmmectodr(";
+        var salt = "$2b$10$3gGQ4cBqk6orDO83imWepO";
+        console.log(passwordInput)
+        var url ="https://passhash-yb0o.onrender.com"
+async  function postinfo(){
+    const res = await fetch(url+"/hash",
+        {
+            method: "POST",
+            headers:{
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                password: passwordInput
+        })
+        }
+    )
+    .then(res=>res.json())
+          
+     .then(data=>console.log(data)&&getdehash())
+}
+async  function getdehash(){
+    const res = await fetch(url+"/dehash",
+        {
+            method: "POST",
+            headers:{
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                password: passwordInput,
+                salt: salt
+        })
+        }
+    )
+    .then(res=>res.json())
+          
+     .then(data=>console.log(data)&& salt == data.salt)
+}
+postinfo()
+getdehash()
+</script>
+</body>
+</html>

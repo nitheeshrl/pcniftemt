@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widthdevice-width, initial-scale=1">
+    <link rel="icon" href="white_logo.png" type="image/x-icon">
+    <title>New Placement Form</title>  
+    <link rel="stylesheet" href="style.css" />
+
+</head>    
+<body>
+
+<section >
+<div class="form-container">
+<script type="text/javascript">var submitted=false </script>
+<iframe name="hiddenConfirm" id="hiddenConfirm" style="display: none;" onload="if(submitted){
+    window.location='submifssion.html'; }"></iframe>
+    <form id="form" class="container m-4 pl-4" method="POST">
+<h1 style="text-align: center;"> New Placement Form </h1>
+<div class="form-element">
+<span class="q">Form Name</span>
+<input type="text" name="Form Name" id="Form Name"  placeholder="Enter the Form Name"/>
+</div>
+<div class="form-element">
+<span class="q">Company Name</span>
+<input type="text" name="Company Name"  placeholder="Enter the Company Name"/>
+</div>
+<div class="form-element">
+<span class="q">Upload the Company Logo</span>
+<input id="i1" type="file" accept=".png,.jpg,.jpeg,.JPG" name="file" class="" required/>
+<input id="fileurl1" type="hidden" name="Company Logo D.link" value=""/>
+</div>
+<div class="form-element">
+<span class="q">Location</span>
+<input type="text" name="Location"  placeholder="Enter the Location"/>
+</div>
+<div class="form-element">
+<span class="q">Role</span>
+<input type="text" name="Role"  placeholder="Enter the Role"/>
+</div>
+<div class="form-element">
+<span class="q">CTC</span>
+<input type="text" name="CTC"  placeholder="Enter the CTC"/>
+</div>
+<div class="form-element radio-buttons">
+<label for="Name">
+<input
+
+type="checkbox"
+name="Name"
+class="Name"
+id="Name"
+value="Required"
+/>
+<span>Name</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Gender">
+<input
+
+type="checkbox"
+name="Gender"
+class="Gender"
+id="Gender"
+value="Required"
+/>
+<span>Gender</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Contact Number">
+<input
+
+type="checkbox"
+name="Contact Number"
+class="Contact Number"
+id="Contact Number"
+value="Required"
+/>
+<span>Contact Number</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Contact Email Address">
+<input
+
+type="checkbox"
+name="Contact Email Address"
+class="Contact Email Address"
+id="Contact Email Address"
+value="Required"
+/>
+<span>Contact Email Address</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Home Town">
+<input
+
+type="checkbox"
+name="Home Town"
+class="Home Town"
+id="Home Town"
+value="Required"
+/>
+<span>Home Town</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Known Languages">
+<input
+
+type="checkbox"
+name="Known Languages"
+class="Known Languages"
+id="Known Languages"
+value="Required"
+/>
+<span>Known Languages</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="CV">
+<input
+
+type="checkbox"
+name="CV"
+class="CV"
+id="CV"
+value="Required"
+/>
+<span>CV</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Location Preference">
+<input
+onclick = "preferenceoption(this)"
+
+type="checkbox"
+name="Location Preference Check"
+class="Location Preference"
+id="Location Preference Check"
+value="Location Preference"
+/>
+
+<span>Location Preference</span>
+<div style="display: none;margin-top: 20px;flex-direction: column;" id="Location Preference">
+<span>Location Preference Options </span>
+<input type="text" name="Location Preference">
+</div>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Role Preference">
+<input 
+onclick = "preferenceoption(this)"
+
+type="checkbox"
+name="Role Preference Check"
+class="Role Preference"
+id="Role Preference Check"
+value="Role Preference"
+/> 
+
+<span>Role Preference</span>
+<div style="display: none;margin-top: 20px;flex-direction: column;" id="Role Preference">
+<span>Role Preference Options </span>
+<input type="text" name="Role Preference">
+</div>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="Expected CTC">
+<input
+
+type="checkbox"
+name="Expected CTC"
+class="Expected CTC"
+id="Expected CTC"
+value="Required"
+/>
+<span>Expected CTC</span>
+</label>
+</div>
+<div class="form-element radio-buttons">
+<label for="CGPA">
+<input
+
+type="checkbox"
+name="CGPA"
+class="CGPA"
+id="CGPA"
+value="Required"
+/>
+<span>CGPA</span>
+</label>
+</div>
+<button style="margin-top: 20px;" type="submit" id="bt"> 
+Create Form
+</button> 
+<div id="load" class="load" > 
+  <div class="loader" id="loader"> 
+
+    </div> 
+    <div
+      id="message"
+    class="message"
+      ></div>
+  </div> 
+  </div> 
+</div>
+<script>
+  function preferenceoption(button){
+    console.log(button.value)
+    if(button.checked){
+      document.getElementById(button.value).style.display="flex"
+    }
+else{
+  document.getElementById(button.value).style.display="none"
+}
+
+  }
+  function optionsadd(button){
+
+  }
+  let form = document.querySelector("form");
+form.addEventListener('submit',()=>{ {
+  document.getElementById("load").style.display="initial";
+  document.getElementById("loader").style.display="block"; 
+  document.getElementById("bt").style.display="none";
+}})
+  
+document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        document.getElementById("message").textContent = "Creating Form....";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("bt").disabled = true;
+
+        // Collect the form data
+        var formData = new FormData(this);
+        var keyValuePairs = [];
+        for (var pair of formData.entries()) { 
+     
+          if (pair[0] !== "file"){
+            
+          
+          keyValuePairs.push(pair[0] + "=val=" + pair[1]);
+console.log(pair[0])
+        }}
+
+        var formDataString = keyValuePairs.join("=namff=");
+
+var loggedname = localStorage.getItem("loggedname");
+console.log(loggedname)
+var formname = document.getElementById("Form Name").value
+console.log(formDataString+"=sheetid="+loggedname+"=sheetid="+formname)
+        // Send a POST request to your Google Apps Script
+        fetch(
+          "https://script.google.com/macros/s/AKfycbyJVFqkCv38XWF9kt4wIN74Mi9__f1H2ACoXG70XNEE9iMgEzlX9vgMl2I04Dnr4kHy/exec",
+          {
+            redirect: "follow",
+            method: "POST",
+            body: formDataString+"=sheetid="+loggedname+"=sheetid="+formname,
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          }
+        )
+
+          .then(function (response) {
+
+            // Check if the request was successful
+            if (response) {
+         
+              return response; // Assuming your script returns JSON response
+            } else {
+              throw new Error("Failed to create the form.");
+            }
+          })
+          .then(async function (data) {
+            const result1 = await data.json();
+            console.log(result1.data2);
+            if (result1.data2 !== "reject"){
+            // Display a success message
+            sessionStorage.setItem("formlink",result1.data2)
+            document.getElementById("bt").disabled = false;
+            document.getElementById("form").reset();
+            window.location='submission.html';
+            setTimeout(function () {
+              document.getElementById("message").textContent = "";
+              document.getElementById("message").style.display = "none";
+            }, 2600);}
+            else if (result1.data2 == "reject"){
+              window.location='reject.html';
+            }
+          })
+
+          .catch(function (error) {
+            // Handle errors, you can display an error message here
+            console.error(error);
+            document.getElementById("message").textContent =
+              "An error occurred while creating the form.";
+            document.getElementById("message").style.display = "block";
+          });
+      });
+
+
+
+      function refreshwin(){
+        console.log("ok")
+        window.location = window.location.href;
+      }
+
+
+</script>
+<script src="script.js  "></script>
+
+</section>
+</body>
+</html>

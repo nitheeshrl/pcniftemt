@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widthdevice-width, initial-scale=1">
+    <link rel="icon" href="white_logo.png" type="image/x-icon">
+    <title>Successfully Created</title>  
+    <link rel="stylesheet" href="style.css" />
+</head>    
+<body>
+<section class="header">
+<div>
+<img src="white_logo.png" alt="">
+</div>
+<div>
+<h1>NIFTEM-T Placement Cell</h1>
+
+</div>
+</section>
+<section class="msg" >
+<h1>Successfully Created</h1>
+<p>Thank for creating your form</p>
+<span id="link"></span>
+</section>
+<script>
+ var link = sessionStorage.getItem("formlink");
+ document.getElementById("link").innerHTML='The Form Link is <a href="'+link+'"target="_blank">'+link+"</a>";
+
+</script>
+</body>
+</html>
