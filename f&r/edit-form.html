@@ -683,7 +683,7 @@ value=".doc,.docx"
   
 
 }
-var jhout =  sessionStorage.getItem("backuphtml");
+var jhout =  sessionStorage.getItem("editbackuphtml");
 var hout = JSON.parse(jhout);
  console.log(hout)
  if(jhout!==null){
@@ -1660,7 +1660,7 @@ var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").value;
-var bulidupdetails =  sessionStorage.getItem("backuphtml");
+var bulidupdetails =  sessionStorage.getItem("editbackuphtml");
 console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids)
         // Send a POST request to your Google Apps Script
         fetch(
@@ -1702,7 +1702,7 @@ console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+fo
           
               var link = "https://pcniftemt.pages.dev/preview-form/?form="+formname
               document.getElementById("finallink").innerHTML=' <a style=" color:blue;background:none;" href="'+link+'"target="_blank">'+"See Preview"+"</a><br>Form is created.To make live, go to Old Forms and make active";
-              sessionStorage.removeItem("backuphtml");
+              sessionStorage.removeItem("editbackuphtml");
              
               setTimeout(function () {
              window.location = "past-forms.html"
@@ -2018,14 +2018,14 @@ else{
 html[i+2]=inhtml
         }
         var jhtml = JSON.stringify(html)
-        sessionStorage.setItem("backuphtml",jhtml);
+        sessionStorage.setItem("editbackuphtml",jhtml);
        
     }
 /*setInterval(() => {
   if (crestatus !=="Creating"){
  var html = gethtmldata();
  var jhtml = JSON.stringify(html)
-sessionStorage.setItem("backuphtml",jhtml);
+sessionStorage.setItem("editbackuphtml",jhtml);
   }
 }, 5000)*/
 
