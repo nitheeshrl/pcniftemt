@@ -167,7 +167,7 @@ function togglePopup3(){
     <script type="text/javascript">var submitted=false </script>
     <iframe name="hiddenConfirm" id="hiddenConfirm" style="display: none;" onload="if(submitted){
         window.location='submifssion.html'; }"></iframe>
-        <form style="width: 100%;" id="form" class="container m-4 pl-4" method="POST">
+        <form style="width: 100%;" id="form" class="container m-4 pl-4" method="POST" onchange="gethtmldata()">
     <h1 style="text-align: center;"> New Form </h1><br>
     <div id="formdetails">
     <div class="form-element">
@@ -249,6 +249,7 @@ value="Required"
         class="message"
           ></div>
       </div> 
+      </form>
       </div> 
     </section>
     <section class="msg" id="msg" style="display: none;flex-direction: column; align-items: center;justify-content: center;height: 100vh;">
@@ -1956,11 +1957,12 @@ lastoption[lastoption.length-3].children[0].children[0].value=value
    }
 
 setInterval(() => {
-  console.log("html")
+  console.log("log")
 updatelogstatus();
 }, 500)
 
     function gethtmldata(){
+      console.log("Saving")
       var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").value;
       var formDataString0 = document.getElementsByName("Question");
@@ -1995,13 +1997,13 @@ html[i+2]=inhtml
         }
         return html
     }
-setInterval(() => {
+/*setInterval(() => {
   if (crestatus !=="Creating"){
  var html = gethtmldata();
  var jhtml = JSON.stringify(html)
 sessionStorage.setItem("backuphtml",jhtml);
   }
-}, 5000)
+}, 5000)*/
     </script>
 <script src="scriptplaceform.js  "></script>
 <script src="scriptform.js"></script>
