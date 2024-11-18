@@ -1605,7 +1605,7 @@ var formdescrip = document.getElementById("Form Description").value;
 var bulidupdetail = await gethtmldata();
 var bulidupdetails = JSON.stringify(bulidupdetail);
 console.log(bulidupdetails)
-console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids)
+console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Edited"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam)
         // Send a POST request to your Google Apps Script
         fetch(
           "https://script.google.com/macros/s/AKfycbwoLhkMVxJ6U8oBg4AZLTPCyBgVKLdYEgDDGEj1YEP11LmKfQNGH80MZTbVjtu6fJv7/exec",
@@ -1966,7 +1966,7 @@ html[i+2]=inhtml
         }
         var jhtml = JSON.stringify(html)
         sessionStorage.setItem("editbackuphtml",jhtml);
-       
+       return html
     }
 /*setInterval(() => {
   if (crestatus !=="Creating"){
