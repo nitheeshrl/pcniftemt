@@ -1432,7 +1432,8 @@ document.getElementById("form").addEventListener("submit", function (e) {
         document.getElementById("message").textContent = "Updating Form....";
         document.getElementById("message").style.display = "block";
         document.getElementById("bt").disabled = true;
-        createhtml(folidd);
+        var folderidd = sessionStorage.getItem("formfolid");
+        createhtml(folderidd);
        
       });
 
@@ -1604,6 +1605,7 @@ var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").value;
 var bulidupdetail = await gethtmldata();
 var bulidupdetails = JSON.stringify(bulidupdetail);
+
 console.log(bulidupdetails)
 console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Edited"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam)
         // Send a POST request to your Google Apps Script
@@ -1995,7 +1997,8 @@ fetch(`${url}?header=${val}`)
     console.log(hout);
     createhtmlmfromarray(hout);
     folidd = folderid;
-    console.log(folidd)
+    console.log(folidd);
+    sessionStorage.setItem("formfolid",folderid);
     document.getElementById("load").style.display="none";
    })
    .catch((error) => console.error('!!!!!!!!', error));
