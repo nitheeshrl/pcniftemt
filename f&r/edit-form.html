@@ -82,6 +82,9 @@ function togglePopup3(){
      const values = new URLSearchParams(keyvaluess);
      const formnam = values.get('form');
    function getdata(){
+    document.getElementById("load").style.display="initial";
+           document.getElementById("loader").style.display="block"; 
+           document.getElementById("message").textContent = "Fetching form details....";
 const url = "https://script.google.com/macros/s/AKfycbzWuDO7Jim8pRJZ2MXPUQrCxcUsLhNZphuA5PGDQFfk7QVkSIy5QktQKcZh3KGL-91H/exec" 
 var val = formnam;
 console.log(val)
@@ -91,6 +94,7 @@ fetch(`${url}?header=${val}`)
     var hout =JSON.parse(data);
     console.log(hout);
     createhtmlmfromarray(hout);
+    document.getElementById("load").style.display="none";
    })
    .catch((error) => console.error('!!!!!!!!', error));
 }
