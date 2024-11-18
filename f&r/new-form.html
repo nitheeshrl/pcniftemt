@@ -169,13 +169,14 @@ function togglePopup3(){
         window.location='submifssion.html'; }"></iframe>
         <form style="width: 100%;" id="form" class="container m-4 pl-4" method="POST">
     <h1 style="text-align: center;"> New Form </h1><br>
+    <div id="formdetails">
     <div class="form-element">
     <span class="q">Form Name</span>
-    <input type="text" name="Form Name" id="Form Name" required placeholder="Enter the Form Name"/>
+    <input type="text" name="Form Name" id="Form Name" required placeholder="Enter the Form Name" value="" />
     </div><br>
     <div class="form-element" style="width: 100%;">
         <span class="q">Form Description</span>
-  <textarea  style="width: 100%;" name="Form Description" id="Form Description" placeholder="Enter the Form Description"/></textarea>
+  <textarea  style="width: 100%;" name="Form Description" id="Form Description" placeholder="Enter the Form Description" value="" /></textarea>
    
     </div>
     <span><b>Questions need to be in the form</b></span><br><br>
@@ -189,7 +190,7 @@ function togglePopup3(){
     </div>
 
     <div class="form-element">
-      <select name="Question Type" required onchange="addqoptions(this)">
+      <select name="Question Type" required onchange="addqoptions(this)" value="">
       <option value="">Select the type of question</option>
       <option value='Short Answer'>Short Answer</option>
       <option value='Long Answer'>Long Answer</option>
@@ -238,7 +239,7 @@ value="Required"
     <button style="margin-top: 20px;margin-bottom: 40px;" type="submit" id="bt"> 
     Create Form
     </button> 
-    
+  </div>
     <div id="load" class="load" > 
       <div class="loader" id="loader"> 
     
@@ -416,9 +417,9 @@ var qsection = button.parentElement.previousElementSibling.innerHTML;
 
 var newsection = qsection + newitem;
 
-button.parentElement.previousElementSibling.insertAdjacentHTML("afterend",newitem) 
+var newoption = button.parentElement.previousElementSibling.insertAdjacentHTML("afterend",newitem) 
 
-
+return;
   }
   function removeoption(button){
   
@@ -459,6 +460,8 @@ var newitem =
 </div>
     </div>
     `;
+    console.log(button)
+
     var qsection =  button.parentElement.parentElement.parentElement.innerHTML;
     var newsection = qsection + newitem; 
     button.parentElement.parentElement.parentElement.insertAdjacentHTML("afterend",newitem) 
@@ -653,9 +656,80 @@ value=".doc,.docx"
  }
   }
 
-  console.log(button.parentElement.parentElement.parentElement.nextElementSibling.getElementsByClassName("Question-Option"))
+  
 
 }
+var jhout =  sessionStorage.getItem("backuphtml");
+var hout = JSON.parse(jhout);
+ console.log(hout)
+ if(jhout!==null){
+ createhtmlmfromarray(hout)
+ }
+ function createhtmlmfromarray(html){
+  console.log(html)
+  document.getElementById("Form Name").value = html[0];
+  document.getElementById("Form Description").value = html[1];
+  for (var i=3;i<html.length;i++){
+    addquestion();
+}
+      var formDataString0 = document.getElementsByName("Question");
+        var formDataString1 = document.getElementsByName("Question Type");
+        var formDataString2 = document.getElementsByName("Question Description");
+        var formDataString3 = document.getElementsByName("Question Required");
+  for (var j=0;j<formDataString0.length;j++){
+    console.log(html[j])
+  if (html[j+2][0]!==undefined){
+    formDataString0[j].value = html[j+2][0];
+  }
+  if (html[j+2][2]!==undefined){
+    formDataString2[j].value = html[j+2][2];
+  }
+    if(html[j+2][3]=="Required"){
+      formDataString3[j].checked = true;
+    }
+  if (html[j+2][1]!==undefined){
+    formDataString1[j].value = html[j+2][1];
+    addqoptions(formDataString1[j]);
+    if (html[j+2][1] =="Options"||html[j+2][1] =="Multiple Select"||html[j+2][1] =="Dropdown"){
+      
+    var btn = formDataString0[j].parentElement.parentElement.parentElement.parentElement.children[1].children[2].children[0];
+    console.log(btn)
+    var nooption = html[j+2][4].length;
+    console.log(nooption)
+   for (var r=1;r<nooption;r++){
+addoption(btn);
+}
+var optionss= btn.parentElement.parentElement.children;
+console.log(optionss)
+for (var h=1;h<optionss.length-2;h++){
+  if(h==1){
+    optionss[h].children[0].children[0].children[0].value = html[j+2][4][h-1];
+  } 
+  else{
+    optionss[h].children[0].children[0].value = html[j+2][4][h-1];
+  }
+}
+
+}
+else if (html[j+2][1]=="File Upload"){
+  var btn = formDataString0[j].parentElement.parentElement.parentElement.parentElement.children[1].children[1].querySelectorAll(("input"));
+  console.log(btn)
+  console.log(html[j+2][4])
+  for (var a=1;a<btn.length;a++){
+    var supval = btn[a].value;
+    var supvale = html[j+2][4];
+    var superafter =supvale.replace(supval,"")
+    var supcon = supvale.length!==superafter.length;
+  if(supcon){
+    btn[a].checked =true;
+  }
+  }
+}
+  }
+
+    
+  }
+ }
   var fetchurl ="";
          var uname ;
          const keyvalues = window.location.search;
@@ -1447,7 +1521,7 @@ async function createfolders(foldername,formfolder){
       
 }
 async function createhtml(formfolder){
-  var formDataString0 = document.getElementsByName("Question");
+        var formDataString0 = document.getElementsByName("Question");
         var formDataString1 = document.getElementsByName("Question Type");
         var formDataString2 = document.getElementsByName("Question Description");
         var formDataString3 = document.getElementsByName("Question Required");
@@ -1877,9 +1951,52 @@ lastoption[lastoption.length-3].children[0].children[0].value=value
    }
 
 setInterval(() => {
+  console.log("html")
 updatelogstatus();
 }, 500)
-   </script>
+
+    function gethtmldata(){
+      var formname = document.getElementById("Form Name").value;
+var formdescrip = document.getElementById("Form Description").value;
+      var formDataString0 = document.getElementsByName("Question");
+        var formDataString1 = document.getElementsByName("Question Type");
+        var formDataString2 = document.getElementsByName("Question Description");
+        var formDataString3 = document.getElementsByName("Question Required");
+        var html =[];
+        html [0] =formname;
+        html [1] =formdescrip;
+
+        for (var i=0;i<formDataString0.length;i++){
+          var inhtml = [];
+          inhtml[0] = formDataString0[i].value;
+          inhtml[1] = formDataString1[i].value;
+          inhtml[2] = formDataString2[i].value;
+          inhtml[3] = formDataString3[i].value;
+if (formDataString1[i].value =="Options"||formDataString1[i].value =="Multiple Select"||formDataString1[i].value =="Dropdown"){
+  var optionsq =  formDataString0[i].parentElement.parentElement.parentElement.nextElementSibling.getElementsByClassName("Question-Option");
+var optionsadd =[];
+    for(var k=0;k<optionsq.length;k++){
+  optionsadd [k] = optionsq[k].value;
+    }
+  inhtml[4] = optionsadd;
+}
+else if (formDataString1[i].value=="File Upload"){
+  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value
+}
+else{
+  inhtml[4] = "";
+}
+html[i+2]=inhtml
+        }
+        return html
+    }
+setInterval(() => {
+ var html = gethtmldata();
+ var jhtml = JSON.stringify(html)
+sessionStorage.setItem("backuphtml",jhtml);
+
+}, 5000)
+    </script>
 <script src="scriptplaceform.js  "></script>
 <script src="scriptform.js"></script>
 </html>
