@@ -1640,7 +1640,7 @@ var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").value;
-var bulidupdetails = gethtmldata();
+var bulidupdetails = await gethtmldata();
 console.log(bulidupdetails)
 console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids)
         // Send a POST request to your Google Apps Script
@@ -2001,7 +2001,7 @@ html[i+2]=inhtml
         }
         var jhtml = JSON.stringify(html)
         sessionStorage.setItem("backuphtml",jhtml);
-       
+       return html
     }
 /*setInterval(() => {
   if (crestatus !=="Creating"){
