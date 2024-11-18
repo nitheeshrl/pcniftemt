@@ -281,6 +281,16 @@ margin-right: auto;
 border-color: transparent;
 
   }
+  .btn11{
+    background-color:#182d8b;
+    margin-right: 0px;
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+border-color: transparent;
+
+  }
 
   .question-no{
 background: whitesmoke;
