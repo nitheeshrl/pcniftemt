@@ -726,6 +726,7 @@ else if (html[j+2][1]=="File Upload"){
     btn[a].checked =true;
   }
   }
+  formDataString0[j].className = html[j+2][5];
 }
   }
 
@@ -1628,6 +1629,7 @@ htmlout += createcheckbox(formDataString0[h].value,required);
             }
    var folder = await createfolders(formDataString0[h].value,formfolder)  
    console.log(folder)
+   formDataString0[h].className = folder;
    folderids += "=qufolidss="+folder;
 htmlout += createfileupload(formDataString0[h].value,formDataString2[h].value,formDataString0[h],required,folder);
           }
@@ -1638,7 +1640,7 @@ var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").value;
-var bulidupdetails =  sessionStorage.getItem("backuphtml");
+var bulidupdetails = await gethtmldata();
 console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids)
         // Send a POST request to your Google Apps Script
         fetch(
@@ -1988,7 +1990,8 @@ var optionsadd =[];
   inhtml[4] = optionsadd;
 }
 else if (formDataString1[i].value=="File Upload"){
-  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value
+  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
+  inhtml[5] = formDataString0[i].className;
 }
 else{
   inhtml[4] = "";
