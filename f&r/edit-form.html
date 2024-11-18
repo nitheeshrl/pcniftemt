@@ -1419,7 +1419,7 @@ return template;
   }
   </script>
 <script>
-
+var folidd ="";
   let form = document.querySelector("form");
 form.addEventListener('submit',()=>{ {
   document.getElementById("load").style.display="initial";
@@ -1432,57 +1432,8 @@ document.getElementById("form").addEventListener("submit", function (e) {
         document.getElementById("message").textContent = "Creating Form....";
         document.getElementById("message").style.display = "block";
         document.getElementById("bt").disabled = true;
-        var formname = document.getElementById("Form Name").value;
-var formdetailstring = formname;
-console.log(formdetailstring)
-
-        // Send a POST request to your Google Apps Script
-        fetch(
-          "https://script.google.com/macros/s/AKfycbwFuGSlzULICJ63jYRTrBO7ISOFhgXdk3_JJAx7SIxxtMUr0tA2CQKgCKjurv-l1YhC/exec",
-          {
-            redirect: "follow",
-            method: "POST",
-            body: formdetailstring,
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8",
-            },
-          }
-        )
-
-          .then(function (response) {
-
-            // Check if the request was successful
-            if (response) {
-         
-              return response; // Assuming your script returns JSON response
-            } else {
-              throw new Error("Failed to create the form.");
-            }
-          })
-          .then(async function (data) {
-            const result1 = await data.json();
-            console.log(result1.data2);
-            if (result1.data2 !== "reject"){
-            // Display a success message
-         
-        createhtml(result1.data2);
-            
-      }
-            else if (result1.data2 == "reject"){
-              alert("Form name already used");
-              document.getElementById("load").style.display="none";
-              document.getElementById("bt").disabled = false;
-              document.getElementById("bt").style.display="initial";
-            }
-          })
-
-          .catch(function (error) {
-            // Handle errors, you can display an error message here
-            console.error(error);
-            document.getElementById("message").textContent =
-              "An error occurred while creating the form.";
-            document.getElementById("message").style.display = "block";
-          });
+        createhtml(folidd);
+       
       });
 
 
@@ -1632,8 +1583,15 @@ htmlout += createcheckbox(formDataString0[h].value,required);
             else{
               var required =["",""];
             }
-   var folder = await createfolders(formDataString0[h].value,formfolder)  
+      if (formDataString0[h].className==""){
+        var folder = await createfolders(formDataString0[h].value,formfolder)  
    console.log(folder)
+   formDataString0[h].className = folder;
+      }    
+      else{
+        var folder = formDataString0[h].className;
+      }  
+
    folderids += "=qufolidss="+folder;
 htmlout += createfileupload(formDataString0[h].value,formDataString2[h].value,formDataString0[h],required,folder);
           }
@@ -2032,10 +1990,12 @@ var val = formnam;
 console.log(val)
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
-   .then(({ data }) => {
+   .then(({ data,folderid }) => {
     var hout =JSON.parse(data);
     console.log(hout);
     createhtmlmfromarray(hout);
+    folidd = folderid;
+    console.log(folidd)
     document.getElementById("load").style.display="none";
    })
    .catch((error) => console.error('!!!!!!!!', error));
