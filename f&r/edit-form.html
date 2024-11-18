@@ -1644,7 +1644,8 @@ var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").value;
-var bulidupdetails =  sessionStorage.getItem("editbackuphtml");
+var bulidupdetails = await gethtmldata();
+console.log(bulidupdetails)
 console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids)
         // Send a POST request to your Google Apps Script
         fetch(
@@ -1992,12 +1993,15 @@ var optionsadd =[];
   optionsadd [k] = optionsq[k].value;
     }
   inhtml[4] = optionsadd;
+  inhtml[5] = "";
 }
 else if (formDataString1[i].value=="File Upload"){
-  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value
+  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
+  inhtml[5] = formDataString0[i].className;
 }
 else{
   inhtml[4] = "";
+  inhtml[5] = "";
 }
 html[i+2]=inhtml
         }

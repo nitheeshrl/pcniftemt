@@ -1989,6 +1989,7 @@ var optionsadd =[];
   optionsadd [k] = optionsq[k].value;
     }
   inhtml[4] = optionsadd;
+  inhtml[5] = "";
 }
 else if (formDataString1[i].value=="File Upload"){
   inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
@@ -1996,6 +1997,7 @@ else if (formDataString1[i].value=="File Upload"){
 }
 else{
   inhtml[4] = "";
+  inhtml[5] = "";
 }
 html[i+2]=inhtml
         }
