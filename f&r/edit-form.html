@@ -2000,7 +2000,11 @@ fetch(`${url}?header=${val}`)
    })
    .catch((error) => console.error('!!!!!!!!', error));
 }
-getdata()
+var offl = sessionStorage.getItem("editbackuphtml");
+if (offl==null){
+  getdata()
+}
+
 </script>
 <script src="scriptplaceform.js  "></script>
 <script src="scriptform.js"></script>
