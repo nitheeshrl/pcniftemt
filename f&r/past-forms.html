@@ -734,7 +734,7 @@ alert("PassKey is already created for this Device")
        var formstatus = r[k][1]
        var formlink = r[k][2]
        var responselink = r[k][3]
-       var folderid = r[k][6]
+       var folderid = r[k][7]
        var livetime
        if(r[k][4]!==""){
         livetime = r[k][4]
@@ -755,6 +755,7 @@ alert("PassKey is already created for this Device")
        }
        var fornamefinal =  head.split(" ");
        fornamefinal = fornamefinal.join("%20");
+       console.log(folderid)
 formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
        var editlink= "https://pcniftemt.pages.dev/f&r/edit-form?form="+folderid
        var prelink ="https://pcniftemt.pages.dev/preview-form/?form="+folderid;
