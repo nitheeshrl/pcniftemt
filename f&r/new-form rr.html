@@ -11,6 +11,16 @@
   <link rel="stylesheet" href="style 1.css" />
   <link rel="stylesheet" type="text/css" href="style 2.css">
   <link rel="stylesheet" type="text/css" href="style 4.css">
+  <link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+  rel="stylesheet"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+/>
  <style>
     table .approve{
        border-radius: 20px;
@@ -54,6 +64,50 @@ padding:12px;
 cursor: pointer;
 font-weight: bold;
 }
+.container {
+
+      }
+      .item {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+
+        cursor: grab;
+   
+        transition: margin 0.25s;
+      }
+      .name {
+        width: 100%;
+        text-align: center;
+        font-family: poppins;
+        font-size: 18px;
+        font-weight: 500;
+      }
+ 
+      .item.dragging {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0) scale(1.15);
+        pointer-events: none;
+        z-index: 1000;
+      }
+      .insert-animation {
+        animation: scaleit 0.1s ease-in-out;
+      }
+      @keyframes scaleit {
+        from {
+          transform: translate(-50%, 0) scale(1);
+        }
+      }
+      .item.dragging .name {
+        color: rgb(218, 83, 80);
+      }
+      .item.dragging span {
+        color: rgb(214, 104, 103);
+      }
 </style>
 <script>
   function logout(){
@@ -176,17 +230,18 @@ function togglePopup3(){
     </div><br>
     <div class="form-element" style="width: 100%;">
         <span class="q">Form Description</span>
-  <textarea  style="width: 100%;" name="Form Description" id="Form Description" placeholder="Enter the Form Description" value="" /></textarea>
-   
+  <textarea  style="width: 100%;" name="Form Description" id="Form Description" placeholder="Enter the Form Description" value="" contenteditable="true"/></textarea>
+
     </div>
     <span><b>Questions need to be in the form</b></span><br><br>
     <div id="question-area" class="question-area">
-  <div class="question-no">
+  <div class="question-no item">
     <div class="question-name">
       <span>Question</span>
     <div class="question-select">
     <div class="form-element">
     <input type="text" name="Question" required placeholder="Enter the Question"/>
+ 
     </div>
 
     <div class="form-element">
@@ -343,7 +398,7 @@ value="Required"
   function addquestion(){
 var newitem = 
 `
-     <div class="question-no">
+     <div class="question-no item">
     <div class="question-name">
       <span>Question</span>
     <div class="question-select">
@@ -2012,6 +2067,100 @@ html[i+2]=inhtml
 sessionStorage.setItem("backuphtml",jhtml);
   }
 }, 5000)*/
+    </script>
+    <div class="center">
+      <div class="container">
+        <div class="item">
+          <div class="name">Item 1</div>
+          <span class="material-icons-round">drag_indicator</span>
+        </div>
+        <div class="item">
+          <div class="name">Item 2</div>
+          <span class="material-icons-round">drag_indicator</span>
+        </div>
+        <div class="item">
+          <div class="name">Item 3</div>
+          <span class="material-icons-round">drag_indicator</span>
+        </div>
+        <div class="item">
+          <div class="name">Item 4</div>
+          <span class="material-icons-round">drag_indicator</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      let isDragging = false;
+      let currentItem = null;
+      let containerOffsetY = 0;
+      let initY = 0;
+
+      const container = document.querySelector(".container");
+      container.style.width = container.offsetWidth + "px";
+      container.style.height = container.offsetHeight + "px";
+
+      document.addEventListener("mousedown", (e) => {
+        const item = e.target.closest(".item");
+        if (item) {
+          isDragging = true;
+          currentItem = item;
+          containerOffsetY = currentItem.offsetTop;
+          currentItem.classList.add("dragging");
+          document.body.style.userSelect = "none";
+          currentItem.classList.add("insert-animation");
+          currentItem.style.top = containerOffsetY + "px";
+          initY = e.clientY;
+        }
+      });
+      document.addEventListener("mousemove", (e) => {
+        if (isDragging && currentItem) {
+          currentItem.classList.remove("insert-animation");
+          let newTop = containerOffsetY - (initY - e.clientY);
+          if (newTop < -50) {
+            newTop = -50;
+          } else if (newTop > container.offsetHeight - 30) {
+            newTop = container.offsetHeight - 30;
+          }
+          currentItem.style.top = newTop + "px";
+
+          let itemSibilings = [
+            ...document.querySelectorAll(".item:not(.dragging)"),
+          ];
+          let nextItem = itemSibilings.find((sibiling) => {
+            return (
+              e.clientY - container.getBoundingClientRect().top <=
+              sibiling.offsetTop + sibiling.offsetHeight / 2
+            );
+          });
+
+          itemSibilings.forEach((sibiling) => {
+            sibiling.style.marginTop = "10px";
+          });
+
+          if (nextItem) {
+            nextItem.style.marginTop = currentItem.offsetHeight + 20 + "px";
+          }
+          container.insertBefore(currentItem, nextItem);
+        }
+      });
+
+      document.addEventListener("mouseup", () => {
+        if (currentItem) {
+          currentItem.classList.remove("dragging");
+          currentItem.style.top = "auto";
+          currentItem = null;
+          isDragging = false;
+
+          document.body.style.userSelect = "auto";
+        }
+
+        let itemSibilings = [
+          ...document.querySelectorAll(".item:not(.dragging)"),
+        ];
+
+        itemSibilings.forEach((sibiling) => {
+          sibiling.style.marginTop = "10px";
+        });
+      });
     </script>
 <script src="scriptplaceform.js  "></script>
 <script src="scriptform.js"></script>
