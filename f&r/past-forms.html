@@ -734,6 +734,7 @@ alert("PassKey is already created for this Device")
        var formstatus = r[k][1]
        var formlink = r[k][2]
        var responselink = r[k][3]
+       var folderid = r[k][6]
        var livetime
        if(r[k][4]!==""){
         livetime = r[k][4]
@@ -754,9 +755,9 @@ alert("PassKey is already created for this Device")
        }
        var fornamefinal =  head.split(" ");
        fornamefinal = fornamefinal.join("%20");
-formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+fornamefinal
-       var editlink= "https://pcniftemt.pages.dev/f&r/edit-form?form="+fornamefinal
-       var prelink ="https://pcniftemt.pages.dev/preview-form/?form="+fornamefinal;
+formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
+       var editlink= "https://pcniftemt.pages.dev/f&r/edit-form?form="+folderid
+       var prelink ="https://pcniftemt.pages.dev/preview-form/?form="+folderid;
        if(formstatus=="Live"){
         detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: green;" >'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11" style="background: red;" onclick="inactivePopup(`'+head+'`)" target="_blank">Make Inactive</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11"'+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
