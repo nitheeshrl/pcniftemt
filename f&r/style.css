@@ -9,11 +9,12 @@ background: white;
 }
 form {
 background: white;
-padding: 60px; 
+padding: 40px; 
 width: 550px; 
 max-width: calc (100% - 60px);
 border-radius: 5px;
 margin-top: 20px;
+
 }
 .form-container{
 margin: auto;

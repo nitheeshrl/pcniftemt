@@ -152,10 +152,12 @@ z-index: 550;
   }
   main{
     padding: 2em 1em 60px 1em;
+    
   }
   .container{
     border: none;
     padding: 0;
+
   }
   .indetails{
     display: none;
