@@ -45,6 +45,9 @@ console.log(idvalue)
    document.getElementById("ll").textContent="Form is not published till now";
    document.getElementById("previewlink").style.display="none";
    }
+   else if (data == "Not Found"){
+    alert("Form not found")
+  }
    else{
     document.getElementById("ll").textContent="This form is created by "+owner;
    }
@@ -54,7 +57,7 @@ console.log(idvalue)
                  document.getElementById("frqa").style.display="none";
                  window.location='end.html';
                }
-               else{
+               else if (data == "Created"){
                 document.getElementById("ll").textContent="Form is Live Now";
                 document.getElementById("previewlink").href="https://niftemt-placementcell-forms.pages.dev/form/?form="+idvalue;
                 document.getElementById("frqa").style.display="initial";
