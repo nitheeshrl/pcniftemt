@@ -336,6 +336,10 @@ font-weight: bold;
    .input-span{
 background-color: white;
    }
+   .edit-btns{
+  scale:75% ;
+  margin-left: -80px;
+   }
 
   @media (max-width: 1000px) {
     .header {

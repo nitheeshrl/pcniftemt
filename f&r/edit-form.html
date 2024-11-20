@@ -56,6 +56,147 @@ font-weight: bold;
 }
 </style>
 <script>
+    function gethtmldata(){
+      console.log("Saving")
+      var formname = document.getElementById("Form Name").value;
+var formdescrip = document.getElementById("Form Description").innerHTML;
+      var formDataString0 = document.getElementsByName("Question");
+        var formDataString1 = document.getElementsByName("Question Type");
+        var formDataString2 = document.getElementsByName("Question Description");
+        var formDataString3 = document.getElementsByName("Question Required");
+        var html =[];
+        html [0] =formname;
+        html [1] =formdescrip;
+
+        for (var i=0;i<formDataString0.length;i++){
+          var inhtml = [];
+          inhtml[0] = formDataString0[i].value;
+          inhtml[1] = formDataString1[i].value;
+          inhtml[2] = formDataString2[i].innerHTML;
+          inhtml[3] = formDataString3[i].value;
+if (formDataString1[i].value =="Options"||formDataString1[i].value =="Multiple Select"||formDataString1[i].value =="Dropdown"){
+  var optionsq =  formDataString0[i].parentElement.parentElement.parentElement.nextElementSibling.getElementsByClassName("Question-Option");
+var optionsadd =[];
+    for(var k=0;k<optionsq.length;k++){
+  optionsadd [k] = optionsq[k].value;
+    }
+  inhtml[4] = optionsadd;
+  inhtml[5] = "";
+}
+else if (formDataString1[i].value=="File Upload"){
+  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
+  inhtml[5] = formDataString0[i].className;
+}
+else{
+  inhtml[4] = "";
+  inhtml[5] = "";
+}
+html[i+2]=inhtml
+        }
+        var jhtml = JSON.stringify(html)
+        sessionStorage.setItem("backuphtml",jhtml);
+       return html
+    }
+  function dis_span(button){
+
+button.previousElementSibling.focus()
+  }
+  function en_span(button){
+    console.log("f")
+var val = button.textContent;
+if (val==""){
+  button.nextElementSibling.style.display="initial"
+}
+else{
+  button.nextElementSibling.style.display="none"
+}
+gethtmldata()
+  }
+  function getSelectionText() {
+    let text = "";
+    const activeEl = document.activeElement;
+    const activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+
+    if (
+      (activeElTagName == "textarea") || (activeElTagName == "input" &&
+      /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+      (typeof activeEl.selectionStart == "number")
+    ) {
+        text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+    } else if (window.getSelection) {
+        text = window.getSelection().toString();
+    }
+
+    return text;
+}
+document.onmouseup = document.onkeyup = document.onselectionchange = function() {
+  sessionStorage.setItem("selvalueofinput",getSelectionText());
+  var selval = sessionStorage.getItem("selvalueofinput");
+  console.log(selval);
+};
+function boldtxt(button){
+
+  var selval = sessionStorage.getItem("selvalueofinput");
+ 
+var indiv = button.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+var newva = '<b>'+selval+"</b>";
+
+var fcheck = indiv.replace(newva,"");
+console.log(indiv.length!==fcheck.length)
+if (indiv.includes(newva)){
+  var fvalue = indiv.replace(newva,selval);
+}
+else{
+  var fvalue = indiv.replace(selval,newva);
+}
+
+
+button.parentElement.previousElementSibling.previousElementSibling.innerHTML = fvalue
+console.log(indiv,newva)
+gethtmldata()
+}
+function italicstxt(button){
+
+var selval = sessionStorage.getItem("selvalueofinput");
+
+var indiv = button.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+var newva = '<i>'+selval+"</i>";
+
+var fcheck = indiv.replace(newva,"");
+console.log(indiv.length!==fcheck.length)
+if (indiv.includes(newva)){
+var fvalue = indiv.replace(newva,selval);
+}
+else{
+var fvalue = indiv.replace(selval,newva);
+}
+
+
+button.parentElement.previousElementSibling.previousElementSibling.innerHTML = fvalue
+console.log(indiv,newva)
+gethtmldata()
+}
+function underlinetxt(button){
+
+var selval = sessionStorage.getItem("selvalueofinput");
+
+var indiv = button.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+var newva = '<u>'+selval+"</u>";
+
+var fcheck = indiv.replace(newva,"");
+console.log(indiv.length!==fcheck.length)
+if (indiv.includes(newva)){
+var fvalue = indiv.replace(newva,selval);
+}
+else{
+var fvalue = indiv.replace(selval,newva);
+}
+
+
+button.parentElement.previousElementSibling.previousElementSibling.innerHTML = fvalue
+console.log(indiv,newva)
+gethtmldata()
+}
     function swapSibling(now,pre) {
     console.log("jj")
    
@@ -204,18 +345,31 @@ function togglePopup3(){
     <input type="text" name="Form Name" id="Form Name" required placeholder="Enter the Form Name" value="" />
     </div><br>
     <div class="form-element" style="width: 100%;">
-        <span class="q">Form Description</span>
-  <textarea  style="width: 100%;" name="Form Description" id="Form Description" placeholder="Enter the Form Description" value="" /></textarea>
-   
+        <span class="q">Form Description</span>  
+  <span oninput="en_span(this)"  style="width: 100%;" class="input-span" contenteditable="true" name="Form Description" id="Form Description"></span>
+  <span onclick="dis_span(this)"  class="span-in-place" style="width: 100%;">Enter the Form Description</span>
+  <div style="margin-top: 20px;margin-bottom: -30px;margin-left: -160px;" class="edit-btns">
+      <button onclick="boldtxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H8.625C11.0412 1 13 2.95875 13 5.375C13 6.08661 12.8301 6.75853 12.5287 7.35243C13.4313 8.15386 14 9.32301 14 10.625C14 13.0412 12.0412 15 9.625 15H2V1ZM5.5 9.75V11.5H9.625C10.1082 11.5 10.5 11.1082 10.5 10.625C10.5 10.1418 10.1082 9.75 9.625 9.75H5.5ZM5.5 6.25H8.625C9.10825 6.25 9.5 5.85825 9.5 5.375C9.5 4.89175 9.10825 4.5 8.625 4.5H5.5V6.25Z" fill="#0042aa"></path> </g></svg>
+    </button>
+    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="30px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
+    </button>
+    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 21H20M18 4V11C18 14.3137 15.3137 17 12 17C8.68629 17 6 14.3137 6 11V4M4 3H8M16 3H20" stroke="#0056d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+    </button>
+      </div>
     </div>
     <span><b>Questions need to be in the form</b></span><br><br>
     <div id="question-area" class="question-area">
-  <div class="question-no">
+      <div class="question-no">
     <div class="question-name">
       <span>Question</span>
     <div class="question-select">
     <div class="form-element">
-    <input type="text" name="Question" required placeholder="Enter the Question"/>
+    <input style="margin-top: 0px;" type="text" name="Question" required placeholder="Enter the Question"/>
+
+
     </div>
 
     <div class="form-element">
@@ -233,21 +387,33 @@ function togglePopup3(){
       <option value='Time and Date'>Time and Date</option>
       </select>
     </div>
-    <div style="display: flex;width: 120px;">
+  <div style="display: flex;width: 120px;">
     <button onclick="removequestion(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
       <svg fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
     </button>
-        <button onclick="divup(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-   <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
+    <button onclick="divup(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
     </button>
-     <button onclick="divdown(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-    <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>
+    <button onclick="divdown(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>
     </button>
-    </div>
+  </div>
   </div>
   <div style="display: flex;justify-content: space-between;">
     <div class="form-element" style="width: 47%;">
-    <input type="text" name="Question Description"  placeholder="Enter the Question Description"/>
+      <span oninput="en_span(this)"  style="font-weight: lighter;" class="input-span" contenteditable="true" name="Question Description" ></span>
+      <span onclick="dis_span(this)" style="font-weight: lighter;" class="span-in-place" >Enter the Question Description</span>
+      <div style="margin-top: 20px;margin-bottom: -50px;" class="edit-btns">
+      <button onclick="boldtxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H8.625C11.0412 1 13 2.95875 13 5.375C13 6.08661 12.8301 6.75853 12.5287 7.35243C13.4313 8.15386 14 9.32301 14 10.625C14 13.0412 12.0412 15 9.625 15H2V1ZM5.5 9.75V11.5H9.625C10.1082 11.5 10.5 11.1082 10.5 10.625C10.5 10.1418 10.1082 9.75 9.625 9.75H5.5ZM5.5 6.25H8.625C9.10825 6.25 9.5 5.85825 9.5 5.375C9.5 4.89175 9.10825 4.5 8.625 4.5H5.5V6.25Z" fill="#0042aa"></path> </g></svg>
+    </button>
+    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="30px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
+    </button>
+    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 21H20M18 4V11C18 14.3137 15.3137 17 12 17C8.68629 17 6 14.3137 6 11V4M4 3H8M16 3H20" stroke="#0056d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+    </button>
+      </div>
     </div>
 
     <div class="form-element radio-buttons" style="width: 47%;margin-top: 10px;">
@@ -385,11 +551,13 @@ var newitem =
       <span>Question</span>
     <div class="question-select">
     <div class="form-element">
-    <input type="text" name="Question" required placeholder="Enter the Question"/>
+    <input style="margin-top: 0px;" type="text" name="Question" required placeholder="Enter the Question"/>
+
+
     </div>
 
     <div class="form-element">
-      <select name="Question Type" required onchange="addqoptions(this)">
+      <select name="Question Type" required onchange="addqoptions(this)" value="">
       <option value="">Select the type of question</option>
       <option value='Short Answer'>Short Answer</option>
       <option value='Long Answer'>Long Answer</option>
@@ -403,22 +571,35 @@ var newitem =
       <option value='Time and Date'>Time and Date</option>
       </select>
     </div>
-    <div style="display: flex;width: 120px;">
+  <div style="display: flex;width: 120px;">
     <button onclick="removequestion(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
       <svg fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
     </button>
-        <button onclick="divup(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-   <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
+    <button onclick="divup(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
     </button>
-     <button onclick="divdown(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-    <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>
+    <button onclick="divdown(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>
     </button>
-    </div>
+  </div>
   </div>
   <div style="display: flex;justify-content: space-between;">
     <div class="form-element" style="width: 47%;">
-    <input type="text" name="Question Description"  placeholder="Enter the Question Description"/>
+      <span oninput="en_span(this)"  style="font-weight: lighter;" class="input-span" contenteditable="true" name="Question Description" ></span>
+      <span onclick="dis_span(this)" style="font-weight: lighter;" class="span-in-place" >Enter the Question Description</span>
+      <div style="margin-top: 20px;margin-bottom: -50px;" class="edit-btns">
+      <button onclick="boldtxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H8.625C11.0412 1 13 2.95875 13 5.375C13 6.08661 12.8301 6.75853 12.5287 7.35243C13.4313 8.15386 14 9.32301 14 10.625C14 13.0412 12.0412 15 9.625 15H2V1ZM5.5 9.75V11.5H9.625C10.1082 11.5 10.5 11.1082 10.5 10.625C10.5 10.1418 10.1082 9.75 9.625 9.75H5.5ZM5.5 6.25H8.625C9.10825 6.25 9.5 5.85825 9.5 5.375C9.5 4.89175 9.10825 4.5 8.625 4.5H5.5V6.25Z" fill="#0042aa"></path> </g></svg>
+    </button>
+    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg fill="#0042aa" height="30px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
+    </button>
+    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 21H20M18 4V11C18 14.3137 15.3137 17 12 17C8.68629 17 6 14.3137 6 11V4M4 3H8M16 3H20" stroke="#0056d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+    </button>
+      </div>
     </div>
+
     <div class="form-element radio-buttons" style="width: 47%;margin-top: 10px;">
     <label for="Required">
 <input
@@ -429,9 +610,12 @@ value="Required"
 <span>Required</span>
 </label>
     </div>
+
     </div>
+
 </div>
-</div>
+
+  </div>
 `;
 
 var qsection = document.getElementById("question-area").innerHTML;
@@ -715,7 +899,8 @@ var hout = JSON.parse(jhout);
  function createhtmlmfromarray(html){
   console.log(html)
   document.getElementById("Form Name").value = html[0];
-  document.getElementById("Form Description").value = html[1];
+  document.getElementById("Form Description").innerHTML = html[1];
+  en_span(document.getElementById("Form Description"))
   for (var i=3;i<html.length;i++){
     addquestion();
 }
@@ -729,7 +914,8 @@ var hout = JSON.parse(jhout);
     formDataString0[j].value = html[j+2][0];
   }
   if (html[j+2][2]!==undefined){
-    formDataString2[j].value = html[j+2][2];
+    formDataString2[j].innerHTML = html[j+2][2];
+    en_span(formDataString2[j])
   }
     if(html[j+2][3]=="Required"){
       formDataString3[j].checked = true;
@@ -1542,7 +1728,7 @@ console.log(formDataString3)
             else{
               var required =["",""];
             }
-htmlout +=  createshort(formDataString0[h].value,formDataString2[h].value,required);
+htmlout +=  createshort(formDataString0[h].value,formDataString2[h].innerHTML,required);
           }
           else if (formDataString1[h].value=="Long Answer"){
             if(formDataString3[h].checked){
@@ -1551,7 +1737,7 @@ htmlout +=  createshort(formDataString0[h].value,formDataString2[h].value,requir
             else{
               var required =["",""];
             }
-htmlout +=  createlong(formDataString0[h].value,formDataString2[h].value,required);
+htmlout +=  createlong(formDataString0[h].value,formDataString2[h].innerHTML,required);
           }
           else if (formDataString1[h].value=="Options"){
             if(formDataString3[h].checked){
@@ -1560,7 +1746,7 @@ htmlout +=  createlong(formDataString0[h].value,formDataString2[h].value,require
             else{
               var required =["",""];
             }
-htmlout +=  createoptions(formDataString0[h].value,formDataString2[h].value,formDataString0[h],required);
+htmlout +=  createoptions(formDataString0[h].value,formDataString2[h].innerHTML,formDataString0[h],required);
           }
           else if (formDataString1[h].value=="Dropdown"){
             if(formDataString3[h].checked){
@@ -1569,7 +1755,7 @@ htmlout +=  createoptions(formDataString0[h].value,formDataString2[h].value,form
             else{
               var required =["",""];
             }
-htmlout +=  createdropdown(formDataString0[h].value,formDataString2[h].value,formDataString0[h],required);
+htmlout +=  createdropdown(formDataString0[h].value,formDataString2[h].innerHTML,formDataString0[h],required);
           }
           else if (formDataString1[h].value=="Multiple Select"){
             if(formDataString3[h].checked){
@@ -1578,7 +1764,7 @@ htmlout +=  createdropdown(formDataString0[h].value,formDataString2[h].value,for
             else{
               var required =["",""];
             }
-htmlout +=  createmultipleoptions(formDataString0[h].value,formDataString2[h].value,formDataString0[h],required);
+htmlout +=  createmultipleoptions(formDataString0[h].value,formDataString2[h].innerHTML,formDataString0[h],required);
           }
           else if (formDataString1[h].value=="Time"){
             if(formDataString3[h].checked){
@@ -1587,7 +1773,7 @@ htmlout +=  createmultipleoptions(formDataString0[h].value,formDataString2[h].va
             else{
               var required =["",""];
             }
-htmlout +=  createtime(formDataString0[h].value,formDataString2[h].value,required);
+htmlout +=  createtime(formDataString0[h].value,formDataString2[h].innerHTML,required);
           }
           else if (formDataString1[h].value=="Date"){
             if(formDataString3[h].checked){
@@ -1596,7 +1782,7 @@ htmlout +=  createtime(formDataString0[h].value,formDataString2[h].value,require
             else{
               var required =["",""];
             }
-htmlout +=  createdate(formDataString0[h].value,formDataString2[h].value,required);
+htmlout +=  createdate(formDataString0[h].value,formDataString2[h].innerHTML,required);
           }
           else if (formDataString1[h].value=="Time and Date"){
             if(formDataString3[h].checked){
@@ -1605,7 +1791,7 @@ htmlout +=  createdate(formDataString0[h].value,formDataString2[h].value,require
             else{
               var required =["",""];
             }
-htmlout +=  createtimedate(formDataString0[h].value,formDataString2[h].value,required);
+htmlout +=  createtimedate(formDataString0[h].value,formDataString2[h].innerHTML,required);
           }
           else if (formDataString1[h].value=="Checkbox"){
             if(formDataString3[h].checked){
@@ -1624,25 +1810,20 @@ htmlout += createcheckbox(formDataString0[h].value,required);
             else{
               var required =["",""];
             }
-      if (formDataString0[h].className==""){
-        var folder = await createfolders(formDataString0[h].value,formfolder)  
+   var folder = await createfolders(formDataString0[h].value,formfolder)  
    console.log(folder)
    formDataString0[h].className = folder;
-      }    
-      else{
-        var folder = formDataString0[h].className;
-      }  
-
    folderids += "=qufolidss="+folder;
-htmlout += createfileupload(formDataString0[h].value,formDataString2[h].value,formDataString0[h],required,folder);
+htmlout += createfileupload(formDataString0[h].value,formDataString2[h].innerHTML,formDataString0[h],required,folder);
           }
         }
+ 
    
 console.log(htmlout)
 var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value;
-var formdescrip = document.getElementById("Form Description").value;
+var formdescrip = document.getElementById("Form Description").innerHTML;
 var bulidupdetail = await gethtmldata();
 var bulidupdetails = JSON.stringify(bulidupdetail);
 
@@ -1969,47 +2150,7 @@ setInterval(() => {
 updatelogstatus();
 }, 500)
 
-    function gethtmldata(){
-      console.log("Saving")
-      var formname = document.getElementById("Form Name").value;
-var formdescrip = document.getElementById("Form Description").value;
-      var formDataString0 = document.getElementsByName("Question");
-        var formDataString1 = document.getElementsByName("Question Type");
-        var formDataString2 = document.getElementsByName("Question Description");
-        var formDataString3 = document.getElementsByName("Question Required");
-        var html =[];
-        html [0] =formname;
-        html [1] =formdescrip;
-
-        for (var i=0;i<formDataString0.length;i++){
-          var inhtml = [];
-          inhtml[0] = formDataString0[i].value;
-          inhtml[1] = formDataString1[i].value;
-          inhtml[2] = formDataString2[i].value;
-          inhtml[3] = formDataString3[i].value;
-if (formDataString1[i].value =="Options"||formDataString1[i].value =="Multiple Select"||formDataString1[i].value =="Dropdown"){
-  var optionsq =  formDataString0[i].parentElement.parentElement.parentElement.nextElementSibling.getElementsByClassName("Question-Option");
-var optionsadd =[];
-    for(var k=0;k<optionsq.length;k++){
-  optionsadd [k] = optionsq[k].value;
-    }
-  inhtml[4] = optionsadd;
-  inhtml[5] = "";
-}
-else if (formDataString1[i].value=="File Upload"){
-  inhtml[4] = formDataString0[i].parentElement.parentElement.parentElement.parentElement.children[1].children[1].children[0].value;
-  inhtml[5] = formDataString0[i].className;
-}
-else{
-  inhtml[4] = "";
-  inhtml[5] = "";
-}
-html[i+2]=inhtml
-        }
-        var jhtml = JSON.stringify(html)
-        sessionStorage.setItem("editbackuphtml",jhtml);
-       return html
-    }
+    
 /*setInterval(() => {
   if (crestatus !=="Creating"){
  var html = gethtmldata();
