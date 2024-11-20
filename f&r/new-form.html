@@ -139,7 +139,7 @@ function boldtxt(button){
 
   var selval = sessionStorage.getItem("selvalueofinput");
  
-var indiv = button.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+var indiv = button.parentElement.previousElementSibling.children[0].innerHTML;
 var newva = '<b>'+selval+"</b>";
 
 var fcheck = indiv.replace(newva,"");
@@ -152,7 +152,7 @@ else{
 }
 
 
-button.parentElement.previousElementSibling.previousElementSibling.innerHTML = fvalue
+button.parentElement.previousElementSibling.children[0].innerHTML = fvalue
 console.log(indiv,newva)
 gethtmldata()
 }
@@ -160,7 +160,7 @@ function italicstxt(button){
 
 var selval = sessionStorage.getItem("selvalueofinput");
 
-var indiv = button.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+var indiv = button.parentElement.previousElementSibling.children[0].innerHTML;
 var newva = '<i>'+selval+"</i>";
 
 var fcheck = indiv.replace(newva,"");
@@ -173,7 +173,7 @@ var fvalue = indiv.replace(selval,newva);
 }
 
 
-button.parentElement.previousElementSibling.previousElementSibling.innerHTML = fvalue
+button.parentElement.previousElementSibling.children[0].innerHTML = fvalue
 console.log(indiv,newva)
 gethtmldata()
 }
@@ -181,7 +181,7 @@ function underlinetxt(button){
 
 var selval = sessionStorage.getItem("selvalueofinput");
 
-var indiv = button.parentElement.previousElementSibling.previousElementSibling.innerHTML;
+var indiv = button.parentElement.previousElementSibling.children[0].innerHTML;
 var newva = '<u>'+selval+"</u>";
 
 var fcheck = indiv.replace(newva,"");
@@ -194,7 +194,7 @@ var fvalue = indiv.replace(selval,newva);
 }
 
 
-button.parentElement.previousElementSibling.previousElementSibling.innerHTML = fvalue
+button.parentElement.previousElementSibling.children[0].innerHTML = fvalue
 console.log(indiv,newva)
 gethtmldata()
 }
@@ -344,14 +344,16 @@ function togglePopup3(){
     </div><br>
     <div class="form-element" style="width: 100%;">
         <span class="q">Form Description</span>  
+        <div style="display: flex;flex-direction: column;min-height: 60px; height: 100%;">
   <span oninput="en_span(this)"  style="width: 100%;" class="input-span" contenteditable="true" name="Form Description" id="Form Description"></span>
   <span onclick="dis_span(this)"  class="span-in-place" style="width: 100%;">Enter the Form Description</span>
-  <div style="margin-top: 20px;margin-bottom: -30px;margin-left: -160px;" class="edit-btns">
+</div>
+  <div style="margin-top: 20px;margin-bottom: -30px;" class="edit-btns">
       <button onclick="boldtxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H8.625C11.0412 1 13 2.95875 13 5.375C13 6.08661 12.8301 6.75853 12.5287 7.35243C13.4313 8.15386 14 9.32301 14 10.625C14 13.0412 12.0412 15 9.625 15H2V1ZM5.5 9.75V11.5H9.625C10.1082 11.5 10.5 11.1082 10.5 10.625C10.5 10.1418 10.1082 9.75 9.625 9.75H5.5ZM5.5 6.25H8.625C9.10825 6.25 9.5 5.85825 9.5 5.375C9.5 4.89175 9.10825 4.5 8.625 4.5H5.5V6.25Z" fill="#0042aa"></path> </g></svg>
     </button>
     <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-      <svg fill="#0042aa" height="30px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
+      <svg fill="#0042aa" height="16px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
     </button>
     <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 21H20M18 4V11C18 14.3137 15.3137 17 12 17C8.68629 17 6 14.3137 6 11V4M4 3H8M16 3H20" stroke="#0056d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
@@ -360,7 +362,7 @@ function togglePopup3(){
     </div>
     <span><b>Questions need to be in the form</b></span><br><br>
     <div id="question-area" class="question-area">
-  <div class="question-no">
+      <div class="question-no">
     <div class="question-name">
       <span>Question</span>
     <div class="question-select">
@@ -398,17 +400,19 @@ function togglePopup3(){
   </div>
   </div>
   <div style="display: flex;justify-content: space-between;">
-    <div class="form-element" style="width: 47%;">
+    <div class="form-element" style="width: 47%;margin-bottom: 0px;">
+      <div style="display: flex;flex-direction: column;min-height: 55px; height:calc(100% - 50px) ;">
       <span oninput="en_span(this)"  style="font-weight: lighter;" class="input-span" contenteditable="true" name="Question Description" ></span>
       <span onclick="dis_span(this)" style="font-weight: lighter;" class="span-in-place" >Enter the Question Description</span>
-      <div style="margin-top: 20px;margin-bottom: -50px;" class="edit-btns">
-      <button onclick="boldtxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+    </div>
+      <div  class="edit-btns">
+      <button onclick="boldtxt(this)" type="button" style="background: none; width: 50px;">
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H8.625C11.0412 1 13 2.95875 13 5.375C13 6.08661 12.8301 6.75853 12.5287 7.35243C13.4313 8.15386 14 9.32301 14 10.625C14 13.0412 12.0412 15 9.625 15H2V1ZM5.5 9.75V11.5H9.625C10.1082 11.5 10.5 11.1082 10.5 10.625C10.5 10.1418 10.1082 9.75 9.625 9.75H5.5ZM5.5 6.25H8.625C9.10825 6.25 9.5 5.85825 9.5 5.375C9.5 4.89175 9.10825 4.5 8.625 4.5H5.5V6.25Z" fill="#0042aa"></path> </g></svg>
     </button>
-    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-      <svg fill="#0042aa" height="30px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
+    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;">
+      <svg fill="#0042aa" height="16px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
     </button>
-    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 21H20M18 4V11C18 14.3137 15.3137 17 12 17C8.68629 17 6 14.3137 6 11V4M4 3H8M16 3H20" stroke="#0056d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
     </button>
       </div>
@@ -582,17 +586,19 @@ var newitem =
   </div>
   </div>
   <div style="display: flex;justify-content: space-between;">
-    <div class="form-element" style="width: 47%;">
+    <div class="form-element" style="width: 47%;margin-bottom: 0px;">
+      <div style="display: flex;flex-direction: column;min-height: 55px; height:calc(100% - 50px) ;">
       <span oninput="en_span(this)"  style="font-weight: lighter;" class="input-span" contenteditable="true" name="Question Description" ></span>
       <span onclick="dis_span(this)" style="font-weight: lighter;" class="span-in-place" >Enter the Question Description</span>
-      <div style="margin-top: 20px;margin-bottom: -50px;" class="edit-btns">
-      <button onclick="boldtxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+    </div>
+      <div  class="edit-btns">
+      <button onclick="boldtxt(this)" type="button" style="background: none; width: 50px;">
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H8.625C11.0412 1 13 2.95875 13 5.375C13 6.08661 12.8301 6.75853 12.5287 7.35243C13.4313 8.15386 14 9.32301 14 10.625C14 13.0412 12.0412 15 9.625 15H2V1ZM5.5 9.75V11.5H9.625C10.1082 11.5 10.5 11.1082 10.5 10.625C10.5 10.1418 10.1082 9.75 9.625 9.75H5.5ZM5.5 6.25H8.625C9.10825 6.25 9.5 5.85825 9.5 5.375C9.5 4.89175 9.10825 4.5 8.625 4.5H5.5V6.25Z" fill="#0042aa"></path> </g></svg>
     </button>
-    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
-      <svg fill="#0042aa" height="30px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
+    <button onclick="italicstxt(this)" type="button" style="background: none;width: 50px;">
+      <svg fill="#0042aa" height="16px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 306.001 306.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M249.142,0H120.713c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h54.958l-58.527,276H56.859c-4.142,0-7.5,3.358-7.5,7.5 s3.358,7.5,7.5,7.5h66.339c0.009,0,0.019,0.001,0.028,0.001c0.006,0,0.011-0.001,0.017-0.001h62.044c4.142,0,7.5-3.358,7.5-7.5 s-3.358-7.5-7.5-7.5h-52.811l58.527-276h58.138c4.142,0,7.5-3.358,7.5-7.5S253.284,0,249.142,0z"></path> </g></svg>
     </button>
-    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;margin-top: -30px;">
+    <button onclick="underlinetxt(this)" type="button" style="background: none;width: 50px;">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 21H20M18 4V11C18 14.3137 15.3137 17 12 17C8.68629 17 6 14.3137 6 11V4M4 3H8M16 3H20" stroke="#0056d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
     </button>
       </div>
@@ -627,7 +633,7 @@ lastelement[lastno].insertAdjacentHTML("afterend",newitem)
   function removequestion(button){
 
 
-    button.parentElement.parentElement.parentElement.remove();
+    button.parentElement.parentElement.parentElement.parentElement.remove();
   }
   function addoption(button){
 var newitem = 

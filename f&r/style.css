@@ -332,13 +332,16 @@ font-weight: bold;
     color: grey;
     font-size: small;
   
+  
    }
    .input-span{
 background-color: white;
+
    }
    .edit-btns{
-  scale:75% ;
-  margin-left: -80px;
+    display: flex;
+width: 120px;
+
    }
 
   @media (max-width: 1000px) {
