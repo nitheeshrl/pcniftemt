@@ -1069,13 +1069,23 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Setting Status Change Time....";
-           console.log(formname+"/"+status+"/"+time)
+           
+           var formstringgg= formname+"/"+status+"/"+time;
+           console.log(formstringgg)
+           if(status=="Live"){
+            togglePopup7()
+           }
+           else{
+            togglePopup6()
+           }
+           
+           
             fetch(
           "https://script.google.com/macros/s/AKfycbz0JwCYKJuZj6gulNEtMO5K0hd7aSKgzjAIKqbqMCdTEoemwE1oy5l6eeVeuq5SQHI9/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formname+"/"+status+"/"+time,
+            body: formstringgg,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
@@ -1098,6 +1108,9 @@ else if(data=="Not Found"){
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
+  const d =   document.querySelectorAll('input[type=datetime-local]');
+  d[0].value = 0
+  d[1].value = 0
     document.getElementById("message").textContent="Status Change Time Set Successful";
     setTimeout(function () { document.getElementById("load").style.display="none"; 
     ustatus="";
@@ -1124,7 +1137,7 @@ else if(data=="Not Found"){
     }
     function formactive(formname){
       ustatus="Going";
-      togglePopup7()
+
  
      var type =  document.querySelector('input[name="Type of Active Status Change"]:checked').value;
      if(type=="Immediately"){
@@ -1133,17 +1146,16 @@ else if(data=="Not Found"){
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setactive time").value;
       console.log(rawtime);
-      var time = formatDate(rawtime);
-      console.log(time);
+      //var time = formatDate(rawtime);
+      console.log(rawtime);
       timeupdatestatus(formname,"Live",rawtime);
       document.getElementById("setactive time").style.display="none";
-      const d =   document.querySelectorAll('input[type=datetime-local]');
-      d[1].value = 0
+   
      }
     }
     function forminactive(formname){
       ustatus="Going";
-      togglePopup6()
+     
       
      
      var type =  document.querySelector('input[name="Type of Inactive Status Change"]:checked').value;
@@ -1153,12 +1165,11 @@ else if(data=="Not Found"){
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setinactive time").value;
       console.log(rawtime);
-      var time = formatDate(rawtime);
-      console.log(time);
+      //var time = formatDate(rawtime);
+      console.log(rawtime);
       timeupdatestatus(formname,"Inactive",rawtime);
       document.getElementById("setinactive time").style.display="none";
-      const d =   document.querySelectorAll('input[type=datetime-local]');
-      d[0].value = 0
+
      }
     }
    </script>

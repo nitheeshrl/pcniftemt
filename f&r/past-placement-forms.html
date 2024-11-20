@@ -524,11 +524,29 @@ alert("PassKey is already created for this Device")
    document.getElementById("popup-4").classList.toggle("active");
    }
    function togglePopup6(){
+    uncheckoptions()
    document.getElementById("popup-6").classList.toggle("active");
+   document.getElementById("setinactive time").style.display="none";
+   const d =   document.querySelectorAll('input[type=datetime-local]');
+   console.log(d)
+   d[0].value = 0
    }
    function togglePopup7(){
+    uncheckoptions()
    document.getElementById("popup-7").classList.toggle("active");
+   document.getElementById("setactive time").style.display="none";
+   const d =   document.querySelectorAll('input[type=datetime-local]');
+   console.log(d)
+   d[1].value = 0
    }
+   function uncheckoptions(){
+    if(ustatus!=="Going"){
+    var options = document.querySelectorAll('input[type="radio"]');
+    for(var i=0;i<options.length;i++){
+      options[i].checked=false;
+    }
+   }
+  }
    var fetchurl ="";
          var uname ;
          const keyvalues = window.location.search;
@@ -716,14 +734,14 @@ alert("PassKey is already created for this Device")
        var responselink = r[k][3]
        var livetime
        if(r[k][4]!==""){
-        livetime = formatDate(r[k][4])
+        livetime = r[k][4]
        }
        else{
         livetime = r[k][4]
        }
        var expirytime
        if(r[k][5]!==""){
-        expirytime = formatDate(r[k][5])
+        expirytime = r[k][5]
        }
        else{
         expirytime = r[k][5]
@@ -1037,13 +1055,20 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Setting Status Change Time....";
-           console.log(formname+"/"+status+"/"+time)
+           var formstringgg= formname+"/"+status+"/"+time;
+           console.log(formstringgg)
+           if(status=="Live"){
+            togglePopup7()
+           }
+           else{
+            togglePopup6()
+           }
             fetch(
           "https://script.google.com/macros/s/AKfycbz0JwCYKJuZj6gulNEtMO5K0hd7aSKgzjAIKqbqMCdTEoemwE1oy5l6eeVeuq5SQHI9/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formname+"/"+status+"/"+time,
+            body: formstringgg,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
@@ -1066,6 +1091,9 @@ else if(data=="Not Found"){
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
+  const d =   document.querySelectorAll('input[type=datetime-local]');
+  d[0].value = 0
+  d[1].value = 0
     document.getElementById("message").textContent="Status Change Time Set Successful";
     setTimeout(function () { document.getElementById("load").style.display="none"; 
     ustatus="";
@@ -1091,7 +1119,7 @@ else if(data=="Not Found"){
     }
     function formactive(formname){
       ustatus="Going";
-      togglePopup7()
+   
      var type =  document.querySelector('input[name="Type of Active Status Change"]:checked').value;
      if(type=="Immediately"){
       updatestatus(formname,"Live");
@@ -1099,14 +1127,14 @@ else if(data=="Not Found"){
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setactive time").value;
       console.log(rawtime);
-      var time = formatDate(rawtime);
-      console.log(time);
-      timeupdatestatus(formname,"Live",time);
+      //var time = formatDate(rawtime);
+      //console.log(time);
+      timeupdatestatus(formname,"Live",rawtime);
      }
     }
     function forminactive(formname){
       ustatus="Going";
-      togglePopup6()
+    
      var type =  document.querySelector('input[name="Type of Inactive Status Change"]:checked').value;
      if(type=="Immediately"){
       updatestatus(formname,"Inactive");
@@ -1114,9 +1142,9 @@ else if(data=="Not Found"){
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setinactive time").value;
       console.log(rawtime);
-      var time = formatDate(rawtime);
-      console.log(time);
-      timeupdatestatus(formname,"Inactive",time);
+      //var time = formatDate(rawtime);
+      //console.log(time);
+      timeupdatestatus(formname,"Inactive",rawtime);
      }
     }
    </script>
