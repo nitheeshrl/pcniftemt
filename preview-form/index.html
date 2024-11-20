@@ -36,7 +36,7 @@ console.log(idvalue)
        .then((response) => response.json())
        .then(({ data }) => {
         console.log(data)
-           if (data == "Created"||data == "Live"){
+           if (data == "Created"){
    console.log("ok")
    var loggedname =localStorage.getItem("loggedname")
    if(formstatus=="Form Fetched"){
@@ -57,7 +57,7 @@ console.log(idvalue)
                  document.getElementById("frqa").style.display="none";
                  window.location='end.html';
                }
-               else if (data == "Created"){
+               else if (data == "Live"){
                 document.getElementById("ll").textContent="Form is Live Now";
                 document.getElementById("previewlink").href="https://niftemt-placementcell-forms.pages.dev/form/?form="+idvalue;
                 document.getElementById("frqa").style.display="initial";
