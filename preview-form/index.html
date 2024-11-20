@@ -36,7 +36,7 @@ console.log(idvalue)
        .then((response) => response.json())
        .then(({ data }) => {
         console.log(data)
-           if (data == "Created"){
+           if (data == "Created"||data == "Live"){
    console.log("ok")
    var loggedname =localStorage.getItem("loggedname")
    if(formstatus=="Form Fetched"){
