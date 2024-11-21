@@ -1190,51 +1190,68 @@ setInterval(() => {
   
 }, 1000)
    </script>
-    <script>
-      function updatelogstatus(){
-        var updatestring = localStorage.getItem("loggedname");
-   
-             
-         fetch(
-      
-      "https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
-      {
-        redirect: "follow",
-        method: "POST",
-        body: updatestring,
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-      }
-     )
-     
-      .then(function (response) {
-     
-        // Check if the request was successful
-        if (response) {
-     
-          return response; // Assuming your script returns JSON response
-        } else {
-          throw new Error("Failed to fetch.");
-        }
-      })
-      .then(async function (data) {
-     const result1 = await data.json();
-     
-     var r = result1.data2;
+   <script>
+    function updatelogstatus(status){
+      var updatestring = localStorage.getItem("loggedname")+"/"+status;
+ 
+           
+       fetch(
     
-     
-     })
-     
-     .catch(function (error) {
-     // Handle errors, you can display an error message here
-     console.error(error);
+    "https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: updatestring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
+   
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
   
-     });
-     }
-  
-  setInterval(() => {
-  updatelogstatus();
-  }, 500)
-     </script>
+   
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+
+   });
+   }
+   setInterval(() => {
+
+fetchd ();
+}, 1000)
+
+setTimeout(() => {
+
+updatelogstatus("Online");
+
+}, 2000)
+window.addEventListener("blur", () => {
+  updatelogstatus("Offline");   
+  });
+  window.addEventListener("focus", () => {
+  updatelogstatus("Online");   
+  });
+//window.unblur = colse();
+const beforeUnloadHandler = (event) => {  
+  updatelogstatus("Offline");  
+};
+window.addEventListener("beforeunload", beforeUnloadHandler);
+   </script>
 </html>
