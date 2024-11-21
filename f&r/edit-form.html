@@ -56,17 +56,46 @@ font-weight: bold;
 }
 </style>
 <script>
-    function gethtmldata(){
+    function singleres(button){
+  if (button.checked){
+    button.parentElement.parentElement.nextElementSibling.children[0].style.display="initial";
+    button.parentElement.parentElement.nextElementSibling.children[0].checked = true;
+  }
+  else{
+    button.parentElement.parentElement.nextElementSibling.children[0].style.display="none";
+    button.parentElement.parentElement.nextElementSibling.children[0].checked = false;
+  }
+}
+  function getresoptions(){
+  var formDataString0 = document.getElementsByName("Question");
+  var optionsadd ="";
+  var optionname11 = [];
+    for(var i=0;i<formDataString0.length;i++){
+  var optionname = formDataString0[i].value;
+    optionname11[i] = formDataString0[i].value;
+
+   var optiontemp =`
+<option value='`+optionname+`'>`+optionname+`</option>
+`;
+optionsadd += optiontemp;
+}
+document.getElementById("Single Response Field").innerHTML=`<option value="">Select the field for single response</option>`+optionsadd;
+return optionname11
+}
+function gethtmldata(){
       console.log("Saving")
+      
       var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").innerHTML;
       var formDataString0 = document.getElementsByName("Question");
         var formDataString1 = document.getElementsByName("Question Type");
         var formDataString2 = document.getElementsByName("Question Description");
         var formDataString3 = document.getElementsByName("Question Required");
+        var singleresponse = document.getElementById("Single Response Field").value;
         var html =[];
         html [0] =formname;
         html [1] =formdescrip;
+        html [2] =singleresponse;
 
         for (var i=0;i<formDataString0.length;i++){
           var inhtml = [];
@@ -91,7 +120,7 @@ else{
   inhtml[4] = "";
   inhtml[5] = "";
 }
-html[i+2]=inhtml
+html[i+3]=inhtml
         }
         var jhtml = JSON.stringify(html)
         sessionStorage.setItem("backuphtml",jhtml);
@@ -362,8 +391,27 @@ function togglePopup3(){
     </button>
       </div>
     </div>
+    <div style="display: flex;flex-direction: column;">
+    <div class="form-element radio-buttons" style="width: 47%;margin-top: 10px;">
+    <label for="Enable Single Response">
+<input
+type="checkbox"
+name="Question Enable Single Response" 
+value="Enable Single Response"
+id="Single Response Field Check"
+onchange="singleres(this)"
+/>
+<span>Enable Single Response</span>
+</label>
+    </div>
+    <div class="form-element-response" style="width: 50%;margin-top: -30px;margin-bottom: 20px;margin-left: 40px;">
+      <select style="display: none;" id="Single Response Field" name="Single Response Field" value="">
+      <option value="">Select the field for single response</option>
+      </select>
+    </div>
+  </div>
     <span><b>Questions need to be in the form</b></span><br><br>
-    <div id="question-area" class="question-area">
+    <div id="question-area" class="question-area" onchange="getresoptions()">
       <div class="question-no">
     <div class="question-name">
       <span>Question</span>
@@ -904,10 +952,16 @@ var hout = JSON.parse(jhout);
  }
  function createhtmlmfromarray(html){
   console.log(html)
+  
   document.getElementById("Form Name").value = html[0];
   document.getElementById("Form Description").innerHTML = html[1];
+  document.getElementById("Single Response Field").value = html[2];
+
+  if(html[2]!==""){
+    document.getElementById("Single Response Field Check").checked=true;
+  }
   en_span(document.getElementById("Form Description"))
-  for (var i=3;i<html.length;i++){
+  for (var i=4;i<html.length;i++){
     addquestion();
 }
       var formDataString0 = document.getElementsByName("Question");
@@ -915,25 +969,25 @@ var hout = JSON.parse(jhout);
         var formDataString2 = document.getElementsByName("Question Description");
         var formDataString3 = document.getElementsByName("Question Required");
   for (var j=0;j<formDataString0.length;j++){
-    console.log(html[j])
-  if (html[j+2][0]!==undefined){
-    formDataString0[j].value = html[j+2][0];
+    console.log(html[j+3])
+  if (html[j+3][0]!==undefined){
+    formDataString0[j].value = html[j+3][0];
   }
-  if (html[j+2][2]!==undefined){
-    formDataString2[j].innerHTML = html[j+2][2];
+  if (html[j+3][2]!==undefined){
+    formDataString2[j].innerHTML = html[j+3][2];
     en_span(formDataString2[j])
   }
-    if(html[j+2][3]=="Required"){
+    if(html[j+3][3]=="Required"){
       formDataString3[j].checked = true;
     }
-  if (html[j+2][1]!==undefined){
-    formDataString1[j].value = html[j+2][1];
+  if (html[j+3][1]!==undefined){
+    formDataString1[j].value = html[j+3][1];
     addqoptions(formDataString1[j]);
-    if (html[j+2][1] =="Options"||html[j+2][1] =="Multiple Select"||html[j+2][1] =="Dropdown"){
+    if (html[j+3][1] =="Options"||html[j+3][1] =="Multiple Select"||html[j+3][1] =="Dropdown"){
       
     var btn = formDataString0[j].parentElement.parentElement.parentElement.parentElement.children[1].children[2].children[0];
     console.log(btn)
-    var nooption = html[j+2][4].length;
+    var nooption = html[j+3][4].length;
     console.log(nooption)
    for (var r=1;r<nooption;r++){
 addoption(btn);
@@ -942,33 +996,41 @@ var optionss= btn.parentElement.parentElement.children;
 console.log(optionss)
 for (var h=1;h<optionss.length-2;h++){
   if(h==1){
-    optionss[h].children[0].children[0].children[0].value = html[j+2][4][h-1];
+    optionss[h].children[0].children[0].children[0].value = html[j+3][4][h-1];
   } 
   else{
-    optionss[h].children[0].children[0].value = html[j+2][4][h-1];
+    optionss[h].children[0].children[0].value = html[j+3][4][h-1];
   }
 }
 
 }
-else if (html[j+2][1]=="File Upload"){
+else if (html[j+3][1]=="File Upload"){
   var btn = formDataString0[j].parentElement.parentElement.parentElement.parentElement.children[1].children[1].querySelectorAll(("input"));
   console.log(btn)
-  console.log(html[j+2][4])
+  console.log(html[j+3][4])
   for (var a=1;a<btn.length;a++){
     var supval = btn[a].value;
-    var supvale = html[j+2][4];
+    var supvale = html[j+3][4];
     var superafter =supvale.replace(supval,"")
     var supcon = supvale.length!==superafter.length;
   if(supcon){
     btn[a].checked =true;
   }
   }
-  formDataString0[j].className = html[j+2][5];
+  formDataString0[j].className = html[j+3][5];
 }
   }
 
     
   }
+  var opt =  getresoptions();
+  console.log(opt,html[2]);
+  var optindex = opt.findIndex(x => x == html[2]);
+  console.log(optindex);
+  document.getElementById("Single Response Field").selectedIndex=optindex+1;
+  singleres(document.getElementById("Single Response Field Check"));
+  document.getElementById("Single Response Field").value = html[2];
+  gethtmldata();
  }
   var fetchurl ="";
          var uname ;
@@ -1830,18 +1892,19 @@ var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").innerHTML;
+var singleresponse = document.getElementById("Single Response Field").value;
 var bulidupdetail = await gethtmldata();
 var bulidupdetails = JSON.stringify(bulidupdetail);
 
 console.log(bulidupdetails)
-console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Edited"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam)
+console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam+"=sheetid="+singleresponse)
         // Send a POST request to your Google Apps Script
         fetch(
           "https://script.google.com/macros/s/AKfycbwoLhkMVxJ6U8oBg4AZLTPCyBgVKLdYEgDDGEj1YEP11LmKfQNGH80MZTbVjtu6fJv7/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formname+"=sheetid="+loggedname+"=sheetid="+"Edited"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam,
+            body: formname+"=sheetid="+loggedname+"=sheetid="+"Edited"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam+"=sheetid="+singleresponse,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
@@ -2150,10 +2213,7 @@ lastoption[lastoption.length-3].children[0].children[0].value=value
 
    });
    }
-   setInterval(() => {
 
-fetchd ();
-}, 1000)
 
 setTimeout(() => {
 
