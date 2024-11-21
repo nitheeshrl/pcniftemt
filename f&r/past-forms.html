@@ -1271,7 +1271,11 @@ setInterval(() => {
   fetchd ();
   }, 1000)
   
-
+  setTimeout(() => {
+  
+  updatelogstatus("Online");
+  
+  }, 2000)
   window.addEventListener("blur", () => {
     updatelogstatus("Offline");   
     });
