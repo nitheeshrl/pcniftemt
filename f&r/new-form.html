@@ -593,7 +593,7 @@ value="Required"
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
 <script>
-  var porfilepicback = sessionStorage.get("backprofilepic");
+  var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
     document.getElementById("profileimage").src = photourls[i];
     document.getElementById("profileimage1").src = photourls[i];
