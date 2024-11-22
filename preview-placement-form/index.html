@@ -29,19 +29,16 @@ document.getElementById("formtitle").textContent=idvalue
        .then((response) => response.json())
        .then(({ data }) => {
         console.log(data)
+          if(formstatus=="Form Fetched"){
+   if(loggedname==owner){
         if (data == "Created"){
    console.log("ok")
    var loggedname =localStorage.getItem("loggedname")
-   if(formstatus=="Form Fetched"){
-   if(loggedname==owner){
+ 
    document.getElementById("frqa").style.display="initial";
    document.getElementById("ll").textContent="Form is not published till now";
    document.getElementById("previewlink").style.display="none";
-   }
-   else{
-    document.getElementById("ll").textContent="This form is created by "+owner;
-   }
-  }
+ 
                }
                else if (data == "Inactive"){
                  document.getElementById("frqa").style.display="none";
@@ -53,6 +50,11 @@ document.getElementById("formtitle").textContent=idvalue
                 document.getElementById("frqa").style.display="initial";
                 document.getElementById("previewlink").style.display="initial";
                }
+              }
+   else{
+    document.getElementById("ll").textContent="This form is created by "+owner;
+   }
+  }
        })
        .catch((error) => console.error('!!!!!!!!', error));
    }
