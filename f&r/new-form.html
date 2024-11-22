@@ -595,8 +595,8 @@ value="Required"
 <script>
   var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
-    document.getElementById("profileimage").src = photourls[i];
-    document.getElementById("profileimage1").src = photourls[i];
+    document.getElementById("profileimage").src = porfilepicback;
+    document.getElementById("profileimage1").src = porfilepicback;
   }
   var crestatus = "";
   function addquestion(){
