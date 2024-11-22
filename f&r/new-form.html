@@ -253,6 +253,7 @@ if (next!==null){
 }
   }
   function logout(){
+    updatelogstatus("Offline");  
     localStorage.removeItem("loggedname")
     window.location="../logout.html";
   }
