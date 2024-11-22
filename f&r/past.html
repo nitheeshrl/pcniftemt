@@ -269,6 +269,11 @@ document.getElementById("popup-3").classList.toggle("active");
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
 <script>
+    var porfilepicback = sessionStorage.get("backprofilepic");
+  if (porfilepicback!==null){
+    document.getElementById("profileimage").src = photourls[i];
+    document.getElementById("profileimage1").src = photourls[i];
+  }
     function notavailable(){
     alert("Not Available")
   }
@@ -468,7 +473,8 @@ alert("PassKey is already created for this Device")
      if (uname == inames[i]){
        idvalue = uids[i];
    fetchurl = iurls[i];
-   console.log(document.getElementById("profileimage"))
+   console.log(document.getElementById("profileimage"));
+   sessionStorage.setItem("backprofilepic",photourls[i]);
    document.getElementById("profileimage").src = photourls[i];
    document.getElementById("profileimage1").src = photourls[i];
    console.log(document.getElementById("profileimage").src,photourls[i])
