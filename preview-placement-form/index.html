@@ -30,11 +30,12 @@ document.getElementById("formtitle").textContent=idvalue
        .then(({ data }) => {
         console.log(data)
           if(formstatus=="Form Fetched"){
+            var loggedname =localStorage.getItem("loggedname")
+            console.log(loggedname)
    if(loggedname==owner){
         if (data == "Created"){
    console.log("ok")
-   var loggedname =localStorage.getItem("loggedname")
- 
+
    document.getElementById("frqa").style.display="initial";
    document.getElementById("ll").textContent="Form is not published till now";
    document.getElementById("previewlink").style.display="none";

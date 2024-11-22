@@ -1031,17 +1031,35 @@ else if(data=="Not Found"){
           }
         )
 
-          .then(function (response) {
+          .then(async function (response) {
 
             // Check if the request was successful
             if (response) {
-         
+              const result1 = await response.json();
+            console.log(result1.data2);
+            var data = result1.data2;
+if(data=="Success"){
+  document.getElementById("loader").style.display="none"; 
+  document.getElementById("message").textContent="Status Changed Successful";
+    setTimeout(function () { document.getElementById("load").style.display="none"; 
+    ustatus="";
+    uncheckoptions();
+    },2000);
+}
+else if(data=="Not Found"){
+  
+  document.getElementById("loader").style.display="none"; 
+    document.getElementById("message").textContent="Form not found";
+    setTimeout(function () { document.getElementById("load").style.display="none"; 
+    ustatus="";
+    },2000);
+} 
               return response; // Assuming your script returns JSON response
             } else {
               throw new Error("Failed to load the form.");
             }
           })
-          .then(async function (data) {
+      /*    .then(async function (data) {
             const result1 = await data.json();
             console.log(result1.data2);
             var data = result1.data2;
@@ -1061,7 +1079,7 @@ else if(data=="Not Found"){
     ustatus="";
     },2000);
 } 
-})
+})*/
 
           .catch(function (error) {
             // Handle errors, you can display an error message here

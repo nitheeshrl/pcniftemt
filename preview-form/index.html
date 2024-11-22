@@ -36,20 +36,16 @@ console.log(idvalue)
        .then((response) => response.json())
        .then(({ data }) => {
         console.log(data)
-           if (data == "Created"){
-   console.log("ok")
-   var loggedname =localStorage.getItem("loggedname")
+        var loggedname =localStorage.getItem("loggedname")
    if(formstatus=="Form Fetched"){
     if(loggedname==owner){
+           if (data == "Created"){
+   console.log("ok")
+
    document.getElementById("frqa").style.display="initial";
    document.getElementById("ll").textContent="Form is not published till now";
    document.getElementById("previewlink").style.display="none";
-   }
-
-   else{
-    document.getElementById("ll").textContent="This form is created by "+owner;
-   }
-  }
+  
                }
                else if (data == "Inactive"){
                  document.getElementById("frqa").style.display="none";
@@ -64,6 +60,12 @@ console.log(idvalue)
                else if (data == "Not Found"){
     alert("Form not found")
   }
+}
+
+else{
+ document.getElementById("ll").textContent="This form is created by "+owner;
+}
+}
        })
        .catch((error) => console.error('!!!!!!!!', error));
    }
