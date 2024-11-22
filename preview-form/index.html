@@ -74,6 +74,7 @@ console.log(idvalue)
    </script>
    <script>
     function fetchq(){
+      console.log("infind")
             fetch(
           "https://script.google.com/macros/s/AKfycbwBKrmx61rNpYFhGmUrYKhKEvkZeHffij3XEp8twQFRUYfc-56AV6apwwqXrpliSt4p/exec",
           {
@@ -86,20 +87,13 @@ console.log(idvalue)
           }
         )
 
-          .then(function (response) {
+          .then(async function (response) {
 
             // Check if the request was successful
             if (response) {
-         
-              return response; // Assuming your script returns JSON response
-            } else {
-              throw new Error("Failed to load the form.");
-            }
-          })
-          .then(async function (data) {
-            const result1 = await data.json();
-            console.log(result1.data2);
-            var data = result1.data2;
+         var result = await response.json();
+         console.log(result.data2)
+         var data = result.data2;
             if(data[0]!==null){
 document.getElementById("formquestions").innerHTML=data[1];
 document.getElementById("Form Name").textContent=data[2];
@@ -116,8 +110,13 @@ owner = data[5];
   else{
     alert("Form not found")
   }
-
+    
+              return response; // Assuming your script returns JSON response
+            } else {
+              throw new Error("Failed to load the form.");
+            }
           })
+
 
           .catch(function (error) {
             // Handle errors, you can display an error message here
