@@ -997,13 +997,21 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Changing Status....";
-           console.log(formname+"/Placement Forms"+"/"+status)
+           var formstringgg= formname+"/Placement Forms"+"/"+status;
+           console.log(formstringgg)
+          
+           if(status=="Live"){
+            togglePopup7()
+           }
+           else{
+            togglePopup6()
+           }
             fetch(
           "https://script.google.com/macros/s/AKfycbzU6sY0E5g9AolZDs3jd6YbiJKICTnrL0Z4DkGoA00eWt0zVDP52ZFcWsMheamZ4LgZ0g/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formname+"/Placement Forms"+"/"+status,
+            body: formstringgg,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
