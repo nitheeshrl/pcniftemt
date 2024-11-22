@@ -29,6 +29,9 @@ document.getElementById("formtitle").textContent=idvalue
        .then((response) => response.json())
        .then(({ data }) => {
         console.log(data)
+        if (data == "Not Found"){
+          alert("Form not found")
+        }
           if(formstatus=="Form Fetched"){
             var loggedname =localStorage.getItem("loggedname")
             console.log(loggedname)
