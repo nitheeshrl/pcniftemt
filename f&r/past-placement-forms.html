@@ -53,6 +53,28 @@ padding:12px;
 cursor: pointer;
 font-weight: bold;
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 20px;
+}
 </style>
 <script>
   function logout(){
@@ -77,7 +99,32 @@ var val = "forminactive(`"+formname+"`)"
 document.getElementById("inbt").setAttribute("onclick",val);;
 console.log(document.getElementById("inbt").onclick)
 }
-function activePopup(formname){
+function activePopup(fore){
+  var ot =  document.getElementById("uservaluess").children;
+fore = fore.split("/ll/")
+var formname = fore [0];
+var userss = fore[1];
+console.log(fore);
+for (var h=0; h<ot.length; h++){
+
+    var eachuser = ot[h].children[0].value;
+ if(userss.includes(eachuser)){
+  ot[h].children[0].checked=true;
+  ot[h].style.display="flex";
+ }
+ else{
+  ot[h].children[0].checked=false;
+  ot[h].style.display="none";
+ }
+  
+}
+ot[0].style.display="flex";
+ot[1].style.display="flex";
+if (userss==""){
+  ot[0].children[0].checked=true;
+ot[1].children[0].checked=true;
+}
+getSelectedValues();
         console.log("ok")
 document.getElementById("popup-7").classList.toggle("active");
 console.log(document.getElementById("actbt").onclick)
@@ -379,6 +426,17 @@ value="Set Time and Date"
   </label>
   <input min=""  type="datetime-local" id="setactive time" style="display: none;width: 60%;">
   </div>
+  <div class="dropdown" style="display: flex;flex-direction: column;width: 100%; margin-top: -20px; margin-bottom: 50px;justify-content: left;align-items: start;">
+    <span class="q">Change form access</span>
+    <div style="display: flex;width: 100%;">
+    <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
+   <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
+  </div>
+   <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" ">
+    <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
+    <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>
+   </div>
+    </div>
                       <input id="actid" type="hidden" value="">
           <a class="btn" id="actbt" onclick="" style="background-color: red;">Make Active</a>
           <a class="btn" onclick="togglePopup7()">Cancel</a>
@@ -393,6 +451,7 @@ value="Set Time and Date"
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
 <script>
+  var userdsta = "";
   var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
     document.getElementById("profileimage").src = porfilepicback;
@@ -704,6 +763,21 @@ alert("PassKey is already created for this Device")
    
    var r = result1.data2[0];
    var userrole =result1.data2[1];
+   var uservalues = result1.data2[2];
+   var uservaluesuorp = result1.data2[3];
+if (userdsta !=="done"){
+  var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
+  <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>`;
+  var ot =  document.getElementById("uservaluess").children;
+  for(var e=0;e<uservalues.length-1; e++){
+   
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" value="`+uservalues[e]+`">`+uservalues[e]+" ("+uservaluesuorp[e]+")"+`</label>`
+    valuess += value;
+
+  }
+  document.getElementById("uservaluess").innerHTML=valuess;
+  userdsta ="done";
+}
    if(userrole=="Admin"){
     var tabheadsdetail =
     `<th><b>Form Name</b></th>
@@ -711,6 +785,7 @@ alert("PassKey is already created for this Device")
 <th><b>Created By</b></th>
 <th><b>Live Time</b></th>
 <th><b>Expiry Time</b></th>
+<th><b>Form Access Peoples</b></th>
 <th><b>Status Change</b></th>
 <th><b>Preview Link</b></th>
 <th><b>Form Link</b></th>
@@ -724,6 +799,7 @@ alert("PassKey is already created for this Device")
 <th><b>Status</b></th>
 <th><b>Live Time</b></th>
 <th><b>Expiry Time</b></th>
+<th><b>Form Access Peoples</b></th>
 <th><b>Status Change</b></th>
 <th><b>Preview Link</b></th>
 <th><b>Form Link</b></th>
@@ -739,7 +815,14 @@ alert("PassKey is already created for this Device")
        var formstatus = r[k][1]
        var formlink = r[k][2]
        var responselink = r[k][3]
-       var livetime
+       var livetime;
+       var fdta =r[k][0]+"/ll/"+r[k][8];
+       if (r[k][8]==""&&formstatus=="Live"){
+       var acpeo = "All M.Tech, All B.Tech";
+       }
+       else{
+        var acpeo = r[k][8];
+       }
        if(r[k][4]!==""){
         livetime = r[k][4]
        }
@@ -760,14 +843,14 @@ alert("PassKey is already created for this Device")
      
        var prelink ="https://pcniftemt.pages.dev/preview-placement-form/?form="+head;
        if(formstatus=="Live"){
-        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: green;" >'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11" style="background: red;" onclick="inactivePopup(`'+head+'`)" target="_blank">Make Inactive</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
+        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: green;" >'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11" style="background: red;" onclick="inactivePopup(`'+head+'`)" target="_blank">Make Inactive</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
        else if(formstatus=="Inactive"){
-        detail += '<tr class="lasttr"><td >'+head+'</td><td  style="color: red;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11"  style="background: green;" onclick="activePopup(`'+head+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
+        detail += '<tr class="lasttr"><td >'+head+'</td><td  style="color: red;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11"  style="background: green;" onclick="activePopup(`'+fdta+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
        else{
    
-        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: orange;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11" style="background: green;"  onclick="activePopup(`'+head+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
+        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: orange;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11" style="background: green;"  onclick="activePopup(`'+fdta+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
 
        details = details + detail;
@@ -1017,12 +1100,12 @@ else if(data=="Not Found"){
             document.getElementById("message").style.display = "block";
           });
     }
-    function updatestatus(formname,status){
+    function updatestatus(formname,status,userac){
       ustatus="Going";
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Changing Status....";
-           var formstringgg= formname+"/Placement Forms"+"/"+status;
+           var formstringgg= formname+"/Placement Forms"+"/"+status+"/"+userac;
            console.log(formstringgg)
           
            if(status=="Live"){
@@ -1099,12 +1182,12 @@ else if(data=="Not Found"){
             document.getElementById("message").style.display = "block";
           });
     }
-    function timeupdatestatus(formname,status,time){
+    function timeupdatestatus(formname,status,time,userac){
       ustatus="Going";
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Setting Status Change Time....";
-           var formstringgg= formname+"/"+status+"/"+time;
+           var formstringgg= formname+"/"+status+"/"+time+"/"+userac;
            console.log(formstringgg)
            if(status=="Live"){
             togglePopup7()
@@ -1192,14 +1275,16 @@ else if(data=="Not Found"){
    
      var type =  document.querySelector('input[name="Type of Active Status Change"]:checked').value;
      if(type=="Immediately"){
-      updatestatus(formname,"Live");
+      var userac = getSelectedValues();
+      updatestatus(formname,"Live",userac);
      }
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setactive time").value;
       console.log(rawtime);
       //var time = formatDate(rawtime);
       //console.log(time);
-      timeupdatestatus(formname,"Live",rawtime);
+      var userac = getSelectedValues();
+      timeupdatestatus(formname,"Live",rawtime,userac);
      }
     }
     function forminactive(formname){
@@ -1207,14 +1292,14 @@ else if(data=="Not Found"){
     
      var type =  document.querySelector('input[name="Type of Inactive Status Change"]:checked').value;
      if(type=="Immediately"){
-      updatestatus(formname,"Inactive");
+      updatestatus(formname,"Inactive","");
      }
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setinactive time").value;
       console.log(rawtime);
       //var time = formatDate(rawtime);
       //console.log(time);
-      timeupdatestatus(formname,"Inactive",rawtime);
+      timeupdatestatus(formname,"Inactive",rawtime,"");
      }
     }
    </script>
@@ -1324,4 +1409,80 @@ const beforeUnloadHandler = (event) => {
 };
 window.addEventListener("beforeunload", beforeUnloadHandler);
    </script>
+   <script>
+    // JavaScript to handle the dropdown behavior and collect selected values
+    function sel() {
+      var dropdown = document.querySelector('.dropdown-content');
+      if (dropdown.style.display !== 'none') {
+        dropdown.style.display = 'none';
+      }
+      else{
+        dropdown.style.display = 'initial';
+      }
+    }
+    function dsel() {
+      var dropdown = document.querySelector('.dropdown-content');
+      if (dropdown.style.display !== 'none') {
+        dropdown.style.display = 'none';
+      }
+     
+    }
+    
+    function getSelectedValues() {
+      var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+      var selectedValues = [];
+  
+  console.log(checkboxes)
+      var users =checkboxes[0].parentElement.parentElement.children;
+      console.log(users)
+      if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked){
+        for(var g= 2;g<users.length;g++){
+          
+          if (users[g].textContent.includes("M.Tech")){
+          
+            users[g].style.display="none";
+            users[g].children[0].checked=false;
+          }
+        }
+      }
+  
+    else  if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked==false){
+        for(var g= 2;g<users.length;g++){
+          
+          if (users[g].textContent.includes("M.Tech")){
+          
+            users[g].style.display="flex"
+          }
+        }
+      }
+     if (checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+        for(var g= 2;g<users.length;g++){
+          
+          if (users[g].textContent.includes("B.Tech")){
+          
+            users[g].style.display="none";
+            users[g].children[0].checked=false;
+          }
+        }
+      }
+      else  if (checkboxes[0].parentElement.parentElement.children[1].children[0].checked==false){
+        for(var g= 2;g<users.length;g++){
+          
+          if (users[g].textContent.includes("B.Tech")){
+          
+            users[g].style.display="flex"
+          }
+        }
+      }
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+          selectedValues.push(checkbox.value);
+        }
+      });
+      var values = selectedValues.join(", ")
+      checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = values;
+      return values;
+    }
+    
+    </script>
 </html>

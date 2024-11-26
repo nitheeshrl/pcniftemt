@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="stylesheet" href="style 1.css" />
   <link rel="stylesheet" type="text/css" href="style 2.css">
+
  <style>
     table .approve{
        border-radius: 20px;
@@ -53,6 +54,30 @@ padding:12px;
 cursor: pointer;
 font-weight: bold;
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 20px;
+}
+
+
 </style>
 <script>
   function logout(){
@@ -61,29 +86,54 @@ font-weight: bold;
     window.location="../logout.html";
   }
   function userPopup(){
-        console.log("ok")
+        
 document.getElementById("popup-4").classList.toggle("active");
 }
 function logoutPopup(){
-        console.log("ok")
+        
 document.getElementById("popup-3").classList.toggle("active");
 
 }
 function inactivePopup(formname){
-        console.log("ok")
+
 document.getElementById("popup-6").classList.toggle("active");
-console.log(document.getElementById("inbt").onclick)
+
 var val = "forminactive(`"+formname+"`)"
-document.getElementById("inbt").setAttribute("onclick",val);;
-console.log(document.getElementById("inbt").onclick)
+document.getElementById("inbt").setAttribute("onclick",val);
+
 }
-function activePopup(formname){
-        console.log("ok")
+function activePopup(fore){
+  var ot =  document.getElementById("uservaluess").children;
+fore = fore.split("/ll/")
+var formname = fore [0];
+var userss = fore[1];
+console.log(fore);
+for (var h=0; h<ot.length; h++){
+
+    var eachuser = ot[h].children[0].value;
+ if(userss.includes(eachuser)){
+  ot[h].children[0].checked=true;
+  ot[h].style.display="flex";
+ }
+ else{
+  ot[h].children[0].checked=false;
+  ot[h].style.display="none";
+ }
+  
+}
+ot[0].style.display="flex";
+ot[1].style.display="flex";
+
+if (userss==""){
+  ot[0].children[0].checked=true;
+ot[1].children[0].checked=true;
+}
+getSelectedValues();
 document.getElementById("popup-7").classList.toggle("active");
-console.log(document.getElementById("actbt").onclick)
+
 var val = "formactive(`"+formname+"`)"
 document.getElementById("actbt").setAttribute("onclick",val);;
-console.log(document.getElementById("actbt").onclick)
+
 }
 </script>
 </head>
@@ -269,6 +319,7 @@ console.log(document.getElementById("actbt").onclick)
             </div>
         
             </div>
+            
       <div class="popup" id="popup-2">
   
           <div class="overlay"></div>
@@ -286,7 +337,7 @@ console.log(document.getElementById("actbt").onclick)
                   <input type="text" name="Reason" id="Reason" style="width: 100%;" placeholder="Enter the reason" />
                   </div>
                   <input id="did" type="hidden" value="">
-      <a class="btn" id="decbt" onclick="decline()" style="background-color: red;">Decline</a>
+      <a class="btn" id="decbt" onclick="decline()" style="background-color: red;">Decline</a >
       <a class="btn" onclick="togglePopup2()">Cancel</a>
           </div>
           </div>
@@ -343,13 +394,13 @@ value="Set Time and Date"
   
               <div class="overlay"></div>
           
-              <div class="content" style="height:400px;">
+              <div class="content" style="height:400px;" >
           
               <div class="close-btn" onclick="togglePopup7()">&times;</div>
           
               <h1 style="margin-top: 50px;">Make form active</h1>
           
-              <div >
+              <div  >
   <div class="form-element radio-buttons" style="display: flex;flex-direction: column;align-items: center;align-items: first baseline; left: 20px;width: 100%;margin-top: 40px;margin-left: 60px;">
   <label for="Immediately">
   <input
@@ -379,6 +430,17 @@ value="Set Time and Date"
   </label>
   <input min=""  type="datetime-local" id="setactive time" style="display: none;width: 60%;" value="">
   </div>
+  <div class="dropdown" style="display: flex;flex-direction: column;width: 100%; margin-top: -20px; margin-bottom: 50px;justify-content: left;align-items: start;">
+    <span class="q">Change form access</span>
+    <div style="display: flex;width: 100%;">
+    <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
+   <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
+  </div>
+   <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" ">
+    <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
+    <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>
+   </div>
+    </div>
                       <input id="actid" type="hidden" value="">
           <a class="btn" id="actbt" onclick="" style="background-color: red;">Make Active</a>
           <a class="btn" onclick="togglePopup7()">Cancel</a>
@@ -393,19 +455,20 @@ value="Set Time and Date"
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
 <script>
+var userdsta = "";
     var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
     document.getElementById("profileimage").src = porfilepicback;
     document.getElementById("profileimage1").src = porfilepicback;
   }
 function settimeoption(button){
-  console.log(button.value)
+  
 if(button.value=="Set Time and Date"){
 var time = document.getElementById("setinactive time");
 var today = formatDateto();
 var ttoday = new Date().toISOString().slice(0, 16);
-console.log(today)
-console.log(ttoday)
+
+
 time.min = today;
 time.style.display="flex";
 }
@@ -415,13 +478,13 @@ time.style.display="none";
 }
 }
 function setacttimeoption(button){
-  console.log(button.value)
+  
 if(button.value=="Set Time and Date"){
 var time = document.getElementById("setactive time");
 var today = formatDateto();
 var ttoday = new Date().toISOString().slice(0, 16);
-console.log(today)
-console.log(ttoday)
+
+
 time.min = today;
 time.style.display="flex";
 }
@@ -447,7 +510,7 @@ return uniqueID;
 }
 async function passkey(){
            var passdevuniid =GetUniqueID();
-           console.log(passdevuniid);
+           
 if (passdevuniid[1] ==  "New"){
  document.getElementById("loader").style.display="block"; 
            document.getElementById("load").style.display="initial";
@@ -459,7 +522,7 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
            const url = new URL(window.location)
            const username = localStorage.getItem("loggedname");
            var weburl = location.hostname;
-           console.log(weburl)
+           
            const response = await fetch(fetchurl+'/register-challenge', {
                method: 'POST',
                headers: {
@@ -472,10 +535,10 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
            const { options } = challengeResult // Server side challenge
 
            const authenticationResult = await startRegistration({optionsJSON: options})
-           console.log(authenticationResult)
+           
 
            var urlorigin= location.protocol+"//"+location.host;
-           console.log(urlorigin)
+           
            var create_passkey = await fetch(fetchurl+'/register-verify', {
                method: 'POST',
                headers: {
@@ -484,11 +547,11 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
                body: JSON.stringify({ username, cred: authenticationResult, challenge: options.challenge, devUniId:passdevuniid[0], weburl,urlorigin })
            })
            const create_passkeyResult = await create_passkey.json();
-           console.log(create_passkeyResult.result)
+           
            
            
 passkeysss = create_passkeyResult.info;
-console.log(create_passkeyResult.info);
+
 if (create_passkeyResult.info.userVerified){
  localStorage.setItem("Passkey-uniqueID",passdevuniid[0]);
  document.getElementById("loader").style.display="none"; 
@@ -505,7 +568,7 @@ alert("PassKey is already created for this Device")
 }
 }
        function approvePopup(id){
-           console.log("ok")
+           
    document.getElementById("popup-1").classList.toggle("active");
    document.getElementById("aid").value = id;
    
@@ -515,7 +578,7 @@ alert("PassKey is already created for this Device")
    document.getElementById("popup-1").classList.toggle("active");
    }
    function declinePopup(id){
-       console.log("ok")
+       
    document.getElementById("popup-2").classList.toggle("active");
    document.getElementById("did").value = id;
    
@@ -534,7 +597,7 @@ alert("PassKey is already created for this Device")
    document.getElementById("popup-6").classList.toggle("active");
    document.getElementById("setinactive time").style.display="none";
    const d =   document.querySelectorAll('input[type=datetime-local]');
-   console.log(d)
+   
    d[0].value = 0
    }
    function togglePopup7(){
@@ -542,8 +605,9 @@ alert("PassKey is already created for this Device")
    document.getElementById("popup-7").classList.toggle("active");
    document.getElementById("setactive time").style.display="none";
    const d =   document.querySelectorAll('input[type=datetime-local]');
-   console.log(d)
-   d[1].value = 0
+   
+   d[1].value = 0;
+
    }
    function uncheckoptions(){
     if(ustatus!=="Going"){
@@ -650,20 +714,20 @@ alert("PassKey is already created for this Device")
    ]
    for (var i = 0; i < uids.length; i++) {
      uname = localStorage.getItem("loggedname");
-     console.log(uname)
+     
      if (uname == inames[i]){
        idvalue = uids[i];
    fetchurl = iurls[i];
-   console.log(document.getElementById("profileimage"));
+   
    sessionStorage.setItem("backprofilepic",photourls[i]);
    document.getElementById("profileimage").src = photourls[i];
    document.getElementById("profileimage1").src = photourls[i];
-   console.log(document.getElementById("profileimage").src,photourls[i])
+   
 
      }
    }
-   console.log(uname)
-   console.log(fetchurl)
+   
+   
 
    document.getElementById("mname").innerHTML = uname;
    if (idvalue == undefined||uname==undefined){
@@ -674,7 +738,7 @@ alert("PassKey is already created for this Device")
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Fetching forms....";
       function fetchd (){
-       console.log("fetch")
+       
        var details ="";
        fetch(
     
@@ -704,6 +768,21 @@ alert("PassKey is already created for this Device")
    
    var r = result1.data2[0];
    var userrole =result1.data2[1];
+   var uservalues = result1.data2[2];
+   var uservaluesuorp = result1.data2[3];
+if (userdsta !=="done"){
+  var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
+  <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>`;
+  var ot =  document.getElementById("uservaluess").children;
+  for(var e=0;e<uservalues.length-1; e++){
+   
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" value="`+uservalues[e]+`">`+uservalues[e]+" ("+uservaluesuorp[e]+")"+`</label>`
+    valuess += value;
+
+  }
+  document.getElementById("uservaluess").innerHTML=valuess;
+  userdsta ="done";
+}
    if(userrole=="Admin"){
     var tabheadsdetail =
     `<th><b>Form Name</b></th>
@@ -711,6 +790,7 @@ alert("PassKey is already created for this Device")
 <th><b>Created By</b></th>
 <th><b>Live Time</b></th>
 <th><b>Expiry Time</b></th>
+<th><b>Form Access Peoples</b></th>
 <th><b>Status Change</b></th>
 <th><b>Preview Link</b></th>
 <th><b>Edit Form</b></th>
@@ -725,6 +805,7 @@ alert("PassKey is already created for this Device")
 <th><b>Status</b></th>
 <th><b>Live Time</b></th>
 <th><b>Expiry Time</b></th>
+<th><b>Form Access Peoples</b></th>
 <th><b>Status Change</b></th>
 <th><b>Preview Link</b></th>
 <th><b>Edit Form</b></th>
@@ -733,7 +814,7 @@ alert("PassKey is already created for this Device")
 <th><b>Delete</b></th>`
     document.getElementById("tabheaddetails").innerHTML= tabheadsdetail
    }
-   console.log(r);
+   
    for(var k=0; k<r.length;k++){
        var detail ="";
    
@@ -742,7 +823,14 @@ alert("PassKey is already created for this Device")
        var formlink = r[k][2]
        var responselink = r[k][3]
        var folderid = r[k][7]
-       var livetime
+       var livetime;
+       var fdta =r[k][0]+"/ll/"+r[k][8];
+       if (r[k][8]==""&&formstatus=="Live"){
+       var acpeo = "All M.Tech, All B.Tech";
+       }
+       else{
+        var acpeo = r[k][8];
+       }
        if(r[k][4]!==""){
         livetime = r[k][4]
        }
@@ -762,19 +850,19 @@ alert("PassKey is already created for this Device")
        }
        var fornamefinal =  head.split(" ");
        fornamefinal = fornamefinal.join("%20");
-       console.log(folderid)
+       
 formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
        var editlink= "https://pcniftemt.pages.dev/f&r/edit-form?form="+folderid
        var prelink ="https://pcniftemt.pages.dev/preview-form/?form="+folderid;
        if(formstatus=="Live"){
-        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: green;" >'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11" style="background: red;" onclick="inactivePopup(`'+head+'`)" target="_blank">Make Inactive</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11"'+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
+        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: green;" >'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11" style="background: red;" onclick="inactivePopup(`'+head+'`)" target="_blank">Make Inactive</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11"'+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
        else if(formstatus=="Inactive"){
-        detail += '<tr class="lasttr"><td >'+head+'</td><td  style="color: red;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11"  style="background: green;" onclick="activePopup(`'+head+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
+        detail += '<tr class="lasttr"><td >'+head+'</td><td  style="color: red;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11"  style="background: green;" onclick="activePopup(`'+fdta+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
        else{
    
-        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: orange;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td ><button class="btn11" style="background: green;"  onclick="activePopup(`'+head+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
+        detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: orange;">'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11" style="background: green;"  onclick="activePopup(`'+fdta+'`)" target="_blank">Make Live</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+editlink+`', '_blank')"`+'>Edit Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
        }
           
       
@@ -820,7 +908,7 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
      var id =  document.getElementById("aid").value;
      id = id.split("/");
      
-       console.log(id);
+       
        togglePopup();
        var updatede = id[0]+"/"+"Approve"+"/"+"";
        updatedetails(updatede,id[0],id[1]);
@@ -829,8 +917,8 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
        var id =  document.getElementById("did").value;
        id = id.split("/");
        var Reason =  document.getElementById("Reason").value;
-       console.log(id);
-       console.log(Reason);
+       
+       
        if(Reason!==""){
        togglePopup2();
        var updatede = id[0]+"/"+"Decline"+"/"+Reason;
@@ -847,7 +935,7 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
            document.getElementById("message").textContent = "Sending Mail to "+name+"...";
            
            
-             console.log(id)
+             
 
    fetch(
     
@@ -876,7 +964,7 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
            const result1 = await data.json();
      
            var r = result1.data2;
-   console.log(r);
+   
    if(r == "sent"){
        document.getElementById("loader").style.display="none"; 
                    document.getElementById("message").textContent =
@@ -931,7 +1019,7 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
    const result1 = await data.json();
    
    var r = result1.data2;
-   console.log(r);
+   
    fetchd ();
    document.getElementById("loader").style.display="none"; 
      document.getElementById("message").textContent = "Processed";
@@ -960,7 +1048,7 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Deleting Form....";
-           console.log(formname+"/Forms")
+           
             fetch(
           "https://script.google.com/macros/s/AKfycbzPqJJfTQA47KUxMgNfK1EjhFuDgHrSsaytcJ-Hgf1fRSvvidIXoPp_yeL-_j2fzN8IBw/exec",
           {
@@ -977,7 +1065,7 @@ formlink= "https://niftemt-placementcell-forms.pages.dev/form/?form="+folderid
 
             // Check if the request was successful
             const result1 = await response.json();
-            console.log(result1.data2);
+            
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
@@ -1003,7 +1091,7 @@ else if(data=="Not Found"){
           })
        /*   .then(async function (data) {
             const result1 = await data.json();
-            console.log(result1.data2);
+            
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
@@ -1030,14 +1118,14 @@ else if(data=="Not Found"){
             document.getElementById("message").style.display = "block";
           });
     }
-    function updatestatus(formname,status){
+    function updatestatus(formname,status,userac){
       ustatus="Going";
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Changing Status....";
            
-           var formstringgg= formname+"/Forms"+"/"+status;
-           console.log(formstringgg)
+           var formstringgg= formname+"/Forms"+"/"+status+"/"+userac;
+           
            if(status=="Live"){
             togglePopup7()
            }
@@ -1061,7 +1149,7 @@ else if(data=="Not Found"){
             // Check if the request was successful
             if (response) {
               const result1 = await response.json();
-            console.log(result1.data2);
+            
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
@@ -1086,7 +1174,7 @@ else if(data=="Not Found"){
           })
       /*    .then(async function (data) {
             const result1 = await data.json();
-            console.log(result1.data2);
+            
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
@@ -1114,14 +1202,14 @@ else if(data=="Not Found"){
             document.getElementById("message").style.display = "block";
           });
     }
-    function timeupdatestatus(formname,status,time){
+    function timeupdatestatus(formname,status,time,userac){
       ustatus="Going";
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Setting Status Change Time....";
            
-           var formstringgg= formname+"/"+status+"/"+time;
-           console.log(formstringgg)
+           var formstringgg= formname+"/"+status+"/"+time+"/"+userac;
+           
            if(status=="Live"){
             togglePopup7()
            }
@@ -1146,7 +1234,7 @@ else if(data=="Not Found"){
 
             // Check if the request was successful
             const result1 = await response.json();
-            console.log(result1.data2);
+            
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
@@ -1176,7 +1264,7 @@ else if(data=="Not Found"){
           })
      /*     .then(async function (data) {
             const result1 = await data.json();
-            console.log(result1.data2);
+            
             var data = result1.data2;
 if(data=="Success"){
   document.getElementById("loader").style.display="none"; 
@@ -1213,14 +1301,15 @@ else if(data=="Not Found"){
  
      var type =  document.querySelector('input[name="Type of Active Status Change"]:checked').value;
      if(type=="Immediately"){
-      updatestatus(formname,"Live");
+      var userac = getSelectedValues();
+      updatestatus(formname,"Live",userac);
      }
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setactive time").value;
-      console.log(rawtime);
+      
       //var time = formatDate(rawtime);
-      console.log(rawtime);
-      timeupdatestatus(formname,"Live",rawtime);
+      var userac = getSelectedValues();
+      timeupdatestatus(formname,"Live",rawtime,userac);
       document.getElementById("setactive time").style.display="none";
    
      }
@@ -1232,14 +1321,14 @@ else if(data=="Not Found"){
      
      var type =  document.querySelector('input[name="Type of Inactive Status Change"]:checked').value;
      if(type=="Immediately"){
-      updatestatus(formname,"Inactive");
+      updatestatus(formname,"Inactive","");
      }
      else if(type=="Set Time and Date"){
       var rawtime = document.getElementById("setinactive time").value;
-      console.log(rawtime);
+      
       //var time = formatDate(rawtime);
-      console.log(rawtime);
-      timeupdatestatus(formname,"Inactive",rawtime);
+      
+      timeupdatestatus(formname,"Inactive",rawtime,"");
       document.getElementById("setinactive time").style.display="none";
 
      }
@@ -1247,12 +1336,12 @@ else if(data=="Not Found"){
    </script>
    <script>
     function formatDate(date) {
-      console.log(date)
+      
       date = new Date(date);
-      console.log(date)
+      
   var hours = date.getHours();
   var minutes = date.getMinutes();
-  console.log(hours)
+  
 
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes;
@@ -1263,11 +1352,11 @@ else if(data=="Not Found"){
 function formatDateto() {
       
       date = new Date();
-      console.log(date)
+      
   var hours = date.getHours();
   var minutes = date.getMinutes();
 
-  console.log(hours)
+  
 
   minutes = minutes < 10 ? '0'+minutes : minutes;
   if(hours<9){
@@ -1352,4 +1441,80 @@ setInterval(() => {
   };
   window.addEventListener("beforeunload", beforeUnloadHandler);
      </script>
+<script>
+  // JavaScript to handle the dropdown behavior and collect selected values
+  function sel() {
+    var dropdown = document.querySelector('.dropdown-content');
+    if (dropdown.style.display !== 'none') {
+      dropdown.style.display = 'none';
+    }
+    else{
+      dropdown.style.display = 'initial';
+    }
+  }
+  function dsel() {
+    var dropdown = document.querySelector('.dropdown-content');
+    if (dropdown.style.display !== 'none') {
+      dropdown.style.display = 'none';
+    }
+   
+  }
+  
+  function getSelectedValues() {
+    var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+    var selectedValues = [];
+
+console.log(checkboxes)
+    var users =checkboxes[0].parentElement.parentElement.children;
+    console.log(users)
+    if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("M.Tech")){
+        
+          users[g].style.display="none";
+          users[g].children[0].checked=false;
+        }
+      }
+    }
+
+  else  if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked==false){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("M.Tech")){
+        
+          users[g].style.display="flex"
+        }
+      }
+    }
+   if (checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("B.Tech")){
+        
+          users[g].style.display="none";
+          users[g].children[0].checked=false;
+        }
+      }
+    }
+    else  if (checkboxes[0].parentElement.parentElement.children[1].children[0].checked==false){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("B.Tech")){
+        
+          users[g].style.display="flex"
+        }
+      }
+    }
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        selectedValues.push(checkbox.value);
+      }
+    });
+    var values = selectedValues.join(", ")
+    checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = values;
+    return values;
+  }
+  
+  </script>
 </html>
