@@ -267,6 +267,10 @@ if (userdetails[0]!=="Not Found"){
     sessionStorage.setItem("setname",user);
 window.location="set-pass.html";
   }
+  else if (userdetails[0] =="") {
+    alert("Set Password with default password");
+    document.getElementById("load").style.display="none";
+    }
   else if (pass == password&&userdetails[0] !=="") {
     alert("Wrong Password");
     document.getElementById("load").style.display="none";
