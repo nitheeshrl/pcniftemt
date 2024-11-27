@@ -840,7 +840,9 @@ if (userdsta !=="done"){
        if(userrole=="Admin"){
         formowner = '<td>'+r[k][6]+'</td>';
        }
-     
+       formlink= "https://spcniftemt.pages.dev/placement-form/?form="+folderid
+
+  
        var prelink ="https://pcniftemt.pages.dev/preview-placement-form/?form="+head;
        if(formstatus=="Live"){
         detail += '<tr class="lasttr"><td >'+head+'</td><td style="color: green;" >'+formstatus+'</td>'+formowner+'<td>'+livetime+'</td><td>'+expirytime+'</td><td>'+acpeo+'</td><td ><button class="btn11" style="background: red;" onclick="inactivePopup(`'+head+'`)" target="_blank">Make Inactive</button></td><td><button class="btn11"'+`onclick=" window.open('`+prelink+`', '_blank')"`+'>View Preview</button></td><td><button class="btn11"'+`onclick=" window.open('`+formlink+`', '_blank')"`+'>View Form</button></td><td><button class="btn11" '+`onclick=" window.open('`+responselink+`', '_blank')"`+'>View Responses</button>'+'</td><td><button class="btn11"  style="background: red;" onclick="deleteform(`'+head+'`)" target="_blank">Delete Form</button>'+'</td></tr>';
