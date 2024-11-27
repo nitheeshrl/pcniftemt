@@ -146,7 +146,7 @@ z-index: 550;
   flex-direction: column;
 }
 
-@media(max-width: 1000px){
+@media(max-width: 740px){
   body{
     grid-template-columns: 1fr;
   }
