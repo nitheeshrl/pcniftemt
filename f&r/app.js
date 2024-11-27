@@ -22,7 +22,7 @@ function toggleSubMenu(button){
 
   if(!button.nextElementSibling.classList.contains('show')){
     closeAllSubMenus()
-    if (window.innerWidth>1000){
+    if (window.innerWidth>800){
       toggleSidebar1()
     }
     
