@@ -85,12 +85,7 @@ font-weight: bold;
   var optionname = formDataString0[i].value;
     optionname11 [i]= formDataString0[i].value;
     ott[i] = formDataString0[i].value
-    if(autofill.checked){
-      optionname11 [i+1]= formDataString0[i].value;
-  }
-  else{
-    optionname11 [i]= formDataString0[i].value;
-  }
+    optionname11[i] = formDataString0[i].value;
    var optiontemp =`
 <option value='`+optionname+`'>`+optionname+`</option>
 `;
@@ -103,9 +98,12 @@ document.getElementById("Single Response Field").innerHTML=`<option value="">Sel
 document.getElementById("Single Response Field")
 var optindex = optionname11.findIndex(x => x == olddata);
   console.log(optindex);
-
+  if (autofill.checked==false){
+    document.getElementById("Single Response Field").selectedIndex=optindex+1;
+  }
+  else{
     document.getElementById("Single Response Field").selectedIndex=optindex+2;
-
+  }
 
 return optionname11
 }

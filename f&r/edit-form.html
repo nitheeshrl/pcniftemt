@@ -91,7 +91,14 @@ console.log(optionname11)
 document.getElementById("Single Response Field").innerHTML=`<option value="">Select the field for single response</option>`+optionsadd;
 var optindex = optionname11.findIndex(x => x == olddata);
   console.log(optindex);
-  document.getElementById("Single Response Field").selectedIndex=optindex+2;
+  console.log(autofill.checked);
+  if (autofill.checked==false){
+    document.getElementById("Single Response Field").selectedIndex=optindex+1;
+  }
+  else{
+    document.getElementById("Single Response Field").selectedIndex=optindex+2;
+  }
+ 
 return optionname11
 }
 function gethtmldata(){
