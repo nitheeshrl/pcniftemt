@@ -103,8 +103,20 @@ else{
          var result = await response.json();
          console.log(result.data2)
          var data = result.data2;
+         var autoff = `<div class="form-element" >
+        <span class="q">Name *</span>
+   <input readonly required type="text" name="Name" id="Auto-Name" placeholder="Enter the Name"/>
+    </div>`;
             if(data[0]!==null){
-document.getElementById("formquestions").innerHTML=data[1];
+              console.log(data[6])
+              if (data[6]){
+                console.log(autoff)
+                document.getElementById("formquestions").innerHTML=autoff + data[1];           
+              }
+              else{
+                document.getElementById("formquestions").innerHTML=data[1];
+              }
+
 document.getElementById("Form Name").textContent=data[2];
 document.getElementById("formtitle").textContent=data[2];
 console.log(data[3])
@@ -115,6 +127,9 @@ document.getElementById("Form Description").innerHTML=data[3];
 sheetname=data[4];
 formstatus = "Form Fetched";
 owner = data[5];
+
+var logname =  localStorage.getItem("loggedname");
+document.getElementById("Auto-Name").value=logname;
   }
   else{
     alert("Form not found")

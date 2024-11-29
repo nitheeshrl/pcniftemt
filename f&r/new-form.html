@@ -57,30 +57,56 @@ font-weight: bold;
 
 </style>
 <script type="text/javascript">
-  function singleres(button){
+    function singleres(button){
   if (button.checked){
     button.parentElement.parentElement.nextElementSibling.children[0].style.display="initial";
+    button.parentElement.parentElement.nextElementSibling.children[0].required = true;
     button.parentElement.parentElement.nextElementSibling.children[0].checked = true;
   }
   else{
     button.parentElement.parentElement.nextElementSibling.children[0].style.display="none";
+    button.parentElement.parentElement.nextElementSibling.children[0].required = false;
     button.parentElement.parentElement.nextElementSibling.children[0].checked = false;
   }
 }
   function getresoptions(){
   var formDataString0 = document.getElementsByName("Question");
+  var autofill = document.getElementById("Auto Fill the Student Name Check");
   var optionsadd ="";
+  var ott = [];
   var optionname11 = [];
+  if (autofill.checked){
+    optionsadd ="<option value='Name'>Autofill Name</option>";
+
+    optionname11[0] = "Autofill Name"
+  }
+  
     for(var i=0;i<formDataString0.length;i++){
   var optionname = formDataString0[i].value;
-    optionname11[i] = formDataString0[i].value;
-
+    optionname11 [i]= formDataString0[i].value;
+    ott[i] = formDataString0[i].value
+    if(autofill.checked){
+      optionname11 [i+1]= formDataString0[i].value;
+  }
+  else{
+    optionname11 [i]= formDataString0[i].value;
+  }
    var optiontemp =`
 <option value='`+optionname+`'>`+optionname+`</option>
 `;
 optionsadd += optiontemp;
 }
+var olddata = document.getElementById("Single Response Field").value;
+console.log(olddata)
+console.log(optionname11)
 document.getElementById("Single Response Field").innerHTML=`<option value="">Select the field for single response</option>`+optionsadd;
+document.getElementById("Single Response Field")
+var optindex = optionname11.findIndex(x => x == olddata);
+  console.log(optindex);
+
+    document.getElementById("Single Response Field").selectedIndex=optindex+2;
+
+
 return optionname11
 }
      function gethtmldata(){
@@ -93,10 +119,12 @@ var formdescrip = document.getElementById("Form Description").innerHTML;
         var formDataString2 = document.getElementsByName("Question Description");
         var formDataString3 = document.getElementsByName("Question Required");
         var singleresponse = document.getElementById("Single Response Field").value;
+       var autofill = document.getElementById("Auto Fill the Student Name Check")
         var html =[];
         html [0] =formname;
         html [1] =formdescrip;
         html [2] =singleresponse;
+        html [3] =autofill.checked;
 
         for (var i=0;i<formDataString0.length;i++){
           var inhtml = [];
@@ -121,7 +149,7 @@ else{
   inhtml[4] = "";
   inhtml[5] = "";
 }
-html[i+3]=inhtml
+html[i+4]=inhtml
         }
         var jhtml = JSON.stringify(html)
         sessionStorage.setItem("backuphtml",jhtml);
@@ -409,14 +437,27 @@ onchange="singleres(this)"
       </select>
     </div>
   </div>
+
     <span><b>Questions need to be in the form</b></span><br><br>
     <div id="question-area" class="question-area" onchange="getresoptions()">
+        <div class="form-element radio-buttons" style="width: 100%;margin-top: 10px;">
+    <label for="Enable Auto Fill the Student Name form Portal">
+<input
+type="checkbox"
+name="Question Enable Auto Fill the Student Name form Portal" 
+value="Enable Auto Fill the Student Name form Portal"
+id="Auto Fill the Student Name Check"
+
+/>
+<span>Enable Auto Fill the Student Name form Portal</span>
+</label>
+    </div>
       <div class="question-no">
     <div class="question-name">
       <span>Question</span>
     <div class="question-select">
     <div class="form-element">
-    <input style="margin-top: 0px;" type="text" name="Question" required placeholder="Enter the Question"/>
+    <input style="margin-top: 0px;" type="text" name="Question" required placeholder="Enter the Question" onchange="checkqname(this)"/>
 
 
     </div>
@@ -593,6 +634,13 @@ value="Required"
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
 <script>
+  function checkqname(button){
+    var autofill = document.getElementById("Auto Fill the Student Name Check");
+    if (autofill.checked&&button.value=="Name"){
+alert("Since you have enabled aufofill name. You can't use 'Name' as question name");
+button.value ="";
+    }
+  }
   var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
     document.getElementById("profileimage").src = porfilepicback;
@@ -607,7 +655,7 @@ var newitem =
       <span>Question</span>
     <div class="question-select">
     <div class="form-element">
-    <input style="margin-top: 0px;" type="text" name="Question" required placeholder="Enter the Question"/>
+    <input style="margin-top: 0px;" type="text" name="Question" required placeholder="Enter the Question"  onchange="checkqname(this)"/>
 
 
     </div>
@@ -960,12 +1008,12 @@ var hout = JSON.parse(jhout);
   document.getElementById("Form Name").value = html[0];
   document.getElementById("Form Description").innerHTML = html[1];
   document.getElementById("Single Response Field").value = html[2];
-
+  document.getElementById("Auto Fill the Student Name Check").checked=html[3];
   if(html[2]!==""){
     document.getElementById("Single Response Field Check").checked=true;
   }
   en_span(document.getElementById("Form Description"))
-  for (var i=4;i<html.length;i++){
+  for (var i=5;i<html.length;i++){
     addquestion();
 }
       var formDataString0 = document.getElementsByName("Question");
@@ -973,25 +1021,25 @@ var hout = JSON.parse(jhout);
         var formDataString2 = document.getElementsByName("Question Description");
         var formDataString3 = document.getElementsByName("Question Required");
   for (var j=0;j<formDataString0.length;j++){
-    console.log(html[j+3])
-  if (html[j+3][0]!==undefined){
-    formDataString0[j].value = html[j+3][0];
+    console.log(html[j+4])
+  if (html[j+4][0]!==undefined){
+    formDataString0[j].value = html[j+4][0];
   }
-  if (html[j+3][2]!==undefined){
-    formDataString2[j].innerHTML = html[j+3][2];
+  if (html[j+4][2]!==undefined){
+    formDataString2[j].innerHTML = html[j+4][2];
     en_span(formDataString2[j])
   }
-    if(html[j+3][3]=="Required"){
+    if(html[j+4][3]=="Required"){
       formDataString3[j].checked = true;
     }
-  if (html[j+3][1]!==undefined){
-    formDataString1[j].value = html[j+3][1];
+  if (html[j+4][1]!==undefined){
+    formDataString1[j].value = html[j+4][1];
     addqoptions(formDataString1[j]);
-    if (html[j+3][1] =="Options"||html[j+3][1] =="Multiple Select"||html[j+3][1] =="Dropdown"){
+    if (html[j+4][1] =="Options"||html[j+4][1] =="Multiple Select"||html[j+4][1] =="Dropdown"){
       
     var btn = formDataString0[j].parentElement.parentElement.parentElement.parentElement.children[1].children[2].children[0];
     console.log(btn)
-    var nooption = html[j+3][4].length;
+    var nooption = html[j+4][4].length;
     console.log(nooption)
    for (var r=1;r<nooption;r++){
 addoption(btn);
@@ -1000,28 +1048,28 @@ var optionss= btn.parentElement.parentElement.children;
 console.log(optionss)
 for (var h=1;h<optionss.length-2;h++){
   if(h==1){
-    optionss[h].children[0].children[0].children[0].value = html[j+3][4][h-1];
+    optionss[h].children[0].children[0].children[0].value = html[j+4][4][h-1];
   } 
   else{
-    optionss[h].children[0].children[0].value = html[j+3][4][h-1];
+    optionss[h].children[0].children[0].value = html[j+4][4][h-1];
   }
 }
 
 }
-else if (html[j+3][1]=="File Upload"){
+else if (html[j+4][1]=="File Upload"){
   var btn = formDataString0[j].parentElement.parentElement.parentElement.parentElement.children[1].children[1].querySelectorAll(("input"));
   console.log(btn)
-  console.log(html[j+3][4])
+  console.log(html[j+4][4])
   for (var a=1;a<btn.length;a++){
     var supval = btn[a].value;
-    var supvale = html[j+3][4];
+    var supvale = html[j+4][4];
     var superafter =supvale.replace(supval,"")
     var supcon = supvale.length!==superafter.length;
   if(supcon){
     btn[a].checked =true;
   }
   }
-  formDataString0[j].className = html[j+3][5];
+  formDataString0[j].className = html[j+4][5];
 }
   }
 
@@ -1949,14 +1997,18 @@ var formdescrip = document.getElementById("Form Description").innerHTML;
 var singleresponse = document.getElementById("Single Response Field").value;
 var bulidupdetail = await gethtmldata();
 var bulidupdetails = JSON.stringify(bulidupdetail);
-console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse)
+var autofill = document.getElementById("Auto Fill the Student Name Check").checked;
+if (autofill){
+  htmlheads = "=quheadss=Name"+htmlheads
+}
+console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse+"=sheetid="+autofill)
         // Send a POST request to your Google Apps Script
         fetch(
           "https://script.google.com/macros/s/AKfycbyz_KDA1Kx1srwHeMXXl-UPTS_M0jdaoxh9NXEp8CiXp4qZC-_yGuOzcPjA9M6I99mI/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse,
+            body: formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse+"=sheetid="+autofill,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
