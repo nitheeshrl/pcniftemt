@@ -500,7 +500,8 @@ justify-content: center;
             -webkit-animation: scroll 40s linear infinite;
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
+  align-items: center;
 }
 .slider .slide {
   height: 100%;
