@@ -379,6 +379,7 @@ width: 50%;
  
 }
 .up-companies .com-table{
+
   height: 100%;
   overflow: scroll;
   
@@ -388,9 +389,20 @@ display: none;
 }
 .up-companies table, .up-companies th, .up-companies td {
   border: 0px;
-  
-}
 
+}
+.up-companies table{
+ align-items: center;
+ justify-content: center;
+}
+.up-companies th, .up-companies td,.up-companies tr ,.up-companies thead,.up-companies tbody{
+
+width: 100%; 
+}
+.up-companies th, .up-companies td{
+  text-align: center;
+  width: 50%; 
+  }
   @media (max-width: 1000px) {
 body{
   height: 100vh;
@@ -469,9 +481,14 @@ margin-bottom: 20px;
   position: relative;
   width: 100%;
   border-radius: 20px;
-
+  display: flex;
+align-items: center;
+justify-content: center;
 }
-
+.slider span, .com-table span{
+  font-weight: lighter;
+  font-size: 14px;
+}
 
 .slider .slide-track {
   margin-top: 50px;
@@ -483,7 +500,7 @@ margin-bottom: 20px;
 
 }
 .slider .slide {
-  height: 100px;
+  height: 100%;
   width: 100%;
 }
 .slider:hover .slide-track{
