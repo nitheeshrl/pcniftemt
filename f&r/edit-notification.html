@@ -27,7 +27,10 @@ fetch(`${url}?header=${val}`)
       for(var i =0; i<details.length;i++){
         console.log(details[i])
         if (details[i][0][1]==loggedname){
-tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+`</td></tr>`;
+tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+`</td><td>`+details[i][0][4]+`</td></tr>`;
+        }
+        else{
+tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+`</td><td></td></tr>`;
         }
       }
       console.log(tvalues)
@@ -36,6 +39,7 @@ document.getElementById("lat-notifications").innerHTML= `  <table>
   <th><b>Notification</b></th>
   <th><b>Access</b></th>
   <th><b>Posted Time</b></th>
+  <th><b>Remove</b></th>
 </thead>
     <tbody >
 `+ tvalues+`
