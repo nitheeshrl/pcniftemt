@@ -20,18 +20,36 @@ val = loggedname+"/P";
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
-   .then(({ data }) => {
-    console.log(data)
-    if (data!==undefined){
-document.getElementById("lat-notifications").innerHTML= `<div class="slide-track" >`+data+`</div>`;
+   .then(({ details }) => {
+    console.log(details)
+    var tvalues = "";
+    if (details!==undefined){
+      for(var i =0; i<details.length;i++){
+        console.log(details[i])
+        if (details[i][0][1]==loggedname){
+tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+`</td></tr>`;
+        }
+      }
+      console.log(tvalues)
+document.getElementById("lat-notifications").innerHTML= `  <table>
+  <thead>
+  <th><b>Notification</b></th>
+  <th><b>Access</b></th>
+  <th><b>Posted Time</b></th>
+</thead>
+    <tbody >
+`+ tvalues+`
+    </tbody>
+  </table>`;
 document.getElementById("lat-notifications").style.display="block";
 
-  }
-  else{
-    
-    document.getElementById("lat-notifications").innerHTML=`<span >No Latest Notifications</span>`;
-    document.getElementById("lat-notifications").style.display="flex";
-  }
+    }
+    else{
+      document.getElementById("lat-notifications").innerHTML=`<span id="no-cir-form">No Forms Circulated</span>`;
+
+      document.getElementById("lat-notifications").style.display="flex";
+      
+    }
    })
    .catch((error) => console.error('!!!!!!!!', error));
 }
