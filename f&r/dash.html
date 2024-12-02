@@ -21,9 +21,7 @@ fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ data }) => {
     console.log(data)
-    if (data!==` <div class="slide">
-         <p></p>
-      </div>`){
+    if (data!==undefined){
 document.getElementById("lat-notifications").innerHTML= `<div class="slide-track" >`+data+`</div>`;
 document.getElementById("lat-notifications").style.display="block";
 
@@ -46,8 +44,7 @@ fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ data }) => {
     console.log(data)
-  if (data!==`<tr><td></td><td></td></tr>
- `){
+  if (data!==undefined){
 document.getElementById("company-list").innerHTML= `  <table>
     <thead>
       <tr>
@@ -80,8 +77,7 @@ fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ data }) => {
     console.log(data)
-  if (data!==`<tr><td></td><td></td></tr>
- `){
+  if (data!==``){
 document.getElementById("form-list").innerHTML= `  <table>
     <tbody >
 `+ data+`
@@ -99,6 +95,34 @@ document.getElementById("form-list").style.display="block";
    .catch((error) => console.error('!!!!!!!!', error));
 }
 getliveforms()
+function getcompanyforms(){
+const url = "https://script.google.com/macros/s/AKfycbzTcui7CG9-XmOzVHBGtb5OOyI-_5IeHtxacFDMop2Z4NaACtMnNd0uejkHDE7sDB52Yw/exec" 
+
+val = "idvalue";
+
+fetch(`${url}?header=${val}`)
+   .then((response) => response.json())
+   .then(({ data }) => {
+    console.log(data)
+  if (data!==``){
+document.getElementById("cir-company-list").innerHTML= `  <table>
+    <tbody >
+`+ data+`
+    </tbody>
+  </table>`;
+document.getElementById("cir-company-list").style.display="block";
+
+    }
+    else{
+      document.getElementById("cir-company-list").innerHTML=`<span id="no-cir-form">No Forms Circulated</span>`;
+
+      document.getElementById("cir-company-list").style.display="flex";
+      
+    }
+   })
+   .catch((error) => console.error('!!!!!!!!', error));
+}
+getcompanyforms()
 </script>
  <style>
     table .approve{
@@ -298,18 +322,9 @@ document.getElementById("popup-3").classList.toggle("active");
   </div>
   <div class="up-companies">
     <span>Circulated Company Forms</span>
-    <div class="com-table">
-      <span id="no-company" style="display: none;">No Data</span>
-    <table>
-      <tbody>
-        <tr><td>fyfwkj</td></tr>
-        <tr><td>fyfwkj</td></tr>
-        <tr><td>fyfwkj</td></tr>
-        <tr><td>fyfwkj</td></tr>
-        <tr><td>fyfwkj</td></tr>
-        <tr><td>fyfwkj</td></tr> <tr><td>fyfwkj</td></tr>
-      </tbody>
-    </table>
+    <div class="com-table"id="cir-company-list">
+      <span >Company Forms Loading.....</span>
+  
     </div>
     </div>
   </div>
