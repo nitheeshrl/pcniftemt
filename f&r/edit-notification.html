@@ -12,10 +12,11 @@
   <link rel="stylesheet" href="style 1.css" />
   <link rel="stylesheet" type="text/css" href="style 2.css">
   <script>
+    var loggedname = localStorage.getItem("loggedname");
     function getnotifications(){
 const url = "https://script.google.com/macros/s/AKfycbz4Hi2UfKaR2uHULiYN0kA8aOj1bOHsW0tSHq7du1mQDsxfUNuN7fEyXf5msy2hU2-P/exec" 
 
-val = "idvalue";
+val = loggedname+"/P";
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
