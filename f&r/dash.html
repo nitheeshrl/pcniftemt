@@ -71,6 +71,34 @@ document.getElementById("company-list").style.display="block";
    .catch((error) => console.error('!!!!!!!!', error));
 }
 getcompanies()
+function getliveforms(){
+const url = "https://script.google.com/macros/s/AKfycbzKLA3pfRk1eD2Xd3n8kRThWUA_JCoM1Ne-3EJBGmseS9tVPZADReyKFsLBuzRFz9xr/exec" 
+
+val = "idvalue";
+
+fetch(`${url}?header=${val}`)
+   .then((response) => response.json())
+   .then(({ data }) => {
+    console.log(data)
+  if (data!==`<tr><td></td><td></td></tr>
+ `){
+document.getElementById("form-list").innerHTML= `  <table>
+    <tbody >
+`+ data+`
+    </tbody>
+  </table>`;
+document.getElementById("form-list").style.display="block";
+
+    }
+    else{
+      document.getElementById("form-list").innerHTML=`<span id="no-form">No Live Forms</span>`;
+      document.getElementById("form-list").style.display="flex";
+      
+    }
+   })
+   .catch((error) => console.error('!!!!!!!!', error));
+}
+getliveforms()
 </script>
  <style>
     table .approve{
@@ -263,26 +291,9 @@ document.getElementById("popup-3").classList.toggle("active");
   <div class="left-com">
   <div class="up-companies">
   <span>Live Forms</span>
-  <div class="com-table">
-    <span id="no-company" style="display: none;">No Data</span>
-  <table>
-    <tbody>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr> 
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr>
-      <tr><td>fyfwkj</td></tr> 
-      <tr><td>fyfwkj</td></tr>
-    </tbody>
-  </table>
+  <div class="com-table"id="form-list">
+    <span >Forms Loading.....</span>
+
   </div>
   </div>
   <div class="up-companies">
