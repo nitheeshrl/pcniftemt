@@ -172,12 +172,12 @@ function togglePopup3(){
     <h1 style="text-align: center;"> New Placement Form </h1><br>
     <div class="form-element">
     <span class="q">Form Name</span>
-    <input type="text" name="Form Name" id="Form Name"  placeholder="Enter the Form Name"/>
+    <input type="text" name="Form Name" id="Form Name" required placeholder="Enter the Form Name"/>
     </div><br>
     <span><b>Company Details</b></span><br><br>
     <div class="form-element">
     <span class="q">Company Name</span>
-    <input type="text" name="Company Name"  placeholder="Enter the Company Name"/>
+    <input type="text" name="Company Name" id="Company Name" required placeholder="Enter the Company Name"/>
     </div>
     <div class="form-element">
     <span class="q">Upload the Company Logo</span>
@@ -970,14 +970,15 @@ var loggedname = localStorage.getItem("loggedname");
 
 console.log(loggedname)
 var formname = document.getElementById("Form Name").value
-console.log(formDataString+"=sheetid="+loggedname+"=sheetid="+formname)
+var companyname = document.getElementById("Company Name").value
+console.log(formDataString+"=sheetid="+loggedname+"=sheetid="+formname+"=sheetid="+companyname)
         // Send a POST request to your Google Apps Script
         fetch(
           "https://script.google.com/macros/s/AKfycbyJVFqkCv38XWF9kt4wIN74Mi9__f1H2ACoXG70XNEE9iMgEzlX9vgMl2I04Dnr4kHy/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formDataString+"=sheetid="+loggedname+"=sheetid="+formname,
+            body: formDataString+"=sheetid="+loggedname+"=sheetid="+formname+"=sheetid="+companyname,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
