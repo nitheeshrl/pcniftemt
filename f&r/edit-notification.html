@@ -20,9 +20,21 @@ val = loggedname+"/P";
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
-   .then(({ details }) => {
+   .then(({ details, users, usersuorp }) => {
     console.log(details)
     var tvalues = "";
+    if (users!==undefined){
+      var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
+  <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>`;
+  var ot =  document.getElementById("uservaluess").children;
+  for(var e=0;e<users.length-1; e++){
+   
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" value="`+users[e]+`">`+users[e]+" ("+usersuorp[e]+")"+`</label>`
+    valuess += value;
+
+  }
+  document.getElementById("uservaluess").innerHTML=valuess;
+    }
     if (details!==undefined){
       for(var i=details.length-1; i>=0; i--){
         console.log(details.length)
@@ -51,7 +63,7 @@ document.getElementById("lat-notifications").style.display="block";
 
     }
     else{
-      document.getElementById("lat-notifications").innerHTML=`<span id="no-cir-form">No Forms Circulated</span>`;
+      document.getElementById("lat-notifications").innerHTML=`<span id="no-cir-form">No Latest Notifications</span>`;
 
       document.getElementById("lat-notifications").style.display="flex";
       
@@ -88,12 +100,13 @@ fetch(`${url}?header=${val}`)
 function addn(){
   console.log("ll")
   togglePopup11()
+  var userac = getSelectedValues();
   document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Adding....";
 const url = "https://script.google.com/macros/s/AKfycbyU5E_Gi7cANs0P32uD3h3RsTAdpLz4uPVKsa5PQTofIu8O_AoELE1YGg0bnM6qav51mg/exec" 
 var namef= document.getElementById("noti-text").value;
-val = namef+"/"+loggedname;
+val = namef+"/"+loggedname+"//"+userac;
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
@@ -340,7 +353,7 @@ document.getElementById("popup-11").classList.toggle("active");
    
               <div class="overlay"></div>
           
-              <div class="content" style="height: 50%;">
+              <div class="content" style="height: 550px;">
           
               <div class="close-btn" onclick="togglePopup11()">&times;</div>
           
@@ -352,7 +365,7 @@ document.getElementById("popup-11").classList.toggle("active");
                 <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
                <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
               </div>
-               <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" ">
+               <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" >
                 <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
                 <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>
                </div>
