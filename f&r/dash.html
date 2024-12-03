@@ -275,16 +275,7 @@ document.getElementById("popup-3").classList.toggle("active");
 
     <main>
       <div class="container" onclick="closeAllSubMenus()">
-        <div id="load" class="load" > 
-          <div class="loader" id="loader"> 
-        
-            </div> 
-            <div
-              id="message"
-            class="message"
-            style="width: 350px;"
-              ></div>
-          </div> 
+      
         <div class="popup1" id="popup-3">
    
           <div class="overlay"></div>
@@ -345,7 +336,16 @@ document.getElementById("popup-3").classList.toggle("active");
      </div>
     </main>
    
-
+  <div id="load" class="load" > 
+          <div class="loader" id="loader"> 
+        
+            </div> 
+            <div
+              id="message"
+            class="message"
+            style="width: 350px;"
+              ></div>
+          </div> 
   
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
@@ -573,9 +573,7 @@ alert("PassKey is already created for this Device")
      alert("You are not logged in. Please log in");
      window.location="../index.html";
    }
-   document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Fetching requests....";
+   
       
    </script>
    <script>
