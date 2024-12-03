@@ -107,7 +107,8 @@ function addn(){
 const url = "https://script.google.com/macros/s/AKfycbyU5E_Gi7cANs0P32uD3h3RsTAdpLz4uPVKsa5PQTofIu8O_AoELE1YGg0bnM6qav51mg/exec" 
 var namef= document.getElementById("noti-text").value;
 val = namef+"/"+loggedname+"//"+userac;
-
+document.getElementById("noti-text").value= "";
+document.getElementById("us-acc").value= "";
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ data }) => {
@@ -362,7 +363,7 @@ document.getElementById("popup-11").classList.toggle("active");
               <div class="dropdown" style="display: flex;flex-direction: column;width: 100%; margin-top: -20px; margin-bottom: 50px;justify-content: left;align-items: start;">
                 <span class="q">Change access</span>
                 <div style="display: flex;width: 100%;">
-                <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
+                <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech" id="us-acc">
                <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
               </div>
                <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" >
