@@ -299,14 +299,20 @@ document.getElementById("popup-3").classList.toggle("active");
           <div class="dash-whole">
             <div class="left-com">
   <div class="notification">
+    <div style="display: flex;justify-content: space-between;">
   <span>Latest Notifications</span>
+  <button class="btn11" onclick=" window.open('edit-notification.html', '_blank')" >Edit</button>
+</div>
   <div class="slider" id="lat-notifications">
     <span id="no-notification" >Latest Notifications Loading....</span>
     
   </div>
 </div>
 <div class="up-companies">
+  <div style="display: flex;justify-content: space-between;">
   <span>Expected Upcoming Companies</span>
+  <button class="btn11" onclick=" window.open('edit-companies.html', '_blank')" >Edit</button>
+  </div>
   <div class="com-table" id="company-list">
     <span id="no-company">Data Loading.....</span>
 
@@ -315,14 +321,18 @@ document.getElementById("popup-3").classList.toggle("active");
   </div>
   <div class="left-com">
   <div class="up-companies">
-  <span>Live Forms</span>
+    <div style="display: flex;justify-content: space-between;">
+  <span style="margin-bottom: 15px;">Live Forms</span>
+  </div>
   <div class="com-table"id="form-list">
     <span >Forms Loading.....</span>
 
   </div>
   </div>
   <div class="up-companies">
-    <span>Circulated Company Forms</span>
+    <div style="display: flex;justify-content: space-between;">
+    <span style="margin-bottom: 15px;">Circulated Company Forms</span>
+    </div>
     <div class="com-table"id="cir-company-list">
       <span >Company Forms Loading.....</span>
   
