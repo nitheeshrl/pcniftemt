@@ -51,8 +51,9 @@ tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+
 document.getElementById("lat-notifications").innerHTML= `  <table>
   <thead>
   <th><b>Notification</b></th>
-  <th><b>Access</b></th>
+  <th><b>Expected Date</b></th>
   <th><b>Posted Time</b></th>
+  <th><b>Edit</b></th>
   <th><b>Remove</b></th>
 </thead>
     <tbody >
@@ -63,7 +64,7 @@ document.getElementById("lat-notifications").style.display="block";
 
     }
     else{
-      document.getElementById("lat-notifications").innerHTML=`<span id="no-cir-form">No Latest Notifications</span>`;
+      document.getElementById("lat-notifications").innerHTML=`<span id="no-cir-form">No Data</span>`;
 
       document.getElementById("lat-notifications").style.display="flex";
       
@@ -385,7 +386,7 @@ document.getElementById("popup-11").classList.toggle("active");
 <div class="up-companies edit">
   <span>Edit Latest Notifications <button class="btn11" onclick="addPopup()">Add</button></span>
   <div class="com-table" id="lat-notifications">
-    <span id="no-company">Latest Notifications Loading.....</span>
+    <span id="no-company">Data Loading.....</span>
 
   </div>
   </div>
