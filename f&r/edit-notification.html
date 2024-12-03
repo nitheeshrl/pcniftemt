@@ -24,14 +24,14 @@ fetch(`${url}?header=${val}`)
     console.log(details)
     var tvalues = "";
     if (details!==undefined){
-      for(var i =0; i<details.length;i++){
-        console.log(details[i])
+      for(var i=details.length-1; i>=0; i--){
+        console.log(details.length)
         if (details[i][0][2]==""){
         if (details[i][0][1]==loggedname){
 tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+'</td><td><button class="btn11"  style="background: red;" onclick="deletepopup(`'+details[i][1]+'`)" target="_blank">Delete</button>'+'</td></tr>';
         }
 else{
-tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+`</td><td></td></tr>`;
+tvalues += `<tr><td>`+details[i][0][0]+`</td><td>`+details[i][0][3]+`</td><td>`+details[i][0][4]+`</td><td>Created by `+details[i][0][1]+`</td></tr>`;
         }
       }
       }
@@ -85,6 +85,31 @@ fetch(`${url}?header=${val}`)
    })
    .catch((error) => console.error('!!!!!!!!', error));
 }
+function addn(){
+  console.log("ll")
+  togglePopup11()
+  document.getElementById("load").style.display="initial";
+           document.getElementById("loader").style.display="block"; 
+           document.getElementById("message").textContent = "Adding....";
+const url = "https://script.google.com/macros/s/AKfycbyU5E_Gi7cANs0P32uD3h3RsTAdpLz4uPVKsa5PQTofIu8O_AoELE1YGg0bnM6qav51mg/exec" 
+var namef= document.getElementById("noti-text").value;
+val = namef+"/"+loggedname;
+
+fetch(`${url}?header=${val}`)
+   .then((response) => response.json())
+   .then(({ data }) => {
+    if(data == 'success'){
+    getnotifications()
+      document.getElementById("loader").style.display="none"; 
+    document.getElementById("message").textContent="Added Successful";
+    setTimeout(function () { document.getElementById("load").style.display="none"; 
+
+    },2000);
+    }
+
+   })
+   .catch((error) => console.error('!!!!!!!!', error));
+}
 </script>
  <style>
     table .approve{
@@ -129,6 +154,29 @@ padding:12px;
 cursor: pointer;
 font-weight: bold;
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 20px;
+}
+
 </style>
 <script>
   function logout(){
@@ -151,7 +199,11 @@ document.getElementById("popup-10").classList.toggle("active");
 document.getElementById("ddid").value = name;
 
 }
+function addPopup(){
+        console.log("ok")
+document.getElementById("popup-11").classList.toggle("active");
 
+}
 </script>
 </head>
 <body>
@@ -284,12 +336,41 @@ document.getElementById("ddid").value = name;
             </div>
         
             </div>
+            <div class="popup" id="popup-11">
+   
+              <div class="overlay"></div>
+          
+              <div class="content" style="height: 50%;">
+          
+              <div class="close-btn" onclick="togglePopup11()">&times;</div>
+          
+              <h1 style="margin-top: 50px;line-height: 40px;">Enter the notification</h1>
+              <textarea style="margin-top: 10px; margin-bottom: 30px;width: 100%;" name="" id="noti-text"></textarea><br>
+              <div class="dropdown" style="display: flex;flex-direction: column;width: 100%; margin-top: -20px; margin-bottom: 50px;justify-content: left;align-items: start;">
+                <span class="q">Change form access</span>
+                <div style="display: flex;width: 100%;">
+                <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
+               <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
+              </div>
+               <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" ">
+                <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
+                <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>
+               </div>
+                </div>
+              <div >
+                  
+          <a class="btn" id="apbt" onclick="addn()">Add</a>
+          <a class="btn" onclick="togglePopup11()">Cancel</a>
+              </div>
+              </div>
+          
+              </div>
         <section class="msg" >
      
           <div class="dash-whole">
       
 <div class="up-companies edit">
-  <span>Edit Latest Notifications</span>
+  <span>Edit Latest Notifications <button class="btn11" onclick="addPopup()">Add</button></span>
   <div class="com-table" id="lat-notifications">
     <span id="no-company">Latest Notifications Loading.....</span>
 
@@ -425,6 +506,9 @@ alert("PassKey is already created for this Device")
    }
    function togglePopup10(){
    document.getElementById("popup-10").classList.toggle("active");
+   }
+   function togglePopup11(){
+   document.getElementById("popup-11").classList.toggle("active");
    }
    var fetchurl ="";
          var uname ;
@@ -607,5 +691,80 @@ const beforeUnloadHandler = (event) => {
 };
 window.addEventListener("beforeunload", beforeUnloadHandler);
    </script>
+<script>
+  // JavaScript to handle the dropdown behavior and collect selected values
+  function sel() {
+    var dropdown = document.querySelector('.dropdown-content');
+    if (dropdown.style.display !== 'none') {
+      dropdown.style.display = 'none';
+    }
+    else{
+      dropdown.style.display = 'initial';
+    }
+  }
+  function dsel() {
+    var dropdown = document.querySelector('.dropdown-content');
+    if (dropdown.style.display !== 'none') {
+      dropdown.style.display = 'none';
+    }
+   
+  }
+  
+  function getSelectedValues() {
+    var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+    var selectedValues = [];
 
+console.log(checkboxes)
+    var users =checkboxes[0].parentElement.parentElement.children;
+    console.log(users)
+    if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("M.Tech")){
+        
+          users[g].style.display="none";
+          users[g].children[0].checked=false;
+        }
+      }
+    }
+
+  else  if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked==false){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("M.Tech")){
+        
+          users[g].style.display="flex"
+        }
+      }
+    }
+   if (checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("B.Tech")){
+        
+          users[g].style.display="none";
+          users[g].children[0].checked=false;
+        }
+      }
+    }
+    else  if (checkboxes[0].parentElement.parentElement.children[1].children[0].checked==false){
+      for(var g= 2;g<users.length;g++){
+        
+        if (users[g].textContent.includes("B.Tech")){
+        
+          users[g].style.display="flex"
+        }
+      }
+    }
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        selectedValues.push(checkbox.value);
+      }
+    });
+    var values = selectedValues.join(", ")
+    checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = values;
+    return values;
+  }
+  
+  </script>
 </html>
