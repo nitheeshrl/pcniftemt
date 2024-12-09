@@ -1,0 +1,87 @@
+const urlBase64ToUint8Array = base64String => {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+
+    return outputArray;
+}
+const saveSubscription = async (subscription) => {
+var username = localStorage.getItem("loggedname");
+    const response = await fetch('http://localhost:3000/save-subscription', {
+        method: 'post',
+        headers: { 'Content-type': "application/json" },
+        body: JSON.stringify({username,subscription})
+    })
+
+    return response.json()
+}
+
+const checkPermission = () => {
+    if (!('serviceWorker' in navigator)) {
+        throw new Error("No support for service worker!")
+    }
+
+    if (!('Notification' in window)) {
+        throw new Error("No support for notification API");
+    }
+
+    if (!('PushManager' in window)) {
+        throw new Error("No support for Push API")
+    }
+}
+
+const registerSW = async () => {
+    const registration = await navigator.serviceWorker.register('sw.js');
+    return registration;
+}
+
+const requestNotificationPermission = async () => {
+    const permission = await Notification.requestPermission();
+
+    if (permission !== 'granted') {
+        console.log("Notification permission not granted")
+    }
+else if(permission == 'granted'){
+
+    let sw = await navigator.serviceWorker.ready;
+   
+        const subscription = await sw.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array("BKZKjQJLUXjA8vv0Dz4_j5nsP03q7Fpp7M3FGAuznw5bsuqRkjO52NMIEdsyP3jKh5wxY1xs9gKZjAGhqjDyNVY")
+        })
+    
+        const response = await saveSubscription(subscription)
+        console.log(response)
+
+}
+}
+async function registerPWASW() {
+    if ('serviceWorker' in navigator) {
+      try {
+        console.log("running")
+        await navigator
+              .serviceWorker
+              .register('serviceworker.js');
+              console.log("SW registration")
+      }
+      catch (e) {
+        console.log('SW registration failed');
+      }
+    }
+  }
+const main = async () => {
+    checkPermission();
+    await registerPWASW();
+    await requestNotificationPermission()
+   
+}
+
+main()
