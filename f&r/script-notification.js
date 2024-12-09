@@ -15,7 +15,7 @@ const urlBase64ToUint8Array = base64String => {
 }
 const saveSubscription = async (subscription) => {
 var username = localStorage.getItem("loggedname");
-    const response = await fetch('http://localhost:3000/save-subscription', {
+    const response = await fetch('https://passkey-5ev6.onrender.com/save-subscription', {
         method: 'post',
         headers: { 'Content-type': "application/json" },
         body: JSON.stringify({username,subscription})
