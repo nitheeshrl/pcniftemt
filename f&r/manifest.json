@@ -3,7 +3,7 @@
     "short_name":"Members Login",
     "start_url":"index.html",
     "display":"standalone",
-    "background_color":"#5900b3",
+    "background_color":"white",
     "theme_color":"black",
     "scope": ".",
     "description":"Members - NIFTEM-T Placement Cell",
