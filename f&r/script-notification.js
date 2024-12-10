@@ -1,3 +1,14 @@
+var username ;
+async function sendnotification(username,message){
+    var url ="https://passkey-5ev6.onrender.com";
+    const response = await fetch(url+'/send-notification', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, message })
+    })
+}
 const urlBase64ToUint8Array = base64String => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
     const base64 = (base64String + padding)
@@ -14,7 +25,7 @@ const urlBase64ToUint8Array = base64String => {
     return outputArray;
 }
 const saveSubscription = async (subscription) => {
-var username = localStorage.getItem("loggedname");
+username = localStorage.getItem("loggedname");
     const response = await fetch('https://passkey-5ev6.onrender.com/save-subscription', {
         method: 'post',
         headers: { 'Content-type': "application/json" },
@@ -60,6 +71,9 @@ else if(permission == 'granted'){
     
         const response = await saveSubscription(subscription)
         console.log(response)
+        if(response.status == "Success"){
+sendnotification("Nitheesh R L","Notification is granted by "+username)
+        }
 
 }
 }
@@ -85,13 +99,3 @@ const main = async () => {
 }
 
 main()
-async function sendnotification(username,message){
-    var url ="https://passkey-5ev6.onrender.com";
-    const response = await fetch(url+'/send-notification', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, message })
-    })
-}
