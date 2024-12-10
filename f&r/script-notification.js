@@ -1,12 +1,12 @@
 var username ;
-async function sendnotification(username,message){
+async function sendnotification(username,message,type){
     var url ="https://passkey-5ev6.onrender.com";
     const response = await fetch(url+'/send-notification', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, message })
+        body: JSON.stringify({ username, message, type })
     })
 }
 const urlBase64ToUint8Array = base64String => {
