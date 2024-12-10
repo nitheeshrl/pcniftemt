@@ -29,7 +29,7 @@ username = localStorage.getItem("loggedname");
     const response = await fetch('https://passkey-5ev6.onrender.com/save-subscription', {
         method: 'post',
         headers: { 'Content-type': "application/json" },
-        body: JSON.stringify({username,subscription})
+        body: JSON.stringify({username,subscription,type:"member"})
     })
 
     return response.json()

@@ -1240,7 +1240,15 @@ else if(data=="Not Found"){
             
             var data = result1.data2;
 if(data=="Success"){
-  document.getElementById("loader").style.display="none"; 
+  document.getElementById("loader").style.display="none";
+  var usersnotifi = userac;
+  if (status == "Inactive"){
+    var mesg = "The "+formname+" will be closed by "+formatDate(time);
+  }
+
+  for(var t=0; t<usersnotifi.length;t++){ 
+  sendnotification(usersnotifi[t],mesg); 
+  }
   const d =   document.querySelectorAll('input[type=datetime-local]');
   d[0].value = 0
   d[1].value = 0
