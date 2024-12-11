@@ -1128,7 +1128,7 @@ else if(data=="Not Found"){
            document.getElementById("message").textContent = "Changing Status....";
            var loggedname = localStorage.getItem("loggedname")
            var formstringgg= formname+"/Forms"+"/"+status+"/"+userac+"/"+loggedname;
-           
+           console.log(formstringgg)
            if(status=="Live"){
             togglePopup7()
            }
