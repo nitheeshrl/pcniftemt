@@ -116,9 +116,7 @@ else if(permission == 'granted'){
     
         const response = await saveSubscription(subscription)
         console.log(response)
-        if(response.status == "Success"){
-sendnotification("Nitheesh R L","Notification is granted by "+username,"member")
-        }
+
 
 }
 }
