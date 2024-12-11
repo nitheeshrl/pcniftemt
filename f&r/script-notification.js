@@ -9,12 +9,14 @@ async function deletesub(id){
         body: JSON.stringify({ id })
     })
 }
+async function checksub(){
 var uniqueID2 = localStorage.getItem("Notification-uniqueID");
 const serviceWorkerRegistration = await navigator.serviceWorker.getRegistration;
 if (serviceWorkerRegistration) {
 const actualSubscription = await serviceWorkerRegistration.pushManager.getSubscription();
 if (uniqueID2!==""&& actualSubscription){
     deletesub(uniqueID2);
+}
 }
 }
 const  GetUniqueIDforNotification = () =>{
