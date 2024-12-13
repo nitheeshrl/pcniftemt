@@ -562,11 +562,14 @@ td +="<td>"+datas[r][d]+"</td>";
 tr +="<tr>"+td+"</tr>";
 }
 var tbody = "<tbody>"+tr+"</tbody>";
+var search2 = document.querySelector('.input-group input').value;
+if(search2==""){
 document.getElementById("tabdetails").innerHTML = thead+tbody;
+}
 document.getElementById("load").style.display="none";
            document.getElementById("loader").style.display="none"; 
            document.getElementById("message").textContent = "";
-//fetchd ();
+fetchd ();
       })
 
       .catch(function (error) {
