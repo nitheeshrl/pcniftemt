@@ -12,6 +12,7 @@
   <link rel="stylesheet" type="text/css" href="style 2.css">
   <link rel="manifest" href="manifest.json">
   <script src="script-notification.js"></script>
+
  <style>
     table .approve{
        border-radius: 20px;
@@ -56,6 +57,11 @@ padding:12px;
 cursor: pointer;
 font-weight: bold;
 }
+.tablebee{
+  height: 100%;
+  overflow: scroll;
+}
+
 </style>
 <script>
   function logout(){
@@ -121,7 +127,7 @@ document.getElementById("popup-3").classList.toggle("active");
         <ul class="sub-menu show">
           <div>
             <li><a href="index.html">Active Requests</a></li>
-            <li class="active"><a href="past.html">Past Requests</a></li>
+            <li><a href="past.html">Past Requests</a></li>
             <li><a  target="_blank" href="https://niftemt-placementcell-forms.pages.dev/B2K21%20Brochure%20Details%20Update/user">Request Form</a></li>
           </div>
         </ul>
@@ -141,12 +147,12 @@ document.getElementById("popup-3").classList.toggle("active");
           </div>
         </ul>
       </li>
-      <li >
-        <a href="all-users.html">
-          <svg viewBox="0 0 24 24" height="24px" fill="#e8eaed"xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.5 19.5L20 21M11 14C7.13401 14 4 17.134 4 21H11M19 17.5C19 18.8807 17.8807 20 16.5 20C15.1193 20 14 18.8807 14 17.5C14 16.1193 15.1193 15 16.5 15C17.8807 15 19 16.1193 19 17.5ZM15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-          <span>Students Details</span>
-        </a>
-      </li>
+      <li class="active">
+          <a href="all-users.html">
+            <svg viewBox="0 0 24 24" height="24px" fill="#e8eaed"xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.5 19.5L20 21M11 14C7.13401 14 4 17.134 4 21H11M19 17.5C19 18.8807 17.8807 20 16.5 20C15.1193 20 14 18.8807 14 17.5C14 16.1193 15.1193 15 16.5 15C17.8807 15 19 16.1193 19 17.5ZM15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <span>Students Details</span>
+          </a>
+        </li>
       <li>
         <button onclick=toggleSubMenu(this) class="dropdown-btn">
           
@@ -166,7 +172,7 @@ document.getElementById("popup-3").classList.toggle("active");
 
     </ul>
   </nav>
-  <main>
+  <main style="overflow: hidden;">
     <div class="container" onclick="closeAllSubMenus()">
       <main style="margin-top: 30px;" class="table" id="customers_table">
         <section class="table__header">
@@ -181,10 +187,10 @@ document.getElementById("popup-3").classList.toggle("active");
        <section id="tablebee" class="tablebee">         
         <section  class="table__body" >
 
-            <table>
+          
  <table  id="tabdetails">
                </table>
-          </table>
+          
         </section>
     </section> 
 
@@ -499,363 +505,80 @@ alert("PassKey is already created for this Device")
    }
    document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Fetching requests....";
+           document.getElementById("message").textContent = "User Details Fetching....";
            function fetchd (){
-        console.log("fetch")
-        var details ="";
-        fetch(
-     
-     "https://script.google.com/macros/s/AKfycbwI-eyM8zJlJK25nHhPuMqwWAUWneM1soIfEP9dBD3Q_Cf2ft8Movo8LrpZQ2u0uyT0-Q/exec",
-     {
-       redirect: "follow",
-       method: "POST",
-       body: uname,
-       headers: {
-         "Content-Type": "text/plain;charset=utf-8",
-       },
-     }
-    )
-    
-     .then(function (response) {
-    
-       // Check if the request was successful
-       if (response) {
-    
-         return response; // Assuming your script returns JSON response
-       } else {
-         throw new Error("Failed to fetch.");
-       }
-     })
-     .then(async function (data) {
-    const result1 = await data.json();
-    
-    var r = result1.data2[0];
-   var userrole =result1.data2[1];
-   console.log(r)
-   if(userrole=="Admin"){
-    var tabheadsdetail =
-    ` <thead><th><b>Request ID</b></th>
-    <th><b>Alloted Member</b></th>
-                      <th class="arp"><b>Status</b></th>
-                      <th><b>Name of the Student</b></th>
-                      <th><b>Content to be changed</b></th>
-                      <th><b>Old Data</b></th>
-                      <th><b>New Data</b></th></thead>`
-    details += tabheadsdetail
-   }
-   else if (userrole=="User"){
-    var tabheadsdetail =
-    `     <thead>   <th><b>Request ID</b></th>
-                      <th class="arp"><b>Status</b></th>
-                      <th><b>Name of the Student</b></th>
-                      <th><b>Content to be changed</b></th>
-                      <th><b>Old Data</b></th>
-                      <th><b>New Data</b></th></thead>`
-    details += tabheadsdetail
-   }
-   console.log(r);
- 
-    for(var k=0; k<r.length;k++){
+  console.log("User Details Fetching....")
+var loggedname = localStorage.getItem("loggedname");
+    var formDataString =loggedname;
+    console.log(formDataString)
 
-      const searchdata = document.querySelector('.input-group input');
-    if(searchdata.value==""){
-      var detail = createtable(r[k]);
-      details = details + detail;
-    }
-    else{
-var tabledata = r[k].join("");
-var tdata =tabledata.toLowerCase();
-var sdata =searchdata.value.toLowerCase();
-if (tdata.includes(sdata)){
- var detail = createtable(r[k]);
-  details = details + detail;
-}
-    }
-    
-    function createtable(r){
-      var detail ="";
-        var head = r[2].split("<br>");
-        var olddata = r[3].split("<br>");
-        var newdata = r[4].split("<br>");
-        var spanno1 = head.length ;
-        var spanno = spanno1 -1;
-        var formowner="";
-       if(userrole=="Admin"){
-        formowner = '<td rowspan="'+spanno+'">'+r[6]+'</td>';
-       }
-        for(var j=1; j<head.length;j++){
-          console.log(head.length-1)
-          console.log(head)
-          console.log(j)
-
-          if (j==head.length-1 && j==1){
-
-                console.log(spanno)
-                if(head[j].includes("CV") || head[j].includes("Files")){
-              console.log("inn")
-              detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td> </tr>';
-            }
-
-            else{
-                detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td> </tr>';
-            } 
-          }
-            else   if (j==1){
-                var spanno1 = head.length ;
-                var spanno = spanno1 -1;
-                console.log(spanno)
-                if(head[j].includes("CV") || head[j].includes("Files")){
-              console.log("inn")
-              detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td> </tr>';
-            }
-
-            else{
-                detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td> </tr>';
-            }
-          }
-          else if (j==head.length-1){
-            var spanno1 = head.length ;
-                var spanno = spanno1 -1;
-                console.log(spanno)
-                if(head[j].includes("CV") || head[j].includes("Files")){
-              console.log("inn")
-              detail +='<tr class="lasttr"><td><b>'+head[j]+'</b></td> <td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td></tr></tbody>';
-            }
-
-            else{
-              detail +='<tr class="lasttr"><td><b>'+head[j]+'</b></td> <td>'+olddata[j]+'</td><td>'+newdata[j]+'</td></tr></tbody>';
-            }
-                }
-
-            else{
-              
-            if(head[j].includes("CV") || head[j].includes("Files")){
-              console.log("inn")
-              detail +='<tr><td><b>'+head[j]+'</b></td> <td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td></tr>';
-            }
-    else{
-               detail +='<tr><td><b>'+head[j]+'</b></td> <td>'+olddata[j]+'</td><td>'+newdata[j]+'</td></tr>';
-    }
-            }
-        }
-        return detail
-      }
-    console.log(detail)
-    console.log(details) 
-        
-        console.log(details) 
-    }
-    console.log(details)
-    if (details!==""){
-    document.getElementById("tabdetails").innerHTML = details;
-    document.getElementById("tablebee").style.display = "initial";
-    }
-    else{
-      document.getElementById("tablebee").style.display = "none";
-        document.getElementById("status").style.display = "initial";
-        document.getElementById("status").textContent = "No Past Update Requests";
-    }
-    document.getElementById("loader").style.display="none"; 
-                    document.getElementById("message").textContent = "";
-                    document.getElementById("load").style.display = "none";
-                    statuscolor();
-            
-    })
-    
-    .catch(function (error) {
-    // Handle errors, you can display an error message here
-    console.error(error);
-    document.getElementById("loader").style.display="none"; 
-    document.getElementById("message").textContent =
-    "Failed to fetch.";
-    document.getElementById("message").style.display = "block";
-    });
-       }
-      fetchd ();
-   
-   function approve(){
-     var id =  document.getElementById("aid").value;
-     id = id.split("/");
-     
-       console.log(id);
-       togglePopup();
-       var updatede = id[0]+"/"+"Approve"+"/"+"";
-       updatedetails(updatede,id[0],id[1]);
-   }
-   function decline(){
-       var id =  document.getElementById("did").value;
-       id = id.split("/");
-       var Reason =  document.getElementById("Reason").value;
-       console.log(id);
-       console.log(Reason);
-       if(Reason!==""){
-       togglePopup2();
-       var updatede = id[0]+"/"+"Decline"+"/"+Reason;
-       updatedetails(updatede,id[0],id[1]);
-       }
-       else{
-           alert("Enter the reason for decline")
-       }
-   }
-   function sendmail (name,id){
-     
-     document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Sending Mail to "+name+"...";
-           
-           
-             console.log(id)
-
-   fetch(
-    
-                 fetchurl,
-                 {
-                   redirect: "follow",
-                   method: "POST",
-                   body: id,
-                   headers: {
-                     "Content-Type": "text/plain;charset=utf-8",
-                   },
-                 }
-               )
-       
-                 .then(function (response) {
-       
-                   // Check if the request was successful
-                   if (response) {
-                
-                     return response; // Assuming your script returns JSON response
-                   } else {
-                     throw new Error("Failed to send the mail.");
-                   }
-                 })
-                 .then(async function (data) {
-           const result1 = await data.json();
-     
-           var r = result1.data2;
-   console.log(r);
-   if(r == "sent"){
-       document.getElementById("loader").style.display="none"; 
-                   document.getElementById("message").textContent =
-                    "Mail Sent to "+name;
-                   document.getElementById("message").style.display = "block";
-                   setTimeout(function () { document.getElementById("load").style.display="none"; },2000);
-   
-                 
-   }
-   
-   
-         })
-   
-         .catch(function (error) {
-           // Handle errors, you can display an error message here
-           console.error(error);
-           document.getElementById("loader").style.display="none"; 
-           document.getElementById("message").textContent =
-             "Failed to Send the Mail.";
-           document.getElementById("message").style.display = "block";
-         });
-   }
-   function updatedetails(updatestring,id,name){
-       document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Proceesing the request....";
-           
-       fetch(
-    
-    "https://script.google.com/macros/s/AKfycbxnl13iMMpRvTpLJW0I5JzGq5jkk4v2f1N7YyjCUVVYAdbrlrLdDjP5Mr517_fG2QOn/exec",
-    {
-      redirect: "follow",
-      method: "POST",
-      body: updatestring,
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-    }
-   )
-   
-    .then(function (response) {
-   
-      // Check if the request was successful
-      if (response) {
-   
-        return response; // Assuming your script returns JSON response
-      } else {
-        throw new Error("Failed to fetch.");
-      }
-    })
-    .then(async function (data) {
-   const result1 = await data.json();
-   
-   var r = result1.data2;
-   console.log(r);
-   fetchd ();
-   document.getElementById("loader").style.display="none"; 
-     document.getElementById("message").textContent = "Processed";
-    document.getElementById("message").style.display = "block";
-     setTimeout(function () { document.getElementById("load").style.display="none";
-   sendmail (name,id);
-   
-   },2000);
-   
-   })
-   
-   .catch(function (error) {
-   // Handle errors, you can display an error message here
-   console.error(error);
-   document.getElementById("loader").style.display="none"; 
-   document.getElementById("message").textContent =
-   "Failed to fetch.";
-   document.getElementById("message").style.display = "block";
-   });
-   }
-   </script>
-    <script>
-      function updatelogstatus(status){
-        var updatestring = localStorage.getItem("loggedname")+"/"+status;
-   
-             
-         fetch(
-      
-      "https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxhdNnGyV_dfCe2nAlWj7VzHdyRsuQFW4q_aFYpCh9w2WtaP3i6mWTiJx97MgRH3G4jUw/exec",
       {
         redirect: "follow",
         method: "POST",
-        body: updatestring,
+        body: formDataString,
         headers: {
           "Content-Type": "text/plain;charset=utf-8",
         },
       }
-     )
-     
+    )
+
       .then(function (response) {
-     
+
         // Check if the request was successful
         if (response) {
      
           return response; // Assuming your script returns JSON response
         } else {
-          throw new Error("Failed to fetch.");
+          throw new Error("Failed to fetch");
         }
       })
       .then(async function (data) {
-     const result1 = await data.json();
-     
-     var r = result1.data2;
+        const result1 = await data.json();
+var userdetails = result1.data2;
+console.log(userdetails)
+var heads = userdetails.heads;
+var datas = userdetails.datas;
+var allots = userdetails.allots;
+var role = userdetails.role;
+var th = "";
+if (role == "User"){
+  heads.splice(5,1);
+}
+for (var i=0; i<heads.length;i++){
+th +="<th>"+heads[i]+"</th>";
+}
+var thead = "<thead>"+th+"</thead>";
+var tr ="";
+for (var r=0; r<datas.length;r++){
+  var td ="";
+  if (role == "User"){
+  datas[r].splice(5,1);
+}
+  for (var d=0; d<datas[r].length;d++){
+td +="<td>"+datas[r][d]+"</td>";
+}
+tr +="<tr>"+td+"</tr>";
+}
+var tbody = "<tbody>"+tr+"</tbody>";
+document.getElementById("tabdetails").innerHTML = thead+tbody;
+document.getElementById("load").style.display="none";
+           document.getElementById("loader").style.display="none"; 
+           document.getElementById("message").textContent = "";
+//fetchd ();
+      })
+
+      .catch(function (error) {
+        // Handle errors, you can display an error message here
+        console.error(error);
+        fetchd ();
+      });
     
-     
-     })
-     
-     .catch(function (error) {
-     // Handle errors, you can display an error message here
-     console.error(error);
-  
-     });
-     }
-     setInterval(() => {
-  
-  fetchd ();
-  }, 1000)
+       }
+      fetchd ();
+   
+   
   
   setTimeout(() => {
   
@@ -874,5 +597,5 @@ if (tdata.includes(sdata)){
   };
   window.addEventListener("beforeunload", beforeUnloadHandler);
      </script>
-
+  <script src="script1.js"></script>
 </html>
