@@ -150,6 +150,7 @@ if (lastpage==undefined||lastpage==""){
 }
 else{
   window.location=lastpage;
+  sessionStorage.removeItem("lastpage");
 }
  },2000);
 }

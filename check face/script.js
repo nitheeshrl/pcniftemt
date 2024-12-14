@@ -129,6 +129,7 @@ if (lastpage==undefined||lastpage==""){
 }
 else{
   window.location=lastpage;
+    sessionStorage.removeItem("lastpage");
 }
   },1000)
  }   
@@ -175,6 +176,7 @@ if (lastpage==undefined||lastpage==""){
 }
 else{
   window.location=lastpage;
+    sessionStorage.removeItem("lastpage");
 }
    },1000)
  }
