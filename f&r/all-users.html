@@ -507,7 +507,7 @@ alert("PassKey is already created for this Device")
    document.getElementById("mname").innerHTML = uname;
    if (idvalue == undefined||uname==undefined){
      alert("You are not logged in. Please log in");
-     sessionStorage.setItem("lastpage",window.location.pathname)
+      sessionStorage.setItem("lastpage",window.location.pathname)
      window.location="../index.html";
    }
    document.getElementById("load").style.display="initial";
@@ -560,8 +560,7 @@ var thead = "<thead>"+th+"</thead>";
 var tr ="";
 for (var r=0; r<datas.length;r++){
   var td ="";
-  console.log(allots[r])
-  console.log(loggedname!==allots[r])
+
   if (role == "User"&&loggedname!==allots[r]){
    // datas.splice(r,1)
    continue;
@@ -657,4 +656,5 @@ fetchd ();
      </script>
      
   <script src="script1.js"></script>
+  <script src="scriptform.js"></script>
 </html>
