@@ -553,9 +553,17 @@ var thead = "<thead>"+th+"</thead>";
 var tr ="";
 for (var r=0; r<datas.length;r++){
   var td ="";
+  console.log(allots[r])
+  console.log(loggedname!==allots[r])
+  if (role == "User"&&loggedname!==allots[r]){
+   // datas.splice(r,1)
+   continue;
+   console.log(r)
+  }
   if (role == "User"){
   datas[r].splice(5,1);
 }
+
   for (var d=0; d<datas[r].length;d++){
 td +="<td>"+datas[r][d]+"</td>";
 }
