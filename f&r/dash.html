@@ -21,6 +21,7 @@
  
  </script>
   <script>
+   
     function getnotifications(){
 const url = "https://script.google.com/macros/s/AKfycbz4Hi2UfKaR2uHULiYN0kA8aOj1bOHsW0tSHq7du1mQDsxfUNuN7fEyXf5msy2hU2-P/exec" 
 
@@ -602,6 +603,7 @@ alert("PassKey is already created for this Device")
    document.getElementById("mname").innerHTML = uname;
    if (idvalue == undefined||uname==undefined){
      alert("You are not logged in. Please log in");
+     sessionStorage.setItem("lastpage",window.location.pathname)
      window.location="../index.html";
    }
    

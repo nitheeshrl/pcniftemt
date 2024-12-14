@@ -144,9 +144,13 @@ document.getElementById("message").textContent="Logged in Successful";
 setTimeout(function () { 
   document.getElementById("load").style.display="none";
   var enusername = document.getElementById("Username").value;
-  
-
-  window.location="f&r/dash.html "
+  var lastpage = sessionStorage.getItem("lastpage");
+if (lastpage==undefined||lastpage==""){
+  window.location="f&r/dash.html";
+}
+else{
+  window.location=lastpage;
+}
  },2000);
 }
 else{

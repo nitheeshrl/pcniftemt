@@ -595,7 +595,47 @@ fetchd ();
        }
       fetchd ();
    
+      function updatelogstatus(status){
+      var updatestring = localStorage.getItem("loggedname")+"/"+status;
+ 
+           
+       fetch(
+    
+    "https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: updatestring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
    
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
+  
+   
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+
+   });
+   }
   
   setTimeout(() => {
   
@@ -614,5 +654,6 @@ fetchd ();
   };
   window.addEventListener("beforeunload", beforeUnloadHandler);
      </script>
+     
   <script src="script1.js"></script>
 </html>

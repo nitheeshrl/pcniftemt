@@ -123,7 +123,13 @@ if (namechecked !== "unknown" && username[0] !== "unknown" ){
   localStorage.setItem("loggedname", namechecked);
   document.getElementById("message1").innerHTML="Welcome, <b>"+namechecked+"</b>";
   setTimeout(function( ) { 
-   window.location="../f&r/dash.html"
+  var lastpage = sessionStorage.getItem("lastpage");
+if (lastpage==undefined||lastpage==""){
+  window.location="f&r/dash.html";
+}
+else{
+  window.location=lastpage;
+}
   },1000)
  }   
 }
@@ -163,7 +169,13 @@ if (namechecked !== "unknown"){
   sessionStorage.removeItem("checkname"); 
   document.getElementById("message1").innerHTML="Welcome, <b>"+namechecked+"</b>";
   setTimeout(function( ) { 
-    window.location="../f&r/dash.html"
+   var lastpage = sessionStorage.getItem("lastpage");
+if (lastpage==undefined||lastpage==""){
+  window.location="f&r/dash.html";
+}
+else{
+  window.location=lastpage;
+}
    },1000)
  }
 }  
