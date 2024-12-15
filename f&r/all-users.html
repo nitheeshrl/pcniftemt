@@ -78,6 +78,22 @@ function logoutPopup(){
 document.getElementById("popup-3").classList.toggle("active");
 
 }
+function editPopup(edit){
+  console.log(edit)
+  console.log(vdatas)
+  var udata = vdatas[edit-2];
+  console.log(udata)
+var inputs = document.getElementById("popup-inner").querySelectorAll("div");
+console.log(inputs)
+var no = 0;
+inputs.forEach(i =>{
+  i.children[1].value = udata[no];
+  no++
+})
+document.getElementById("popup-1").classList.toggle("active");
+console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
+document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
+}
 </script>
 </head>
 <body>
@@ -244,20 +260,88 @@ document.getElementById("popup-3").classList.toggle("active");
  
             <div class="overlay"></div>
         
-            <div class="content">
+            <div class="content" style="max-height: 90%; height: auto;">
         
             <div class="close-btn" onclick="togglePopup()">&times;</div>
-        
-            <h1 style="margin-top: 50px;">Confirm Update Approval</h1>
-        
-            <p style="margin-bottom: 40px;">Are you sure you wish to approve the Brochure details update? </p>
-            <div >
+        <div class="popup-inner" id="popup-inner">
+            <h1>Edit User Details</h1>
+            <div class="form-element">
+              <span class="q">Name</span>
+              <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">ID Number</span>
+              <input readonly type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Email ID</span>
+              <input type="text" name="Email ID" id="Email ID"  placeholder="Enter your Email ID" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Degree</span>
+              <input type="text" name="Degree" id="Degree"  placeholder="Enter your Degree" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Batch</span>
+              <input type="text" name="Batch" id="Batch"  placeholder="Enter your Batch" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Alloted Member</span>
+              <input type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Internship Preference</span>
+              <input type="text" name="Internship Preference" id="Internship Preference"  placeholder="Enter your Internship Preference" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Internshiip Consideration</span>
+              <select name="Internshiip Consideration" id="Internshiip Consideration" >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+              
+              <div class="form-element">
+              <span class="q">Internship Company</span>
+              <input type="text" name="Internship Company" id="Internship Company"  placeholder="Enter your Internship Company" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Placement Preference</span>
+              <input type="text" name="Placement Preference" id="Placement Preference"  placeholder="Enter your Placement Preference" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">Placement Consideration</span>
+              <select name="Placement Consideration" id="Placement Consideration" >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+              </div>
+              
+              <div class="form-element">
+              <span class="q">1st Placement Company</span>
+              <input type="text" name="1st Placement Company" id="1st Placement Company"  placeholder="Enter your 1st Placement Company" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">2nd Placement Company</span>
+              <input type="text" name="2nd Placement Company" id="2nd Placement Company"  placeholder="Enter your 2nd Placement Company" />
+              </div>
+            <div class="popup-btn">
                 <input id="aid" type="hidden" value="">
-        <a class="btn" id="apbt" onclick="approve()">Confirm</a>
+        <a class="btn" id="apbt" onclick="approve()">Update</a>
         <a class="btn" onclick="togglePopup()">Cancel</a>
             </div>
             </div>
-        
+          </div>
             </div>
       <div class="popup" id="popup-2">
   
@@ -514,6 +598,10 @@ alert("PassKey is already created for this Device")
    document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "User Details Fetching....";
+           var allotdiv;
+           var vdatas = [];
+           var vheads = [];
+           var uongoing="";
            function fetchd (){
   console.log("User Details Fetching....")
 var loggedname = localStorage.getItem("loggedname");
@@ -546,18 +634,55 @@ var loggedname = localStorage.getItem("loggedname");
         const result1 = await data.json();
 var userdetails = result1.data2;
 console.log(userdetails)
+vheads = userdetails.heads;
 var heads = userdetails.heads;
+vdatas = userdetails.datas;
 var datas = userdetails.datas;
+
 var allots = userdetails.allots;
 var role = userdetails.role;
 var th = "";
+
+/*if (document.getElementById('Alloted Member')!==null){
+allotdiv = document.getElementById('Alloted Member').parentElement;
+}
+console.log(allotdiv)*/
 if (role == "User"){
-  heads.splice(5,1);
+ // heads.splice(5,1);
+  document.getElementById("popup-inner").querySelectorAll("div")[1].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[3].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[4].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[5].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
+/*if(allotdiv!==undefined){
+  allotdiv.remove();
+}*/
 }
+else{
+  document.getElementById("popup-inner").querySelectorAll("div")[1].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[3].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[4].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[5].style.display="flex"
+  document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="flex"
+  document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="flex"
+  document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
+//  if (document.getElementById('Alloted Member')==null){
+   
+ // document.getElementById("popup-inner").querySelectorAll("div")[4].insertAdjacentElement("afterend",allotdiv) 
+}
+//}
 for (var i=0; i<heads.length;i++){
-th +="<th>"+heads[i]+"</th>";
+  if (role == "User"&&i==5){
+continue;
 }
-var thead = "<thead>"+th+"</thead>";
+th +="<th>"+heads[i]+"</th>";
+
+}
+var thead = "<thead><th>Edit</th>"+th+"</thead>";
 var tr ="";
 for (var r=0; r<datas.length;r++){
   var td ="";
@@ -567,23 +692,26 @@ for (var r=0; r<datas.length;r++){
    continue;
    console.log(r)
   }
-  if (role == "User"){
-  datas[r].splice(5,1);
-}
-
   for (var d=0; d<datas[r].length;d++){
+    if (role == "User"&&d==5){
+continue;
+}
 td +="<td>"+datas[r][d]+"</td>";
 }
-tr +="<tr>"+td+"</tr>";
+var editno = Number(r)+2;
+tr +="<tr><td>"+`<svg onclick="editPopup(`+editno+`)"  fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 494.936 494.936" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M389.844,182.85c-6.743,0-12.21,5.467-12.21,12.21v222.968c0,23.562-19.174,42.735-42.736,42.735H67.157 c-23.562,0-42.736-19.174-42.736-42.735V150.285c0-23.562,19.174-42.735,42.736-42.735h267.741c6.743,0,12.21-5.467,12.21-12.21 s-5.467-12.21-12.21-12.21H67.157C30.126,83.13,0,113.255,0,150.285v267.743c0,37.029,30.126,67.155,67.157,67.155h267.741 c37.03,0,67.156-30.126,67.156-67.155V195.061C402.054,188.318,396.587,182.85,389.844,182.85z"></path> <path d="M483.876,20.791c-14.72-14.72-38.669-14.714-53.377,0L221.352,229.944c-0.28,0.28-3.434,3.559-4.251,5.396l-28.963,65.069 c-2.057,4.619-1.056,10.027,2.521,13.6c2.337,2.336,5.461,3.576,8.639,3.576c1.675,0,3.362-0.346,4.96-1.057l65.07-28.963 c1.83-0.815,5.114-3.97,5.396-4.25L483.876,74.169c7.131-7.131,11.06-16.61,11.06-26.692 C494.936,37.396,491.007,27.915,483.876,20.791z M466.61,56.897L257.457,266.05c-0.035,0.036-0.055,0.078-0.089,0.107 l-33.989,15.131L238.51,247.3c0.03-0.036,0.071-0.055,0.107-0.09L447.765,38.058c5.038-5.039,13.819-5.033,18.846,0.005 c2.518,2.51,3.905,5.855,3.905,9.414C470.516,51.036,469.127,54.38,466.61,56.897z"></path> </g> </g> </g></svg>`+"</td>"+td+"</tr>";
 }
+
 var tbody = "<tbody>"+tr+"</tbody>";
 var search2 = document.querySelector('.input-group input').value;
 if(search2==""){
 document.getElementById("tabdetails").innerHTML = thead+tbody;
 }
+if (uongoing==""){
 document.getElementById("load").style.display="none";
            document.getElementById("loader").style.display="none"; 
            document.getElementById("message").textContent = "";
+}
 fetchd ();
       })
 
@@ -637,7 +765,92 @@ fetchd ();
 
    });
    }
+   var qupdatas = document.getElementById("popup-inner").querySelectorAll("input,select");
+   console.log(qupdatas)
+   function updatedetails(id){
+    uongoing = "Going"
+  var tobeupdatedata = [];
+  var tobeupdatehead = [];
+
+           var updatas = document.getElementById("popup-inner").querySelectorAll("input,select");
+           for (var f =0;f<updatas.length-1;f++ ){
+
+            
+            if (String(updatas[f].value) !== String(vdatas[id-2][f])){
+              tobeupdatehead.push(vheads[f]);
+              tobeupdatedata.push(updatas[f].value);
+            }
+           }
+           if (tobeupdatedata.length==0){
+            alert("No Changes Done")
+           }
+           else{
+            togglePopup()
+            document.getElementById("load").style.display="initial";
+           document.getElementById("loader").style.display="block"; 
+           document.getElementById("message").textContent = "Updating....";
+            var datastring = JSON.stringify({
+        index:id,
+        heads:tobeupdatehead,
+        datas:tobeupdatedata
+      });
+      console.log(datastring)
+       fetch(
+    
+    "https://script.google.com/macros/s/AKfycbzLylL8kY3apC-laODAruF34VvDqCZEUJEg7lH3P1Gx0JgLieMqhQgKHmXIQfF-6ksG/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: datastring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
+   
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
+   console.log(r);
+   fetchd ();
+   if (r=="Success"){
+   document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Updated";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
   
+   },2000);
+  }
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+   document.getElementById("loader").style.display="none"; 
+   document.getElementById("message").textContent =
+   "Failed to update.";
+   document.getElementById("message").style.display = "block";
+   setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+   });
+  }
+   }
+
+   
   setTimeout(() => {
   
   updatelogstatus("Online");

@@ -54,7 +54,11 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 scale: 1;
+overflow: scroll;
 
+}
+.popup.active .content::-webkit-scrollbar{
+display: none;
 }
 .popup1 .overlay {
     position: fixed;
@@ -83,6 +87,7 @@ display: none;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 40px;
+
 }
 
 .popup1 .close-btn {
@@ -111,4 +116,31 @@ left: 50%;
 transform: translate(-50%, -50%);
 scale: 1;
 
+}
+.popup.active .content .popup-inner{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: start;
+
+    margin-top: 50px;
+  
+}
+.popup.active .content .popup-inner div{
+   
+    margin-bottom: 10px;
+
+}
+.popup.active .content .popup-inner .popup-btn{
+height: 60px;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+padding: 10px;
+margin-top: 10px;
+margin-bottom: 0px;
+}
+.popup.active .content .popup-inner span{
+    text-align: left;
 }
