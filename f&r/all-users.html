@@ -91,6 +91,13 @@ inputs.forEach(i =>{
   i.children[1].value = udata[now];
   now++
 })
+var allotoption = "";
+console.log(umembers)
+umembers.forEach(h =>{
+  var option = `<option value="`+h[0]+`">`+h[0]+`</option>`;
+  allotoption += option;
+})
+document.getElementById("Alloted Member").innerHTML = allotoption;
 if (udata[3].includes("M.Tech")){
     document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
       document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
@@ -307,7 +314,8 @@ document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].
               
               <div class="form-element">
               <span class="q">Alloted Member</span>
-              <input type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
+              <select name="Alloted Member" id="Alloted Member" >
+              </select>
               </div>
               
               <div class="form-element">
@@ -625,6 +633,7 @@ alert("PassKey is already created for this Device")
            var vdatas = [];
            var vheads = [];
            var vrole ; 
+           var umembers = [];
            var uongoing="";
            function fetchd (){
   console.log("User Details Fetching....")
@@ -662,7 +671,7 @@ vheads = userdetails.heads;
 var heads = userdetails.heads;
 vdatas = userdetails.datas;
 var datas = userdetails.datas;
-
+umembers = userdetails.members;
 var allots = userdetails.allots;
 var role = userdetails.role;
 vrole = userdetails.role;
