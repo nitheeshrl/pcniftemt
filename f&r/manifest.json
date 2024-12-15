@@ -1,7 +1,7 @@
 {
     "name":"NIFTEM-T Placement Cell (Members)",
     "short_name":"Members Login",
-    "start_url":"dash.html",
+    "start_url":"../index.html",
     "display":"standalone",
     "background_color":"white",
     "theme_color":"black",
