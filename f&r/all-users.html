@@ -85,10 +85,11 @@ function editPopup(edit){
   console.log(udata)
 var inputs = document.getElementById("popup-inner").querySelectorAll("div");
 console.log(inputs)
-var no = 0;
+var now = 0;
 inputs.forEach(i =>{
-  i.children[1].value = udata[no];
-  no++
+  console.log(i.children[1],udata[now])
+  i.children[1].value = udata[now];
+  now++
 })
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
@@ -300,11 +301,12 @@ document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].
               <select name="Internship Preference" id="Internship Preference" >
                 <option value="Internship through Institute ">Internship through Institute </option>
                 <option value="Internship by own">Internship by own</option>
+              </select>
               </div>
               
-              <div class="form-element">
-              <span class="q">Internshiip Consideration</span>
-              <select name="Internshiip Consideration" id="Internshiip Consideration" >
+             <div class="form-element">
+              <span class="q">Internship Consideration</span>
+              <select name="Internship Consideration" id="Internship Consideration" >
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
