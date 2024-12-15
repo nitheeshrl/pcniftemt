@@ -97,7 +97,7 @@ umembers.forEach(h =>{
   var option = `<option value="`+h[0]+`">`+h[0]+`</option>`;
   allotoption += option;
 })
-document.getElementById("Alloted Member").innerHTML = allotoption;
+document.getElementById("Alloted Member").innerHTML =  allotoption;
 if (udata[3].includes("M.Tech")){
     document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
       document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
@@ -115,6 +115,16 @@ else{
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
 document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
+}
+function addPopup(){
+var allotoption = "";
+console.log(umembers)
+umembers.forEach(h =>{
+  var option = `<option value="`+h[0]+`">`+h[0]+`</option>`;
+  allotoption += option;
+})
+document.getElementById("popup-inner-add").querySelectorAll("div")[5].children[1].innerHTML = `<option value="">Select the Alloted Member</option>` + allotoption;
+document.getElementById("popup-40").classList.toggle("active");
 }
 </script>
 </head>
@@ -225,7 +235,10 @@ document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].
                 <input  type="search" placeholder="Search..." >
                 <img src="images/search.png" alt="">
             </div>
-
+<div style="width: auto;padding: 10px;">
+  <button onclick="addPopup()" class="btn">Add Student</button>
+ 
+</div>
         </section>
 
        <section id="tablebee" class="tablebee">         
@@ -374,6 +387,94 @@ document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].
             </div>
           </div>
             </div>
+            <div class="popup" id="popup-40">
+ 
+              <div class="overlay"></div>
+          
+              <div class="content" style="max-height: 90%; height: auto;max-width: 650px;width: 90%;">
+          
+              <div class="close-btn" onclick="togglePopup40()">&times;</div>
+          <div class="popup-inner" id="popup-inner-add"  style="padding: 50px;">
+              <h1>Add Student</h1>
+              <div class="form-element">
+                <span class="q">Name</span>
+                <input required type="text" name="Name"   placeholder="Enter your Name" />
+                </div>
+                
+                <div class="form-element">
+                <span class="q">ID Number</span>
+                <input required type="text" name="ID Number"  placeholder="Enter your ID Number" />
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Email ID</span>
+                <input required type="text" name="Email ID"  placeholder="Enter your Email ID" />
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Degree</span>
+                <select required name="Degree" >
+                  <option value="">Select the Degree</option>
+                  <option value="B.Tech - Food Technology ">B.Tech - Food Technology </option>
+                  <option value="M.Tech - Food Process Technology">M.Tech - Food Process Technology</option>
+                  <option value="M.Tech - Food Process Engineering">M.Tech - Food Process Engineering</option>
+                  <option value="M.Tech - Food safety and Quality Assurance">M.Tech - Food safety and Quality Assurance</option>
+                </select>
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Batch</span>
+                <input required type="text" name="Batch"  placeholder="Enter your Batch" />
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Alloted Member</span>
+                <select required name="Alloted Member" >
+                </select>
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Internship Preference</span>
+                <select required name="Internship Preference" >
+                  <option value="">Select the Internship Preference</option>
+                  <option value="Internship through Institute ">Internship through Institute </option>
+                  <option value="Internship by own">Internship by own</option>
+                </select>
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Internship Company</span>
+                <input type="text" name="Internship Company"placeholder="Enter your Internship Company" />
+                </div>
+                
+                <div class="form-element">
+                <span class="q">Placement Preference</span>
+            
+                <select required name="Placement Preference" >
+                  <option value="">Select the Placement Preference</option>
+                  <option value="Entrepreneurship">Entrepreneurship</option>
+                  <option value="Higher Studies">Higher Studies</option>
+                  <option value="Placement">Placement</option>
+                </select>
+                </div>
+
+                <div class="form-element">
+                <span class="q">1st Placement Company</span>
+                <input type="text" name="1st Placement Company"  placeholder="Enter your 1st Placement Company" />
+                </div>
+                
+                <div class="form-element">
+                <span class="q">2nd Placement Company</span>
+                <input type="text" name="2nd Placement Company" placeholder="Enter your 2nd Placement Company" />
+                </div>
+              <div class="popup-btn">
+                  <input id="aid" type="hidden" value="">
+          <a class="btn" id="apbt" onclick="addstudent(this)">Add</a>
+          <a class="btn" onclick="togglePopup40()">Cancel</a>
+              </div>
+              </div>
+            </div>
+              </div>
       <div class="popup" id="popup-2">
   
           <div class="overlay"></div>
@@ -507,6 +608,9 @@ alert("PassKey is already created for this Device")
    }
    function togglePopup4(){
    document.getElementById("popup-4").classList.toggle("active");
+   }
+   function togglePopup40(){
+   document.getElementById("popup-40").classList.toggle("active");
    }
    var fetchurl ="";
          var uname ;
@@ -882,6 +986,109 @@ fetchd ();
    });
   }
    }
+function addstudent(button){
+  uongoing = "Going"
+var values = [];
+var vheads = [];
+           var updatas = document.getElementById("popup-inner-add").querySelectorAll("input,select");
+           for (var f =0;f<updatas.length-1;f++ ){
+            console.log(updatas[f].value,updatas[f].required);
+            console.log(updatas[f].value==""&&updatas[f].required);
+            if(updatas[f].value==""&&updatas[f].required){
+              alert("Enter the "+updatas[f].name);
+           
+              return;
+            }
+            else{
+values.push(updatas[f].value)
+vheads.push(updatas[f].name)
+
+            }
+           }
+           console.log(updatas[3].value)
+           if(updatas[3].value.includes("B.Tech")){
+            values.push("B.Tech");
+            vheads.push("UG or PG")
+           }
+           else{
+            values.push("M.Tech")
+            vheads.push("UG or PG")
+           }
+           for (var f =0;f<updatas.length-1;f++ ){
+           updatas[f].value="";
+           }
+            togglePopup40()
+            document.getElementById("load").style.display="initial";
+           document.getElementById("loader").style.display="block"; 
+           document.getElementById("message").textContent = "Adding Student....";
+           console.log(values,vheads)
+            var datastring = JSON.stringify({
+  data:values,
+  head:vheads
+      });
+      console.log(datastring)
+      fetch(
+    
+    "https://script.google.com/macros/s/AKfycbx1fm56dXBmieFrmmVAUDcP_WtIIsYwrS_z071c_vkcxczt6lV_nC0-idhsTsjqdPnLiA/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: datastring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
+   
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
+   console.log(r);
+   fetchd ();
+   if (r=="Success"){
+   document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Student Added";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
+  else if(r=="reject"){
+    document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "ID Number already present. So, Student not added";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+   document.getElementById("loader").style.display="none"; 
+   document.getElementById("message").textContent =
+   "Failed to update.";
+   document.getElementById("message").style.display = "block";
+   setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+   });
+  } 
 
    
   setTimeout(() => {

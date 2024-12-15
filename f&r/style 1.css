@@ -197,7 +197,7 @@ tbody tr.hide td img {
         min-width: 12.1rem;
     }
     .table__header {
-        flex-direction: column;
+       
         gap: 20px;
       
        }
