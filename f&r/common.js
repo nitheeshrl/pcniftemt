@@ -1,10 +1,3 @@
-window.addEventListener("offline", (e) => {
-    console.log("offline");
-  });
-  
-  window.addEventListener("online", (e) => {
-    console.log("online");
-  });
 function checkinternet(){
     var status = navigator.onLine;
     var element_box = document.getElementById("internetstatus-box");
