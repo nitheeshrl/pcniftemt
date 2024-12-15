@@ -96,6 +96,10 @@ console.log(path)
     var a = document.getElementById("sidebar").querySelectorAll("a");
 a.forEach(i =>{
   var href = i.href;
+  if(href=="/f&r/"){
+    href = "/f&r/index"
+  }
+
   console.log(href)
   if (href.includes(path)){
     i.parentElement.className="active";
