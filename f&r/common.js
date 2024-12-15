@@ -2,6 +2,7 @@ function checkinternet(){
     var status = navigator.onLine;
     var element_box = document.getElementById("internetstatus-box");
     var element = document.getElementById("internetstatus");
+    console.log(status)
     if (!status&&!element.classList.contains('offline')){
         console.log("Offline");
         document.getElementById("internetstatus").classList.remove('online')

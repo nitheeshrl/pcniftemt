@@ -92,10 +92,11 @@ function sidebari(){
     </ul>`;
     document.getElementById("sidebar").innerHTML = menu;
     var path = window.location.pathname;
-
+console.log(path)
     var a = document.getElementById("sidebar").querySelectorAll("a");
 a.forEach(i =>{
   var href = i.href;
+  console.log(href)
   if (href.includes(path)){
     i.parentElement.className="active";
     if (i.children.length==0){
