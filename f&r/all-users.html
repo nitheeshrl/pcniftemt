@@ -91,6 +91,20 @@ inputs.forEach(i =>{
   i.children[1].value = udata[now];
   now++
 })
+if (udata[3].includes("M.Tech")){
+    document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
+      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
+}
+else{
+  console.log(vrole)
+  if(vrole=="Admin"){
+      document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="flex"
+  }
+  else{
+    document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none" 
+  }
+      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="flex"
+}
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
 document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
@@ -610,6 +624,7 @@ alert("PassKey is already created for this Device")
            var allotdiv;
            var vdatas = [];
            var vheads = [];
+           var vrole ; 
            var uongoing="";
            function fetchd (){
   console.log("User Details Fetching....")
@@ -650,6 +665,7 @@ var datas = userdetails.datas;
 
 var allots = userdetails.allots;
 var role = userdetails.role;
+vrole = userdetails.role;
 var th = "";
 
 /*if (document.getElementById('Alloted Member')!==null){
@@ -662,10 +678,10 @@ if (role == "User"){
   document.getElementById("popup-inner").querySelectorAll("div")[3].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[4].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[5].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
+
 /*if(allotdiv!==undefined){
   allotdiv.remove();
 }*/
@@ -675,7 +691,6 @@ else{
   document.getElementById("popup-inner").querySelectorAll("div")[3].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[4].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[5].style.display="flex"
-  document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="flex"
   document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="flex"
   document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
