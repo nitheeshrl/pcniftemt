@@ -1,3 +1,4 @@
+var udecide ="";
 function sidebari(){
     var umenu =
     `    <ul>
@@ -190,10 +191,32 @@ function sidebari(){
       </li>
 
     </ul>`;
-    var nrid  = localStorage.getItem("loggeduserdetails");
-    console.log(nrid)
-    document.getElementById("sidebar").innerHTML = umenu;
     var path = window.location.pathname;
+    var rwnrid  = localStorage.getItem("loggeduserdetails");
+    var wnrid  = JSON.parse(rwnrid);
+    console.log(wnrid.role)
+    if(wnrid.role == "Admin"){
+    document.getElementById("sidebar").innerHTML = amenu;
+    }
+    else if(wnrid.role == "User"){
+      if (path.includes("all-musers")){
+        udecide ="deny";
+        document.getElementById("internetstatus").classList.toggle('msg')
+        document.getElementById("internetstatus-box").classList.toggle('msg')
+        document.getElementById("internetstatus").children[0].textContent="You don't have access to this page. Request administrator";
+        document.getElementById("internetstatus-box").style.display="flex"
+        setTimeout(function () { 
+          document.getElementById("internetstatus").classList.remove('msg')
+          document.getElementById("internetstatus-box").classList.remove('msg')
+          document.getElementById("internetstatus").children[0].textContent="You are online";
+          document.getElementById("internetstatus-box").style.display="flex"
+                 window.location="all-users.html"
+         },5000);
+
+      }
+      document.getElementById("sidebar").innerHTML = umenu;
+      }
+    
 console.log(path)
     var a = document.getElementById("sidebar").querySelectorAll("a");
 a.forEach(i =>{

@@ -541,6 +541,17 @@ border-top-width: 5px;
 .internetstatus.offline{
   border-top-color: red;
 }
+.internetstatus-box.msg{
+  background-color: white;
+
+ opacity: 1;
+  width: 100vw;
+  height: 100vh;
+}
+.internetstatus.msg{
+  border-top-color: yellow;
+  width: 500px;
+}
 .table__body span{
   font-weight: bold;
 height: 50px;
