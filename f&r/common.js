@@ -22,7 +22,7 @@ function checkinternet(){
     }
 }
 
-//setInterval(checkinternet,100)
+setInterval(checkinternet,100)
 
 function getuserdetailsonload(user){
     console.log("User Detail Fetching....")
