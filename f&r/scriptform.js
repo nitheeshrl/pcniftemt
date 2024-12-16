@@ -210,7 +210,9 @@ function sidebari(){
           document.getElementById("internetstatus-box").classList.remove('msg')
           document.getElementById("internetstatus").children[0].textContent="You are online";
           document.getElementById("internetstatus-box").style.display="flex"
-                 window.location="all-users.html"
+                 window.location="all-users.html";
+        udecide ="";
+
          },5000);
 
       }
