@@ -551,16 +551,16 @@ if (tdata.includes(sdata)){
            }
 
        }
-       console.log(detail)
+      // console.log(detail)
        return detail;
       }
       
 
    }
-console.log(details)
+//console.log(details)
    if(ustatus!=="Going"){
    if (details!==""){
- console.log(details)
+ //console.log(details)
    document.getElementById("tabdetails").innerHTML = tabheadsdetail + details;
    document.getElementById("tablebee").style.display = "initial";
    document.getElementById("status").style.display = "none";
@@ -618,13 +618,14 @@ console.log(details)
    }
    
    function sendmail (name,id){
+    console.log(name,id)
     ustatus="Going";
      document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Sending Mail to "+name+"...";
            
            
-             console.log(id)
+             console.log(id+"/"+uorp)
 
    fetch(
     
