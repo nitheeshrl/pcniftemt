@@ -675,10 +675,12 @@ if (tdata.includes(sdata)){
          .catch(function (error) {
            // Handle errors, you can display an error message here
            console.error(error);
+           if(ustatus!=="Going"){
            document.getElementById("loader").style.display="none"; 
            document.getElementById("message").textContent =
              "Failed to Send the Mail.";
            document.getElementById("message").style.display = "block";
+           }
          });
    }
    function updatedetails(updatestring,id,name){
