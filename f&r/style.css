@@ -562,3 +562,6 @@ height: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.pro-img{
+  object-fit: cover;
+}
