@@ -77,6 +77,8 @@ function getuserdetailsonload(user){
   var rnapic =   localStorage.getItem("loggedpic");
   var rnamail =    localStorage.getItem("loggedmail");
   var rid  = localStorage.getItem("loggeduserdetails");
+  document.getElementById("profileimage").src = rnapic;
+  document.getElementById("profileimage1").src = rnapic;
   console.log(rid,nrid)
   console.log(rid,nrid,rna,na,rnaor,naor,rnapic,napic,namail,rnamail)
   if(rid!==nrid||rna!==na||rnaor!==naor||rnapic!==napic||namail!==rnamail){

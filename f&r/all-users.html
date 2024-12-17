@@ -612,124 +612,18 @@ alert("PassKey is already created for this Device")
    function togglePopup40(){
    document.getElementById("popup-40").classList.toggle("active");
    }
-   var fetchurl ="";
-         var uname ;
-         const keyvalues = window.location.search;
-     const value = new URLSearchParams(keyvalues);
-     var idvalue = value.get('ui');
-     
+   var uname ;
   
- 
-     var uids = [
-       "398",
-       "756",
-       "652",
-       "235",
-       "453",
-      "648",
-       "378",
-       "345",
-       "904",
-       "413",
-       "254",
-       "890",
-       "333",
-       "333",
-       "333",
-       
-   ];
-   var uorps = [
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "B.Tech",
-    "M.Tech",
-    "M.Tech",
-    "M.Tech",
-    "M.Tech",
-    "M.Tech",
-     "M.Tech"
-   ]
-   var inames = [
-   'Anandha Keerthy M',
-   'Anindit Bizy Nair',
-   'David Evander Jebson S',
-   'Keerthika P',
-   'Nitheesh R L',
-   'Shivam Jha',
-   'Srinithi C P',
-   'Subbu Krishna Sharma GM',
-   'Yuvashreekantham R',
-   'R B Ramyaa',
-   'Anjali S',
-   'Mathangi G',
-   'Srivigneswar S',
-   'Sathishwaran S',
-   'Sample'
-   ]
-   var photourls =[
- 'https://npics.pages.dev/1.jpg',
-'https://npics.pages.dev/2.jpg',
-'https://npics.pages.dev/3.jpg',
-'https://npics.pages.dev/4.jpg',
-'https://npics.pages.dev/5.jpg',
-'https://npics.pages.dev/6.jpg',
-'https://npics.pages.dev/7.jpg',
-'https://npics.pages.dev/8.jpg',
-'https://npics.pages.dev/9.jpg',
-'https://npics.pages.dev/10.jpg',
-'https://npics.pages.dev/11.jpg',
-'https://npics.pages.dev/12.jpg',
-'https://npics.pages.dev/13.jpg',
-'https://npics.pages.dev/14.jpg',
-'https://npics.pages.dev/0.jpg'
-
- ]
-   var iurls = [
-'https://script.google.com/macros/s/AKfycbxzHeGu3z7ChHoOQf4Lw1qgvY1kUL8lAs0mQAmTkwYaELXnCVy6gUm3nmUNHfhh0EGsOQ/exec',
-'https://script.google.com/macros/s/AKfycbw6wbhOcrcyoOFuRn8RPSgZxdLnFbROVG2C6gu033ep9l6kk8GRFg6fKJQVX-yvzaOyrA/exec',
-'https://script.google.com/macros/s/AKfycby0bpezZTGSTIBGxkSa4LymvbBYP68ro7LJ_aeL-TpRwoUtgq7J9jGtlNrPrpSFtLdMPw/exec',
-'https://script.google.com/macros/s/AKfycbyPmVOKmWhJLFSSrXJucIFWn4HLqE5R-YaFy7fUfgd65GvuodABle1vHoQyK-idGYlq/exec',
-'https://script.google.com/macros/s/AKfycbxEp-AGZgECifFXwbKOWXrVlKItShDBaqlQy1nNGXElI6BR6SJVeHntpWOBvT4GvkJFOA/exec',
-'https://script.google.com/macros/s/AKfycbwXeCVS5KRLG_-fivdhmhV3Gj8mRPEDkDnqXeSsJFglqDmSHOeEk5snIeq3ujxGrUM/exec',
-'https://script.google.com/macros/s/AKfycbyJ1XeGgRqAjR44TB_hTjLEyCMA7XHhv5hASQdRp2LqnAYxcfUm3NmYeHTZP7MwJRea/exec',
-'https://script.google.com/macros/s/AKfycbx6MTdLho6wKtsbAZYfTym8KS_3NdNTzhyQD29Ls8Ww9Bk1Nuw40-kF1KWSTAJY90d2/exec',
-'https://script.google.com/macros/s/AKfycby_oUg1_sTnZF5kTyG70JaA0DN_fSwhmFfnqph-Wnc-EU1UuvRxDahY_acAlwt9udo/exec',
-'https://script.google.com/macros/s/AKfycbzQNai3ZVI_FxloADEK1zaj1KfzIxi-916CK1GgdWVYSWYPsTOkvTqhDcaDWw1AMG6flg/exec',
-'https://script.google.com/macros/s/AKfycbxj_gCuRgJZ-Yu5QJAd-wMlvNonVPXHQV-mnGjr4d5Hz-a0x47brR-9byzQT8eyZSRS/exec',
-'https://script.google.com/macros/s/AKfycbyVtGzaKOxucJJkHbNPjPHQvRV-PirSwetae8B2He_zgh9TnbKvHKKAgIzXzOy03-cS/exec',
-'https://script.google.com/macros/s/AKfycbyD2RB2ak-oFcJgzF6J_AyV7D3hk4sp6V7H835NbL22S0kxCFJt1A16HW059pBmJOMj/exec',
-'https://script.google.com/macros/s/AKfycbzGzDbJnrdaAQswQY05tvv8WWG6I6gI9TKbq-HP0QF6-N-Ko2v78v97euY6erkOKw/exec',
-'https://script.google.com/macros/s/AKfycbw2vmyE-I2iQHjOS3BQHdqaNBjHlPdJ9sIPwyQgH8pZMQO2gpilLcOIvKJG-N067LbG/exec'
-   ]
-   for (var i = 0; i < uids.length; i++) {
-     uname = localStorage.getItem("loggedname");
-     console.log(uname)
-     if (uname == inames[i]){
-       idvalue = uids[i];
-   fetchurl = iurls[i];
-   console.log(document.getElementById("profileimage"));
-   sessionStorage.setItem("backprofilepic",photourls[i]);
-   document.getElementById("profileimage").src = photourls[i];
-   document.getElementById("profileimage1").src = photourls[i];
-   console.log(document.getElementById("profileimage").src,photourls[i])
-
-     }
-   }
-   console.log(uname)
-   console.log(fetchurl)
-
-   document.getElementById("mname").innerHTML = uname;
-   if (idvalue == undefined||uname==undefined){
-     alert("You are not logged in. Please log in");
-      sessionStorage.setItem("lastpage",window.location.pathname)
-     window.location="../index.html";
-   }
+  uname = localStorage.getItem("loggedname");
+  console.log(uname)
+  console.log(document.getElementById("profileimage").src)
+  document.getElementById("mname").innerHTML = uname;
+  
+  if (uname==undefined){
+    alert("You are not logged in. Please log in");
+    sessionStorage.setItem("lastpage",window.location.pathname)
+    window.location="../index.html";
+  }
    document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Students Details Fetching....";
