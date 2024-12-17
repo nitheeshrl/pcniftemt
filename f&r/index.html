@@ -582,10 +582,12 @@ if (tdata.includes(sdata)){
    .catch(function (error) {
    // Handle errors, you can display an error message here
    console.error(error);
+   if(ustatus!=="Going"){
    document.getElementById("loader").style.display="none"; 
    document.getElementById("message").textContent =
    "Failed to fetch.";
    document.getElementById("message").style.display = "block";
+   }
    fetchd ();
    });
       }
