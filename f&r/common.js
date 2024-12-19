@@ -97,11 +97,13 @@ function getuserdetailsonload(user){
    console.log(rid)
       if(rid!==undefined&&rid!==""&&rid!==null){
         var uid = JSON.parse(rid).id;
-      getuserdetailsonload(uid+"/12");
+        setTimeout(function () {   getuserdetailsonload(uid+"/12"); },2000);
+    
       }
       else if(rid==undefined||rid==""||rid==null){
         var vlog = localStorage.getItem("loggedname");
-        getuserdetailsonload(vlog+"/1");
+        setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
+       
         }
      
   
