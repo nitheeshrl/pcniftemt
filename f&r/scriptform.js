@@ -197,6 +197,8 @@ function sidebari(){
     console.log(wnrid.role)
     if(wnrid.role == "Admin"){
     document.getElementById("sidebar").innerHTML = amenu;
+    document.getElementById("profileimage").src = localStorage.getItem("loggedpic");
+    document.getElementById("profileimage1").src = localStorage.getItem("loggedpic");
     }
     else if(wnrid.role == "User"){
       if (path.includes("all-musers")){
