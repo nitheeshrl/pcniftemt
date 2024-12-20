@@ -404,18 +404,30 @@ return uniqueID;
 }
 }
 async function passkey(){
+  var passkeysss ={};
+  var fetchurl = "https://passkey-5ev6.onrender.com";
            var passdevuniid =GetUniqueID();
+           const username = localStorage.getItem("loggedname");
            console.log(passdevuniid);
-if (passdevuniid[1] ==  "New"){
+           const response = await fetch(fetchurl+'/check-pasakey', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({ weburl, username,devUniId:passdevuniid  })
+           })
+
+           const passkeycheck = await response.json()
+           const { no } = challengeResult // Server side challenge
+if (no ==  0){
  document.getElementById("loader").style.display="block"; 
            document.getElementById("load").style.display="initial";
            document.getElementById("message").textContent="Registering PassKey....";
          
-       var passkeysss ={};
-var fetchurl = "https://passkey-5ev6.onrender.com";
+
        const { startRegistration, startAuthentication } = SimpleWebAuthnBrowser;
            const url = new URL(window.location)
-           const username = localStorage.getItem("loggedname");
+           
            var weburl = location.hostname;
            console.log(weburl)
            const response = await fetch(fetchurl+'/register-challenge', {
