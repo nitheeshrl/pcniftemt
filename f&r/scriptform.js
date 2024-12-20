@@ -200,6 +200,7 @@ function sidebari(){
     document.getElementById("sidebar").innerHTML = amenu;
     document.getElementById("profileimage").src = localStorage.getItem("loggedpic");
     document.getElementById("profileimage1").src = localStorage.getItem("loggedpic");
+    document.getElementById("mname").innerHTML = localStorage.getItem("loggedname");
     }
     else if(wnrid.role == "User"){
       if (path.includes("all-musers")){
@@ -222,6 +223,7 @@ function sidebari(){
       document.getElementById("sidebar").innerHTML = umenu;
       document.getElementById("profileimage").src = localStorage.getItem("loggedpic");
       document.getElementById("profileimage1").src = localStorage.getItem("loggedpic");
+      document.getElementById("mname").innerHTML = localStorage.getItem("loggedname");
       }
     
 console.log(path)
