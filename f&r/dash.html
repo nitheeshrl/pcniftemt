@@ -404,6 +404,9 @@ return uniqueID;
 }
 }
 async function passkey(){
+  document.getElementById("loader").style.display="block"; 
+           document.getElementById("load").style.display="initial";
+           document.getElementById("message").textContent="Checking....";
   var passkeysss ={};
   var fetchurl = "https://passkey-5ev6.onrender.com";
   const url = new URL(window.location)
@@ -472,7 +475,12 @@ setTimeout(function () {
 
 }
 else{
-alert("PassKey is already created for this Device")
+  document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="PassKey is already created for this Device";
+setTimeout(function () { 
+ document.getElementById("load").style.display="none";
+},2000);
+//alert("PassKey is already created for this Device")
 }
 }
        function approvePopup(id){
