@@ -219,6 +219,8 @@ function sidebari(){
 
       }
       document.getElementById("sidebar").innerHTML = umenu;
+      document.getElementById("profileimage").src = localStorage.getItem("loggedpic");
+      document.getElementById("profileimage1").src = localStorage.getItem("loggedpic");
       }
     
 console.log(path)

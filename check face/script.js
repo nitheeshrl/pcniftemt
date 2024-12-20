@@ -125,7 +125,7 @@ if (namechecked !== "unknown" && username[0] !== "unknown" ){
   setTimeout(function( ) { 
   var lastpage = sessionStorage.getItem("lastpage");
 if (lastpage==undefined||lastpage==""){
-  window.location="f&r/dash.html";
+  window.location="../f&r/dash.html";
 }
 else{
   window.location=lastpage;
@@ -172,7 +172,7 @@ if (namechecked !== "unknown"){
   setTimeout(function( ) { 
    var lastpage = sessionStorage.getItem("lastpage");
 if (lastpage==undefined||lastpage==""){
-  window.location="f&r/dash.html";
+  window.location="../f&r/dash.html";
 }
 else{
   window.location=lastpage;
