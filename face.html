@@ -96,14 +96,9 @@ return uniqueID;
         var passkeysss ={};
         const { startRegistration, startAuthentication } = SimpleWebAuthnBrowser;
  var fetchurl = "https://passkey-5ev6.onrender.com";
-    const userId = document.getElementById("Username").value;
-if (userId ==""){
-    alert("Select the Name")
-}
-else{
-          var passdevuniid =GetUniqueID();
-           console.log(passdevuniid);
-if (passdevuniid !== "Not"){
+
+   
+
     document.getElementById("loader").style.display="block"; 
             document.getElementById("load").style.display="initial";
             document.getElementById("message").textContent="Verifying PassKey....";
@@ -115,7 +110,7 @@ if (passdevuniid !== "Not"){
                headers: {
                    'Content-Type': 'application/json'
                },
-               body: JSON.stringify({ userId, weburl })
+               body: JSON.stringify({  weburl })
            })
 
            const challengeResult = await response.json()
@@ -131,12 +126,12 @@ if (passdevuniid !== "Not"){
                headers: {
                    'Content-Type': 'application/json'
                },
-               body: JSON.stringify({ userId:userId, cred: authenticationResult, challenge: options.challenge, devUniId:passdevuniid, weburl, urlorigin})
+               body: JSON.stringify({  cred: authenticationResult, challenge: options.challenge,  weburl, urlorigin})
            })
            const verifyuserResult = await veruser.json()
            console.log(verifyuserResult)
 if (verifyuserResult.success){
-  localStorage.setItem("loggedname", userId);
+  localStorage.setItem("loggedname", verifyuserResult.userId);
   var  uname = localStorage.getItem("loggedname");
   console.log(uname)
 document.getElementById("loader").style.display="none"; 
@@ -159,12 +154,9 @@ else{
   document.getElementById("load").style.display="none";
 }
        }
-else {
-    alert("PassKey is Not Available in this Device")
-  }
-}
 
-  }
+
+  
   function login(){
     var enusername = document.getElementById("Username").value;
 sessionStorage.setItem("checkname",enusername)
