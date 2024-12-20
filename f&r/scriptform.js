@@ -85,7 +85,7 @@ function sidebari(){
           <div>
             <li><a href="change-pass-1.html">Change Password</a></li>
             <li><a onclick="passkey()">Create PassKey</a></li>
-            <li><a onclick="logoutPopup()" >Logout</a></li>
+            <li><a onclick="alllogoutPopup()" >Logout</a></li>
           </div>
         </ul>
       </li>
@@ -185,7 +185,7 @@ function sidebari(){
           <div>
             <li><a href="change-pass-1.html">Change Password</a></li>
             <li><a onclick="passkey()">Create PassKey</a></li>
-            <li><a onclick="logoutPopup()" >Logout</a></li>
+            <li><a onclick="alllogoutPopup()" >Logout</a></li>
           </div>
         </ul>
       </li>
@@ -244,3 +244,83 @@ a.forEach(i =>{
  }
 
 sidebari()
+
+function alllogout(){
+  updatelogstatus2("Offline");  
+  localStorage.removeItem("loggedname")
+localStorage.removeItem("loggeduserdetails");
+ localStorage.removeItem("loggeduorp");
+ localStorage.removeItem("loggedpic");
+ localStorage.removeItem("loggedmail");
+  window.location="../logout.html";
+}
+function alllogoutPopup(){
+  console.log("ok")
+  var opt = document.getElementById("popup-3").children[1].children[3].children[1];
+document.getElementById("popup-3").classList.toggle("active");
+opt.setAttribute("onclick","alllogout()")
+console.log(opt)
+
+}
+
+function updatelogstatus2(status){
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+var updatestring = uid+"/"+status;
+console.log(updatestring)
+ 
+fetch(
+
+"https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
+{
+redirect: "follow",
+method: "POST",
+body: updatestring,
+headers: {
+"Content-Type": "text/plain;charset=utf-8",
+},
+}
+)
+
+.then(function (response) {
+
+// Check if the request was successful
+if (response) {
+
+return response; // Assuming your script returns JSON response
+} else {
+throw new Error("Failed to fetch.");
+}
+})
+.then(async function (data) {
+const result1 = await data.json();
+
+var r = result1.data2;
+
+
+})
+
+.catch(function (error) {
+// Handle errors, you can display an error message here
+console.error(error);
+updatelogstatus2(status);
+});
+}
+
+
+setTimeout(() => {
+
+updatelogstatus2("Online");
+
+}, 2000)
+window.addEventListener("blur", () => {
+updatelogstatus2("Offline");   
+});
+window.addEventListener("focus", () => {
+updatelogstatus2("Online");   
+});
+//window.unblur = colse();
+const beforeUnloadHandler = (event) => {  
+updatelogstatus2("Offline");  
+};
+window.addEventListener("beforeunload", beforeUnloadHandler);

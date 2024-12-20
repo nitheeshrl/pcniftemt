@@ -664,7 +664,7 @@ fetchd ();
        }
       fetchd ();
    
-      function updatelogstatus(status){
+     /* function updatelogstatus(status){
       var updatestring = localStorage.getItem("loggedname")+"/"+status;
  
            
@@ -704,7 +704,7 @@ fetchd ();
    console.error(error);
 
    });
-   }
+   }*/
    var qupdatas = document.getElementById("popup-inner").querySelectorAll("input,select");
    console.log(qupdatas)
    function updatedetails(id){
@@ -966,7 +966,7 @@ name:vdatas[id-2][0]
    });
   } 
   
-  setTimeout(() => {
+  /*setTimeout(() => {
   
   updatelogstatus("Online");
   
@@ -981,7 +981,7 @@ name:vdatas[id-2][0]
   const beforeUnloadHandler = (event) => {  
     updatelogstatus("Offline");  
   };
-  window.addEventListener("beforeunload", beforeUnloadHandler);
+  window.addEventListener("beforeunload", beforeUnloadHandler);*/
      </script>
      
   <script src="script1.js"></script>
