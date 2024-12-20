@@ -84,7 +84,7 @@ function sidebari(){
         <ul class="sub-menu">
           <div>
             <li><a href="change-pass-1.html">Change Password</a></li>
-            <li><a onclick="passkey()">Create PassKey</a></li>
+            <li><a onclick="passkey1()">Create PassKey</a></li>
             <li><a onclick="alllogoutPopup()" >Logout</a></li>
           </div>
         </ul>
@@ -184,7 +184,7 @@ function sidebari(){
         <ul class="sub-menu">
           <div>
             <li><a href="change-pass-1.html">Change Password</a></li>
-            <li><a onclick="passkey()">Create PassKey</a></li>
+            <li><a onclick="passkey1()">Create PassKey</a></li>
             <li><a onclick="alllogoutPopup()" >Logout</a></li>
           </div>
         </ul>
@@ -262,6 +262,88 @@ opt.setAttribute("onclick","alllogout()")
 console.log(opt)
 
 }
+
+async function passkey1(){
+  document.getElementById("loader").style.display="block"; 
+           document.getElementById("load").style.display="initial";
+           document.getElementById("message").textContent="Checking....";
+  var passkeysss ={};
+  var fetchurl = "https://passkey-5ev6.onrender.com";
+  const url = new URL(window.location)
+  var weburl = location.hostname;
+           var passdevuniid =GetUniqueID();
+           const username = localStorage.getItem("loggedname");
+           console.log(passdevuniid);
+           const response = await fetch(fetchurl+'/check-pasakey', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({ weburl, username,devUniId:passdevuniid  })
+           })
+
+           const passkeycheck = await response.json()
+           console.log(passkeycheck)
+           const { no } = passkeycheck// Server side challenge
+if (no ==  0){
+ document.getElementById("loader").style.display="block"; 
+           document.getElementById("load").style.display="initial";
+           document.getElementById("message").textContent="Registering PassKey....";
+         
+
+       const { startRegistration, startAuthentication } = SimpleWebAuthnBrowser;
+
+           console.log(weburl)
+           const response = await fetch(fetchurl+'/register-challenge', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({ username, weburl })
+           })
+
+           const challengeResult = await response.json()
+           const { options } = challengeResult // Server side challenge
+
+           const authenticationResult = await startRegistration({optionsJSON: options})
+           console.log(authenticationResult)
+
+           var urlorigin= location.protocol+"//"+location.host;
+           console.log(urlorigin)
+           var create_passkey = await fetch(fetchurl+'/register-verify', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({ username, cred: authenticationResult, challenge: options.challenge, devUniId:passdevuniid[0], weburl,urlorigin })
+           })
+           const create_passkeyResult = await create_passkey.json();
+           console.log(create_passkeyResult.result)
+           
+           
+passkeysss = create_passkeyResult.info;
+console.log(create_passkeyResult.info);
+if (create_passkeyResult.info.userVerified){
+ localStorage.setItem("Passkey-uniqueID",passdevuniid[0]);
+ document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="PassKey Registered Successfully";
+setTimeout(function () { 
+ document.getElementById("load").style.display="none";
+},2000);
+}
+
+
+}
+else{
+  document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="PassKey is already created for this Device";
+setTimeout(function () { 
+ document.getElementById("load").style.display="none";
+},2000);
+//alert("PassKey is already created for this Device")
+}
+}
+
 
 function updatelogstatus2(status){
 var rid  = localStorage.getItem("loggeduserdetails");
