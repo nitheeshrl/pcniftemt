@@ -418,6 +418,7 @@ async function passkey(){
            })
 
            const passkeycheck = await response.json()
+           console.log(passkeycheck)
            const { no } = challengeResult // Server side challenge
 if (no ==  0){
  document.getElementById("loader").style.display="block"; 
