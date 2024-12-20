@@ -98,8 +98,13 @@ function getuserdetailsonload(user){
    console.log(rid)
       if(rid!==undefined&&rid!==""&&rid!==null){
         var uid = JSON.parse(rid).id;
+        if(uid.includes("PC")){
+          var vlog = localStorage.getItem("loggedname");
+          setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
+        }
+        else{
         setTimeout(function () {   getuserdetailsonload(uid+"/12"); },2000);
-    
+        }
       }
       else if(rid==undefined||rid==""||rid==null){
         var vlog = localStorage.getItem("loggedname");
