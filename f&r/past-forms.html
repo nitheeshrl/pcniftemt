@@ -1037,8 +1037,9 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Changing Status....";
-           var loggedname = localStorage.getItem("loggedname")
-           var formstringgg= formname+"/Forms"+"/"+status+"/"+userac+"/"+loggedname;
+           var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+           var formstringgg= formname+"/Forms"+"/"+status+"/"+userac+"/"+uid;
            console.log(formstringgg)
            if(status=="Live"){
             togglePopup7()
@@ -1121,8 +1122,9 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Setting Status Change Time....";
-           var loggedname = localStorage.getItem("loggedname")
-           var formstringgg= formname+"/"+status+"/"+time+"/"+userac+"/"+loggedname;
+           var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+           var formstringgg= formname+"/"+status+"/"+time+"/"+userac+"/"+uid;
            console.log(formstringgg)
            if(status=="Live"){
             togglePopup7()

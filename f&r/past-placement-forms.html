@@ -1021,7 +1021,9 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Changing Status....";
-           var formstringgg= formname+"/Placement Forms"+"/"+status+"/"+userac;
+           var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+           var formstringgg= formname+"/Placement Forms"+"/"+status+"/"+userac+"/"+uid;
            console.log(formstringgg)
           
            if(status=="Live"){
@@ -1103,7 +1105,9 @@ else if(data=="Not Found"){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Setting Status Change Time....";
-           var formstringgg= formname+"/"+status+"/"+time+"/"+userac;
+           var rid  = localStorage.getItem("loggeduserdetails");
+           var uid = JSON.parse(rid).id;
+           var formstringgg= formname+"/"+status+"/"+time+"/"+userac+"/"+uid;
            console.log(formstringgg)
            if(status=="Live"){
             togglePopup7()
