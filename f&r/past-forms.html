@@ -688,7 +688,7 @@ if (userdsta !=="done"){
   var ot =  document.getElementById("uservaluess").children;
   for(var e=0;e<uservalues.length-1; e++){
    
-    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" value="`+uservalues[e]+`">`+uservalues[e]+" ("+uservaluesuorp[e]+")"+`</label>`
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" value="`+uservalues[e][1]+`">`+uservalues[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
     valuess += value;
 
   }
