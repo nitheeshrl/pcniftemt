@@ -31,7 +31,7 @@ fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ data }) => {
     console.log(data)
-    if (data!==undefined||data!==""){
+    if (data!==undefined&&data!==""){
 document.getElementById("lat-notifications").innerHTML= `<div class="slide-track" >`+data+`</div>`;
 document.getElementById("lat-notifications").style.display="block";
 
