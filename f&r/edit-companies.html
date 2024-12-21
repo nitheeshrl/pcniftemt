@@ -59,7 +59,7 @@ document.getElementById("lat-notifications").style.display="block";
       document.getElementById("lat-notifications").innerHTML=`<span id="no-cir-form">No Data</span>`;
 
       document.getElementById("lat-notifications").style.display="flex";
-      
+      getnotifications()
     }
    })
    .catch((error) => console.error('!!!!!!!!', error));
