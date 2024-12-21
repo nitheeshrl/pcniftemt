@@ -235,6 +235,9 @@ a.forEach(i =>{
   }
 
   console.log(href)
+  if(!path.includes(".html")){
+    path = path+".html";
+  }
   if (href.includes(path)){
     i.parentElement.className="active";
     if (i.children.length==0){
