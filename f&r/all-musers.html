@@ -811,7 +811,12 @@ var vheads = [];
            
               return;
             }
+       
             else{
+              if((updatas[f].name=="Email ID"||updatas[f].name=="Alloted Notification Mail Address")&&!updatas[f].value.includes("@")){
+              alert("Enter the valid"+updatas[f].name);
+              return;
+            }
 values.push(updatas[f].value)
 vheads.push(updatas[f].name)
 
