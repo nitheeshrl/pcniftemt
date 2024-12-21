@@ -31,7 +31,7 @@ fetch(`${url}?header=${val}`)
   var ot =  document.getElementById("uservaluess").children;
   for(var e=0;e<details.length-1; e++){
    
-    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+details[e][0]+`" value="`+details[e][1]+`">`+details[e][0]+" ("+usersuorp[e]+")"+`</label>`
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+users[e][0]+`" value="`+users[e][1]+`">`+users[e][0]+" ("+usersuorp[e]+")"+`</label>`
     valuess += value;
 
   }
