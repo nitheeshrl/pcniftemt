@@ -29,9 +29,9 @@ fetch(`${url}?header=${val}`)
       var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
   <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>`;
   var ot =  document.getElementById("uservaluess").children;
-  for(var e=0;e<uservalues.length-1; e++){
+  for(var e=0;e<details.length-1; e++){
    
-    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+uservalues[e][0]+`" value="`+uservalues[e][1]+`">`+uservalues[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+details[e][0]+`" value="`+details[e][1]+`">`+details[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
     valuess += value;
 
   }
