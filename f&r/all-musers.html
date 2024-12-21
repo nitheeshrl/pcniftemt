@@ -813,7 +813,7 @@ var vheads = [];
             }
        
             else{
-              if((updatas[f].name=="Email ID"||updatas[f].name=="Alloted Notification Mail Address")&&(!updatas[f].value.includes("@")&&!updatas[f].value.includes("."))){
+              if((updatas[f].name=="Email ID"||updatas[f].name=="Alloted Notification Mail Address")&&!(updatas[f].value.includes("@")&&updatas[f].value.includes("."))){
               alert("Enter the valid "+updatas[f].name);
               return;
             }
