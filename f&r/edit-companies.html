@@ -76,7 +76,7 @@ var namef= document.getElementById("ddid").value;
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
 val = uid+"/"+namef;
-
+console.log(val)
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ data }) => {
@@ -107,6 +107,7 @@ const url = "https://script.google.com/macros/s/AKfycbxyPXT2RWDUuvhB3UC8Ku0lZRjv
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
 val = namef+"/"+namefd+"/"+uid+"/";
+console.log(val)
 document.getElementById("noti-text").value = "";
 document.getElementById("noti-text-date").value = "";
 fetch(`${url}?header=${val}`)
@@ -144,6 +145,7 @@ const url = "https://script.google.com/macros/s/AKfycbzl0nLEXK3yHbV5ldjOYaiMLdze
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
 val = namef+"/"+namefd+"/"+uid+"/"+hindex;
+console.log(val)
 document.getElementById("enoti-text").value = "";
 document.getElementById("enoti-text-date").value = "";
 fetch(`${url}?header=${val}`)
