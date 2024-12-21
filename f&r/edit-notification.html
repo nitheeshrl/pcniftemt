@@ -16,8 +16,9 @@
     var loggedname = localStorage.getItem("loggedname");
     function getnotifications(){
 const url = "https://script.google.com/macros/s/AKfycbz4Hi2UfKaR2uHULiYN0kA8aOj1bOHsW0tSHq7du1mQDsxfUNuN7fEyXf5msy2hU2-P/exec" 
-
-val = loggedname+"/P";
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+val = uid+"/P";
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
@@ -25,12 +26,12 @@ fetch(`${url}?header=${val}`)
     console.log(details)
     var tvalues = "";
     if (users!==undefined){
-      var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
-  <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>`;
+      var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
+  <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>`;
   var ot =  document.getElementById("uservaluess").children;
-  for(var e=0;e<users.length-1; e++){
+  for(var e=0;e<uservalues.length-1; e++){
    
-    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" value="`+users[e]+`">`+users[e]+" ("+usersuorp[e]+")"+`</label>`
+    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+uservalues[e][0]+`" value="`+uservalues[e][1]+`">`+uservalues[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
     valuess += value;
 
   }
@@ -81,7 +82,9 @@ function deleten(){
            document.getElementById("message").textContent = "Deleting....";
 const url = "https://script.google.com/macros/s/AKfycbw6j245PYQJPrHEzWjDb7Dgriv8NXHbl1M9KpXQuCKivDGaXqdneRAmFwS1RDAYlzseeg/exec" 
 var namef= document.getElementById("ddid").value;
-val = loggedname+"/"+namef;
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+val =uid+"/"+namef;
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
@@ -107,7 +110,9 @@ function addn(){
            document.getElementById("message").textContent = "Adding....";
 const url = "https://script.google.com/macros/s/AKfycbyU5E_Gi7cANs0P32uD3h3RsTAdpLz4uPVKsa5PQTofIu8O_AoELE1YGg0bnM6qav51mg/exec" 
 var namef= document.getElementById("noti-text").value;
-val = namef+"/"+loggedname+"//"+userac;
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+val = namef+"/"+uid+"//"+userac;
 document.getElementById("noti-text").value= "";
 document.getElementById("us-acc").value= "All M.Tech, All B.Tech";
 fetch(`${url}?header=${val}`)
@@ -634,6 +639,7 @@ window.addEventListener("beforeunload", beforeUnloadHandler);*/
   function getSelectedValues() {
     var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
     var selectedValues = [];
+    var iselectedValues = [];
 
 console.log(checkboxes)
     var users =checkboxes[0].parentElement.parentElement.children;
@@ -680,10 +686,12 @@ console.log(checkboxes)
     checkboxes.forEach(function(checkbox) {
       if (checkbox.checked) {
         selectedValues.push(checkbox.value);
-      }
-    });
-    var values = selectedValues.join(", ")
-    checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = values;
+        iselectedValues.push(checkbox.name);
+        }
+      });
+      var values = selectedValues.join(", ")
+      var ivalues = iselectedValues.join(", ")
+      checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = ivalues;
     return values;
   }
   
