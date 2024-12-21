@@ -28,25 +28,8 @@
   <div class="formb-container">
     <h1 style="text-align: center;"> NIFTEM-T Placement Cell Login </h1>
     <div class="form-element">
-      <span class="q">Name</span>
-      <select aria-readonly="true" name="Username" id="Username"  required placeholder="Select your name">
-      <option value="">Select your name</option>
-      <option value='Anandha Keerthy M'>Anandha Keerthy M</option>
-      <option value='Anindit Bizy Nair'>Anindit Bizy Nair</option>
-      <option value='David Evander Jebson S'>David Evander Jebson S</option>
-      <option value='Keerthika P'>Keerthika P</option>
-      <option value='Nitheesh R L'>Nitheesh R L</option>
-      <option value='Shivam Jha'>Shivam Jha</option>
-      <option value='Srinithi C P'>Srinithi C P</option>
-      <option value='Subbu Krishna Sharma GM'>Subbu Krishna Sharma GM</option>
-      <option value='Yuvashreekantham R'>Yuvashreekantham R</option>
-      <option value='R B Ramyaa'>R B Ramyaa</option>
-      <option value='Sathishwaran S'>Sathishwaran S</option>
-      <option value='Anjali S'>Anjali S</option>
-      <option value='Mathangi G'>Mathangi G</option>
-      <option value='Srivigneswar S'>Srivigneswar S</option>
-      </select>
-      
+      <span class="q">ID Number</span>
+        <input style="width: 100%;" type="text" name="Username" id="Username" required placeholder="Enter your ID Number"/> 
       </div>
     <div class="form-element" style="margin-top: 20px;">
       <span class="q">Password</span>
@@ -117,6 +100,85 @@ return uniqueID;
 }
 }
 
+function getuserdetailspasskey(user){
+
+
+var formDataString =user+"/12";
+console.log(formDataString)
+document.getElementById("loader").style.display="block"; 
+        document.getElementById("load").style.display="initial";
+        document.getElementById("message").textContent="Logging in....";
+fetch(
+  "https://script.google.com/macros/s/AKfycbzqSHjVCXfU1DIQzUCEYcBFVssU9MISesB1WPePdf6_n4JcTii9Dh5c-_I7IoGVYjMJAw/exec",
+  {
+    redirect: "follow",
+    method: "POST",
+    body: formDataString,
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+  }
+)
+
+  .then(function (response) {
+
+    // Check if the request was successful
+    if (response) {
+ 
+      return response; // Assuming your script returns JSON response
+    } else {
+      throw new Error("Failed to verify credentials");
+    }
+  })
+  .then(async function (data) {
+    const result1 = await data.json();
+var userdetails = result1.data2;
+
+
+console.log(userdetails)
+
+if (userdetails[0]!=="Not Found"){
+//passkey(userdetails[2],passdevuniid,userdetails[3],userdetails[4],userdetails[5],userdetails[7]);
+localStorage.setItem("loggedname",userdetails[2]);
+localStorage.setItem("loggeduorp", userdetails[3]);
+localStorage.setItem("loggedpic", userdetails[4]);
+localStorage.setItem("loggedmail", userdetails[5]);
+localStorage.setItem("loggeduserdetails", userdetails[7]);
+var  uname = localStorage.getItem("loggedname");
+console.log(uname)
+document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="Logged in Successful";
+setTimeout(function () { 
+document.getElementById("load").style.display="none";
+var enusername = document.getElementById("Username").value;
+
+
+
+var lastpage = sessionStorage.getItem("lastpage");
+if (lastpage==undefined||lastpage==""){
+  window.location="f&r/dash.html";
+}
+else{
+window.location=lastpage;
+sessionStorage.removeItem("lastpage");
+}
+},2000);
+}
+else if (userdetails[0]=="Not Found"){
+alert("User not found")
+document.getElementById("load").style.display="none";
+}
+  })
+
+  .catch(function (error) {
+    // Handle errors, you can display an error message here
+    console.error(error);
+    document.getElementById("message").textContent =
+      "An error occurred while getting details";
+    document.getElementById("message").style.display = "block";
+  });
+}  
+
  async function passkey(){
         var passkeysss ={};
         const { startRegistration, startAuthentication } = SimpleWebAuthnBrowser;
@@ -155,9 +217,8 @@ const userId = document.getElementById("Username").value;
            const verifyuserResult = await veruser.json()
            console.log(verifyuserResult)
 if (verifyuserResult.success){
-  localStorage.setItem("loggedname",verifyuserResult.userId);
-  var  uname = localStorage.getItem("loggedname");
-  console.log(uname)
+  getuserdetailspasskey(user,verifyuserResult.userId);
+
 document.getElementById("loader").style.display="none"; 
 document.getElementById("message").textContent="Logged in Successful";
 setTimeout(function () { 
@@ -195,6 +256,7 @@ else{
     }
   }
   var username ="";
+  var muserdetails="";
 function checklogdetails(realhash,checkhash){
   console.log("hgf")
 if (realhash == checkhash){
@@ -208,7 +270,11 @@ if (realhash == checkhash){
 
 }
 function onuploadcomplete (){
-  localStorage.setItem("loggedname", username);
+  localStorage.setItem("loggedname", muserdetails[2]);
+  localStorage.setItem("loggeduorp", muserdetails[3]);
+  localStorage.setItem("loggedpic", muserdetails[4]);
+  localStorage.setItem("loggedmail", muserdetails[5]);
+  localStorage.setItem("loggeduserdetails",muserdetails[7]);
   var  uname = localStorage.getItem("loggedname");
   console.log(uname)
 document.getElementById("loader").style.display="none"; 
@@ -227,13 +293,13 @@ else{
  },2000);
 }
 function getuserdetails(user,pass){
-    var formDataString =user;
+    var formDataString =user+"/12";
     console.log(formDataString)
     document.getElementById("loader").style.display="block"; 
             document.getElementById("load").style.display="initial";
             document.getElementById("message").textContent="Verifying....";
     fetch(
-      "https://script.google.com/macros/s/AKfycbyuCALW9JhZeQlYswMHwYgJFPRCOsvF7r6GE7uuJJ9g8TdkNXz_Qdigy1sAmem7JnAXKA/exec",
+      "https://script.google.com/macros/s/AKfycbzqSHjVCXfU1DIQzUCEYcBFVssU9MISesB1WPePdf6_n4JcTii9Dh5c-_I7IoGVYjMJAw/exec",
       {
         redirect: "follow",
         method: "POST",
@@ -257,7 +323,7 @@ function getuserdetails(user,pass){
       .then(async function (data) {
         const result1 = await data.json();
 var userdetails = result1.data2;
-
+muserdetails =  result1.data2;
 
 console.log(userdetails)
 
@@ -314,7 +380,7 @@ else if (userdetails[0]=="Not Found"){
     }
   
 function login(){
-  var enusername = document.getElementById("Username").value;
+  var enusername = document.getElementById("Username").value.toUpperCase().replaceAll(" ","");
   var enpassword = document.getElementById("Password").value;
   var Username = "iacadmin";
   username = enusername;
