@@ -683,8 +683,8 @@ alert("PassKey is already created for this Device")
    var uservalues = result1.data2[2];
    var uservaluesuorp = result1.data2[3];
 if (userdsta !=="done"){
-  var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
-  <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>`;
+  var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
+  <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>`;
   var ot =  document.getElementById("uservaluess").children;
   for(var e=0;e<uservalues.length-1; e++){
    
