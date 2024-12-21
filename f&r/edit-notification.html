@@ -23,13 +23,13 @@ val = uid+"/P";
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ details, users, usersuorp }) => {
-    console.log(details)
+    console.log(details,users,usersuorp)
     var tvalues = "";
     if (users!==undefined){
       var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
   <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>`;
   var ot =  document.getElementById("uservaluess").children;
-  for(var e=0;e<details.length-1; e++){
+  for(var e=0;e<users.length-1; e++){
    
     var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+users[e][0]+`" value="`+users[e][1]+`">`+users[e][0]+" ("+usersuorp[e]+")"+`</label>`
     valuess += value;
