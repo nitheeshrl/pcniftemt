@@ -649,13 +649,16 @@ alert("PassKey is already created for this Device")
       function fetchd (){
        
        var details ="";
+       var rid  = localStorage.getItem("loggeduserdetails");
+        var uid = JSON.parse(rid).id;
+        var formid = uid+"/Forms";
        fetch(
     
     "https://script.google.com/macros/s/AKfycbwwHB9VvJR94E55QmmMgxK22ZLjUcaMGjQEkfV_8mqkAvuEiIzj_skEImvAI7ULhQOI/exec",
     {
       redirect: "follow",
       method: "POST",
-      body: uname+"/Forms",
+      body: formid,
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
       },
