@@ -795,10 +795,10 @@ if (userdsta !=="done"){
    .catch(function (error) {
    // Handle errors, you can display an error message here
    console.error(error);
-   document.getElementById("loader").style.display="none"; 
+  /* document.getElementById("loader").style.display="none"; 
    document.getElementById("message").textContent =
    "Failed to fetch.";
-   document.getElementById("message").style.display = "block";
+   document.getElementById("message").style.display = "block";*/
    });
       }
       fetchd ();
@@ -1181,7 +1181,7 @@ else if(data=="Not Found"){
           .catch(function (error) {
             // Handle errors, you can display an error message here
             console.error(error);
-            document.getElementById("message").textContent =
+        document.getElementById("message").textContent =
               "An error occurred while set the time.";
             document.getElementById("message").style.display = "block";
           });
