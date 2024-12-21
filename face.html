@@ -195,7 +195,7 @@ document.getElementById("load").style.display="none";
            const verifyuserResult = await veruser.json()
            console.log(verifyuserResult)
 if (verifyuserResult.success){
-  getuserdetailspasskey(user,verifyuserResult.userId);
+  getuserdetailspasskey(verifyuserResult.userId);
 document.getElementById("loader").style.display="none"; 
 document.getElementById("message").textContent="Logged in Successful";
 setTimeout(function () { 
