@@ -1347,6 +1347,7 @@ window.addEventListener("beforeunload", beforeUnloadHandler);*/
     function getSelectedValues() {
       var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
       var selectedValues = [];
+      var iselectedValues = [];
   
   console.log(checkboxes)
       var users =checkboxes[0].parentElement.parentElement.children;
@@ -1393,10 +1394,12 @@ window.addEventListener("beforeunload", beforeUnloadHandler);*/
       checkboxes.forEach(function(checkbox) {
         if (checkbox.checked) {
           selectedValues.push(checkbox.value);
+         iselectedValues.push(checkbox.textContent);
         }
       });
       var values = selectedValues.join(", ")
-      checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = values;
+      var ivalues = iselectedValues.join(", ")
+      checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = ivalues;
       return values;
     }
     
