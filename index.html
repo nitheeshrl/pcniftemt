@@ -218,9 +218,6 @@ const userId = document.getElementById("Username").value;
            console.log(verifyuserResult)
 if (verifyuserResult.success){
   getuserdetailspasskey(verifyuserResult.userId);
-
-document.getElementById("loader").style.display="none"; 
-document.getElementById("message").textContent="Logged in Successful";
 }
 else{
   alert("Wrong PassKey. Try Again")
