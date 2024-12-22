@@ -801,13 +801,15 @@ formlink= "https://spcniftemt.pages.dev/form/?form="+folderid
    document.getElementById("loader").style.display="none"; 
                    document.getElementById("message").textContent = "";
                    document.getElementById("load").style.display = "none";
+            
                   }
-           
+                  fetchd ();
    })
    
    .catch(function (error) {
    // Handle errors, you can display an error message here
    console.error(error);
+   fetchd ();
    if(ustatus!=="Going"){
   /* document.getElementById("loader").style.display="none"; 
    document.getElementById("message").textContent =
@@ -1288,7 +1290,7 @@ function formatDateto() {
 }
 setInterval(() => {
 
-  fetchd ();
+ 
   
 }, 1000)
 

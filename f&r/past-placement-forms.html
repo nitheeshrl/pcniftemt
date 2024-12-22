@@ -789,12 +789,13 @@ if (userdsta !=="done"){
                    document.getElementById("message").textContent = "";
                    document.getElementById("load").style.display = "none";
   }
-           
+  fetchd ();       
    })
    
    .catch(function (error) {
    // Handle errors, you can display an error message here
    console.error(error);
+   fetchd ();
   /* document.getElementById("loader").style.display="none"; 
    document.getElementById("message").textContent =
    "Failed to fetch.";
@@ -1261,7 +1262,7 @@ function formatDateto() {
 }
 setInterval(() => {
 
-  fetchd ();
+ // fetchd ();
   
 }, 1000)
    </script>
