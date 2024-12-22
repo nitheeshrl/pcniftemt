@@ -439,6 +439,7 @@ var uid = JSON.parse(rid).id;
    if(userrole=="Admin"){
     var tabheadsdetail =
     ` <thead><th><b>Request ID</b></th>
+          <th><b>Resquested Time</b></th>
     <th><b>Alloted Member</b></th>
                       <th class="arp"><b>Status</b></th>
                       <th><b>Name of the Student</b></th>
@@ -450,6 +451,7 @@ var uid = JSON.parse(rid).id;
    else if (userrole=="User"){
     var tabheadsdetail =
     `     <thead>   <th><b>Request ID</b></th>
+          <th><b>Resquested Time</b></th>
                       <th class="arp"><b>Status</b></th>
                       <th><b>Name of the Student</b></th>
                       <th><b>Content to be changed</b></th>
@@ -459,7 +461,7 @@ var uid = JSON.parse(rid).id;
    }
    console.log(r);
  
-    for(var k=0; k<r.length;k++){
+    for(var k=r.length-1; k<=0;k--){
 
       const searchdata = document.querySelector('.input-group input');
     if(searchdata.value==""){
@@ -478,14 +480,14 @@ if (tdata.includes(sdata)){
     
     function createtable(r){
       var detail ="";
-        var head = r[2].split("<br>");
-        var olddata = r[3].split("<br>");
-        var newdata = r[4].split("<br>");
+        var head = r[3].split("<br>");
+        var olddata = r[4].split("<br>");
+        var newdata = r[5].split("<br>");
         var spanno1 = head.length ;
         var spanno = spanno1 -1;
         var formowner="";
        if(userrole=="Admin"){
-        formowner = '<td rowspan="'+spanno+'">'+r[6]+'</td>';
+        formowner = '<td rowspan="'+spanno+'">'+r[7]+'</td>';
        }
         for(var j=1; j<head.length;j++){
           console.log(head.length-1)
@@ -497,11 +499,11 @@ if (tdata.includes(sdata)){
                 console.log(spanno)
                 if(head[j].includes("CV") || head[j].includes("Files")){
               console.log("inn")
-              detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td> </tr>';
+              detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[6]+'</td><td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td> </tr>';
             }
 
             else{
-                detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td> </tr>';
+                detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[6]+'</td><td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td> </tr>';
             } 
           }
             else   if (j==1){
@@ -510,11 +512,11 @@ if (tdata.includes(sdata)){
                 console.log(spanno)
                 if(head[j].includes("CV") || head[j].includes("Files")){
               console.log("inn")
-              detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td> </tr>';
+              detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[6]+'</td><td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a></td> </tr>';
             }
 
             else{
-                detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[5]+'</td><td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td> </tr>';
+                detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td class="statusbar" rowspan="'+spanno+'">'+r[6]+'</td><td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td> </tr>';
             }
           }
           else if (j==head.length-1){
