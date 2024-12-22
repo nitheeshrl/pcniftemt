@@ -139,7 +139,9 @@ tbody tr.hide {
 }
 
 .hoverrowt:hover {
+    color: black ;
     background-color: rgba(211, 211, 211, 0.4) !important;
+    
 }
 
 tbody tr td,
