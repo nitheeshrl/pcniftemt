@@ -414,7 +414,8 @@ alert("PassKey is already created for this Device")
    document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Fetching requests....";
-      function fetchd (){
+     var ionce = "";
+           function fetchd (){
        console.log("fetch")
        var details ="";
        var rid  = localStorage.getItem("loggeduserdetails");
@@ -507,6 +508,18 @@ if (tdata.includes(sdata)){
   var remind = "";
   if (new Date (resdate + '00:00:00') < date ){
    remind = ' style="color: rgba(255, 0, 0, 0.828);"';
+   if(userrole=="User"){
+   if(ionce==""){
+    alert("You have pending requests for more than 7 days");
+    ionce="Done"
+   }
+  }
+  else if(userrole=="Admin"){
+   if(ionce==""&&uname==r[6]){
+    alert("You have pending requests for more than 7 days");
+    ionce="Done"
+   }
+  }
   }
        var head = r[3].split("<br>");
        var olddata = r[4].split("<br>");
