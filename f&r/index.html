@@ -415,8 +415,9 @@ alert("PassKey is already created for this Device")
        var details ="";
        var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
+console.log(uid)
        fetch(
-    
+   
     "https://script.google.com/macros/s/AKfycby-UyjL65XZQwdTF8zxr9imkNypLpqeP-PZ6RMLPlnbzGQY8M7PLF0Mqj6cZV3ZZ_OP/exec",
     {
       redirect: "follow",
