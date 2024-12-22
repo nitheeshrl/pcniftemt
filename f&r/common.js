@@ -55,7 +55,7 @@ function getuserdetailsonload(user){
           }
         })
         .then(async function (data) {
-          getuserdetailsonload(uid+"/12");
+         // getuserdetailsonload(uid+"/12");
           const result1 = await data.json();
   var userdetails = result1.data2;
 //console.log(userdetails)
@@ -92,7 +92,7 @@ function getuserdetailsonload(user){
         .catch(function (error) {
           // Handle errors, you can display an error message here
           console.error(error);
-          getuserdetailsonload(uid+"/12");
+         // getuserdetailsonload(uid+"/12");
         });
       }
  
@@ -102,15 +102,15 @@ function getuserdetailsonload(user){
         var uid = JSON.parse(rid).id;
         if(uid.includes("PC")){
           var vlog = localStorage.getItem("loggedname");
-          setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
+         // setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
         }
         else{
-        setTimeout(function () {   getuserdetailsonload(uid+"/12"); },2000);
+     //  setTimeout(function () {   getuserdetailsonload(uid+"/12"); },2000);
         }
       }
       else if(rid==undefined||rid==""||rid==null){
         var vlog = localStorage.getItem("loggedname");
-        setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
+      //  setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
        
         }
      
