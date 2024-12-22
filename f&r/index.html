@@ -289,7 +289,7 @@ document.getElementById("popup-3").classList.toggle("active");
 <script>
          var eerid  = localStorage.getItem("loggeduserdetails");
          var newUserId = JSON.parse(eerid).id;
-  const { io } = require("socket.io-client");
+  //const { io } = require("socket.io-client");
   const socket = io("http://localhost:3000");
   // server-side
 io.on("connection", (socket) => {
