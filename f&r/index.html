@@ -284,7 +284,8 @@ document.getElementById("popup-3").classList.toggle("active");
   
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
-<script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
 <script src="scriptform.js"></script>
 <script>
          var eerid  = localStorage.getItem("loggeduserdetails");
@@ -292,13 +293,11 @@ document.getElementById("popup-3").classList.toggle("active");
   //const { io } = require("socket.io-client");
   const socket = io("http://localhost:3000");
   // server-side
-io.on("connection", (socket) => {
-  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-});
+
 
 // client-side
 
-socket.on(' connect', function() { 
+socket.on('connect', function() { 
     socket. emit( 'user_connected', newUserId);
 });
 
