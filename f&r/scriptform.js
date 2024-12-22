@@ -354,7 +354,7 @@ setTimeout(function () {
 }
 
 
-function updatelogstatus2(status){
+/*function updatelogstatus2(status){
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
 var updatestring = uid+"/"+status;
@@ -414,4 +414,4 @@ updatelogstatus2("Online");
 const beforeUnloadHandler = (event) => {  
 updatelogstatus2("Offline");  
 };
-window.addEventListener("beforeunload", beforeUnloadHandler);
+window.addEventListener("beforeunload", beforeUnloadHandler);*/
