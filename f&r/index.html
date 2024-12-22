@@ -284,7 +284,27 @@ document.getElementById("popup-3").classList.toggle("active");
   
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src="scriptform.js"></script>
+<script>
+         var eerid  = localStorage.getItem("loggeduserdetails");
+         var newUserId = JSON.parse(eerid).id;
+  const { io } = require("socket.io-client");
+  const socket = io("http://localhost:3000");
+  // server-side
+io.on("connection", (socket) => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+// client-side
+socket.on("connect", (newUserId) => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+socket.on("disconnect", () => {
+  console.log(socket.id); // undefined
+});
+</script>
 <script>
   var date = new Date();
   date.setDate(date.getDate() - 7);
