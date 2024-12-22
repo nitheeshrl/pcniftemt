@@ -880,6 +880,8 @@ console.log(pair[0])
 var loggedname = localStorage.getItem("loggedname");
 
 console.log(loggedname)
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
 var formname = document.getElementById("Form Name").value
 var companyname = document.getElementById("Company Name").value
 console.log(formDataString+"=sheetid="+loggedname+"=sheetid="+formname+"=sheetid="+companyname)
@@ -889,7 +891,7 @@ console.log(formDataString+"=sheetid="+loggedname+"=sheetid="+formname+"=sheetid
           {
             redirect: "follow",
             method: "POST",
-            body: formDataString+"=sheetid="+loggedname+"=sheetid="+formname+"=sheetid="+companyname,
+            body: formDataString+"=sheetid="+uid+"=sheetid="+formname+"=sheetid="+companyname,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },

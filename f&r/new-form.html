@@ -1901,6 +1901,8 @@ htmlout += createfileupload(formDataString0[h].value,formDataString2[h].innerHTM
 console.log(htmlout)
 var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").innerHTML;
 var singleresponse = document.getElementById("Single Response Field").value;
@@ -1910,14 +1912,14 @@ var autofill = document.getElementById("Auto Fill the Student Name Check").check
 if (autofill){
   htmlheads = "=quheadss=Name"+htmlheads
 }
-console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse+"=sheetid="+autofill)
+console.log(formname+"=sheetid="+uid+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse+"=sheetid="+autofill)
         // Send a POST request to your Google Apps Script
         fetch(
           "https://script.google.com/macros/s/AKfycbyz_KDA1Kx1srwHeMXXl-UPTS_M0jdaoxh9NXEp8CiXp4qZC-_yGuOzcPjA9M6I99mI/exec",
           {
             redirect: "follow",
             method: "POST",
-            body: formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse+"=sheetid="+autofill,
+            body: formname+"=sheetid="+uid+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+singleresponse+"=sheetid="+autofill,
             headers: {
               "Content-Type": "text/plain;charset=utf-8",
             },
