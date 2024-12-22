@@ -449,7 +449,8 @@ console.log(r)
     var tabheadsdetail =
     `<thead>
     <th><b>Request ID</b></th>
-    <th><b>Alloted Member</b></th>
+    <th><b>Resquested Time</b></th>
+     <th><b>Alloted Member</b></th>
 <th><b>Name of the Student</b></th>
 <th><b>Content to be changed</b></th>
 <th><b>Old Data</b></th>
@@ -463,6 +464,7 @@ console.log(r)
     var tabheadsdetail =
 `<thead>
 <th><b>Request ID</b></th>
+<th><b>Resquested Time</b></th>
 <th><b>Name of the Student</b></th>
 <th><b>Content to be changed</b></th>
 <th><b>Old Data</b></th>
@@ -492,14 +494,14 @@ if (tdata.includes(sdata)){
     function createtable(r){
       var detail ="";
    
-       var head = r[2].split("<br>");
-       var olddata = r[3].split("<br>");
-       var newdata = r[4].split("<br>");
+       var head = r[3].split("<br>");
+       var olddata = r[4].split("<br>");
+       var newdata = r[5].split("<br>");
        var spanno1 = head.length ;
        var spanno = spanno1 -1;
        var formowner="";
        if(userrole=="Admin"){
-        formowner = '<td rowspan="'+spanno+'">'+r[5]+'</td>';
+        formowner = '<td rowspan="'+spanno+'">'+r[6]+'</td>';
        }
        for(var j=1; j<head.length;j++){
          if (j==head.length-1 && j==1){
@@ -507,11 +509,11 @@ if (tdata.includes(sdata)){
                
                if(head[j].includes("CV") || head[j].includes("Files")){
              
-             detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a>'+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
+             detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a>'+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
            }
 
            else{
-               detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
+               detail += '<tbody class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
            } 
          }
            else   if (j==1){
@@ -520,11 +522,11 @@ if (tdata.includes(sdata)){
                
                if(head[j].includes("CV") || head[j].includes("Files")){
              
-             detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a>'+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr>';
+             detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a>'+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr>';
            }
 
            else{
-               detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[1]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr>';
+               detail += '<tbody class="hoverrowt"><tr><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr>';
           
            }
          }
