@@ -55,6 +55,7 @@ function getuserdetailsonload(user){
           }
         })
         .then(async function (data) {
+          getuserdetailsonload(uid+"/12");
           const result1 = await data.json();
   var userdetails = result1.data2;
 //console.log(userdetails)
@@ -91,6 +92,7 @@ function getuserdetailsonload(user){
         .catch(function (error) {
           // Handle errors, you can display an error message here
           console.error(error);
+          getuserdetailsonload(uid+"/12");
         });
       }
  
