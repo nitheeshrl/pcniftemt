@@ -557,11 +557,11 @@ if (tdata.includes(sdata)){
                
                if(head[j].includes("CV") || head[j].includes("Files")){
              
-             detail += '<tbody '+remind+'class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a>'+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
+             detail += '<tbody '+remind+'class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td><a class="btn1" href="'+olddata[j]+'" target="_blank">View</a></td><td><a class="btn1" href="'+newdata[j]+'" target="_blank">View</a>'+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[2]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
            }
 
            else{
-               detail += '<tbody '+remind+'class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[1]+'`)" >Decline</a></td> </tr></tbody>';
+               detail += '<tbody '+remind+'class="hoverrowt"><tr class="lasttr"><td rowspan="'+spanno+'">'+r[0]+'</td>'+'<td rowspan="'+spanno+'">'+r[1]+'</td>'+formowner+'<td rowspan="'+spanno+'">'+r[2]+'</td> <td><b>'+head[j]+'</b></td><td>'+olddata[j]+'</td><td>'+newdata[j]+'</td><td rowspan="'+spanno+'"><a class="approve" onclick="approvePopup(`'+r[0]+"/"+r[1]+'`)" >Approve</a><a class="decline" onclick="declinePopup(`'+r[0]+"/"+r[2]+'`)" >Decline</a></td> </tr></tbody>';
            } 
          }
            else   if (j==1){
