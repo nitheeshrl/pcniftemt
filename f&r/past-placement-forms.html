@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Past Forms</title>
+  <title>Past Placement Forms</title>
   <link rel="icon" href="white_logo.png" type="image/x-icon">
   <link rel="stylesheet" href="style 3.css">
   <script type="text/javascript" src="app.js" defer></script>
@@ -618,6 +618,14 @@ alert("PassKey is already created for this Device")
    const d =   document.querySelectorAll('input[type=datetime-local]');
    console.log(d)
    d[1].value = 0
+      document.getElementById("uservaluess").style.display="none";
+      var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+   for(var g= 2;g<checkboxes.length;g++){
+          checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=false;
+      }
+      checkboxes[0].checked=true;
+      checkboxes[1].checked=true;
    }
    function uncheckoptions(){
     if(ustatus!=="Going"){
@@ -639,9 +647,9 @@ alert("PassKey is already created for this Device")
     sessionStorage.setItem("lastpage",window.location.pathname)
     window.location="../index.html";
   }
-   document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Fetching forms....";
+
+           document.getElementById("status").style.display = "initial";
+           document.getElementById("status").textContent = "Fetching Placement Forms....";
            var iconsider = [];
            var pconsider = [];
            var iselect = [];
@@ -1654,6 +1662,10 @@ else if(!button.children[0].checked){
       }
 }
  }
+}
+if (input.value==""&&button==undefined){
+  checkboxes[0].checked=true;
+  checkboxes[1].checked=true;
 }
 checkboxes.forEach(function(checkbox) {
       if (checkbox.checked&&checkbox.value!==""&&checkbox.name!=="") {

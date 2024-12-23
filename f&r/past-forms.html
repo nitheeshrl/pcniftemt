@@ -621,7 +621,18 @@ alert("PassKey is already created for this Device")
    const d =   document.querySelectorAll('input[type=datetime-local]');
    
    d[1].value = 0;
-
+   document.getElementById("uservaluess").style.display="none";
+   var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+   for(var g= 2;g<checkboxes.length;g++){
+          checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=false;
+      }
+      checkboxes[0].checked=true;
+      checkboxes[1].checked=true;
+   //var inputno =document.getElementById("uservaluess").previousElementSibling.children[0];
+   //inputno.setAttribute("value","")
+   //console.log(inputno.value="")
+   //document.getElementById("uservaluess").previousElementSibling.children[0].value="";
    }
    function uncheckoptions(){
     if(ustatus!=="Going"){
@@ -643,9 +654,8 @@ alert("PassKey is already created for this Device")
     sessionStorage.setItem("lastpage",window.location.pathname)
     window.location="../index.html";
   }
-   document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Fetching forms....";
+  document.getElementById("status").style.display = "initial";
+  document.getElementById("status").textContent = "Fetching Forms....";
            var iconsider = [];
            var pconsider = [];
            var iselect = [];
@@ -1742,6 +1752,10 @@ else if(!button.children[0].checked){
       }
 }
  }
+}
+if (input.value==""&&button==undefined){
+  checkboxes[0].checked=true;
+  checkboxes[1].checked=true;
 }
 checkboxes.forEach(function(checkbox) {
       if (checkbox.checked&&checkbox.value!==""&&checkbox.name!=="") {
