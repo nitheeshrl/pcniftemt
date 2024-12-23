@@ -252,7 +252,7 @@ a.forEach(i =>{
 sidebari()
 
 function alllogout(){
-  updatelogstatus2("Offline");  
+ // updatelogstatus2("Offline");  
   localStorage.removeItem("loggedname")
 localStorage.removeItem("loggeduserdetails");
  localStorage.removeItem("loggeduorp");
