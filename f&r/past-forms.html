@@ -104,10 +104,10 @@ document.getElementById("inbt").setAttribute("onclick",val);
 
 }
 function activePopup(fore){
-  var ot =  document.getElementById("uservaluess").children;
+var ot =  document.getElementById("uservaluess").children;
 fore = fore.split("/ll/")
 var formname = fore [0];
-var userss = fore[1];
+ /* var userss = fore[1];
 console.log(fore);
 for (var h=0; h<ot.length; h++){
 
@@ -128,7 +128,7 @@ ot[1].style.display="flex";
 if (userss==""){
   ot[0].children[0].checked=true;
 ot[1].children[0].checked=true;
-}
+}*/
 getSelectedValues();
 document.getElementById("popup-7").classList.toggle("active");
 
@@ -447,7 +447,7 @@ value="Set Time and Date"
     <span class="q">Change form access</span>
     <div style="display: flex;width: 100%;">
     <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
-   <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()">  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z"/></svg></button>
+   <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
   </div>
    <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" >
     <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
@@ -646,6 +646,11 @@ alert("PassKey is already created for this Device")
    document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Fetching forms....";
+           var iconsider = [];
+           var pconsider = [];
+           var iselect = [];
+           var pselect = [];
+
       function fetchd (){
        
        var details ="";
@@ -682,9 +687,26 @@ alert("PassKey is already created for this Device")
    var userrole =result1.data2[1];
    var uservalues = result1.data2[2];
    var uservaluesuorp = result1.data2[3];
+   iconsider =  result1.data2[4];
+           pconsider =  result1.data2[5];
+           iselect =  result1.data2[6];
+           pselect =  result1.data2[7];
 if (userdsta !=="done"){
-  var valuess = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
-  <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>`;
+  var valuess = 
+  `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
+  <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Placement Considered</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Placement Not Considered</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Internship Considered</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Internship Not Considered</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Placement</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Higher Studies</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Entrepreneurship</label>
+    <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Placement Considered</label>
+<label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Placement Not Considered</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Placement</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Higher Studies</label>
+  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Entrepreneurship</label>`;
   var ot =  document.getElementById("uservaluess").children;
   for(var e=0;e<uservalues.length-1; e++){
    
@@ -1378,16 +1400,16 @@ setInterval(() => {
    
   }
   
-  function getSelectedValues() {
+  function getSelectedValues1() {
     var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
     var selectedValues = [];
     var iselectedValues = [];
 
 console.log(checkboxes)
     var users =checkboxes[0].parentElement.parentElement.children;
-    console.log(users)
+    console.log(checkboxes[0].parentElement.parentElement.children[3].children[0].checked)
     if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked){
-      for(var g= 2;g<users.length;g++){
+      for(var g= 12;g<users.length;g++){
         
         if (users[g].textContent.includes("M.Tech")){
         
@@ -1398,7 +1420,7 @@ console.log(checkboxes)
     }
 
   else  if (checkboxes[0].parentElement.parentElement.children[0].children[0].checked==false){
-      for(var g= 2;g<users.length;g++){
+      for(var g= 12;g<users.length;g++){
         
         if (users[g].textContent.includes("M.Tech")){
         
@@ -1425,8 +1447,67 @@ console.log(checkboxes)
         }
       }
     }
+    var pconcheck =false;
+    if (checkboxes[0].parentElement.parentElement.children[2].children[0].checked&&!checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+      pconcheck=true;
+      checkboxes.forEach((r,g)=>{
+       // if(g>11)
+        //console.log(users[g+12])
+      //  console.log(users[g+12].children[0])
+        if (users[g+12].textContent.includes("B.Tech")&&pconsider[g][0]=="Yes"){
+          //console.log(pconsider[g][0])
+          console.log(users[g+12].children[0])
+     //    users[g+12].style.display="none";
+          users[g+12].children[0].checked=true;
+        }
+      })
+    }
+    else  if (pconcheck&&!checkboxes[0].parentElement.parentElement.children[2].children[0].checked&&!checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+     pconcheck=false;
+      checkboxes.forEach((r,g)=>{
+        
+        if (users[g+12].textContent.includes("B.Tech")&&pconsider[g][0]=="Yes"){
+          //console.log(pconsider[g][0])
+          console.log(users[g+12].children[0])
+     //    users[g+12].style.display="none";
+          users[g+12].children[0].checked=false;
+        }
+      })
+      
+    }
+  var iconcheck=false;
+    if (checkboxes[0].parentElement.parentElement.children[3].children[0].checked&&!checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+     iconcheck=true;
+     console.log(iconsider)
+      checkboxes.forEach((r,g)=>{
+       // if(g>11)
+        //console.log(users[g+12])
+      //  console.log(users[g+12].children[0])
+      console.log(iconsider[g][0])
+        if (users[g+12].textContent.includes("B.Tech")&&iconsider[g][0]=="Yes"){
+          
+          console.log(users[g+12].children[0])
+     //    users[g+12].style.display="none";
+          users[g+12].children[0].checked=true;
+        }
+      })
+    }
+    else  if (iconcheck&&!checkboxes[0].parentElement.parentElement.children[3].children[0].checked&&!checkboxes[0].parentElement.parentElement.children[1].children[0].checked){
+      iconcheck=false
+      checkboxes.forEach((r,g)=>{
+        console.log(iconsider[g][0])
+        if (users[g+12].textContent.includes("B.Tech")&&iconsider[g][0]=="Yes"){
+         // console.log(iconsider[g][0])
+          console.log(users[g+12].children[0])
+     //    users[g+12].style.display="none";
+          users[g+12].children[0].checked=false;
+        }
+      })
+      
+    }
+
     checkboxes.forEach(function(checkbox) {
-      if (checkbox.checked) {
+      if (checkbox.checked&&checkbox.value!==""&&checkbox.name!=="") {
         selectedValues.push(checkbox.value);
         iselectedValues.push(checkbox.name);
         }
@@ -1435,6 +1516,244 @@ console.log(checkboxes)
       var ivalues = iselectedValues.join(", ")
       checkboxes[0].parentElement.parentElement.parentElement.children[1].children[0].value = ivalues;
     return values;
+  }
+
+  function getSelectedValues(button) {
+    var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
+    var selectedValues = [];
+    var iselectedValues = [];
+    var input = checkboxes[0].parentElement.parentElement.previousElementSibling.children[0];
+//console.log(button.parentElement.previousElementSibling.children[0])
+if(button!==undefined){
+//  console.log(button.textContent)
+ if(button.textContent=="All M.Tech"||button.textContent=="All B.Tech"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  for(var g= 2;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)){
+        
+          checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(checkboxes[13].parentElement)
+  var checkcon = button.textContent.replace("All ","");
+  for(var g= 2;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)){
+        
+          checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+else if(button.textContent=="All M.Tech Placement Considered"||button.textContent=="All B.Tech Placement Considered"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Placement Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pconsider[g-14][0]=="Yes"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Placement Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pconsider[g-14][0]=="Yes"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+
+ else if(button.textContent=="All B.Tech Internship Considered"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Internship Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&iconsider[g-14][0]=="Yes"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Internship Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&iconsider[g-14][0]=="Yes"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+ else if(button.textContent=="All M.Tech Placement Not Considered"||button.textContent=="All B.Tech Placement Not Considered"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Placement Not Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pconsider[g-14][0]=="No"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Placement Not Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pconsider[g-14][0]=="No"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+
+ else if(button.textContent=="All B.Tech Internship Not Considered"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Internship Not Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&iconsider[g-14][0]=="No"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Internship Not Considered","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&iconsider[g-14][0]=="No"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+ else if(button.textContent=="All M.Tech Placement"||button.textContent=="All B.Tech Placement"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Placement","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pselect[g-14][0]=="Placement"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Placement","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pselect[g-14][0]=="Placement"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+ else if(button.textContent=="All M.Tech Higher Studies"||button.textContent=="All B.Tech Higher Studies"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Higher Studies","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pselect[g-14][0]=="Higher Studies"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Higher Studies","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pselect[g-14][0]=="Higher Studies"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+ else if(button.textContent=="All M.Tech Entrepreneurship"||button.textContent=="All B.Tech Entrepreneurship"){
+if(button.children[0].checked){
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Entrepreneurship","");
+  for(var g= 14;g<checkboxes.length;g++){
+        console.log(pselect[g-14][0])
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pselect[g-14][0]=="Entrepreneurship"){
+        
+          //checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+        }
+      }
+}
+else if(!button.children[0].checked){
+  console.log(button.children[0])
+  var checkcon = button.textContent.replace("All ","");
+  checkcon = checkcon.replace(" Entrepreneurship","");
+  for(var g= 14;g<checkboxes.length;g++){
+        
+        if (checkboxes[g].parentElement.textContent.includes(checkcon)&&pselect[g-14][0]=="Entrepreneurship"){
+        
+          //checkboxes[g].parentElement.style.display="flex";
+          checkboxes[g].checked=false;
+        }
+      }
+}
+ }
+}
+checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked&&checkbox.value!==""&&checkbox.name!=="") {
+        selectedValues.push(checkbox.value);
+        iselectedValues.push(checkbox.name);
+        }
+      });
+      var values = selectedValues.join(", ")
+      var ivalues = iselectedValues.join(", ")
+      input.value = ivalues;
+      console.log(values)
+  return values;
   }
   
   </script>
