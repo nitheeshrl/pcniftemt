@@ -433,9 +433,9 @@ alert("PassKey is already created for this Device")
     sessionStorage.setItem("lastpage",window.location.pathname)
     window.location="../index.html";
   }
-   document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Fetching requests....";
+
+           document.getElementById("status").style.display = "initial";
+           document.getElementById("status").textContent = "Fetching requests....";
      var ionce = "";
            function fetchd (){
        console.log("fetch")
