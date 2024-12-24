@@ -1,49 +1,62 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset='utf-8'>
-
-</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
-  <div id="status">&nbsp;</div>
-  <h1 id="progress">&nbsp;</h1>
-  <img id="img" />
-</body>
+
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+<canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+
 <script>
-  //fetch('https://fetch-progress.anthum.com/30kbps/images/sunrise-baseline.jpg')
-  const elStatus = document.getElementById('status');
-function status(text) {
-  elStatus.innerHTML = text;
-}
+const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+const yValues = [55, 49, 44, 24, 15];
+const barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
 
-const elProgress = document.getElementById('progress');
-function progress({loaded, total}) {
-  elProgress.innerHTML = Math.round(loaded/total*100)+'%';
-}
-
-async function main() {
-  status('downloading with fetch()...');
-  const response = await fetch('https://passkey-5ev6.onrender.com');
-  const contentLength = response.headers.get('content-length');
-  const total = parseInt(contentLength, 10);
-  const values = []
-  let loaded = 0;
-
-  const reader = response.body.getReader();
-  while (true) {
-    const {done, value} = await reader.read();
-    if (done) break;
-    values.push(value)
-    loaded += value.byteLength;
-    progress({loaded, total})
+new Chart("myChart", {
+  type: "doughnut",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "World Wide Wine Production 2018"
+    }
   }
-  
-  const blob = new Blob(values);
-  status('download completed')
-  document.getElementById('img').src = URL.createObjectURL(blob);
-}
+});
+const xValues1 = ["Italy", "France"];
+const yValues1 = [55, 49];
+const barColors1 = [
+  "#b91d47",
+  "#00aba9"
+];
 
-main();
+new Chart("myChart1", {
+  type: "doughnut",
+  data: {
+    labels: xValues1,
+    datasets: [{
+      backgroundColor: barColors1,
+      data: yValues1
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "World Wide Wine Production 2018"
+    }
+  }
+});
 </script>
+
+</body>
 </html>

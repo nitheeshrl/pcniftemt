@@ -318,8 +318,31 @@ document.getElementById("popup-3").classList.toggle("active");
       
           </div>
         <section class="msg" >
+
           <div class="dash-whole">
             <div class="left-com">
+
+            <div class="up-companies">
+              <div style="display: flex;justify-content: space-between;">
+            <span style="margin-bottom: 15px;">Live Forms</span>
+            </div>
+            <div class="com-table"id="form-list">
+              <span >Forms Loading.....</span>
+          
+            </div>
+            </div>
+            <div class="up-companies">
+              <div style="display: flex;justify-content: space-between;">
+              <span style="margin-bottom: 15px;">Circulated Company Forms</span>
+              </div>
+              <div class="com-table"id="cir-company-list">
+                <span >Company Forms Loading.....</span>
+            
+              </div>
+              </div>
+            </div>
+            <div class="left-com">
+
   <div class="notification">
     <div style="display: flex;justify-content: space-between;">
   <span>Latest Notifications</span>
@@ -329,8 +352,9 @@ document.getElementById("popup-3").classList.toggle("active");
     <span id="no-notification" >Latest Notifications Loading....</span>
     
   </div>
+
 </div>
-<div class="up-companies">
+<div class="notification">
   <div style="display: flex;justify-content: space-between;">
   <span>Expected Upcoming Companies</span>
   <button class="btn11" onclick=" window.open('edit-companies.html', '_blank')" >Edit</button>
@@ -341,26 +365,7 @@ document.getElementById("popup-3").classList.toggle("active");
   </div>
   </div>
   </div>
-  <div class="left-com">
-  <div class="up-companies">
-    <div style="display: flex;justify-content: space-between;">
-  <span style="margin-bottom: 15px;">Live Forms</span>
-  </div>
-  <div class="com-table"id="form-list">
-    <span >Forms Loading.....</span>
 
-  </div>
-  </div>
-  <div class="up-companies">
-    <div style="display: flex;justify-content: space-between;">
-    <span style="margin-bottom: 15px;">Circulated Company Forms</span>
-    </div>
-    <div class="com-table"id="cir-company-list">
-      <span >Company Forms Loading.....</span>
-  
-    </div>
-    </div>
-  </div>
 </div>
       </section>
           
@@ -381,8 +386,54 @@ document.getElementById("popup-3").classList.toggle("active");
   
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script src="scriptform.js"></script>
 <script>
+const xValues1 = ["Italy", "France"];
+const yValues1 = [55, 49];
+const barColors1 = [
+  "#b91d47",
+  "#00aba9"
+];
+new Chart("myChart1", {
+  type: "doughnut",
+  data: {
+    labels: xValues1,
+    datasets: [{
+      backgroundColor: barColors1,
+      data: yValues1
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "B.Tech Placement Status"
+    }
+  }
+});
+const xValues2 = ["Italy", "France"];
+const yValues2 = [55, 49];
+const barColors2 = [
+  "#b91d47",
+  "#00aba9"
+];
+new Chart("myChart2", {
+  type: "doughnut",
+  data: {
+    labels: xValues2,
+    datasets: [{
+      backgroundColor: barColors2,
+      data: yValues2
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "M.Tech Placement Status"
+    }
+  }
+});
+
     var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
     document.getElementById("profileimage").src = porfilepicback;
