@@ -268,7 +268,17 @@ opt.setAttribute("onclick","alllogout()")
 console.log(opt)
 
 }
-
+const  GetUniqueID1 = () =>{
+  const uniqueID = localStorage.getItem("Passkey-uniqueID");
+  if (uniqueID == undefined){
+  const newUniqueID = crypto.randomUUID();
+  
+  return newUniqueID;
+  }
+  else {
+  return uniqueID;
+  }
+  }
 async function passkey1(){
   ustatus="Going";
   document.getElementById("loader").style.display="block"; 
@@ -278,7 +288,7 @@ async function passkey1(){
   var fetchurl = "https://passkey-5ev6.onrender.com";
   const url = new URL(window.location)
   var weburl = location.hostname;
-           var passdevuniid =GetUniqueID();
+           var passdevuniid =GetUniqueID1();
            var rid  = localStorage.getItem("loggeduserdetails");
            var username = JSON.parse(rid).id;
            const name = localStorage.getItem("loggedname");
