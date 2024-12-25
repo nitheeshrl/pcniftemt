@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<link rel="stylesheet" href="/f&r/style.css">
 <body>
-
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-<canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+<div class="chart">
+  <span>B.Tech Placement Status</span>
+  <canvas id="canvas" width=325 height=325></canvas>
+</div>
+<div class="chart">
+  <span>M.Tech Placement Status</span>
+  <canvas id="canvas1" width=325 height=325></canvas>
+</div>
 
 <script>
-const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-const yValues = [55, 49, 44, 24, 15];
-const barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
+var canvas=document.getElementById("canvas");
+var canvas1=document.getElementById("canvas1");
 
-new Chart("myChart", {
-  type: "doughnut",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "World Wide Wine Production 2018"
-    }
-  }
-});
-const xValues1 = ["Italy", "France"];
-const yValues1 = [55, 49];
-const barColors1 = [
-  "#b91d47",
-  "#00aba9"
-];
 
-new Chart("myChart1", {
-  type: "doughnut",
-  data: {
-    labels: xValues1,
-    datasets: [{
-      backgroundColor: barColors1,
-      data: yValues1
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "World Wide Wine Production 2018"
+var colors=['skyblue','gray'];
+var values=[48,52];
+var labels=['Voluntary','Robot'];
+
+dmbChart(canvas,150,150,125,25,values,colors,labels,0);
+dmbChart(canvas1,150,150,125,25,values,colors,labels,0);
+
+function dmbChart(canvas,cx,cy,radius,arcwidth,values,colors,labels,selectedValue){
+  var ctx=canvas.getContext("2d");
+    var tot=0;
+    var accum=0;
+    var PI=Math.PI;
+    var PI2=PI*2;
+    var offset=-PI/2;
+    ctx.lineWidth=arcwidth;
+    for(var i=0;i<values.length;i++){tot+=values[i];}
+    for(var i=0;i<values.length;i++){
+        ctx.beginPath();
+        ctx.arc(cx,cy,radius,
+            offset+PI2*(accum/tot),
+            offset+PI2*((accum+values[i])/tot)
+        );
+        ctx.strokeStyle=colors[i];
+        ctx.stroke();
+        accum+=values[i];
     }
-  }
-});
+    var innerRadius=radius-arcwidth-3;
+    ctx.beginPath();
+    ctx.arc(cx,cy,innerRadius,0,PI2);
+    ctx.fillStyle=colors[selectedValue];
+    ctx.fill();
+    ctx.textAlign='center';
+    ctx.textBaseline='bottom';
+    ctx.fillStyle='white';
+    ctx.font=(innerRadius)+'px verdana';
+    ctx.fillText(values[selectedValue],cx,cy+innerRadius*.9);
+    ctx.font=(innerRadius/4)+'px verdana';
+    ctx.fillText(labels[selectedValue],cx,cy-innerRadius*.25);
+}
 </script>
 
 </body>

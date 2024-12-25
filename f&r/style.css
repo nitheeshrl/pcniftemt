@@ -573,3 +573,14 @@ height: 50px;
   height: 30%;
   overflow: scroll;
 }
+.chart {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.chart span{
+  
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+}
