@@ -284,14 +284,15 @@ document.getElementById("popup-3").classList.toggle("active");
   
 </body>
 <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
-<script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+<script src="https://nodejs-single-fileupload-main.onrender.com:10000/socket.io/socket.io.js"></script>
+
 
 <script src="scriptform.js"></script>
 <script>
     var eerid  = localStorage.getItem("loggeduserdetails");
          var newUserId = JSON.parse(eerid).id;
   //const { io } = require("socket.io-client");
-  const socket = io("https://nodejs-single-fileupload-main.onrender.com");
+  const socket = io("wss://nodejs-single-fileupload-main.onrender.com");
   // server-side
 
 
