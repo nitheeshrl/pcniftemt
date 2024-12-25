@@ -288,10 +288,10 @@ document.getElementById("popup-3").classList.toggle("active");
 
 <script src="scriptform.js"></script>
 <script>
-     /*    var eerid  = localStorage.getItem("loggeduserdetails");
+    var eerid  = localStorage.getItem("loggeduserdetails");
          var newUserId = JSON.parse(eerid).id;
   //const { io } = require("socket.io-client");
-  const socket = io("http://localhost:4000");
+  const socket = io("https://nodejs-single-fileupload-main.onrender.com");
   // server-side
 
 
@@ -304,7 +304,18 @@ socket.on('connect', function() {
 
 socket.on("disconnect", () => {
   console.log(socket.id); // undefined
-});*/
+
+  socket.on("connect_error", (err) => {
+  // the reason of the error, for example "xhr poll error"
+  console.log(err.message);
+
+  // some additional description, for example the status code of the initial HTTP response
+  console.log(err.description);
+
+  // some additional context, for example the XMLHttpRequest object
+  console.log(err.context);
+});
+});
 </script>
 <script>
   var date = new Date();
