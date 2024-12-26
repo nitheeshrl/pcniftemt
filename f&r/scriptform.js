@@ -428,7 +428,7 @@ updatelogstatus2("Offline");
 };
 window.addEventListener("beforeunload", beforeUnloadHandler);*/
 var eerid  = localStorage.getItem("loggeduserdetails");
-var newUserId = JSON.parse(eerid).id;
+var newUserId = JSON.parse(eerid).id +"/P";
 //const { io } = require("socket.io-client");
 const socket = io("https://web-socket-1-kmp6.onrender.com/");
 // server-side
