@@ -1,61 +1,91 @@
 <!DOCTYPE html>
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<link rel="stylesheet" href="/f&r/style.css">
 <body>
 <div class="chart">
   <span>B.Tech Placement Status</span>
-  <canvas id="canvas" width=325 height=325></canvas>
+
 </div>
-<div class="chart">
-  <span>M.Tech Placement Status</span>
-  <canvas id="canvas1" width=325 height=325></canvas>
-</div>
+
+
+<script src="https://web-socket-1-kmp6.onrender.com/socket.io/socket.io.js"></script>
+<script>
+  function updatelogstatus2(status){
+
+var updatestring = JSON.stringify(status);
+console.log(updatestring)
+ 
+fetch(
+
+"https://script.google.com/macros/s/AKfycbz9Ksyl5oDMGW0reLvrV8tPtP8S7RjlQkN5-22s5YjX33j9YlhDKf6GZNdLhkRLtCL-ug/exec",
+{
+redirect: "follow",
+method: "POST",
+body: updatestring,
+headers: {
+"Content-Type": "text/plain;charset=utf-8",
+},
+}
+)
+
+.then(function (response) {
+
+// Check if the request was successful
+if (response) {
+
+return response; // Assuming your script returns JSON response
+} else {
+throw new Error("Failed to fetch.");
+}
+})
+.then(async function (data) {
+const result1 = await data.json();
+
+var r = result1.data2;
+console.log(r)
+
+})
+
+.catch(function (error) {
+// Handle errors, you can display an error message here
+console.error(error);
+updatelogstatus2(status);
+});
+}
+</script>
+
 
 <script>
-var canvas=document.getElementById("canvas");
-var canvas1=document.getElementById("canvas1");
+
+         var newUserId = "Admin";
+  //const { io } = require("socket.io-client");
+  const socket = io("https://web-socket-1-kmp6.onrender.com/");
+  // server-side
 
 
-var colors=['skyblue','gray'];
-var values=[48,52];
-var labels=['Voluntary','Robot'];
+// client-side
 
-dmbChart(canvas,150,150,125,25,values,colors,labels,0);
-dmbChart(canvas1,150,150,125,25,values,colors,labels,0);
+socket.on('connect', function() { 
+    socket. emit( 'user_connected', newUserId);
+});
+socket.on("get-users", (users) => {
+        console.log(users);
+        updatelogstatus2(users)
+      });
 
-function dmbChart(canvas,cx,cy,radius,arcwidth,values,colors,labels,selectedValue){
-  var ctx=canvas.getContext("2d");
-    var tot=0;
-    var accum=0;
-    var PI=Math.PI;
-    var PI2=PI*2;
-    var offset=-PI/2;
-    ctx.lineWidth=arcwidth;
-    for(var i=0;i<values.length;i++){tot+=values[i];}
-    for(var i=0;i<values.length;i++){
-        ctx.beginPath();
-        ctx.arc(cx,cy,radius,
-            offset+PI2*(accum/tot),
-            offset+PI2*((accum+values[i])/tot)
-        );
-        ctx.strokeStyle=colors[i];
-        ctx.stroke();
-        accum+=values[i];
-    }
-    var innerRadius=radius-arcwidth-3;
-    ctx.beginPath();
-    ctx.arc(cx,cy,innerRadius,0,PI2);
-    ctx.fillStyle=colors[selectedValue];
-    ctx.fill();
-    ctx.textAlign='center';
-    ctx.textBaseline='bottom';
-    ctx.fillStyle='white';
-    ctx.font=(innerRadius)+'px verdana';
-    ctx.fillText(values[selectedValue],cx,cy+innerRadius*.9);
-    ctx.font=(innerRadius/4)+'px verdana';
-    ctx.fillText(labels[selectedValue],cx,cy-innerRadius*.25);
-}
+socket.on("disconnect", () => {
+  console.log(socket.id); // undefined
+
+  socket.on("connect_error", (err) => {
+  // the reason of the error, for example "xhr poll error"
+  console.log(err.message);
+
+  // some additional description, for example the status code of the initial HTTP response
+  console.log(err.description);
+
+  // some additional context, for example the XMLHttpRequest object
+  console.log(err.context);
+});
+});
 </script>
 
 </body>

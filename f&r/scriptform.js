@@ -427,3 +427,31 @@ const beforeUnloadHandler = (event) => {
 updatelogstatus2("Offline");  
 };
 window.addEventListener("beforeunload", beforeUnloadHandler);*/
+var eerid  = localStorage.getItem("loggeduserdetails");
+var newUserId = JSON.parse(eerid).id;
+//const { io } = require("socket.io-client");
+const socket = io("https://web-socket-1-kmp6.onrender.com/");
+// server-side
+
+
+// client-side
+
+socket.on('connect', function() { 
+socket. emit( 'user_connected', newUserId);
+});
+
+
+socket.on("disconnect", () => {
+console.log(socket.id); // undefined
+
+socket.on("connect_error", (err) => {
+// the reason of the error, for example "xhr poll error"
+console.log(err.message);
+
+// some additional description, for example the status code of the initial HTTP response
+console.log(err.description);
+
+// some additional context, for example the XMLHttpRequest object
+console.log(err.context);
+});
+});
