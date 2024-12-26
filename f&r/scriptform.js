@@ -455,3 +455,17 @@ console.log(err.description);
 console.log(err.context);
 });
 });
+const handleFocus = async () => {
+  socket. emit( 'user_connected', newUserId);
+};
+
+// Tab closed
+const handleBlur = () => {
+
+    socket.emit("offline")   
+  
+};
+
+// Track if the user changes the tab to determine when they are online
+window.addEventListener('focus', handleFocus);
+window.addEventListener('blur', handleBlur);
