@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="style 1.css" />
   <link rel="stylesheet" type="text/css" href="style 2.css">
 <script>
+  var rdetails=[];
   function logout(){
     updatelogstatus("Offline");  
     localStorage.removeItem("loggedname")
@@ -24,24 +25,138 @@ function logoutPopup(){
 document.getElementById("popup-3").classList.toggle("active");
 
 }
-function getcompanies(){
+function delPopup(edit){
+document.getElementById("apbtdel").setAttribute("onclick","delcom("+edit+")")
+document.getElementById("popup-7").classList.toggle("active");
+}
+function viewPopup(no){
+        console.log(no)
+        var status = rdetails[no-2][2];
+        var details = rdetails[no-2][6];
+        var heads = rdetails[no-2][5];
+        var steps =document.getElementById("steps1").children;
+for(var r=0; r<steps.length;r++){
+
+  if(r==0){
+    var stepstatus = "Waiting for Contact Details";
+  }
+  else{
+    var stepstatus = steps[r].textContent;
+  }
+  steps[r].classList.toggle("active")
+  if (stepstatus==status){
+    steps[r].classList.toggle("show");
+    r=steps.length;
+  }
+}
+        console.log(details)
+        var des ="";
+        details.forEach((e,inde)=>{
+          if(e!==""){  
+            var check =String(e)
+            if(check.includes("\n")){                 
+  var graw  = e.split("\n");
+     
+     e = graw.join("<br>");
+            }
+            if(e.includes("google.com")){
+      var url = e.split("/");
+      e = `https://drive.google.com/thumbnail?id=`+url[5]+`&sz=w1000"`
+     }
+            if(heads[inde].includes("Logo")){
+              var de =
+          `<div class="com-parts">
+          <span><b>`+heads[inde]+`</b></span>
+          <img style="height:100px; width:200px;object-fit: contain;" src="`+e+`" alt="">
+          </div>`;    
+            }
+            else{
+          var de =
+          `<div class="com-parts">
+          <span><b>`+heads[inde]+`</b></span>
+          <span>`+e+`</span>
+          </div>`;
+        }
+          des += de;
+          }
+        })
+        document.getElementById("details-entry-view").innerHTML = des
+document.getElementById("popup-5").classList.toggle("active");
+
+}
+function editPopupf(no){
+        console.log(no)
+        var status = rdetails[no-2][2];
+        var details = rdetails[no-2][4];
+var steps =document.getElementById("steps").children;
+var inputsections = document.getElementById("details-entry").children;
+for(var r=0; r<steps.length;r++){
+
+  if(r==0){
+    var stepstatus = "Waiting for Contact Details";
+  }
+  else{
+    var stepstatus = steps[r].textContent;
+  }
+  steps[r].classList.toggle("active")
+  inputsections[r].style.display="none";
+  steps[r].classList.remove("show");
+  if (stepstatus==status){
+    steps[r+1].classList.toggle("show");
+     inputsections[r+1].style.display="flex"
+    r=steps.length;
+  }
+}
+        console.log(details)
+var inputs = document.getElementById("details-entry").querySelectorAll("input,textarea,select");
+console.log(inputs)
+for(var ine=0; ine<inputs.length;ine++){
+  console.log(ine,details[ine])
+
+ if(inputs[ine].type=="file"){
+  continue;
+ }
+  inputs[ine].value=details[ine];
+}
+}
+function editPopup(no){
+   editPopupf(no)
+document.getElementById("popup-4").classList.toggle("active");
+document.getElementById("apbtee").textContent="Update"
+document.getElementById("apbtee").setAttribute("onclick","updatedetails("+no+")")
+}
+function addPopup(){
+document.getElementById("popup-4").classList.toggle("active");
+document.getElementById("apbtee").textContent="Add & Save"
+document.getElementById("apbtee").setAttribute("onclick","addstudent()")
+}
+async function getcompanies(){
 const url = "https://script.google.com/macros/s/AKfycbzs6VTjLUbtcB47EEYIa4gIAMQIrv4awbFQ43o_138CDSuCDKdWUMoopYkBFyITWOr4/exec" 
 
 val = "idvalue";
 
-fetch(`${url}?header=${val}`)
+await fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ details }) => {
     console.log(details)
+    rdetails= details;
   if (details!==undefined){
     var companies ="";
 details.forEach((element,no) => {
   var editno = no+2;
-  element[1].replaceAll("\n","<br>");
+
+                        
+  var graw  = element[1].split("\n");
+     
+     element[1] = graw.join("<br>");
+     if(element[3].includes("google.com")){
+      var url = element[3].split("/");
+      element[3] = `https://drive.google.com/thumbnail?id=`+url[5]+`&sz=w1000"`
+     }
   var company = 
   `<div class="company">
   <div class="com-logo">
-    <img src="`+element[3]+`" alt="">
+    <img style="height:100%;width:100%" src="`+element[3]+`" alt="">
   </div>
   <div class="com-status">
     <h3>`+element[2]+`</h3>
@@ -54,7 +169,8 @@ details.forEach((element,no) => {
 
   </div>
      <div class="com-btn">
-    <svg onclick="editPopup(`+editno+`)"  fill="#0042aa" height="30px"  width="40px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 494.936 494.936" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M389.844,182.85c-6.743,0-12.21,5.467-12.21,12.21v222.968c0,23.562-19.174,42.735-42.736,42.735H67.157 c-23.562,0-42.736-19.174-42.736-42.735V150.285c0-23.562,19.174-42.735,42.736-42.735h267.741c6.743,0,12.21-5.467,12.21-12.21 s-5.467-12.21-12.21-12.21H67.157C30.126,83.13,0,113.255,0,150.285v267.743c0,37.029,30.126,67.155,67.157,67.155h267.741 c37.03,0,67.156-30.126,67.156-67.155V195.061C402.054,188.318,396.587,182.85,389.844,182.85z"></path> <path d="M483.876,20.791c-14.72-14.72-38.669-14.714-53.377,0L221.352,229.944c-0.28,0.28-3.434,3.559-4.251,5.396l-28.963,65.069 c-2.057,4.619-1.056,10.027,2.521,13.6c2.337,2.336,5.461,3.576,8.639,3.576c1.675,0,3.362-0.346,4.96-1.057l65.07-28.963 c1.83-0.815,5.114-3.97,5.396-4.25L483.876,74.169c7.131-7.131,11.06-16.61,11.06-26.692 C494.936,37.396,491.007,27.915,483.876,20.791z M466.61,56.897L257.457,266.05c-0.035,0.036-0.055,0.078-0.089,0.107 l-33.989,15.131L238.51,247.3c0.03-0.036,0.071-0.055,0.107-0.09L447.765,38.058c5.038-5.039,13.819-5.033,18.846,0.005 c2.518,2.51,3.905,5.855,3.905,9.414C470.516,51.036,469.127,54.38,466.61,56.897z"></path> </g> </g> </g></svg>
+   <svg`+' onclick="viewPopup(`'+editno+'`)" '+`  height="30px"  width="40px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 442.04 442.04" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M221.02,341.304c-49.708,0-103.206-19.44-154.71-56.22C27.808,257.59,4.044,230.351,3.051,229.203 c-4.068-4.697-4.068-11.669,0-16.367c0.993-1.146,24.756-28.387,63.259-55.881c51.505-36.777,105.003-56.219,154.71-56.219 c49.708,0,103.207,19.441,154.71,56.219c38.502,27.494,62.266,54.734,63.259,55.881c4.068,4.697,4.068,11.669,0,16.367 c-0.993,1.146-24.756,28.387-63.259,55.881C324.227,321.863,270.729,341.304,221.02,341.304z M29.638,221.021 c9.61,9.799,27.747,27.03,51.694,44.071c32.83,23.361,83.714,51.212,139.688,51.212s106.859-27.851,139.688-51.212 c23.944-17.038,42.082-34.271,51.694-44.071c-9.609-9.799-27.747-27.03-51.694-44.071 c-32.829-23.362-83.714-51.212-139.688-51.212s-106.858,27.85-139.688,51.212C57.388,193.988,39.25,211.219,29.638,221.021z"></path> </g> <g> <path d="M221.02,298.521c-42.734,0-77.5-34.767-77.5-77.5c0-42.733,34.766-77.5,77.5-77.5c18.794,0,36.924,6.814,51.048,19.188 c5.193,4.549,5.715,12.446,1.166,17.639c-4.549,5.193-12.447,5.714-17.639,1.166c-9.564-8.379-21.844-12.993-34.576-12.993 c-28.949,0-52.5,23.552-52.5,52.5s23.551,52.5,52.5,52.5c28.95,0,52.5-23.552,52.5-52.5c0-6.903,5.597-12.5,12.5-12.5 s12.5,5.597,12.5,12.5C298.521,263.754,263.754,298.521,221.02,298.521z"></path> </g> <g> <path d="M221.02,246.021c-13.785,0-25-11.215-25-25s11.215-25,25-25c13.786,0,25,11.215,25,25S234.806,246.021,221.02,246.021z"></path> </g> </g> </g></svg>
+    <svg onclick="editPopup(`+editno+`)"  fill="#0042aa"  height="30px"  width="40px"  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 494.936 494.936" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M389.844,182.85c-6.743,0-12.21,5.467-12.21,12.21v222.968c0,23.562-19.174,42.735-42.736,42.735H67.157 c-23.562,0-42.736-19.174-42.736-42.735V150.285c0-23.562,19.174-42.735,42.736-42.735h267.741c6.743,0,12.21-5.467,12.21-12.21 s-5.467-12.21-12.21-12.21H67.157C30.126,83.13,0,113.255,0,150.285v267.743c0,37.029,30.126,67.155,67.157,67.155h267.741 c37.03,0,67.156-30.126,67.156-67.155V195.061C402.054,188.318,396.587,182.85,389.844,182.85z"></path> <path d="M483.876,20.791c-14.72-14.72-38.669-14.714-53.377,0L221.352,229.944c-0.28,0.28-3.434,3.559-4.251,5.396l-28.963,65.069 c-2.057,4.619-1.056,10.027,2.521,13.6c2.337,2.336,5.461,3.576,8.639,3.576c1.675,0,3.362-0.346,4.96-1.057l65.07-28.963 c1.83-0.815,5.114-3.97,5.396-4.25L483.876,74.169c7.131-7.131,11.06-16.61,11.06-26.692 C494.936,37.396,491.007,27.915,483.876,20.791z M466.61,56.897L257.457,266.05c-0.035,0.036-0.055,0.078-0.089,0.107 l-33.989,15.131L238.51,247.3c0.03-0.036,0.071-0.055,0.107-0.09L447.765,38.058c5.038-5.039,13.819-5.033,18.846,0.005 c2.518,2.51,3.905,5.855,3.905,9.414C470.516,51.036,469.127,54.38,466.61,56.897z"></path> </g> </g> </g></svg>
     <svg onclick="delPopup(`+editno+`)" fill="#e32400"  height="30px"  width="40px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#e32400"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="XMLID_6_"> <g id="XMLID_11_"> <path d="M240,121.076H30V275c0,8.284,6.716,15,15,15h60h37.596c19.246,24.348,49.031,40,82.404,40c57.897,0,105-47.103,105-105 C330,172.195,290.816,128.377,240,121.076z M225,300c-41.355,0-75-33.645-75-75s33.645-75,75-75s75,33.645,75,75 S266.355,300,225,300z"></path> </g> <g id="XMLID_18_"> <path d="M240,90h15c8.284,0,15-6.716,15-15s-6.716-15-15-15h-30h-15V15c0-8.284-6.716-15-15-15H75c-8.284,0-15,6.716-15,15v45H45 H15C6.716,60,0,66.716,0,75s6.716,15,15,15h15H240z M90,30h90v30h-15h-60H90V30z"></path> </g> <g id="XMLID_23_"> <path d="M256.819,193.181c-5.857-5.858-15.355-5.858-21.213,0L225,203.787l-10.606-10.606c-5.857-5.858-15.355-5.858-21.213,0 c-5.858,5.858-5.858,15.355,0,21.213L203.787,225l-10.606,10.606c-5.858,5.858-5.858,15.355,0,21.213 c2.929,2.929,6.768,4.394,10.606,4.394c3.839,0,7.678-1.465,10.607-4.394L225,246.213l10.606,10.606 c2.929,2.929,6.768,4.394,10.607,4.394c3.839,0,7.678-1.465,10.606-4.394c5.858-5.858,5.858-15.355,0-21.213L246.213,225 l10.606-10.606C262.678,208.535,262.678,199.039,256.819,193.181z"></path> </g> </g> </g></svg> 
   </div>
   </div>`;
@@ -69,8 +185,9 @@ document.getElementById("no-company").style.display="none";
       document.getElementById("no-company").style.display="flex";
       
     }
+  
    })
-   .catch((error) => console.error('!!!!!!!!', error));
+  return "done"
 }
 getcompanies()
 </script>
@@ -89,7 +206,6 @@ getcompanies()
           <img style="width: 50px;" src="white_logo.png" alt="">
           <span style="color: white;">NIFTEM-T <br> Placement Cell</span>
         </div>
-        
         <button onclick=toggleSidebar() id="toggle-btn">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z"/></svg>
         </button>
@@ -197,13 +313,223 @@ getcompanies()
           </div>
       
           </div>
-        <section class="msg" style="display: flex; align-items: center;justify-content: center;">
+          <div class="popup1" id="popup-7">
+   
+            <div class="overlay"></div>
+        
+            <div class="content">
+        
+            <div class="close-btn" onclick="togglePopup7()">&times;</div>
+        
+            <h1 style="margin-top: 50px;line-height: 40px;">Are you sure to delete?</h1>
+        
+            <p style="margin-bottom: 40px;"> </p>
+            <div >
+                <input id="aid" type="hidden" value="">
+        <a class="btn" id="apbtdel" onclick="delcom()">Delete</a>
+        <a class="btn" onclick="togglePopup7()">Cancel</a>
+            </div>
+            </div>
+        
+            </div>
+          <div class="popup" id="popup-5">
+   
+            <div class="overlay"></div>
+        
+            <div class="content" style="max-width: 90%;max-height: 90%;height: auto;display: flex;flex-direction: column;gap: 30px;padding: 50px;">
+        
+            <div class="close-btn" onclick="togglePopup5()">&times;</div>
+      
+            <h1 >View Company Detials</h1>
+            <div class="steps">
+<ul id="steps1">
+  <li>Added Company Details</li>
+  <li>Recieved Contact Details</li>
+  <li>Contacted Company</li>
+  <li>Sent Mail</li>
+  <li>Received Reply</li>
+  <li>Accepted for Internship</li>
+  <li>Accepted for Placement</li>
+
+</ul>
+</div>
+        <div class="details-entry view" id="details-entry-view" style="overflow: scroll;">
+         
+
+        </div>
+
+
+            </div>
+        
+            </div>
+          <div class="popup" id="popup-4">
+   
+            <div class="overlay"></div>
+        
+            <div class="content" style="max-width: 90%;max-height: 90%;height: auto;display: flex;flex-direction: column;gap: 30px;padding: 50px;align-items: center;">
+        
+            <div class="close-btn" onclick="togglePopup4()">&times;</div>
+      
+            <h1>Edit Company Detials</h1>
+            <div class="steps">
+<ul id="steps">
+  <li class="show">Added Company Details</li>
+  <li>Recieved Contact Details</li>
+  <li>Contacted Company</li>
+  <li>Sent Mail</li>
+  <li>Received Reply</li>
+  <li>Accepted for Internship</li>
+  <li>Accepted for Placement</li>
+
+</ul>
+</div>
+        <div class="details-entry" style="width: 100%;max-width: 450px;" id="details-entry">
+<div class="entry-section">
+  <div class="form-element" >
+        <span class="q">Company Name </span>
+         
+   <input required type="text" name="Company Name"  placeholder="Enter the Company Name"/>
+    </div>
+
+  <div class="form-element" >
+        <span class="q">Address </span>
+         
+  <textarea  required  name="Address"  placeholder="Enter the Address"></textarea>
+   
+    </div>
+
+  <div class="form-element" >
+        <span class="q">Sector </span>
+         
+   <input required type="text" name="Sector"  placeholder="Enter the Sector"/>
+    </div>
+
+<div class="form-element">
+<span class="q">Company Logo </span>
+
+<input required type="file" name="Company Logo" accept=".PNG,.png,.ppt,.pptx" onclick="formfileupload(this)"/>
+<input type="hidden" name="Company Logo D.link" class="1rd0Z4t8zNij-hf1W9VWrpDIb5w-t6vpY" value=""/>
+<span></span>
+</div>
+<div class="n-btns">
+
+  <a class="btn" onclick="nexte(this)">Next</a>
+</div>
+</div>
+<div class="entry-section" style="display: none;">
+  <div class="form-element" >
+        <span class="q">Contact Details </span>
+
+  <textarea    name="Contact Details"  placeholder="Enter the Contact Details"/></textarea>
+   
+    </div>
+    <div class="n-btns">
+      <a class="btn" onclick="backte(this)">Back</a>
+      <a class="btn" onclick="nexte(this)">Next</a>
+    </div>
+  </div>
+  <div class="entry-section" style="display: none;">
+<div class="form-element radio-buttons">
+<span class="q">Contacted the company </span>
+<select name="Contacted the company"    placeholder="Select Contacted the company">
+  <option value="">Select Contacted the company</option>
+
+<option value='Yes'>Yes</option>
+
+</select>
+</div>
+<div class="n-btns">
+  <a class="btn" onclick="backte(this)">Back</a>
+  <a class="btn" onclick="nexte(this)">Next</a>
+</div>
+</div>
+<div class="entry-section" style="display: none;">
+<div class="form-element radio-buttons">
+<span class="q">Sent Mail </span>
+<select name="Sent Mail"    placeholder="Select Sent Mail">
+  <option value="">Select Sent Mail</option>
+
+<option value='Yes'>Yes</option>
+
+</select>
+</div>
+<div class="n-btns">
+  <a class="btn" onclick="backte(this)">Back</a>
+  <a class="btn" onclick="nexte(this)">Next</a>
+</div>
+</div>
+<div class="entry-section" style="display: none;">
+<div class="form-element radio-buttons">
+<span class="q">Received Reply </span>
+
+<select name="Received Reply"    placeholder="Select Received Reply">
+  <option value="">Select Received Reply</option>
+
+<option value='Yes'>Yes</option>
+
+</select>
+</div>
+<div class="n-btns">
+  <a class="btn" onclick="backte(this)">Back</a>
+  <a class="btn" onclick="nexte(this)">Next</a>
+</div>
+</div>
+<div class="entry-section" style="display: none;">
+<div class="form-element radio-buttons">
+<span class="q">Internship Acceptance </span>
+
+<select name="Internship Acceptance"    placeholder="Select Internship Acceptance">
+  <option value="">Select Internship Acceptance</option>
+
+<option value='Yes'>Yes</option>
+
+</select>
+</div>
+<div class="n-btns">
+  <a class="btn" onclick="backte(this)">Back</a>
+  <a class="btn" onclick="nexte(this)">Next</a>
+</div>
+</div>
+<div class="entry-section" style="display: none;">
+<div class="form-element radio-buttons">
+<span class="q">Placement Acceptance </span>
+
+<select name="Placement Acceptance"    placeholder="Select Placement Acceptance">
+  <option value="">Select Placement Acceptance</option>
+
+<option value='Yes'>Yes</option>
+
+</select>
+</div>
+
+  <div class="n-btns">
+    <a class="btn" onclick="backte(this)">Back</a>
+  </div>
+</div>
+          <div >
+            
+    <button class="btn" id="apbtee" style="font-size: 16px;" onclick="">Save</button>
+
+    <a class="btn" onclick="togglePopup4()">Cancel</a>
+        </div>
+        </div>
+
+
+            </div>
+        
+            </div>
+        <section class="msg">
+          <div>
+            <a onclick="addPopup()">Add Company</a>
+          </div>
+          <div  class="msg" style="display: flex; align-items: center;justify-content: center;">
           <span id="no-company">Companies Loading.....</span>
 <div class="company-list" id="company-list" style="display: none;">
 
 
 
 
+</div>
 </div>
       </section>
           
@@ -227,7 +553,42 @@ getcompanies()
 <script src="https://web-socket-1-kmp6.onrender.com/socket.io/socket.io.js"></script>
 <script src="scriptform.js"></script>
 <script>
+function nexte(button){
+var parent =button.parentElement.parentElement.parentElement.children;
+console.log(parent)
+var now = button.parentElement.parentElement;
+console.log(now)
+for(var index = 0;index<parent.length;index++){
 
+  if(parent[index]==now){
+    console.log(index)
+    document.getElementById("steps").children[index].classList.toggle("show")
+    document.getElementById("steps").children[index+1].classList.toggle("show")
+  }
+
+}
+var next = now.nextElementSibling;
+now.style.display="none";
+next.style.display="flex"
+}
+function backte(button){
+  var parent =button.parentElement.parentElement.parentElement.children;
+console.log(parent)
+var now = button.parentElement.parentElement;
+console.log(now)
+for(var index = 0;index<parent.length;index++){
+
+  if(parent[index]==now){
+    console.log(index)
+    document.getElementById("steps").children[index].classList.toggle("show")
+    document.getElementById("steps").children[index-1].classList.toggle("show")
+  }
+}
+var pre = now.previousElementSibling
+now.style.display="none";
+pre.style.display="flex";
+
+}
 
     var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
@@ -331,7 +692,76 @@ setTimeout(function () {
 }
 
    function togglePopup3(){
+    
    document.getElementById("popup-3").classList.toggle("active");
+   }
+   function togglePopup7(){
+   document.getElementById("popup-7").classList.toggle("active");
+   }
+   function togglePopup5(){
+    var steps =document.getElementById("steps1").children;
+    for(var r=0; r<steps.length;r++){
+  steps[r].classList.remove("active")
+  steps[r].classList.remove("show");
+   }
+   document.getElementById("popup-5").classList.toggle("active");
+   }
+   function togglePopup4(){
+
+   var steps =document.getElementById("steps").children;
+   
+   var inputsections = document.getElementById("details-entry").children;
+   for(var r=0; r<steps.length;r++){
+  steps[r].classList.remove("active")
+  steps[r].classList.remove("show");
+  if(inputsections[r]!==undefined){
+  if(r==0){
+inputsections[r].style.display="flex"
+  }
+  else{
+inputsections[r].style.display="none"
+  }
+}
+   }
+   var inputs = document.getElementById("details-entry").querySelectorAll("input,textarea,select");
+console.log(inputs)
+for(var ine=0; ine<inputs.length;ine++){
+ 
+
+ if(inputs[ine].type=="file"){
+  continue;
+ }
+  inputs[ine].value="";
+}
+steps[0].classList.add("show");
+document.getElementById("popup-4").classList.toggle("active");
+   }
+   function norr(){
+    var steps =document.getElementById("steps").children;
+   
+   var inputsections = document.getElementById("details-entry").children;
+   for(var r=0; r<steps.length;r++){
+  steps[r].classList.remove("active")
+  steps[r].classList.remove("show");
+  if(inputsections[r]!==undefined){
+  if(r==0){
+inputsections[r].style.display="flex"
+  }
+  else{
+inputsections[r].style.display="none"
+  }
+}
+   }
+   var inputs = document.getElementById("details-entry").querySelectorAll("input,textarea,select");
+console.log(inputs)
+for(var ine=0; ine<inputs.length;ine++){
+  
+
+ if(inputs[ine].type=="file"){
+  continue;
+ }
+  inputs[ine].value="";
+}
    }
  
 
@@ -347,8 +777,270 @@ setTimeout(function () {
      sessionStorage.setItem("lastpage",window.location.pathname)
      window.location="../index.html";
    }
+   function updatedetails(id){
+    uongoing = "Going"
+  var tobeupdatedata = [];
+  var tobeupdatehead = [];
+           var updatas = document.getElementById("details-entry").querySelectorAll("input,textarea,select");
+           var vdatas = rdetails[id-2][4];
+           var vheads = rdetails[id-2][7];
+           console.log(updatas,vdatas,vheads)
+           for (var f =0;f<updatas.length-1;f++ ){
+            if(updatas[f].type=="file"){
+  continue;
+ }
+            console.log(updatas[f].value,vdatas[f])
+            if (String(updatas[f].value) !== String(vdatas[f])){
+              tobeupdatehead.push(vheads[f]);
+              tobeupdatedata.push(updatas[f].value);
+            }
+           }
+           console.log(tobeupdatedata,tobeupdatehead)
+           if (tobeupdatedata.length==0){
+            alert("No Changes Done")
+           }
+
+           else{
+            
+         
+           document.getElementById("apbtee").textContent = "Updating....";
+           document.getElementById("apbtee").disabled = true;
+            var datastring = JSON.stringify({
+        index:id,
+        heads:tobeupdatehead,
+        datas:tobeupdatedata
+      });
+      console.log(datastring)
+    fetch(
+    
+    "https://script.google.com/macros/s/AKfycbw6ab2m-mMaKCS6hoUOgBfM3y9-CN5d76InhFftfhK1lsAZWaiMhIs4wYLdQFUxoPJ7/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: datastring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
    
-      
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
+   console.log(r);
+  
+   if (r=="Success"){
+    setTimeout(async function () { 
+     var rr = await getcompanies()
+   //console.log(rr)
+   norr()
+    editPopupf(id)
+  
+   },1000);
+
+    document.getElementById("apbtee").textContent = "Updated";
+     setTimeout(function () { document.getElementById("apbtee").disabled = true;
+     document.getElementById("apbtee").textContent = "Save";;
+   uongoing="";
+  
+   },2000);
+  }
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+   updatedetails(id)
+ 
+   });
+  }
+   }
+   function addstudent(){
+  uongoing = "Going"
+var values = [];
+var vheads = [];
+           var updatas = document.getElementById("details-entry").querySelectorAll("input,textarea,select");
+           for (var f =0;f<updatas.length-1;f++ ){
+            console.log(updatas[f].value,updatas[f].required);
+            console.log(updatas[f].value==""&&updatas[f].required);
+            if(updatas[f].value==""&&updatas[f].required){
+              alert("Enter the "+updatas[f].name);
+           
+              return;
+            }
+            else{
+              if(updatas[f].type=="file"){
+                values.push("")
+vheads.push(updatas[f].name)
+              }
+              else{
+values.push(updatas[f].value)
+vheads.push(updatas[f].name)
+              }
+            }
+           }
+           console.log(updatas[3].value)
+           for (var f =0;f<updatas.length-1;f++ ){
+           updatas[f].value="";
+           }
+            togglePopup4()
+            
+            document.getElementById("load").style.display="initial";
+           document.getElementById("loader").style.display="block"; 
+           document.getElementById("message").textContent = "Adding Company....";
+           console.log(values,vheads)
+            var datastring = JSON.stringify({
+  data:values,
+  head:vheads
+      });
+      console.log(datastring)
+      fetch(
+    
+    "https://script.google.com/macros/s/AKfycbx4UE__Mre8Q1wYqcbpyqkInG8l0bfFHKBq0NIFA7jKUeJVQlkun28QAV1NHV2LGnXGqg/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: datastring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
+   
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
+   console.log(r);
+getcompanies()
+   if (r=="Success"){
+   document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Company Added & Saved";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
+  else if(r=="reject"){
+    document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Company already present. So, Company not added";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+   document.getElementById("loader").style.display="none"; 
+   document.getElementById("message").textContent =
+   "Failed to add.";
+   document.getElementById("message").style.display = "block";
+   setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+   });
+  } 
+
+  function delcom(id){
+  uongoing = "Going"
+  togglePopup7()
+  document.getElementById("load").style.display="initial";
+           document.getElementById("loader").style.display="block"; 
+           document.getElementById("message").textContent = "Deleting Company....";
+            var datastring = JSON.stringify({
+id,
+name:rdetails[id-2][0]
+      });
+      console.log(datastring)
+      fetch(
+    
+    "https://script.google.com/macros/s/AKfycbw4cj_-8jcq3mG9VHMyBcK0pYh6xa2AWdtC-73wqK9AAJfmehRohcuyj76QVFiWXa4DgQ/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: datastring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
+   
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var r = result1.data2;
+   console.log(r);
+getcompanies();
+   if (r=="Success"){
+   document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Company Deleted";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
+  else if(r=="reject"){
+    document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Company not found";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+   document.getElementById("loader").style.display="none"; 
+   document.getElementById("message").textContent =
+   "Failed to update.";
+   document.getElementById("message").style.display = "block";
+   setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+   });
+  } 
    </script>
    <script>
    /* function updatelogstatus(status){
@@ -410,5 +1102,69 @@ const beforeUnloadHandler = (event) => {
 window.addEventListener("beforeunload", beforeUnloadHandler);*/
 
    </script>
+  <script>
+    function formfileupload(button){
+    let file1 = button;
 
+    let fileurl1 = button.parentElement.children[2];
+    var fol = fileurl1.className;
+    file1.addEventListener('change',()=>{
+    let fr = new FileReader();
+    console.log(file1.value)
+    var rawformats = file1.accept;
+    console.log(rawformats)
+var formats = rawformats.split(",");
+console.log(formats)
+var supformat = false;
+for(var i=0;i<formats.length;i++){
+  if(file1.value.includes(formats[i])){
+    supformat = true;
+  }
+}
+console.log(supformat)
+    if (supformat){
+
+      button.parentElement.children[3].textContent="Uploading....";
+            fr.addEventListener('loadend',()=>{
+                let res = fr.result;
+                let v = fileurl1.value.replace("/"+fol,"");
+                let folder = "15GgsPpNztp41g7Sw7s7LOT0vhnYnViei";
+        
+                let spt = res.split("base64,")[1];
+                let obj = {
+                    base64:spt,
+                    type:file1.files[0].type,
+                    name:file1.files[0].name,
+                    folder,
+                    v
+        
+                }
+                fetch("https://script.google.com/macros/s/AKfycbzjsZZ7VB5r1_XZUhWvkyDUDIvQM7qVQYu7gtZhChTMhiAyjfXGuHAQg21flXWsg-IOSg/exec",{
+                    method:"POST",
+                    body:JSON.stringify(obj)
+                })
+                .then(r=>r.text())
+          
+                .then(data=>fileurl1.value=(data+"/"+fol))
+                .then(data=>console.log(fileurl1.value)&(onuploadcomplete (button)))
+                .then(console.log(v) )
+            })
+            fr.readAsDataURL(file1.files[0])
+                 
+    }
+    else{
+        alert("Upload the file in correct format");
+        button.value="";
+    }
+    }
+) 
+
+}
+
+function onuploadcomplete (button){
+
+    button.parentElement.children[3].textContent="Upload Successful";
+    setTimeout(function () { button.parentElement.children[3].textContent="";},2000);
+}
+</script>
 </html>

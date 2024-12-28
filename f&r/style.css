@@ -201,6 +201,7 @@ margin-left: -40px;
     text-decoration: none;
   }
 .load{
+  z-index: 300;
     position: fixed;
     display: none;
     top: 0;
@@ -280,7 +281,7 @@ margin-right: auto;
     border-radius: 20px;
     padding: 20px;
 border-color: transparent;
-
+cursor:pointer;
   }
   .btn11{
     background-color:#182d8b;
@@ -411,6 +412,9 @@ width: 100%;
 body{
   height: 100vh;
 }
+.steps{
+  display: none;
+  }
     .header {
   flex-direction: column;
   height: 200px;
@@ -475,6 +479,7 @@ margin-bottom: 20px;
   100% {
     transform: translateY(-100%);
   }
+  
 }
 .slider, .com-table {
   background: rgb(237, 235, 235);
@@ -606,8 +611,8 @@ margin-left: 20px;
 }
 .com-logo{
   width: 90%;
-  height: 150px;
-  padding: 10px;
+  height: 100px;
+ 
   background-color: aliceblue;
   border-radius: 15px;
   border-bottom-left-radius: 0px;
@@ -667,4 +672,93 @@ z-index: 100;
   height: auto;
 max-height: 200px;
 
+}
+.steps li{
+  list-style-type: none;
+  float: left;
+width: 14%;
+position: relative;
+text-align: center;
+color: #646464;
+}
+.steps{
+  counter-reset: step;
+}
+.steps li::before{
+  content: counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #646464;
+  display: block;
+  color: #646464;
+  text-align: center;
+  margin: 0 auto 10px auto;
+  align-content: center;
+  border-radius: 50%;
+  background-color: white;
+}
+.steps li::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #646464;
+  top: 15px;
+  left: -50%;
+  z-index: -1;
+}
+.steps li:first-child:after{
+  content: none;
+}
+.steps li.active{
+  color: green;
+
+}
+.steps li.active::before{
+  border-color: green;
+color: green;
+content: '';
+background-color: green;
+}
+.steps li.active + li::after{
+background-color: green;
+}
+.details-entry{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 100%;
+  height: auto;
+}
+.entry-section{
+  display: flex;
+  flex-direction: column;
+text-align: left;
+  justify-content:center;
+  width: 100%;
+
+}
+.n-btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.steps li.show::before{
+  scale: 150%;
+  background-color: white;
+  content: '';
+  border:5px solid;
+}
+.com-parts{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  text-align: left;
+}
+.com-parts span{
+  width: 50%;
+}
+.details-entry.view::-webkit-scrollbar{
+  display: none;
 }
