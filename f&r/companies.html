@@ -899,7 +899,12 @@ vheads.push(updatas[f].name)
             document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Adding Company....";
-           console.log(values,vheads)
+           console.log(values,vheads);
+           var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+           values.push(uid);
+           vheads.push("Informer")
+
             var datastring = JSON.stringify({
   data:values,
   head:vheads
