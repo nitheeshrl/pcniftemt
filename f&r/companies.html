@@ -124,11 +124,13 @@ function editPopup(no){
 document.getElementById("popup-4").classList.toggle("active");
 document.getElementById("apbtee").textContent="Update"
 document.getElementById("apbtee").setAttribute("onclick","updatedetails("+no+")")
+document.getElementById("pophead").textContent="Edit Company Details";
 }
 function addPopup(){
 document.getElementById("popup-4").classList.toggle("active");
 document.getElementById("apbtee").textContent="Add & Save"
 document.getElementById("apbtee").setAttribute("onclick","addstudent()")
+document.getElementById("pophead").textContent="Add Company Details";
 }
 async function getcompanies(){
 const url = "https://script.google.com/macros/s/AKfycbzs6VTjLUbtcB47EEYIa4gIAMQIrv4awbFQ43o_138CDSuCDKdWUMoopYkBFyITWOr4/exec" 
@@ -370,7 +372,7 @@ getcompanies()
         
             <div class="close-btn" onclick="togglePopup4()">&times;</div>
       
-            <h1>Edit Company Detials</h1>
+            <h1 id="pophead" style="line-height: 40px;">Edit Company Detials</h1>
             <div class="steps">
 <ul id="steps">
   <li class="show">Added Company Details</li>
@@ -506,7 +508,7 @@ getcompanies()
     <a class="btn" onclick="backte(this)">Back</a>
   </div>
 </div>
-          <div >
+          <div style="display: flex;">
             
     <button class="btn" id="apbtee" style="font-size: 16px;" onclick="">Save</button>
 
