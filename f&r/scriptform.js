@@ -439,7 +439,7 @@ updatelogstatus2("Online");
 const beforeUnloadHandler = (event) => {  
 updatelogstatus2("Offline");  
 };
-window.addEventListener("beforeunload", beforeUnloadHandler);*/
+window.addEventListener("beforeunload", beforeUnloadHandler)
 var eerid  = localStorage.getItem("loggeduserdetails");
 var newUserId = JSON.parse(eerid).id +"/P";
 //const { io } = require("socket.io-client");
@@ -471,4 +471,4 @@ const handleBlur = () => {
 
 // Track if the user changes the tab to determine when they are online
 window.addEventListener('focus', handleFocus);
-window.addEventListener('blur', handleBlur);
+window.addEventListener('blur', handleBlur);;*/
