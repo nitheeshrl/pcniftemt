@@ -1849,6 +1849,8 @@ htmlout += createfileupload(formDataString0[h].value,formDataString2[h].innerHTM
 console.log(htmlout)
 var loggedname = localStorage.getItem("loggedname");
 console.log(loggedname)
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
 var formname = document.getElementById("Form Name").value;
 var formdescrip = document.getElementById("Form Description").innerHTML;
 var singleresponse = document.getElementById("Single Response Field").value;
@@ -1859,7 +1861,7 @@ if (autofill){
   htmlheads = "=quheadss=Name"+htmlheads
 }
 console.log(bulidupdetails)
-console.log(formname+"=sheetid="+loggedname+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam+"=sheetid="+singleresponse+"=sheetid="+autofill)
+console.log(formname+"=sheetid="+uid+"=sheetid="+"Created"+"=sheetid="+formdescrip+"=sheetid="+htmlout+"=sheetid="+htmlheads+"=sheetid="+formfolder+"=sheetid="+folderids+"=sheetid="+bulidupdetails+"=sheetid="+formnam+"=sheetid="+singleresponse+"=sheetid="+autofill)
         // Send a POST request to your Google Apps Script
         fetch(
           "https://script.google.com/macros/s/AKfycbwoLhkMVxJ6U8oBg4AZLTPCyBgVKLdYEgDDGEj1YEP11LmKfQNGH80MZTbVjtu6fJv7/exec",
