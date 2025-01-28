@@ -22,7 +22,7 @@ val = uid+"/P";
 
 fetch(`${url}?header=${val}`)
    .then((response) => response.json())
-   .then(({ details, users, usersuorp }) => {
+   .then(({ details, users, usersuorp,userdatas }) => {
     console.log(details,users,usersuorp,userdatas)
     var iconsider =  userdatas[0];
           var pconsider =  userdatas[1];
