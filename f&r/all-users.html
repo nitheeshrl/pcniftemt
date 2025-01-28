@@ -93,8 +93,8 @@ inputs.forEach(i =>{
 })
 var allotoption = "";
 console.log(umembers)
-umembers.forEach(h =>{
-  var option = `<option value="`+h[0]+`">`+h[0]+`</option>`;
+umembers.forEach((h,inf) =>{
+  var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
   allotoption += option;
 })
 document.getElementById("Alloted Member").innerHTML =  allotoption;
@@ -634,6 +634,7 @@ alert("PassKey is already created for this Device")
            var vheads = [];
            var vrole ; 
            var umembers = [];
+           var umembersids = [];
            var uongoing="";
            function fetchd (){
   console.log("Students Details Fetching....")
@@ -672,6 +673,7 @@ var heads = userdetails.heads;
 vdatas = userdetails.datas;
 var datas = userdetails.datas;
 umembers = userdetails.members;
+umembersids = userdetails.membersids;
 var allots = userdetails.allots;
 var role = userdetails.role;
 vrole = userdetails.role;
