@@ -91,12 +91,19 @@ inputs.forEach(i =>{
   i.children[1].value = udata[now];
   now++
 })
+
+
 var allotoption = "";
 console.log(umembers)
+var allotnamee="";
 umembers.forEach((h,inf) =>{
   var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
+  if (h[0]==udata[5]){
+    allotnamee = umembersids[inf][0];
+  }
   allotoption += option;
 })
+inputs[5].children[1].value = allotnamee;
 document.getElementById("Alloted Member").innerHTML =  allotoption;
 if (udata[3].includes("M.Tech")){
     document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
@@ -119,8 +126,8 @@ document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].
 function addPopup(){
 var allotoption = "";
 console.log(umembers)
-umembers.forEach(h =>{
-  var option = `<option value="`+h[0]+`">`+h[0]+`</option>`;
+umembers.forEach((h,inf) =>{
+  var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
   allotoption += option;
 })
 document.getElementById("popup-inner-add").querySelectorAll("div")[5].children[1].innerHTML = `<option value="">Select the Alloted Member</option>` + allotoption;
