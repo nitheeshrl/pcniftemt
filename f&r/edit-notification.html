@@ -14,6 +14,10 @@
   <link rel="stylesheet" type="text/css" href="style 2.css">
   <script>
     var loggedname = localStorage.getItem("loggedname");
+    var iconsider ;
+          var pconsider ;
+          var iselect ;
+          var pselect ;
     function getnotifications(){
 const url = "https://script.google.com/macros/s/AKfycbz4Hi2UfKaR2uHULiYN0kA8aOj1bOHsW0tSHq7du1mQDsxfUNuN7fEyXf5msy2hU2-P/exec" 
 var rid  = localStorage.getItem("loggeduserdetails");
@@ -24,10 +28,10 @@ fetch(`${url}?header=${val}`)
    .then((response) => response.json())
    .then(({ details, users, usersuorp,userdatas }) => {
     console.log(details,users,usersuorp,userdatas)
-    var iconsider =  userdatas[0];
-          var pconsider =  userdatas[1];
-          var iselect =  userdatas[2];
-          var pselect =  userdatas[3];
+     iconsider =  userdatas[0];
+           pconsider =  userdatas[1];
+           iselect =  userdatas[2];
+           pselect =  userdatas[3];
     var tvalues = "";
     if (users!==undefined){
       var valuess = 
