@@ -97,9 +97,12 @@ var allotoption = "";
 console.log(umembers)
 var allotnamee="";
 umembers.forEach((h,inf) =>{
-  var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
+ 
   if (h[0]==udata[5]){
-    allotnamee = inf;
+    var option = `<option value="`+umembersids[inf][0]+`" selected>`+h[0]+`</option>`;
+  }
+  else{
+    var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
   }
   allotoption += option;
 })
@@ -107,7 +110,7 @@ umembers.forEach((h,inf) =>{
 console.log(udata[5])
 console.log(allotnamee)
 inputs[5].children[1].selectedIndex = allotnamee;
-console.log(inputs[5].children[1])
+console.log(inputs[5].children[1].selectedIndex)
 document.getElementById("Alloted Member").innerHTML =  allotoption;
 if (udata[3].includes("M.Tech")){
     document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
