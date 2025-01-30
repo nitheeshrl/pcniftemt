@@ -136,6 +136,7 @@ var namef= document.getElementById("noti-text").value;
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
 val = namef+"/"+uid+"//"+userac;
+console.log(val)
 document.getElementById("noti-text").value= "";
 document.getElementById("us-acc").value= "All M.Tech, All B.Tech";
 fetch(`${url}?header=${val}`)
