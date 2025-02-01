@@ -254,7 +254,9 @@ a.forEach(i =>{
   if (href.includes(path)){
     i.parentElement.className="active";
     if (i.children.length==0){
+      i.parentElement.parentElement.parentElement.parentElement.className="active1";
         i.parentElement.parentElement.parentElement.classList.toggle('show')
+        
     }
   }
 
