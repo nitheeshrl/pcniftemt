@@ -141,12 +141,13 @@ val = uid;
 
 await fetch(`${url}?header=${val}`)
    .then((response) => response.json())
-   .then(({ details }) => {
+   .then(({ details, useraccess }) => {
     console.log(details)
     rdetails= details;
   if (details!==undefined){
     var companies ="";
 details.forEach((element,no) => {
+
   var editno = no+2;
   var rid  = localStorage.getItem("loggeduserdetails");
   var urole = JSON.parse(rid).role;
@@ -198,7 +199,15 @@ hinst = 'style="display: none;"'
   companies+=company;
   }
   else if(urole=="Admin"){
+      if(useraccess=="All"){
   companies+=company;
+      }
+    else if(useraccess.includes(element[9])){
+  companies+=company;
+      }
+    else if (element[8]==loggedname&&useraccess=="Owned"){
+  companies+=company;
+      }
   }
 });
 document.getElementById("company-list").innerHTML=companies
