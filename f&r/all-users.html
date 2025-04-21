@@ -691,6 +691,8 @@ umembersids = userdetails.membersids;
 var allots = userdetails.allots;
 var role = userdetails.role;
 vrole = userdetails.role;
+var access = userdetails.access;
+var uaccess = userdetails.uaccess;
 var th = "";
 
 /*if (document.getElementById('Alloted Member')!==null){
@@ -736,7 +738,7 @@ var tr ="";
 for (var r=0; r<datas.length;r++){
   var td ="";
 
-  if (role == "User"&&loggedname!==allots[r]){
+  if (access == "No"&&loggedname!==allots[r]&&uaccess[r]!==access){
    // datas.splice(r,1)
    continue;
    console.log(r)
