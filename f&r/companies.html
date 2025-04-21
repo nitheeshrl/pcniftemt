@@ -134,8 +134,10 @@ document.getElementById("pophead").textContent="Add Company Details";
 }
 async function getcompanies(){
 const url = "https://script.google.com/macros/s/AKfycbzs6VTjLUbtcB47EEYIa4gIAMQIrv4awbFQ43o_138CDSuCDKdWUMoopYkBFyITWOr4/exec" 
-
-val = "idvalue";
+       var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+console.log(uid)
+val = uid;
 
 await fetch(`${url}?header=${val}`)
    .then((response) => response.json())
