@@ -738,7 +738,7 @@ var tr ="";
 for (var r=0; r<datas.length;r++){
   var td ="";
 
-  if (access == "No"&&loggedname!==allots[r]&&uaccess[r]!==access){
+  if ((access == "No"||uaccess[r]!==access)&&loggedname!==allots[r]){
    // datas.splice(r,1)
    continue;
    console.log(r)
