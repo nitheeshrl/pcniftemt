@@ -611,6 +611,8 @@ vdatas = userdetails.datas;
 var datas = userdetails.datas;
 vrole =userdetails.roles  ;
 var role = userdetails.roles  ;
+        var access = userdetails.access;
+        var uaccess = userdetails.uaccess  ;
 var th = "";
 
 for (var i=0; i<heads.length;i++){
@@ -622,6 +624,12 @@ var thead = "<thead><th>Edit</th>"+th+"<th>Delete</th></thead>";
 var atr ="";
 var utr ="";
 for (var r=0; r<datas.length;r++){
+    if (access == "No"||(!access.includes(uaccess[r])&&access !== "All")){
+   // datas.splice(r,1)
+   continue;
+   console.log(r)
+  }
+
   var td ="";
   for (var d=0; d<datas[r].length;d++){
    
