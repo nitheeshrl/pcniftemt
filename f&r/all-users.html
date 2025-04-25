@@ -87,7 +87,7 @@ var inputs = document.getElementById("popup-inner").querySelectorAll("div");
 console.log(inputs)
 var now = 0;
 inputs.forEach((i,jk) =>{
-  console.log(i.children[1],udata[now])
+  console.log(i.children,udata[now])
   if(jk==0){
     if (udata[now].includes("google.com")){
     udata[now] = "https://google.com"+udata[now];
