@@ -86,12 +86,14 @@ function editPopup(edit){
 var inputs = document.getElementById("popup-inner").querySelectorAll("div");
 console.log(inputs)
 var now = 0;
+inputs.splice(1,1)
 inputs.forEach((i,jk) =>{
   console.log(i.children,udata[now])
   if(jk==0){
     if (udata[now].includes("google.com")){
     udata[now] = "https://google.com"+udata[now];
   }
+  
   else{
     udata[now] = "https://spcniftemt.pages.dev/user/"+udata[now];
   }
@@ -328,7 +330,7 @@ document.getElementById("popup-40").classList.toggle("active");
             <h1>Edit User Details</h1>
             <div class="form-element">
               <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
-                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;" src="`+datas[r][d]+`" alt="" srcset="">
+                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;margin-left: 10px;" src="`+datas[r][d]+`" alt="" srcset="">
               </div>
             <div class="form-element">
               <span class="q">Name</span>
