@@ -854,8 +854,8 @@ fetchd ();
            for (var f =0;f<updatas.length-1;f++ ){
 
             
-            if (String(updatas[f].value) !== String(vdatas[id-1][f])){
-              tobeupdatehead.push(vheads[f]);
+            if (String(updatas[f].value) !== String(vdatas[id-2][f])){
+              tobeupdatehead.push(vheads[f+1]);
               tobeupdatedata.push(updatas[f].value);
             }
            }
