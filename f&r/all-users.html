@@ -86,9 +86,21 @@ function editPopup(edit){
 var inputs = document.getElementById("popup-inner").querySelectorAll("div");
 console.log(inputs)
 var now = 0;
-inputs.forEach(i =>{
+inputs.forEach((i,jk) =>{
   console.log(i.children[1],udata[now])
-  i.children[1].value = udata[now];
+  if(jk==0){
+    if (udata[now].includes("google.com")){
+    udata[now] = "https://google.com"+udata[now];
+  }
+  else{
+    udata[now] = "https://spcniftemt.pages.dev/user/"+udata[now];
+  }
+    i.children[0].children[0].src = udata[now];
+  }
+  else{
+    i.children[1].value = udata[now];
+  }
+//  i.children[1].value = udata[now];
   now++
 })
 
@@ -315,6 +327,10 @@ document.getElementById("popup-40").classList.toggle("active");
         <div class="popup-inner" id="popup-inner">
             <h1>Edit User Details</h1>
             <div class="form-element">
+              <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
+                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;" src="`+datas[r][d]+`" alt="" srcset="">
+              </div>
+            <div class="form-element">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
               </div>
@@ -410,6 +426,11 @@ document.getElementById("popup-40").classList.toggle("active");
               <div class="close-btn" onclick="togglePopup40()">&times;</div>
           <div class="popup-inner" id="popup-inner-add"  style="padding: 50px;">
               <h1>Add Student</h1>
+              <div class="form-element">
+              <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
+                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;" src="" alt="" srcset="">
+              </div>
+            </div>              
               <div class="form-element">
                 <span class="q">Name</span>
                 <input required type="text" name="Name"   placeholder="Enter your Name" />
