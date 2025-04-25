@@ -134,18 +134,18 @@ inputs[5].children[1].selectedIndex = allotnamee;
 console.log(inputs[5].children[1].selectedIndex)
 document.getElementById("Alloted Member").innerHTML =  allotoption;
 if (udata[3].includes("M.Tech")){
-    document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
-      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
+    document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
+      document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
 }
 else{
   console.log(vrole)
   if(vrole=="Admin"){
-      document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="flex"
+      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="flex"
   }
   else{
-    document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none" 
+    document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none" 
   }
-      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="flex"
+      document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="flex"
 }
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
