@@ -270,7 +270,7 @@ document.getElementById("popup-40").classList.toggle("active");
                 <input  type="search" placeholder="Search..." >
                 <img src="images/search.png" alt="">
             </div>
-<div style="width: auto;padding: 10px;">
+<div id="addbtnpop" style="width: auto;padding: 10px;display: none;">
   <button onclick="addPopup()" class="btn">Add Student</button>
  
 </div>
@@ -724,6 +724,7 @@ if (role == "User"){
   document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[11].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[12].style.display="none"
+  document.getElementById("addbtnpop").style.display="none";
 
 /*if(allotdiv!==undefined){
   allotdiv.remove();
@@ -736,7 +737,8 @@ else{
   document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="flex"
   document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
   document.getElementById("popup-inner").querySelectorAll("div")[11].style.display="flex"
-  document.getElementById("popup-inner").querySelectorAll("div")[12].style.display="none"
+  document.getElementById("popup-inner").querySelectorAll("div")[12].style.display="none";
+  document.getElementById("addbtnpop").style.display="initial";
 //  if (document.getElementById('Alloted Member')==null){
    
  // document.getElementById("popup-inner").querySelectorAll("div")[4].insertAdjacentElement("afterend",allotdiv) 
