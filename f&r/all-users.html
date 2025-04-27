@@ -862,7 +862,7 @@ fetchd ();
 
             
             if (String(updatas[f].value) !== String(vdatas[id-2][f])){
-              if(updatas.parentElement.style.display!=="none"){
+              if(updatas[f].parentElement.style.display!=="none"){
                 tobeupdatehead.push(vheads[f+1]);
                 tobeupdatedata.push(updatas[f].value);
               }
