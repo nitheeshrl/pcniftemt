@@ -867,7 +867,9 @@ fetchd ();
          //   console.log(vheads,updatas)
 console.log(updatas[f+1].value,vdatas[id-2][f]);
             if(vheads[f]=="Alloted Member"){
-  var check_data = updatas[f+1].selectedIndex;
+              var foptions = updatas[f+1].options;
+  var coption = updatas[f+1].selectedIndex;
+  var check_data1 = foptions[coption].innerHTML;
             }
             else{
               var check_data = updatas[f+1].value;
