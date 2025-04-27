@@ -854,8 +854,10 @@ fetchd ();
    });
    }*/
    var qupdatas = document.getElementById("popup-inner").querySelectorAll("input,select");
+
    //console.log(qupdatas)
    function updatedetails(id){
+    var loggedname = localStorage.getItem("loggedname");
     uongoing = "Going"
   var tobeupdatedata = [];
   var tobeupdatehead = [];
@@ -876,6 +878,9 @@ console.log(updatas[f+1].value,vdatas[id-2][f]);
                // console.log(updatas[f+1].value,vdatas[id-2][f])
                 tobeupdatehead.push(vheads[f]);
                 tobeupdatedata.push(updatas[f+1].value);
+                if(vheads[f]=="Profile Pic"){
+                   updatas[f+1].value = "";
+                }
               }
               }
        
@@ -892,7 +897,8 @@ console.log(updatas[f+1].value,vdatas[id-2][f]);
             var datastring = JSON.stringify({
         index:id,
         heads:tobeupdatehead,
-        datas:tobeupdatedata
+        datas:tobeupdatedata,
+        name:loggedname
       });
       console.log(datastring)
        fetch(
