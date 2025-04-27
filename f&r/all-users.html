@@ -119,7 +119,7 @@ console.log(umembers)
 var allotnamee="";
 umembers.forEach((h,inf) =>{
  
-  if (h[0]==udata[7]){
+  if (h[0]==udata[6]){
     var option = `<option value="`+umembersids[inf][0]+`" selected>`+h[0]+`</option>`;
   }
   else{
@@ -128,7 +128,7 @@ umembers.forEach((h,inf) =>{
   allotoption += option;
 })
 
-console.log(udata[7])
+console.log(udata[6])
 console.log(allotnamee)
 inputs[5].children[1].selectedIndex = allotnamee;
 console.log(inputs[5].children[1].selectedIndex)
