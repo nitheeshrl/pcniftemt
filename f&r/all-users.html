@@ -866,12 +866,13 @@ fetchd ();
            for (var f =0;f<updatas.length-2;f++ ){
          //   console.log(vheads,updatas)
 console.log(updatas[f+1].value,vdatas[id-2][f]);
-            if(vheads=="Alloted Member"){
+            if(vheads[f]=="Alloted Member"){
   var check_data = updatas[f+1].innerHTML;
             }
             else{
               var check_data = updatas[f+1].value;
             }
+            console.log(check_data,vdatas[id-2][f])
             if (String(check_data) !== String(vdatas[id-2][f])){
             //  console.log(updatas[f+1].value,vdatas[id-2][f])
 
