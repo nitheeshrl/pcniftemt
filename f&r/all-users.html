@@ -862,10 +862,13 @@ fetchd ();
 
            var updatas = document.getElementById("popup-inner").querySelectorAll("input,select");
            for (var f =0;f<updatas.length-1;f++ ){
-console.log(updatas[f].value,vdatas[id-2][f]);
+console.log(updatas[f+1].value,vdatas[id-2][f]);
             
             if (String(updatas[f+1].value) !== String(vdatas[id-2][f])){
-              if(updatas[f].parentElement.style.display!=="none"&&vheads[f]!=null){
+              if(vheads[f]=="Profile Pic"&&updatas[f+1].value==""){
+                continue
+              }
+              if(updatas[f].parentElement.style.display!=="none"&&vheads[f]!==null){
                 tobeupdatehead.push(vheads[f]);
                 tobeupdatedata.push(updatas[f+1].value);
               }
