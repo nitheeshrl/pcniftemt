@@ -783,7 +783,10 @@ tr +="<tr><td>"+`<svg onclick="editPopup(`+editno+`)"  fill="#0042aa" version="1
 var tbody = "<tbody>"+tr+"</tbody>";
 var search2 = document.querySelector('.input-group input').value;
 if(search2==""){
-document.getElementById("tabdetails").innerHTML = thead+tbody;
+  if(document.getElementById("tabdetails").innerHTML!==thead+tbody){
+    document.getElementById("tabdetails").innerHTML = thead+tbody;
+  }
+//document.getElementById("tabdetails").innerHTML = thead+tbody;
 }
 if (uongoing==""){
 document.getElementById("load").style.display="none";
