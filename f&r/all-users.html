@@ -859,9 +859,9 @@ fetchd ();
 
            var updatas = document.getElementById("popup-inner").querySelectorAll("input,select");
            for (var f =0;f<updatas.length-1;f++ ){
-console.log(updatas[f].value,vdatas[id-3][f]);
+console.log(updatas[f].value,vdatas[id-2][f-1]);
             
-            if (String(updatas[f].value) !== String(vdatas[id-3][f])){
+            if (String(updatas[f].value) !== String(vdatas[id-2][f-1])){
               if(updatas[f].parentElement.style.display!=="none"){
                 tobeupdatehead.push(vheads[f+1]);
                 tobeupdatedata.push(updatas[f].value);
