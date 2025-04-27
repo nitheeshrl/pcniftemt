@@ -444,7 +444,7 @@ document.getElementById("popup-40").classList.toggle("active");
                 <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
                   <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;" src="" alt="" srcset="">
   <input  type="file" accept=".JPG,.jpg,.JPEG,.jpeg,.PNG,.png" onclick="formfileupload(this)"/>
-  <input type="hidden" name="Profile Pic" class="1lz0E2hzYz0x1Z2GVVwYQlgAAJVk6paTx" value=""/>
+  <input required type="hidden" name="Profile Pic" class="1lz0E2hzYz0x1Z2GVVwYQlgAAJVk6paTx" value=""/>
   
                 </div>
               </div>             
@@ -978,8 +978,12 @@ var vheads = [];
             console.log(updatas[f].value,updatas[f].required);
             console.log(updatas[f].value==""&&updatas[f].required);
             if(updatas[f].value==""&&updatas[f].required){
+              if(updatas[f].name=="Profile Pic"){
+                alert("Upload the "+updatas[f].name);
+              }
+              else{
               alert("Enter the "+updatas[f].name);
-           
+              }
               return;
             }
             else{
