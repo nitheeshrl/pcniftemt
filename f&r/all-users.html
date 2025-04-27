@@ -854,7 +854,7 @@ fetchd ();
    });
    }*/
    var qupdatas = document.getElementById("popup-inner").querySelectorAll("input,select");
-   console.log(qupdatas)
+   //console.log(qupdatas)
    function updatedetails(id){
     uongoing = "Going"
   var tobeupdatedata = [];
@@ -862,18 +862,18 @@ fetchd ();
 
            var updatas = document.getElementById("popup-inner").querySelectorAll("input,select");
            for (var f =0;f<updatas.length-2;f++ ){
-            console.log(vheads,updatas)
+         //   console.log(vheads,updatas)
 console.log(updatas[f+1].value,vdatas[id-2][f]);
             
             if (String(updatas[f+1].value) !== String(vdatas[id-2][f])){
-              console.log(updatas[f+1].value,vdatas[id-2][f])
+            //  console.log(updatas[f+1].value,vdatas[id-2][f])
 
-              if(updatas[f].parentElement.style.display!=="none"){
+              if(updatas[f+1].parentElement.style.display!=="none"){
                 if(vheads[f]=="Profile Pic"&&updatas[f+1].value==""){
              console.log("profilepic")
               }
               else{
-                console.log(updatas[f+1].value,vdatas[id-2][f])
+               // console.log(updatas[f+1].value,vdatas[id-2][f])
                 tobeupdatehead.push(vheads[f]);
                 tobeupdatedata.push(updatas[f+1].value);
               }
