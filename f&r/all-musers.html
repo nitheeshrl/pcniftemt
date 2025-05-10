@@ -62,6 +62,25 @@ font-weight: bold;
   overflow: scroll;
 }
 
+.access-check label{
+  display: flex;
+height: 20px;
+
+}
+
+.access-check label input[type="checkbox"] {
+width: 10px;
+height: 24px;
+align-items: center;
+justify-content: center;
+margin-right: 20px;
+}
+.access-check label span{
+
+width: 100%;
+align-items: center;
+justify-content: center;
+}
 </style>
 <script>
   function logout(){
@@ -362,6 +381,15 @@ document.getElementById("popup-40").classList.toggle("active");
               <div class="close-btn" onclick="togglePopup40()">&times;</div>
           <div class="popup-inner" id="popup-inner-add"  style="padding: 50px;">
               <h1>Add Member</h1>
+              <div class="form-element" style="margin-top: 20px;margin-bottom: 20px;">
+                <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
+                  <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;" src="" alt="" srcset="">
+  <input  type="file" accept=".JPG,.jpg,.JPEG,.jpeg,.PNG,.png" onclick="formfileupload(this)"/>
+  <input required type="hidden" name="Profile Pic" class="1lz0E2hzYz0x1Z2GVVwYQlgAAJVk6paTx" value=""/>
+  <span></span>
+  
+                </div>
+              </div> 
               <div class="form-element">
                 <span class="q">Name</span>
                 <input required type="text" name="Name"   placeholder="Enter the Name" />
@@ -396,11 +424,161 @@ document.getElementById("popup-40").classList.toggle("active");
                     <option value="Admin">Admin</option>
                   </select>
                   </div>
-                
-                <div class="form-element">
+                      <div class="form-element radio-buttons">
+                        <span class="q">User Details Access</span>
+                        <span></span>
+                        <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                          <label for="All">
+                            <input
+                            required
+                            onchange="checkboxvalue(this)"
+                            type="checkbox"
+                            id="All"
+                            value="All"
+                            
+                            />
+                            <span>All</span>
+                            </label>
+                        <label for="Owned">
+                          <input
+                           required
+                          onchange="checkboxvalue(this)"
+                          type="checkbox"
+                          id="Owned"
+                          value="Owned"
+                          
+                          />
+                          <span>Owned</span>
+                          </label>
+                           
+                            </div>
+                            <input type="hidden" name="All User Details Access" value="Owned">
+                           </div>
+                           <div class="form-element radio-buttons">
+                            <span class="q">Member Details Access</span>
+                            <span></span>
+                            <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                              <label for="All">
+                                <input
+                                required
+                                onchange="checkboxvalue(this)"
+                                type="checkbox"
+                                id="All"
+                                value="All"
+                                
+                                />
+                                <span>All</span>
+                                </label>
+                            <label for="Owned">
+                              <input
+                               required
+                              onchange="checkboxvalue(this)"
+                              type="checkbox"
+                              id="Owned"
+                              value="Owned"
+                              
+                              />
+                              <span>Owned</span>
+                              </label>
+                               
+                                </div>
+                                <input type="hidden" name="All M-User Details Access" value="Owned">
+                               </div>
+                               <div class="form-element radio-buttons">
+                                <span class="q">Forms Access</span>
+                                <span></span>
+                                <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                  <label for="All">
+                                    <input
+                                    required
+                                    onchange="checkboxvalue(this)"
+                                    type="checkbox"
+                                    id="All"
+                                    value="All"
+                                    
+                                    />
+                                    <span>All</span>
+                                    </label>
+                                <label for="Owned">
+                                  <input
+                                   required
+                                  onchange="checkboxvalue(this)"
+                                  type="checkbox"
+                                  id="Owned"
+                                  value="Owned"
+                                  
+                                  />
+                                  <span>Owned</span>
+                                  </label>
+                                   
+                                    </div>
+                                    <input type="hidden" name="Forms Access" value="Owned">
+                                   </div>
+                                   <div class="form-element radio-buttons">
+                                    <span class="q">Company Details Access</span>
+                                    <span></span>
+                                    <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                      <label for="All">
+                                        <input
+                                        required
+                                        onchange="checkboxvalue(this)"
+                                        type="checkbox"
+                                        id="All"
+                                        value="All"
+                                        
+                                        />
+                                        <span>All</span>
+                                        </label>
+                                    <label for="Owned">
+                                      <input
+                                       required
+                                      onchange="checkboxvalue(this)"
+                                      type="checkbox"
+                                      id="Owned"
+                                      value="Owned"
+                                      
+                                      />
+                                      <span>Owned</span>
+                                      </label>
+                                       
+                                        </div>
+                                        <input type="hidden" name="Company Details Access" value="Owned">
+                                       </div>
+                                       <div class="form-element radio-buttons">
+                                        <span class="q">Brochure Request Access</span>
+                                        <span></span>
+                                        <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                          <label for="All">
+                                            <input
+                                    
+                                            onchange="checkboxvalue(this)"
+                                            type="checkbox"
+                                            id="All"
+                                            value="All"
+                                            
+                                            />
+                                            <span>All</span>
+                                            </label>
+                                        <label for="Owned">
+                                          <input
+                                           required
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="Owned"
+                                          
+                                          />
+                                          <span>Owned</span>
+                                          </label>
+                                           
+                                            </div>
+                                            <input type="hidden" name="Request Access" value="Owned">
+                                           </div>
+           
+        <!-- <div class="form-element">
                 <span class="q">Alloted Notification Mail Address</span>
                 <input required type="text" name="Alloted Notification Mail Address"  placeholder="Enter the Alloted Notification Mail Address" />
-                </div>
+                </div> -->
                 
               
               <div class="popup-btn">
@@ -613,7 +791,102 @@ vrole =userdetails.roles  ;
 var role = userdetails.roles  ;
         var access = userdetails.access;
         var uaccess = userdetails.uaccess  ;
+        var ugroups = userdetails.groups  ;
 var th = "";
+var us_access = userdetails.us_access;
+us_access.forEach((access,accessid)=>{
+
+
+if(access == "All"){
+var perlabel =
+`<label for="All">
+                                            <input
+                                            required
+                                            onchange="checkboxvalue(this)"
+                                            type="checkbox"
+                                            id="All"
+                                            value="All"
+                                            
+                                            />
+                                            <span>All</span>
+                                            </label>
+                                        <label for="Owned">
+                                          <input
+                                      checked
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="Owned"
+                                          
+                                          />
+                                          <span>Owned</span>
+                                          </label>
+`
+var grouplabels = "";
+ugroups.forEach((group) => {
+  var groupname = group[2];
+  grouplabels += `<label for="`+groupname+`">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+});
+var todaa = document.getElementsByClassName("access-check");
+console.log(todaa)
+  var ecah = todaa[accessid];
+  console.log(ecah)
+if (!document.getElementById("popup-40").className.includes("active")){
+  ecah.innerHTML = perlabel+grouplabels;
+}
+}
+else if (access !== "No"&&access !== "All"){
+var perlabel =
+`
+                                        <label for="Owned">
+                                          <input
+                                      checked
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="Owned"
+                                          
+                                          />
+                                          <span>Owned</span>
+                                          </label>
+`
+var grouplabels = "";
+ugroups.forEach((group) => {
+  var groupname = group[2];
+  if(access.includes(groupname))
+  grouplabels += `<label for="`+groupname+`">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+});
+var todaa = document.getElementsByClassName("access-check");
+console.log(todaa)
+  var ecah = todaa[accessid];
+  console.log(ecah)
+  if (!document.getElementById("popup-40").className.includes("active")){
+  ecah.innerHTML = perlabel+grouplabels;
+}
+
+}
+})
+
 
 for (var i=0; i<heads.length;i++){
 
@@ -819,7 +1092,8 @@ function addstudent(button){
   uongoing = "Going"
 var values = [];
 var vheads = [];
-           var updatas = document.getElementById("popup-inner-add").querySelectorAll("input,select");
+           var updatas = document.getElementById("popup-inner-add").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
+           console.log(updatas)
            for (var f =0;f<updatas.length-1;f++ ){
             console.log(updatas[f].value,updatas[f].required);
             console.log(updatas[f].value==""&&updatas[f].required);
@@ -834,7 +1108,7 @@ var vheads = [];
               alert("Enter the valid "+updatas[f].name);
               return;
             }
-values.push(updatas[f].value)
+values.push([updatas[f].value])
 vheads.push(updatas[f].name)
 
             }
@@ -844,6 +1118,7 @@ vheads.push(updatas[f].name)
            for (var f =0;f<updatas.length-1;f++ ){
            updatas[f].value="";
            }
+           updatas[0].parentElement.children[0].src=""
             togglePopup40()
             document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
@@ -888,10 +1163,13 @@ vheads.push(updatas[f].name)
    document.getElementById("loader").style.display="none"; 
      document.getElementById("message").textContent = "Member Added";
     document.getElementById("message").style.display = "block";
-     setTimeout(function () { document.getElementById("load").style.display="none";
-   uongoing="";
-  
-   },2000);
+    setTimeout(function () {  document.getElementById("message").textContent = "Member Login Creditials has been sent to the registered email ID";
+
+setTimeout(function () { document.getElementById("load").style.display="none";
+uongoing="";
+
+},2000);
+},2000);
   }
   else if(r=="reject"){
     document.getElementById("loader").style.display="none"; 
@@ -962,16 +1240,19 @@ name:vdatas[id-2][0]
    document.getElementById("loader").style.display="none"; 
      document.getElementById("message").textContent = "Member Deleted";
     document.getElementById("message").style.display = "block";
-     setTimeout(function () { document.getElementById("load").style.display="none";
+
+   setTimeout(function () { document.getElementById("load").style.display="none";
    uongoing="";
   
    },2000);
+ 
   }
   else if(r=="reject"){
     document.getElementById("loader").style.display="none"; 
      document.getElementById("message").textContent = "Member not found";
     document.getElementById("message").style.display = "block";
      setTimeout(function () { document.getElementById("load").style.display="none";
+     
    uongoing="";
   
    },2000);
@@ -1008,8 +1289,112 @@ name:vdatas[id-2][0]
     updatelogstatus("Offline");  
   };
   window.addEventListener("beforeunload", beforeUnloadHandler);*/
+  function checkboxvalue(button){
+    var value ="";
+    var checks = button.parentElement.parentElement.children;
+    var checksv = button.parentElement.parentElement.parentElement.children;
+    for(var i= 0; i<checks.length-1;i++){
+
+      if (checks[i].children[0].checked){
+    var    cvalue = checks[i].children[0].value;
+        console.log(value)
+        if (value == ""){
+          value = cvalue;
+        }
+        else{
+          value = value+", "+cvalue;
+        }
+
+      }
+      else{
+        checks[i].children[0].required= false
+      }
+       
+    }
+    if (value == ""){
+      checks[1].children[0].required= true;
+    }
+    checksv[checksv.length-1].value = value
+    console.log( checks[0].children[0].required)
+    console.log( checks[1].children[0].required)
+    console.log(checksv[checksv.length-1])
+
+  }
      </script>
-     
+       <script>
+        function formfileupload(button){
+        let file1 = button;
+    
+        let fileurl1 = button.parentElement.children[2];
+        let fileurl1status = button.parentElement.children[3];
+        var fol = fileurl1.className;
+        file1.addEventListener('change',()=>{
+        let fr = new FileReader();
+        console.log(file1.value)
+        var rawformats = file1.accept;
+        console.log(rawformats)
+    var formats = rawformats.split(",");
+    console.log(formats)
+    var supformat = false;
+    for(var i=0;i<formats.length;i++){
+      if(file1.value.includes(formats[i])){
+        supformat = true;
+      }
+    }
+    console.log(supformat)
+        if (supformat){
+      //    document.getElementById("load").style.display="initial";
+        //   document.getElementById("loader").style.display="block"; 
+           fileurl1status.textContent = "Uploading....";
+             //   document.getElementById("loader").style.display="block"; 
+            //    document.getElementById("load").style.display="initial";
+             //   document.getElementById("message").textContent="Uploading....";
+                fr.addEventListener('loadend',()=>{
+                    let res = fr.result;
+                    let v = fileurl1.value.replace("/"+fol,"");
+                    let folder = "15GgsPpNztp41g7Sw7s7LOT0vhnYnViei";
+            
+                    let spt = res.split("base64,")[1];
+                    let obj = {
+                        base64:spt,
+                        type:file1.files[0].type,
+                        name:file1.files[0].name,
+                        folder,
+                        v
+            
+                    }
+                    fetch("https://script.google.com/macros/s/AKfycbzjsZZ7VB5r1_XZUhWvkyDUDIvQM7qVQYu7gtZhChTMhiAyjfXGuHAQg21flXWsg-IOSg/exec",{
+                        method:"POST",
+                        body:JSON.stringify(obj)
+                    })
+                    .then(r=>r.text())
+              
+                    .then(data=>fileurl1.value=(data+"/"+fol))
+                    .then(data=>console.log(fileurl1.value)&(onuploadcomplete (data,button)))
+                    .then(console.log(v) )
+                })
+                fr.readAsDataURL(file1.files[0])
+                     
+        }
+        else{
+            alert("Upload the file in correct format");
+            button.value="";
+        }
+        }
+    ) 
+    
+    }
+    
+    function onuploadcomplete (img,btn){
+      let fileurl1status = btn.parentElement.children[3];
+  var imgsplit = img.split("/");
+  var imgid = imgsplit[5];
+        document.getElementById("loader").style.display="none"; 
+        fileurl1status.textContent="Uploaded";
+        btn.previousElementSibling.src = "https://drive.google.com/thumbnail?id="+imgid+"&sz=w1000";
+        setTimeout(function () {  fileurl1status.textContent=""; },2000);
+    }
+    </script>
   <script src="script1.js"></script>
  
 </html>
