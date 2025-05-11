@@ -1304,18 +1304,18 @@ otherselected.push(true)
       }
     }
     console.log(otherselected)
-    if(checks[0].children[0].checked==true){
+    if(checks[0].children[0].checked==true&&checks[0].children[1].innerHTML=="All"){
       for(var i= 1; i<checks.length;i++){
 checks[i].style.display="none";
 checks[i].children[0].checked=false;
       }
     }
- else   if(checks[0].children[0].checked==false&&otherselected.includes(true)){
+ else   if(checks[0].children[0].checked==false&&otherselected.includes(true)&&checks[0].children[1].innerHTML=="All"){
 checks[0].style.display="none";
 checks[0].children[0].checked=false;
       
     }
-    else if(checks[0].children[0].checked==false){
+    else if(checks[0].children[0].checked==false&&checks[0].children[1].innerHTML=="All"){
       for(var i= 0; i<checks.length;i++){
      
 checks[i].style.display="initial";
