@@ -799,7 +799,7 @@ us_access.forEach((access,accessid)=>{
 
 if(access == "All"){
 var perlabel =
-`<label for="All">
+`<label for="All" style="display: none;">
                                             <input
                                             required
                                             onchange="checkboxvalue(this)"
@@ -1293,7 +1293,36 @@ name:vdatas[id-2][0]
     var value ="";
     var checks = button.parentElement.parentElement.children;
     var checksv = button.parentElement.parentElement.parentElement.children;
-    for(var i= 0; i<checks.length-1;i++){
+    var otherselected =[];
+    for(var i= 1; i<checks.length;i++){
+     
+      if (checks[i].children[0].checked){
+otherselected.push(true)
+      }
+      else{
+        otherselected.push(false)
+      }
+    }
+    console.log(otherselected)
+    if(checks[0].children[0].checked==true){
+      for(var i= 1; i<checks.length;i++){
+checks[i].style.display="none";
+checks[i].children[0].checked=false;
+      }
+    }
+ else   if(checks[0].children[0].checked==false&&otherselected.includes(true)){
+checks[0].style.display="none";
+checks[0].children[0].checked=false;
+      
+    }
+    else if(checks[0].children[0].checked==false){
+      for(var i= 0; i<checks.length;i++){
+     
+checks[i].style.display="initial";
+//checks[i].children[0].checked=false;
+      }
+    }
+    for(var i= 0; i<checks.length;i++){
 
       if (checks[i].children[0].checked){
     var    cvalue = checks[i].children[0].value;
