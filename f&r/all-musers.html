@@ -418,7 +418,7 @@ document.getElementById("popup-40").classList.toggle("active");
                     </div>
                 <div class="form-element">
                   <span class="q">Role</span>
-                  <select required name="Role" >
+                  <select required name="Role" onchange="rolefeatures(this)">
                     <option value="">Select the Role</option>
                     <option value="User">User</option>
                     <option value="Admin">Admin</option>
@@ -454,7 +454,7 @@ document.getElementById("popup-40").classList.toggle("active");
                             </div>
                             <input type="hidden" name="All User Details Access" value="Owned">
                            </div>
-                           <div class="form-element radio-buttons">
+                           <div class="form-element radio-buttons" style="display: none;">
                             <span class="q">Member Details Access</span>
                             <span></span>
                             <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
@@ -795,8 +795,10 @@ var role = userdetails.roles  ;
 var th = "";
 var us_access = userdetails.us_access;
 us_access.forEach((access,accessid)=>{
+  var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
+  var nro1 = (accessid ===  1) ? "No" : "Owned";
 
-
+console.log(nro,accessid)
 if(access == "All"){
 var perlabel =
 `<label for="All" style="display: none;">
@@ -816,10 +818,10 @@ var perlabel =
                                           onchange="checkboxvalue(this)"
                                           type="checkbox"
                                           id="Owned"
-                                          value="Owned"
+                                          value="`+nro+`"
                                           
                                           />
-                                          <span>Owned</span>
+                                          <span>`+nro1+`</span>
                                           </label>
 `
 var grouplabels = "";
@@ -854,10 +856,10 @@ var perlabel =
                                           onchange="checkboxvalue(this)"
                                           type="checkbox"
                                           id="Owned"
-                                          value="Owned"
+                                          value="`+nro+`"
                                           
                                           />
-                                          <span>Owned</span>
+                                          <span>`+nro1+`</span>
                                           </label>
 `
 var grouplabels = "";
@@ -1289,6 +1291,16 @@ name:vdatas[id-2][0]
     updatelogstatus("Offline");  
   };
   window.addEventListener("beforeunload", beforeUnloadHandler);*/
+  function rolefeatures(button){
+var role = button.value;
+var features = document.getElementsByClassName("access-check");
+if(role=="Admin"){
+features[1].parentElement.style.display="flex";
+}
+else if(role=="User"){
+  features[1].parentElement.style.display="none";
+}
+  }
   function checkboxvalue(button){
     var value ="";
     var checks = button.parentElement.parentElement.children;

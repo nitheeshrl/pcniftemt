@@ -209,13 +209,13 @@ function sidebari(){
     var rwnrid  = localStorage.getItem("loggeduserdetails");
     var wnrid  = JSON.parse(rwnrid);
     console.log(wnrid.role)
-    if(wnrid.role == "Admin"){
+    if(wnrid.role == "Admin"&&wnrid.mprole!=="No"){
     document.getElementById("sidebar").innerHTML = amenu;
     document.getElementById("profileimage").src = localStorage.getItem("loggedpic");
     document.getElementById("profileimage1").src = localStorage.getItem("loggedpic");
     document.getElementById("mname").innerHTML = localStorage.getItem("loggedname");
     }
-    else if(wnrid.role == "User"){
+    else if(wnrid.role == "User"||wnrid.mprole=="No"){
       if (path.includes("all-musers")){
         udecide ="deny";
         document.getElementById("internetstatus").classList.toggle('msg')
