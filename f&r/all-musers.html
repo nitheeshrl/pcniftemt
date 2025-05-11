@@ -307,11 +307,23 @@ document.getElementById("popup-40").classList.toggle("active");
             <div class="close-btn" onclick="togglePopup()">&times;</div>
         <div class="popup-inner" id="popup-inner">
             <h1>Edit User Details</h1>
+            <div class="form-element" style="margin-top: 20px;margin-bottom: 20px;">
+              <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
+                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;" src="" alt="" srcset="">
+<input  type="file" accept=".JPG,.jpg,.JPEG,.jpeg,.PNG,.png" onclick="formfileupload(this)"/>
+<input required type="hidden" name="Profile Pic" class="1lz0E2hzYz0x1Z2GVVwYQlgAAJVk6paTx" value=""/>
+<span></span>
+
+              </div>
+            </div> 
             <div class="form-element">
               <span class="q">Name</span>
               <input readonly type="text" name="Name"   placeholder="Enter your Name" />
               </div>
-
+              <div class="form-element">
+                <span class="q">ID Number</span>
+                <input required type="text" name="Member ID"  placeholder="Enter the Member ID Number" />
+                </div>
               
               <div class="form-element">
               <span class="q">Email ID</span>
@@ -339,7 +351,156 @@ document.getElementById("popup-40").classList.toggle("active");
                   <option value="Admin">Admin</option>
                 </select>
                 </div>
-              
+                <div class="form-element radio-buttons">
+                  <span class="q">User Details Access</span>
+                  <span></span>
+                  <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                    <label for="All">
+                      <input
+                      required
+                      onchange="checkboxvalue(this)"
+                      type="checkbox"
+                      id="All"
+                      value="All"
+                      
+                      />
+                      <span>All</span>
+                      </label>
+                  <label for="Owned">
+                    <input
+                     required
+                    onchange="checkboxvalue(this)"
+                    type="checkbox"
+                    id="Owned"
+                    value="Owned"
+                    
+                    />
+                    <span>Owned</span>
+                    </label>
+                     
+                      </div>
+                      <input type="hidden" name="All User Details Access" value="Owned">
+                     </div>
+                     <div class="form-element radio-buttons" style="display: none;">
+                      <span class="q">Member Details Access</span>
+                      <span></span>
+                      <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                        <label for="All">
+                          <input
+                          required
+                          onchange="checkboxvalue(this)"
+                          type="checkbox"
+                          id="All"
+                          value="All"
+                          
+                          />
+                          <span>All</span>
+                          </label>
+                      <label for="Owned">
+                        <input
+                         required
+                        onchange="checkboxvalue(this)"
+                        type="checkbox"
+                        id="Owned"
+                        value="Owned"
+                        
+                        />
+                        <span>Owned</span>
+                        </label>
+                         
+                          </div>
+                          <input type="hidden" name="All M-User Details Access" value="Owned">
+                         </div>
+                         <div class="form-element radio-buttons">
+                          <span class="q">Forms Access</span>
+                          <span></span>
+                          <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                            <label for="All">
+                              <input
+                              required
+                              onchange="checkboxvalue(this)"
+                              type="checkbox"
+                              id="All"
+                              value="All"
+                              
+                              />
+                              <span>All</span>
+                              </label>
+                          <label for="Owned">
+                            <input
+                             required
+                            onchange="checkboxvalue(this)"
+                            type="checkbox"
+                            id="Owned"
+                            value="Owned"
+                            
+                            />
+                            <span>Owned</span>
+                            </label>
+                             
+                              </div>
+                              <input type="hidden" name="Forms Access" value="Owned">
+                             </div>
+                             <div class="form-element radio-buttons">
+                              <span class="q">Company Details Access</span>
+                              <span></span>
+                              <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                <label for="All">
+                                  <input
+                                  required
+                                  onchange="checkboxvalue(this)"
+                                  type="checkbox"
+                                  id="All"
+                                  value="All"
+                                  
+                                  />
+                                  <span>All</span>
+                                  </label>
+                              <label for="Owned">
+                                <input
+                                 required
+                                onchange="checkboxvalue(this)"
+                                type="checkbox"
+                                id="Owned"
+                                value="Owned"
+                                
+                                />
+                                <span>Owned</span>
+                                </label>
+                                 
+                                  </div>
+                                  <input type="hidden" name="Company Details Access" value="Owned">
+                                 </div>
+                                 <div class="form-element radio-buttons">
+                                  <span class="q">Brochure Request Access</span>
+                                  <span></span>
+                                  <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                    <label for="All">
+                                      <input
+                              
+                                      onchange="checkboxvalue(this)"
+                                      type="checkbox"
+                                      id="All"
+                                      value="All"
+                                      
+                                      />
+                                      <span>All</span>
+                                      </label>
+                                  <label for="Owned">
+                                    <input
+                                     required
+                                    onchange="checkboxvalue(this)"
+                                    type="checkbox"
+                                    id="Owned"
+                                    value="Owned"
+                                    
+                                    />
+                                    <span>Owned</span>
+                                    </label>
+                                     
+                                      </div>
+                                      <input type="hidden" name="Request Access" value="Owned">
+                                     </div>
 
             <div class="popup-btn">
                 <input id="aid" type="hidden" value="">
@@ -907,8 +1068,23 @@ for (var r=0; r<datas.length;r++){
 
   var td ="";
   for (var d=0; d<datas[r].length;d++){
-   
-if (d==5){
+    if (d==1){
+  if (datas[r][d].includes("google.com")){
+    datas[r][d] = datas[r][d];
+  }
+  else{
+    datas[r][d] = "https://pcniftemt.pages.dev/f&r/"+datas[r][d];
+  }
+
+ td +="<td>"+ `<div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
+                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;margin-left: 5px;" src="`+datas[r][d]+`" alt="" srcset="">
+              </div>`+"</td>";
+            //  td +="<td>"+ ` <img  style="object-fit: cover;width: 100px; height: 100px;" src="`+datas[r][d]+`" alt="">`+"</td>";
+            
+//  td +="<td>"+datas[r][d]+"</td>";
+
+}
+else if (d==6){
 if (datas[r][d] == "Offline"){
   td +='<td  style="color: red;">'+datas[r][d]+"</td>";
 }
@@ -917,6 +1093,7 @@ else if (datas[r][d] =="Online"){
 }
 }
 else{
+ // console.log(datas[r][d])
 td +="<td>"+datas[r][d]+"</td>";
 }
 }
@@ -940,8 +1117,14 @@ utr +="<tr><td>"+`<svg onclick="editPopup(`+editno+`)"  fill="#0042aa" version="
 var atbody = "<tbody>"+atr+"</tbody>";
 var utbody = "<tbody>"+utr+"</tbody>";
 var search2 = document.querySelector('.input-group input').value;
+var oldhtml = document.getElementById("table__body").innerHTML;
+var newhtml = '<span style="margin-top: 20px;">Admin Details</span><table>'+thead+atbody+"</table><table><span>User Details</span>"+thead+utbody+"</table>";
+//console.log(newhtml.replace(oldhtml,""))
+//console.log(oldhtml.replace(newhtml,""))
 if(search2==""){
-document.getElementById("table__body").innerHTML = '<span style="margin-top: 20px;">Admin Details</span><table>'+thead+atbody+"</table><table><span>User Details</span>"+thead+utbody+"</table>";
+  if(oldhtml!==newhtml){
+document.getElementById("table__body").innerHTML = newhtml;;
+}
 }
 if (uongoing==""){
 document.getElementById("load").style.display="none";
