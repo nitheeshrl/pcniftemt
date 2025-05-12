@@ -30,7 +30,7 @@ function getuserdetailsonload(user){
     var ruserdetails = localStorage.getItem("loggeduserdetails");
 
       var formDataString =user+"/2";
-    //  console.log(formDataString)
+      console.log(formDataString)
   
       fetch(
         "https://script.google.com/macros/s/AKfycbzqSHjVCXfU1DIQzUCEYcBFVssU9MISesB1WPePdf6_n4JcTii9Dh5c-_I7IoGVYjMJAw/exec",
@@ -58,6 +58,32 @@ function getuserdetailsonload(user){
           getuserdetailsonload(uid+"/12");
           const result1 = await data.json();
   var userdetails = result1.data2;
+  if 
+  (userdetails[0] == "Not Found") {
+    console.log("User Not Found");
+    udecide ="deny";
+    document.getElementById("internetstatus").classList.toggle('msg')
+    document.getElementById("internetstatus-box").classList.toggle('msg')
+    document.getElementById("internetstatus").children[0].textContent="Can't find your details. Contact administrator";
+    document.getElementById("internetstatus-box").style.display="flex"
+    setTimeout(function () { 
+
+      localStorage.removeItem("loggedname");
+      localStorage.removeItem("loggeduorp");
+      localStorage.removeItem("loggedpic");
+      localStorage.removeItem("loggedmail");
+      localStorage.removeItem("loggeduserdetails");
+      window.location="../index.html";
+      document.getElementById("internetstatus").classList.remove('msg')
+      document.getElementById("internetstatus-box").classList.remove('msg')
+      document.getElementById("internetstatus").children[0].textContent="You are online";
+      document.getElementById("internetstatus-box").style.display="flex"
+    udecide ="";
+
+     },5000);
+
+    return;
+  }
 //console.log(userdetails)
   var udata = userdetails[7];
  //console.log(udata)
@@ -98,7 +124,8 @@ function getuserdetailsonload(user){
  
       var rid  = localStorage.getItem("loggeduserdetails");
    console.log(rid)
-      if(rid!==undefined&&rid!==""&&rid!==null){
+   console.log(rid!=="undefined")
+      if(rid!=="undefined"&&rid!==undefined&&rid!==""&&rid!==null){
         var uid = JSON.parse(rid).id;
         if(uid.includes("PC")){
           var vlog = localStorage.getItem("loggedname");
@@ -108,7 +135,7 @@ function getuserdetailsonload(user){
       setTimeout(function () {   getuserdetailsonload(uid+"/12"); },2000);
         }
       }
-      else if(rid==undefined||rid==""||rid==null){
+      else if(rid=="undefined"||rid==undefined||rid==""||rid==null){
         var vlog = localStorage.getItem("loggedname");
       setTimeout(function () {  getuserdetailsonload(vlog+"/1"); },2000);
        
