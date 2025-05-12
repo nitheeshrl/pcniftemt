@@ -67,17 +67,16 @@ function getuserdetailsonload(user){
     document.getElementById("internetstatus").children[0].textContent="Can't find your details. Contact administrator";
     document.getElementById("internetstatus-box").style.display="flex"
     setTimeout(function () { 
-
+      document.getElementById("internetstatus").classList.remove('msg')
+      document.getElementById("internetstatus-box").classList.remove('msg')
+      document.getElementById("internetstatus").children[0].textContent="You are online";
+      document.getElementById("internetstatus-box").style.display="flex"
       localStorage.removeItem("loggedname");
       localStorage.removeItem("loggeduorp");
       localStorage.removeItem("loggedpic");
       localStorage.removeItem("loggedmail");
       localStorage.removeItem("loggeduserdetails");
       window.location="../index.html";
-   //   document.getElementById("internetstatus").classList.remove('msg')
-     // document.getElementById("internetstatus-box").classList.remove('msg')
-     // document.getElementById("internetstatus").children[0].textContent="You are online";
-      //document.getElementById("internetstatus-box").style.display="flex"
     udecide ="";
 
      },5000);
