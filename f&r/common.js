@@ -74,10 +74,10 @@ function getuserdetailsonload(user){
       localStorage.removeItem("loggedmail");
       localStorage.removeItem("loggeduserdetails");
       window.location="../index.html";
-      document.getElementById("internetstatus").classList.remove('msg')
-      document.getElementById("internetstatus-box").classList.remove('msg')
-      document.getElementById("internetstatus").children[0].textContent="You are online";
-      document.getElementById("internetstatus-box").style.display="flex"
+   //   document.getElementById("internetstatus").classList.remove('msg')
+     // document.getElementById("internetstatus-box").classList.remove('msg')
+     // document.getElementById("internetstatus").children[0].textContent="You are online";
+      //document.getElementById("internetstatus-box").style.display="flex"
     udecide ="";
 
      },5000);
