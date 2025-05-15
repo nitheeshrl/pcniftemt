@@ -589,7 +589,7 @@ document.getElementById("popup-40").classList.toggle("active");
                       <div class="form-element radio-buttons">
                         <span class="q">User Details Access</span>
                         <span></span>
-                        <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                        <div class="access-check-add" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
                           <label for="All">
                             <input
                             required
@@ -619,7 +619,7 @@ document.getElementById("popup-40").classList.toggle("active");
                            <div class="form-element radio-buttons" style="display: none;">
                             <span class="q">Member Details Access</span>
                             <span></span>
-                            <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                            <div class="access-check-add" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
                               <label for="All">
                                 <input
                                 required
@@ -649,7 +649,7 @@ document.getElementById("popup-40").classList.toggle("active");
                                <div class="form-element radio-buttons">
                                 <span class="q">Forms Access</span>
                                 <span></span>
-                                <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                <div class="access-check-add" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
                                   <label for="All">
                                     <input
                                     required
@@ -679,7 +679,7 @@ document.getElementById("popup-40").classList.toggle("active");
                                    <div class="form-element radio-buttons">
                                     <span class="q">Company Details Access</span>
                                     <span></span>
-                                    <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                    <div class="access-check-add" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
                                       <label for="All">
                                         <input
                                         required
@@ -709,7 +709,7 @@ document.getElementById("popup-40").classList.toggle("active");
                                        <div class="form-element radio-buttons">
                                         <span class="q">Brochure Request Access</span>
                                         <span></span>
-                                        <div class="access-check" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
+                                        <div class="access-check-add" style="display: flex; gap: 20px; flex-wrap: wrap; width: 100%;">
                                           <label for="All">
                                             <input
                                     
@@ -784,6 +784,7 @@ document.getElementById("popup-40").classList.toggle("active");
 <script src="https://web-socket-1-kmp6.onrender.com/socket.io/socket.io.js"></script>
 <script src="socket.js"></script>
 <script>
+  var addoptioready = false;
     var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
     document.getElementById("profileimage").src = porfilepicback;
@@ -1001,12 +1002,14 @@ ugroups.forEach((group) => {
   <span>`+groupname+`</span>
   </label>`;
 });
-var todaa = document.getElementsByClassName("access-check");
+var todaa = document.getElementsByClassName("access-check-add");
 console.log(todaa)
   var ecah = todaa[accessid];
-  console.log(ecah)
+ // console.log(ecah)
 if (!document.getElementById("popup-40").className.includes("active")){
+  console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
+  console.log(ecah)
 }
 }
 else if (access !== "No"&&access !== "All"){
@@ -1040,17 +1043,19 @@ ugroups.forEach((group) => {
   <span>`+groupname+`</span>
   </label>`;
 });
-var todaa = document.getElementsByClassName("access-check");
+var todaa = document.getElementsByClassName("access-check-add");
 console.log(todaa)
   var ecah = todaa[accessid];
-  console.log(ecah)
+  
   if (!document.getElementById("popup-40").className.includes("active")){
+    console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
+  console.log(ecah)
 }
 
 }
 })
-
+addoptioready = true;
 
 for (var i=0; i<heads.length;i++){
 
