@@ -143,6 +143,126 @@ inputs.forEach((i,innow) =>{
 })
 inputs[6].value = vrole[edit-2];
 ddatas[6]= vrole[edit-2];
+eus_access.forEach((access,accessid)=>{
+  var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
+  var nro1 = (accessid ===  1) ? "No" : "Owned";
+
+console.log(nro,accessid)
+if(access == "All"){
+var perlabel =
+`<label for="All" style="display: none;">
+                                            <input
+                                            required
+                                            onchange="checkboxvalue(this)"
+                                            type="checkbox"
+                                            id="All"
+                                            value="All"
+                                            
+                                            />
+                                            <span>All</span>
+                                            </label>
+                                        <label for="Owned">
+                                          <input
+                                      checked
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="`+nro+`"
+                                          
+                                          />
+                                          <span>`+nro1+`</span>
+                                          </label>
+`
+var grouplabels = "";
+eugroups.forEach((group) => {
+  var groupname = group[2];
+  grouplabels += `<label for="`+groupname+`">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+});
+var todaa = document.getElementsByClassName("access-check");
+console.log(todaa)
+  var ecah = todaa[accessid];
+ // console.log(ecah)
+if (!document.getElementById("popup-1").className.includes("active")){
+  console.log(ecah)
+  ecah.innerHTML = perlabel+grouplabels;
+  console.log(ecah)
+}
+}
+else if (access !== "No"&&access !== "All"){
+var perlabel =
+`
+                                        <label for="Owned">
+                                          <input
+                                      checked
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="`+nro+`"
+                                          
+                                          />
+                                          <span>`+nro1+`</span>
+                                          </label>
+`
+var grouplabels = "";
+eugroups.forEach((group) => {
+  var groupname = group[2];
+  if(access.includes(groupname)){
+  grouplabels += `<label for="`+groupname+`">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+}
+else{
+  grouplabels += `<label for="`+groupname+`" style="display: none;">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+}
+});
+var todaa = document.getElementsByClassName("access-check");
+console.log(todaa)
+  var ecah = todaa[accessid];
+  
+  if (!document.getElementById("popup-1").className.includes("active")){
+    console.log(ecah)
+  ecah.innerHTML = perlabel+grouplabels;
+  console.log(ecah)
+}
+
+}
+})
+var role = vrole[edit-2];
+var features = document.getElementsByClassName("access-check");
+if(role=="Admin"){
+features[1].parentElement.style.display="flex";
+}
+else if(role=="User"){
+  features[1].parentElement.style.display="none";
+}
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
 document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
@@ -925,6 +1045,8 @@ alert("PassKey is already created for this Device")
            var allotdiv;
            var vdatas = [];
            var vheads = [];
+           var eugroups = [];
+           var eus_access = [];
            var vrole ; 
            var uongoing="";
            function fetchd (){
@@ -968,8 +1090,10 @@ var role = userdetails.roles  ;
         var access = userdetails.access;
         var uaccess = userdetails.uaccess  ;
         var ugroups = userdetails.groups  ;
+        eugroups = userdetails.groups  ;
 var th = "";
 var us_access = userdetails.us_access;
+eus_access = userdetails.us_access;
 us_access.forEach((access,accessid)=>{
   var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
   var nro1 = (accessid ===  1) ? "No" : "Owned";
@@ -1495,7 +1619,7 @@ name:vdatas[id-2][0]
   window.addEventListener("beforeunload", beforeUnloadHandler);*/
   function rolefeatures(button){
 var role = button.value;
-var features = document.getElementsByClassName("access-check");
+var features = document.getElementsByClassName("access-check-add");
 if(role=="Admin"){
 features[1].parentElement.style.display="flex";
 }
@@ -1518,24 +1642,49 @@ otherselected.push(true)
       }
     }
     console.log(otherselected)
-    if(checks[0].children[0].checked==true&&checks[0].children[1].innerHTML=="All"){
-      for(var i= 1; i<checks.length;i++){
+    if((button.parentElement.children[1].innerHTML=="No")){
+      if(checks[1].children[0].checked==true&&(checks[1].children[1].innerHTML=="No")){
+      for(var i= 0; i<checks.length;i++){
+        if(i==1){
+          continue;
+        }
 checks[i].style.display="none";
 checks[i].children[0].checked=false;
       }
     }
- else   if(checks[0].children[0].checked==false&&otherselected.includes(true)&&checks[0].children[1].innerHTML=="All"){
-checks[0].style.display="none";
-checks[0].children[0].checked=false;
+ else   if(checks[1].children[0].checked==false&&otherselected.includes(true)&&(checks[1].children[1].innerHTML=="No")){
+checks[1].style.display="none";
+checks[1].children[0].checked=false;
       
     }
-    else if(checks[0].children[0].checked==false&&checks[0].children[1].innerHTML=="All"){
+    else if(checks[1].children[0].checked==false&&(checks[1].children[1].innerHTML=="No")){
       for(var i= 0; i<checks.length;i++){
      
 checks[i].style.display="initial";
 //checks[i].children[0].checked=false;
       }
     }
+  } 
+   else {
+    if(checks[0].children[0].checked==true&&(checks[0].children[1].innerHTML=="All")){
+      for(var i= 1; i<checks.length;i++){
+checks[i].style.display="none";
+checks[i].children[0].checked=false;
+      }
+    }
+ else   if(checks[0].children[0].checked==false&&otherselected.includes(true)&&(checks[0].children[1].innerHTML=="All")){
+checks[0].style.display="none";
+checks[0].children[0].checked=false;
+      
+    }
+    else if(checks[0].children[0].checked==false&&(checks[0].children[1].innerHTML=="All")){
+      for(var i= 0; i<checks.length;i++){
+     
+checks[i].style.display="initial";
+//checks[i].children[0].checked=false;
+      }
+    }
+  }
     for(var i= 0; i<checks.length;i++){
 
       if (checks[i].children[0].checked){
