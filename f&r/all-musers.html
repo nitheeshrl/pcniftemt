@@ -198,6 +198,60 @@ if (!document.getElementById("popup-1").className.includes("active")){
   console.log(ecah)
 }
 }
+else if(access == "No"){
+  var perlabel =
+`
+                                        <label for="Owned">
+                                          <input
+                                      checked
+                                      required
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="`+nro+`"
+                                          
+                                          />
+                                          <span>`+nro1+`</span>
+                                          </label>
+<label for="All" style="display: none;">
+                                            <input
+                                            disabled
+                                             style="display: none;"
+                                            onchange="checkboxvalue(this)"
+                                            type="checkbox"
+                                            id="All"
+                                            value="All"
+                                            
+                                            />
+                                            <span  style="display: none;">All</span>
+                                            </label>
+
+`
+var grouplabels = "";
+eugroups.forEach((group) => {
+  var groupname = group[2];
+  grouplabels += `<label for="`+groupname+`" style="display: none;">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+});
+var todaa = document.getElementsByClassName("access-check");
+console.log(todaa)
+  var ecah = todaa[accessid];
+ // console.log(ecah)
+if (!document.getElementById("popup-1").className.includes("active")){
+  console.log(ecah)
+  ecah.innerHTML = perlabel//+grouplabels;
+  console.log(ecah)
+}
+}
 else if (access !== "No"&&access !== "All"){
 var perlabel =
 `
@@ -1146,6 +1200,60 @@ console.log(todaa)
 if (!document.getElementById("popup-40").className.includes("active")){
   console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
+  console.log(ecah)
+}
+}
+else if(access == "No"){
+var perlabel =
+`
+                                        <label for="Owned">
+                                          <input
+                                      checked
+                                      required
+                                          onchange="checkboxvalue(this)"
+                                          type="checkbox"
+                                          id="Owned"
+                                          value="`+nro+`"
+                                          
+                                          />
+                                          <span>`+nro1+`</span>
+                                          </label>
+<label for="All" style="display: none;">
+                                            <input
+                                            disabled
+                                             style="display: none;"
+                                            onchange="checkboxvalue(this)"
+                                            type="checkbox"
+                                            id="All"
+                                            value="All"
+                                            
+                                            />
+                                            <span  style="display: none;">All</span>
+                                            </label>
+
+`
+var grouplabels = "";
+ugroups.forEach((group) => {
+  var groupname = group[2];
+  grouplabels += `<label for="`+groupname+`" style="display: none;">
+  <input
+
+  onchange="checkboxvalue(this)"
+  type="checkbox"
+  id="`+groupname+`"
+  value="`+groupname+`"
+  
+  />
+  <span>`+groupname+`</span>
+  </label>`;
+});
+var todaa = document.getElementsByClassName("access-check-add");
+console.log(todaa)
+  var ecah = todaa[accessid];
+ // console.log(ecah)
+if (!document.getElementById("popup-40").className.includes("active")){
+  console.log(ecah)
+  ecah.innerHTML = perlabel //+grouplabels;
   console.log(ecah)
 }
 }
