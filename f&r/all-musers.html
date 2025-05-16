@@ -105,31 +105,44 @@ document.getElementById("popup-3").classList.toggle("active");
 var ddatas = [];
 function editPopup(edit){
   alert("Under Maintenance, will be available soon")
+  return
   console.log(edit)
   console.log(vdatas)
   var udata = vdatas[edit-2];
   console.log(udata)
-var inputs = document.getElementById("popup-inner").querySelectorAll("div");
+var inputs = document.getElementById("popup-inner").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
 console.log(inputs)
 var now = 0;
-inputs.forEach(i =>{
-  console.log(i.children[1],udata[now])
+var change1 = udata[0];
+var change2 = udata[1];
+udata[0] = change2;
+udata[1] = change1;
+inputs.forEach((i,innow) =>{
+  /*console.log(i,udata[now])
   if(now ==1){
     now++
     console.log(udata[now])
-    i.children[1].value = udata[now];
+    i.value = udata[now];
     ddatas.push(udata[now])
     now++
   }
+  else{*/
+  if(now == 6 ){
+    now = 9;
+    return
+  }
+  
+
   else{
-    console.log(udata[now])
-  i.children[1].value = udata[now];
+    console.log(i,i.value,now, udata[now])
+  i.value = udata[now];
+  console.log(i.value)
   ddatas.push(udata[now])
   now++
   }
 })
-inputs[4].children[1].value = vrole[edit-2];
-ddatas[4]= vrole[edit-2];
+inputs[6].value = vrole[edit-2];
+ddatas[6]= vrole[edit-2];
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
 document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
