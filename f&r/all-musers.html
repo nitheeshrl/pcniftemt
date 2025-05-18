@@ -89,55 +89,63 @@ justify-content: center;
     window.location="../logout.html";
   }
   function userPopup(){
-        console.log("ok")
+        //console.log("ok")
 document.getElementById("popup-4").classList.toggle("active");
 }
 function delPopup(edit){
-        console.log(document.getElementById("popup-inner").querySelectorAll("div"))
+        //console.log(document.getElementById("popup-inner").querySelectorAll("div"))
 document.getElementById("popup-inner-del").querySelectorAll("div")[0].children[1].setAttribute("onclick","delstudent("+edit+")")
 document.getElementById("popup-50").classList.toggle("active");
 }
 function logoutPopup(){
-        console.log("ok")
+        //console.log("ok")
 document.getElementById("popup-3").classList.toggle("active");
 
 }
 var ddatas = [];
 function editPopup(edit){
-  alert("Under Maintenance, will be available soon")
- return
-  console.log(edit)
-  console.log(vdatas)
+  //alert("Under Maintenance, will be available soon")
+ //return
+  //console.log(edit)
+  //console.log(vdatas)
   var udata = vdatas[edit-2];
-  console.log(udata)
+  //console.log(udata)
 var inputs = document.getElementById("popup-inner").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
-console.log(inputs)
+//console.log(inputs)
 var now = 0;
 var change1 = udata[0];
 var change2 = udata[1];
 udata[0] = change2;
 udata[1] = change1;
+document.getElementById("popup-inner").querySelector("img").src = udata[0];
 inputs.forEach((i,innow) =>{
-  /*console.log(i,udata[now])
+  /*//console.log(i,udata[now])
   if(now ==1){
     now++
-    console.log(udata[now])
+    //console.log(udata[now])
     i.value = udata[now];
     ddatas.push(udata[now])
     now++
   }
   else{*/
+  //console.log(udata[now])
+
   if(now == 6 ){
     now = 9;
+    ddatas.push(udata[8])
     return
   }
-  
+  //else if(now == 14){
+    //return
+  //}
 
   else{
     console.log(i,i.value,now, udata[now])
+    ddatas.push(udata[now])
   i.value = udata[now];
-  console.log(i.value)
-  ddatas.push(udata[now])
+  //console.log(i.value)
+
+  console.log(ddatas)
   now++
   }
 })
@@ -147,7 +155,7 @@ eus_access.forEach((access,accessid)=>{
   var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
   var nro1 = (accessid ===  1) ? "No" : "Owned";
 
-console.log(access, nro,accessid)
+//console.log(access, nro,accessid)
 //if(access == "All"){
 var perlabel =
 `<label for="All" style="display: none;">
@@ -157,7 +165,7 @@ var perlabel =
                                             type="checkbox"
                                             id="All"
                                             value="All"
-                                            
+                                            onclick="checkdisabled(this)"
                                             />
                                             <span>All</span>
                                             </label>
@@ -168,7 +176,7 @@ var perlabel =
                                           type="checkbox"
                                           id="Owned"
                                           value="`+nro+`"
-                                          
+                                          onclick="checkdisabled(this)"
                                           />
                                           <span>`+nro1+`</span>
                                           </label>
@@ -183,24 +191,69 @@ eugroups.forEach((group) => {
   type="checkbox"
   id="`+groupname+`"
   value="`+groupname+`"
-  
+  onclick="checkdisabled(this)"
   />
   <span>`+groupname+`</span>
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check");
-//console.log(todaa)
+////console.log(todaa)
   var ecah = todaa[accessid];
- // console.log(ecah)
+ // //console.log(ecah)
 if (!document.getElementById("popup-1").className.includes("active")){
-  //console.log(ecah)
+  ////console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
   var uservalue = ecah.parentElement.querySelectorAll("input[type=hidden]")[0].value;
 uservalue= (accessid == 0&&uservalue=="Owned") ? "No" : uservalue;
-  console.log(uservalue)
-  console.log(ecah)
+  //console.log(uservalue)
+  //console.log(ecah)
   var labelseach = ecah.querySelectorAll("label");
   labelseach.forEach((label, labid) => {
+  var labelid = label.children[0].value;
+  var isAllOption = labelid === "All";
+  var isOwnedOption = label.querySelector('span')?.textContent.includes("Owned"); // Optional chaining for safety
+  
+  // Case 1: When uservalue is "All"
+  if (uservalue === "All") {
+    if (isAllOption) {
+      label.style.display = "initial";
+      label.children[0].checked = true;
+      label.children[0].disabled = (access !== "All"); // Disable if access isn't "All"
+    } else {
+      label.style.display = "none";
+      label.children[0].checked = false;
+    }
+    return;
+  }
+
+  // Case 2: When uservalue is not "All" - handle "All" option
+  if (isAllOption) {
+    label.style.display = "initial"; // Show but may disable
+    label.children[0].checked = false;
+    label.children[0].disabled = (access !== "All"); // Disable if access isn't "All"
+    return;
+  }
+
+  // Case 3: Special handling for "Owned" options
+  if (isOwnedOption) {
+    label.style.display = "initial";
+    label.children[0].disabled = false; // Always enable Owned options
+    label.children[0].checked = uservalue.includes(labelid);
+    return;
+  }
+
+  // Case 4: For all other options when uservalue is not "All"
+  if (access === "All" || access.includes(labelid)) {
+    label.style.display = "initial";
+    label.children[0].disabled = false;
+    label.children[0].checked = uservalue.includes(labelid);
+  } else {
+    label.style.display = "initial";  // Show but disable if no access
+    label.children[0].disabled = true;
+    label.children[0].checked = uservalue.includes(labelid);
+  }
+});
+  /*labelseach.forEach((label, labid) => {
   var labelid = label.children[0].value;
   var isAllOption = labelid === "All";
   var isOwnedOption = label.querySelector('span').textContent.includes("Owned");
@@ -309,9 +362,9 @@ uservalue= (accessid == 0&&uservalue=="Owned") ? "No" : uservalue;
 })
   labelseach.forEach((label,labid)=>{
     var labelid = label.children[0].value;
-    console.log(label.children[0])
+    //console.log(label.children[0])
   //(accessid ===  "No") ? "No" : "Owned";
-    console.log(uservalue,labelid)
+    //console.log(uservalue,labelid)
     if(access.includes(labelid)||access=="All"){
       label.style.display = "initial";
       //label.children[0].checked = false;
@@ -387,13 +440,13 @@ eugroups.forEach((group) => {
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check");
-//console.log(todaa)
+////console.log(todaa)
   var ecah = todaa[accessid];
- // console.log(ecah)
+ // //console.log(ecah)
 if (!document.getElementById("popup-1").className.includes("active")){
- // console.log(ecah)
+ // //console.log(ecah)
   ecah.innerHTML = perlabel//+grouplabels;
- // console.log(ecah)
+ // //console.log(ecah)
 }
 }
 else if (access !== "No"&&access !== "All"){
@@ -442,18 +495,18 @@ else{
 }
 });
 var todaa = document.getElementsByClassName("access-check");
-//console.log(todaa)
+////console.log(todaa)
   var ecah = todaa[accessid];
   
   if (!document.getElementById("popup-1").className.includes("active")){
-   // console.log(ecah)
+   // //console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
-//  console.log(ecah)
+//  //console.log(ecah)
 }
 
 }*/
 var eachlabel = todaa[accessid];
-console.log(eachlabel)
+//console.log(eachlabel)
 })
 var role = vrole[edit-2];
 var features = document.getElementsByClassName("access-check");
@@ -464,8 +517,9 @@ else if(role=="User"){
   features[1].parentElement.style.display="none";
 }
 document.getElementById("popup-1").classList.toggle("active");
-console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
-document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
+var dinputs = document.getElementById("popup-inner").querySelectorAll("div")
+console.log(dinputs[dinputs.length-1].children[1])
+dinputs[dinputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
 }
 function addPopup(){
 document.getElementById("popup-40").classList.toggle("active");
@@ -652,22 +706,22 @@ document.getElementById("popup-40").classList.toggle("active");
             </div> 
             <div class="form-element">
               <span class="q">Name</span>
-              <input readonly type="text" name="Name"   placeholder="Enter your Name" />
+              <input required type="text" name="Name"   placeholder="Enter your Name" />
               </div>
               <div class="form-element">
                 <span class="q">ID Number</span>
-                <input required type="text" name="Member ID"  placeholder="Enter the Member ID Number" />
+                <input readonly type="text" name="Member ID"  placeholder="Enter the Member ID Number" />
                 </div>
               
               <div class="form-element">
               <span class="q">Email ID</span>
-              <input  type="text" name="Email ID"  placeholder="Enter your Email ID" />
+              <input required type="text" name="Email ID"  placeholder="Enter your Email ID" />
               </div>
               
 
               <div class="form-element">
                 <span class="q">Batch</span>
-                <input  type="number" name="Batch"  placeholder="Enter your Batch" />
+                <input required type="number" name="Batch"  placeholder="Enter your Batch" />
                 </div>
                 <div class="form-element">
                   <span class="q">UG or PG</span>
@@ -679,7 +733,7 @@ document.getElementById("popup-40").classList.toggle("active");
                   </div>
               <div class="form-element">
                 <span class="q">Role</span>
-                <select  name="Role" >
+                <select onchange="editrolefeatures(this)" required name="Role" >
                   <option value="">Select the Role</option>
                   <option value="User">User</option>
                   <option value="Admin">Admin</option>
@@ -930,13 +984,14 @@ document.getElementById("popup-40").classList.toggle("active");
                             type="checkbox"
                             id="All"
                             value="All"
-                            
+                            on
                             />
                             <span>All</span>
                             </label>
                         <label for="Owned">
                           <input
                            required
+                           onclick="checkdisabled(this)"
                           onchange="checkboxvalue(this)"
                           type="checkbox"
                           id="Owned"
@@ -1139,7 +1194,7 @@ return uniqueID;
 }
 async function passkey(){
            var passdevuniid =GetUniqueID();
-           console.log(passdevuniid);
+           //console.log(passdevuniid);
 if (passdevuniid[1] ==  "New"){
  document.getElementById("loader").style.display="block"; 
            document.getElementById("load").style.display="initial";
@@ -1151,7 +1206,7 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
            const url = new URL(window.location)
            const username = localStorage.getItem("loggedname");
            var weburl = location.hostname;
-           console.log(weburl)
+           //console.log(weburl)
            const response = await fetch(fetchurl+'/register-challenge', {
                method: 'POST',
                headers: {
@@ -1164,10 +1219,10 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
            const { options } = challengeResult // Server side challenge
 
            const authenticationResult = await startRegistration({optionsJSON: options})
-           console.log(authenticationResult)
+           //console.log(authenticationResult)
 
            var urlorigin= location.protocol+"//"+location.host;
-           console.log(urlorigin)
+           //console.log(urlorigin)
            var create_passkey = await fetch(fetchurl+'/register-verify', {
                method: 'POST',
                headers: {
@@ -1176,11 +1231,11 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
                body: JSON.stringify({ username, cred: authenticationResult, challenge: options.challenge, devUniId:passdevuniid[0], weburl,urlorigin })
            })
            const create_passkeyResult = await create_passkey.json();
-           console.log(create_passkeyResult.result)
+           //console.log(create_passkeyResult.result)
            
            
 passkeysss = create_passkeyResult.info;
-console.log(create_passkeyResult.info);
+//console.log(create_passkeyResult.info);
 if (create_passkeyResult.info.userVerified){
  localStorage.setItem("Passkey-uniqueID",passdevuniid[0]);
  document.getElementById("loader").style.display="none"; 
@@ -1197,7 +1252,7 @@ alert("PassKey is already created for this Device")
 }
 }
        function approvePopup(id){
-           console.log("ok")
+           //console.log("ok")
    document.getElementById("popup-1").classList.toggle("active");
    document.getElementById("aid").value = id;
    
@@ -1207,7 +1262,7 @@ alert("PassKey is already created for this Device")
    document.getElementById("popup-1").classList.toggle("active");
    }
    function declinePopup(id){
-       console.log("ok")
+       //console.log("ok")
    document.getElementById("popup-2").classList.toggle("active");
    document.getElementById("did").value = id;
    
@@ -1230,8 +1285,8 @@ alert("PassKey is already created for this Device")
    var uname ;
   
   uname = localStorage.getItem("loggedname");
-  console.log(uname)
-  console.log(document.getElementById("profileimage").src)
+  //console.log(uname)
+  //console.log(document.getElementById("profileimage").src)
   document.getElementById("mname").innerHTML = uname;
   
   if (uname==undefined){
@@ -1250,10 +1305,10 @@ alert("PassKey is already created for this Device")
            var vrole ; 
            var uongoing="";
            function fetchd (){
-  console.log("Members Details Fetching....")
+  //console.log("Members Details Fetching....")
 var loggedname = localStorage.getItem("loggedname");
     var formDataString =loggedname;
-    console.log(formDataString)
+    //console.log(formDataString)
 
     fetch(
       "https://script.google.com/macros/s/AKfycbxOQy-T69wvZFcRbPFGbrK1tzna8cJU0EqxeUoZCZDzy46ZH5wrcwDaY6kDJZ7uGb6K/exec",
@@ -1280,7 +1335,7 @@ var loggedname = localStorage.getItem("loggedname");
       .then(async function (data) {
         const result1 = await data.json();
 var userdetails = result1.data2;
-console.log(userdetails)
+//console.log(userdetails)
 vheads = userdetails.heads;
 var heads = userdetails.heads;
 vdatas = userdetails.datas;
@@ -1297,8 +1352,9 @@ eus_access = userdetails.us_access;
 us_access.forEach((access,accessid)=>{
   var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
   var nro1 = (accessid ===  1) ? "No" : "Owned";
+  //var nrodisplay = (accessid ===  1) ? `style="display: none;"` : "";
 
-console.log(nro,accessid)
+//console.log(nro,accessid)
 if(access == "All"){
 var perlabel =
 `<label for="All" style="display: none;">
@@ -1308,7 +1364,7 @@ var perlabel =
                                             type="checkbox"
                                             id="All"
                                             value="All"
-                                            
+                                            onclick="checkdisabled(this)"
                                             />
                                             <span>All</span>
                                             </label>
@@ -1316,6 +1372,7 @@ var perlabel =
                                           <input
                                       checked
                                           onchange="checkboxvalue(this)"
+                                          onclick="checkdisabled(this)"
                                           type="checkbox"
                                           id="Owned"
                                           value="`+nro+`"
@@ -1329,7 +1386,7 @@ ugroups.forEach((group) => {
   var groupname = group[2];
   grouplabels += `<label for="`+groupname+`">
   <input
-
+onclick="checkdisabled(this)"
   onchange="checkboxvalue(this)"
   type="checkbox"
   id="`+groupname+`"
@@ -1340,13 +1397,13 @@ ugroups.forEach((group) => {
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check-add");
-console.log(todaa)
+//console.log(todaa)
   var ecah = todaa[accessid];
- // console.log(ecah)
+ // //console.log(ecah)
 if (!document.getElementById("popup-40").className.includes("active")){
-  console.log(ecah)
+  //console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
-  console.log(ecah)
+  //console.log(ecah)
 }
 }
 else if(access == "No"){
@@ -1360,7 +1417,7 @@ var perlabel =
                                           type="checkbox"
                                           id="Owned"
                                           value="`+nro+`"
-                                          
+                                          onclick="checkdisabled(this)"
                                           />
                                           <span>`+nro1+`</span>
                                           </label>
@@ -1372,7 +1429,7 @@ var perlabel =
                                             type="checkbox"
                                             id="All"
                                             value="All"
-                                            
+                                            onclick="checkdisabled(this)"
                                             />
                                             <span  style="display: none;">All</span>
                                             </label>
@@ -1388,19 +1445,19 @@ ugroups.forEach((group) => {
   type="checkbox"
   id="`+groupname+`"
   value="`+groupname+`"
-  
+  onclick="checkdisabled(this)"
   />
   <span>`+groupname+`</span>
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check-add");
-console.log(todaa)
+//console.log(todaa)
   var ecah = todaa[accessid];
- // console.log(ecah)
+ // //console.log(ecah)
 if (!document.getElementById("popup-40").className.includes("active")){
-  console.log(ecah)
+  //console.log(ecah)
   ecah.innerHTML = perlabel //+grouplabels;
-  console.log(ecah)
+  //console.log(ecah)
 }
 }
 else if (access !== "No"&&access !== "All"){
@@ -1413,7 +1470,7 @@ var perlabel =
                                           type="checkbox"
                                           id="Owned"
                                           value="`+nro+`"
-                                          
+                                          onclick="checkdisabled(this)"
                                           />
                                           <span>`+nro1+`</span>
                                           </label>
@@ -1424,7 +1481,7 @@ ugroups.forEach((group) => {
   if(access.includes(groupname))
   grouplabels += `<label for="`+groupname+`">
   <input
-
+onclick="checkdisabled(this)"
   onchange="checkboxvalue(this)"
   type="checkbox"
   id="`+groupname+`"
@@ -1435,13 +1492,13 @@ ugroups.forEach((group) => {
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check-add");
-console.log(todaa)
+//console.log(todaa)
   var ecah = todaa[accessid];
   
   if (!document.getElementById("popup-40").className.includes("active")){
-    console.log(ecah)
+    //console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
-  console.log(ecah)
+  //console.log(ecah)
 }
 
 }
@@ -1460,7 +1517,7 @@ for (var r=0; r<datas.length;r++){
     if (access == "No"||(!access.includes(uaccess[r])&&access !== "All")){
    // datas.splice(r,1)
    continue;
-   console.log(r)
+   //console.log(r)
   }
 
   var td ="";
@@ -1490,7 +1547,7 @@ else if (datas[r][d] =="Online"){
 }
 }
 else{
- // console.log(datas[r][d])
+ // //console.log(datas[r][d])
 td +="<td>"+datas[r][d]+"</td>";
 }
 }
@@ -1516,8 +1573,8 @@ var utbody = "<tbody>"+utr+"</tbody>";
 var search2 = document.querySelector('.input-group input').value;
 var oldhtml = document.getElementById("table__body").innerHTML;
 var newhtml = '<span style="margin-top: 20px;">Admin Details</span><table>'+thead+atbody+"</table><table><span>User Details</span>"+thead+utbody+"</table>";
-//console.log(newhtml.replace(oldhtml,""))
-//console.log(oldhtml.replace(newhtml,""))
+////console.log(newhtml.replace(oldhtml,""))
+////console.log(oldhtml.replace(newhtml,""))
 if(search2==""){
   if(oldhtml!==newhtml){
 document.getElementById("table__body").innerHTML = newhtml;;
@@ -1582,19 +1639,22 @@ fetchd ();
    });
    }*/
    var qupdatas = document.getElementById("popup-inner").querySelectorAll("input,select");
-   console.log(qupdatas)
+   //console.log(qupdatas)
    function updatedetails(id){
     uongoing = "Going"
   var tobeupdatedata = [];
   var tobeupdatehead = [];
+  var tobeupdateolddata = [];
 
-           var updatas = document.getElementById("popup-inner").querySelectorAll("input,select");
+  var updatas = document.getElementById("popup-inner").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
+  console.log(updatas,ddatas)
            for (var f =0;f<updatas.length-1;f++ ){
      
             console.log(String(updatas[f].value),String(ddatas[f]))
             if (String(updatas[f].value) !== String(ddatas[f])){
               tobeupdatehead.push(updatas[f].name);
               tobeupdatedata.push(updatas[f].value);
+              tobeupdateolddata.push(ddatas[f]);
             }
            }
            if (tobeupdatedata.length==0){
@@ -1606,14 +1666,21 @@ fetchd ();
             console.log(tobeupdatedata)
             console.log(tobeupdatehead)
            togglePopup()
-           ddatas = [];
+         
             document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Updating....";
+          var updateuser = ddatas[1];
+          var updatemail= ddatas[3];
+          ddatas = [];
+          console.log(updateuser,updatemail,ddatas)
             var datastring = JSON.stringify({
+              updateuser,updatemail,
         index:id,
         heads:tobeupdatehead,
-        datas:tobeupdatedata
+        datas:tobeupdatedata,
+        user:localStorage.getItem("loggedname"),updateuser,updatemail,
+        olddata:tobeupdateolddata
       });
       console.log(datastring)
        fetch(
@@ -1643,11 +1710,11 @@ fetchd ();
    const result1 = await data.json();
    
    var r = result1.data2;
-   console.log(r);
+   //console.log(r);
    fetchd ();
    if (r=="Success"){
    document.getElementById("loader").style.display="none"; 
-     document.getElementById("message").textContent = "Updated";
+     document.getElementById("message").textContent = "Updated & Mail Sent to "+updateuser;
     document.getElementById("message").style.display = "block";
      setTimeout(function () { document.getElementById("load").style.display="none";
    uongoing="";
@@ -1675,10 +1742,10 @@ function addstudent(button){
 var values = [];
 var vheads = [];
            var updatas = document.getElementById("popup-inner-add").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
-           console.log(updatas)
+           //console.log(updatas)
            for (var f =0;f<updatas.length-1;f++ ){
-            console.log(updatas[f].value,updatas[f].required);
-            console.log(updatas[f].value==""&&updatas[f].required);
+            //console.log(updatas[f].value,updatas[f].required);
+            //console.log(updatas[f].value==""&&updatas[f].required);
             if(updatas[f].value==""&&updatas[f].required){
               alert("Enter the "+updatas[f].name);
            
@@ -1695,7 +1762,7 @@ vheads.push(updatas[f].name)
 
             }
            }
-           console.log(updatas[3].value)
+           //console.log(updatas[3].value)
 
            for (var f =0;f<updatas.length-1;f++ ){
            updatas[f].value="";
@@ -1705,13 +1772,13 @@ vheads.push(updatas[f].name)
             document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
            document.getElementById("message").textContent = "Adding Member....";
-           console.log(values,vheads)
+           //console.log(values,vheads)
            
             var datastring = JSON.stringify({
   data:values,
   head:vheads
       });
-      console.log(datastring)
+      //console.log(datastring)
       fetch(
     
     "https://script.google.com/macros/s/AKfycbwWlravZIYm_8qYEtUO2weTcUD5b0fdGs1BcaQnnqmG7Vk2zoQW6itu_Ag6YPb1aWo1/exec",
@@ -1739,7 +1806,7 @@ vheads.push(updatas[f].name)
    const result1 = await data.json();
    
    var r = result1.data2;
-   console.log(r);
+   //console.log(r);
    fetchd ();
    if (r=="Success"){
    document.getElementById("loader").style.display="none"; 
@@ -1788,7 +1855,7 @@ uongoing="";
 id,
 name:vdatas[id-2][0]
       });
-      console.log(datastring)
+      //console.log(datastring)
       fetch(
     
     "https://script.google.com/macros/s/AKfycbwH6wyQhCzFn9slXIUfianU2yiyBbkof09V9bcoNub7QFlL3cla0PO1oor_THLrvLG8kQ/exec",
@@ -1816,7 +1883,7 @@ name:vdatas[id-2][0]
    const result1 = await data.json();
    
    var r = result1.data2;
-   console.log(r);
+   //console.log(r);
    fetchd ();
    if (r=="Success"){
    document.getElementById("loader").style.display="none"; 
@@ -1871,7 +1938,15 @@ name:vdatas[id-2][0]
     updatelogstatus("Offline");  
   };
   window.addEventListener("beforeunload", beforeUnloadHandler);*/
+  function checkdisabled(button){
+    console.log(button)
+    if(button.disabled){
+      alert("You are not allowed to change this feature");
+      return;
+    }
+  }
   function rolefeatures(button){
+ 
 var role = button.value;
 var features = document.getElementsByClassName("access-check-add");
 if(role=="Admin"){
@@ -1879,8 +1954,48 @@ features[1].parentElement.style.display="flex";
 }
 else if(role=="User"){
   features[1].parentElement.style.display="none";
+  features[1].parentElement.querySelector("input[type=hidden]").value = "No";
+  var labels = features[1].querySelectorAll("label");
+  labels.forEach((label)=>{
+   if(label.children[1].innerHTML=="No"){
+     label.style.display="initial";
+     label.children[0].checked=true;
+     label.children[0].required=true;
+   }
+   else{
+     label.style.display="none";
+     label.children[0].checked=false;
+     label.children[0].required=false;
+   }
+  })
 }
   }
+  function editrolefeatures(button){
+ 
+ var role = button.value;
+ var features = document.getElementsByClassName("access-check");
+ if(role=="Admin"){
+ features[1].parentElement.style.display="flex";
+ }
+ else if(role=="User"){
+   features[1].parentElement.style.display="none";
+   var labels = features[1].querySelectorAll("label");
+   labels.forEach((label)=>{
+    if(label.children[1].innerHTML=="No"){
+      label.style.display="initial";
+      label.children[0].checked=true;
+      label.children[0].required=true;
+    }
+    else{
+      label.style.display="none";
+      label.children[0].checked=false;
+      label.children[0].required=false;
+    }
+    features[1].parentElement.querySelector("input[type=hidden]").value = "No";
+   })
+   console.log(features[1].parentElement)
+ }
+   }
   function checkboxvalue(button){
     var value ="";
     var checks = button.parentElement.parentElement.children;
@@ -1895,7 +2010,7 @@ otherselected.push(true)
         otherselected.push(false)
       }
     }
-    console.log(otherselected)
+    //console.log(otherselected)
     if((button.parentElement.children[1].innerHTML=="No")){
       if(checks[1].children[0].checked==true&&(checks[1].children[1].innerHTML=="No")){
       for(var i= 0; i<checks.length;i++){
@@ -1913,10 +2028,10 @@ checks[1].children[0].checked=false;
     }
     else if(checks[1].children[0].checked==false&&(checks[1].children[1].innerHTML=="No")){
       for(var i= 0; i<checks.length;i++){
-if(checks[i].children[0].disabled==false){
+//if(checks[i].children[0].disabled==false){
     
 checks[i].style.display="initial";
-}
+//}
 //checks[i].children[0].checked=false;
       }
     }
@@ -1935,20 +2050,21 @@ checks[0].children[0].checked=false;
     }
     else if(checks[0].children[0].checked==false&&(checks[0].children[1].innerHTML=="All")){
       for(var i= 0; i<checks.length;i++){
-if(checks[i].children[0].disabled==false){
+//if(checks[i].children[0].disabled==false){
     
 checks[i].style.display="initial";
-}
+
+//}
 //checks[i].children[0].checked=false;
       }
     }
   }
     for(var i= 0; i<checks.length;i++){
-console.log(checks[i].children[0].checked,checks[i].children[0].value)
+//console.log(checks[i].children[0].checked,checks[i].children[0].value)
       if (checks[i].children[0].checked){
-        console.log("INkied")
+        //console.log("INkied")
     var    cvalue = checks[i].children[0].value;
-        console.log(value)
+        //console.log(value)
         if (value == ""){
           value = cvalue;
         }
@@ -1966,9 +2082,9 @@ console.log(checks[i].children[0].checked,checks[i].children[0].value)
       checks[1].children[0].required= true;
     }
     checksv[checksv.length-1].value = value
-    console.log( checks[0].children[0].required)
-    console.log( checks[1].children[0].required)
-    console.log(checksv[checksv.length-1])
+    //console.log( checks[0].children[0].required)
+    //console.log( checks[1].children[0].required)
+    //console.log(checksv[checksv.length-1])
 
   }
      </script>
@@ -1981,18 +2097,18 @@ console.log(checks[i].children[0].checked,checks[i].children[0].value)
         var fol = fileurl1.className;
         file1.addEventListener('change',()=>{
         let fr = new FileReader();
-        console.log(file1.value)
+        //console.log(file1.value)
         var rawformats = file1.accept;
-        console.log(rawformats)
+        //console.log(rawformats)
     var formats = rawformats.split(",");
-    console.log(formats)
+    //console.log(formats)
     var supformat = false;
     for(var i=0;i<formats.length;i++){
       if(file1.value.includes(formats[i])){
         supformat = true;
       }
     }
-    console.log(supformat)
+    //console.log(supformat)
         if (supformat){
       //    document.getElementById("load").style.display="initial";
         //   document.getElementById("loader").style.display="block"; 
@@ -2002,7 +2118,8 @@ console.log(checks[i].children[0].checked,checks[i].children[0].value)
              //   document.getElementById("message").textContent="Uploading....";
                 fr.addEventListener('loadend',()=>{
                     let res = fr.result;
-                    let v = fileurl1.value.replace("/"+fol,"");
+                    let v =  (fileurl1.value.includes("drive.google.com")&&!fileurl1.value.includes("drive.google.com/thumbnail")) ? fileurl1.value.replace("/"+fol,"") : "";
+                  //  let v =  fileurl1.value.replace("/"+fol,"");
                     let folder = "15GgsPpNztp41g7Sw7s7LOT0vhnYnViei";
             
                     let spt = res.split("base64,")[1];

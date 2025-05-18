@@ -2,10 +2,10 @@ function checkinternet(){
     var status = navigator.onLine;
     var element_box = document.getElementById("internetstatus-box");
     var element = document.getElementById("internetstatus");
-    console.log(status,udecide)
+    //console.log(status,udecide)
     if(udecide ==""){
     if (!status&&!element.classList.contains('offline')){
-        console.log("Offline");
+        //console.log("Offline");
         document.getElementById("internetstatus").classList.remove('online')
         document.getElementById("internetstatus").classList.toggle('offline')
         element.children[0].textContent="You are Offline";
@@ -14,7 +14,7 @@ function checkinternet(){
         
     }
     else if(status&&!element.classList.contains('online')){
-        console.log("Online")
+        //console.log("Online")
         document.getElementById("internetstatus").classList.remove('offline')
         document.getElementById("internetstatus").classList.toggle('online')
         element.children[0].textContent="You are Online again";
@@ -26,11 +26,11 @@ function checkinternet(){
 setInterval(checkinternet,100)
 
 function getuserdetailsonload(user){
-    console.log("User Detail Fetching....")
+    //console.log("User Detail Fetching....")
     var ruserdetails = localStorage.getItem("loggeduserdetails");
 
       var formDataString =user+"/2";
-      console.log(formDataString)
+      //console.log(formDataString)
   
       fetch(
         "https://script.google.com/macros/s/AKfycbzqSHjVCXfU1DIQzUCEYcBFVssU9MISesB1WPePdf6_n4JcTii9Dh5c-_I7IoGVYjMJAw/exec",
@@ -60,7 +60,7 @@ function getuserdetailsonload(user){
   var userdetails = result1.data2;
   if 
   (userdetails[0] == "Not Found") {
-    console.log("User Not Found");
+    //console.log("User Not Found");
     udecide ="deny";
     document.getElementById("internetstatus").classList.toggle('msg')
     document.getElementById("internetstatus-box").classList.toggle('msg')
@@ -83,9 +83,9 @@ function getuserdetailsonload(user){
 
     return;
   }
-//console.log(userdetails)
+////console.log(userdetails)
   var udata = userdetails[7];
- //console.log(udata)
+ ////console.log(udata)
  var na = localStorage.getItem("loggedname");
  var naor =    localStorage.getItem("loggeduorp");
  var napic =   localStorage.getItem("loggedpic");
@@ -106,10 +106,10 @@ function getuserdetailsonload(user){
   var rid  = localStorage.getItem("loggeduserdetails");
   document.getElementById("profileimage").src = rnapic;
   document.getElementById("profileimage1").src = rnapic;
-  console.log(rid,nrid)
-  console.log(rid,nrid,rna,na,rnaor,naor,rnapic,napic,namail,rnamail)
+  //console.log(rid,nrid)
+  //console.log(rid,nrid,rna,na,rnaor,naor,rnapic,napic,namail,rnamail)
   if(rid!==nrid||rna!==na||rnaor!==naor||rnapic!==napic||namail!==rnamail){
-    console.log("New Reload")
+    //console.log("New Reload")
    location.reload();
   }
         })
@@ -122,8 +122,8 @@ function getuserdetailsonload(user){
       }
  
       var rid  = localStorage.getItem("loggeduserdetails");
-   console.log(rid)
-   console.log(rid!=="undefined")
+   //console.log(rid)
+   //console.log(rid!=="undefined")
       if(rid!=="undefined"&&rid!==undefined&&rid!==""&&rid!==null){
         var uid = JSON.parse(rid).id;
         if(uid.includes("PC")){

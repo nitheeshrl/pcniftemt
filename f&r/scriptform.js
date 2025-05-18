@@ -208,7 +208,7 @@ function sidebari(){
     var path = window.location.pathname;
     var rwnrid  = localStorage.getItem("loggeduserdetails");
     var wnrid  = JSON.parse(rwnrid);
-    console.log(wnrid.role)
+    //console.log(wnrid.role)
     if(wnrid.role == "Admin"&&wnrid.mprole!=="No"){
     document.getElementById("sidebar").innerHTML = amenu;
     document.getElementById("profileimage").src = localStorage.getItem("loggedpic");
@@ -239,7 +239,7 @@ function sidebari(){
       document.getElementById("mname").innerHTML = localStorage.getItem("loggedname");
       }
     
-console.log(path)
+//console.log(path)
     var a = document.getElementById("sidebar").querySelectorAll("a");
 a.forEach(i =>{
   var href = i.href;
@@ -247,7 +247,7 @@ a.forEach(i =>{
     path = "/f&r/index"
   }
 
-  console.log(href)
+  //console.log(href)
   if(!path.includes(".html")){
     path = path+".html";
   }
@@ -276,11 +276,11 @@ localStorage.removeItem("loggeduserdetails");
   window.location="../logout.html";
 }
 function alllogoutPopup(){
-  console.log("ok")
+  //console.log("ok")
   var opt = document.getElementById("popup-3").children[1].children[3].children[1];
 document.getElementById("popup-3").classList.toggle("active");
 opt.setAttribute("onclick","alllogout()")
-console.log(opt)
+//console.log(opt)
 
 }
 const  GetUniqueID1 = () =>{
@@ -307,7 +307,7 @@ async function passkey1(){
            var rid  = localStorage.getItem("loggeduserdetails");
            var username = JSON.parse(rid).id;
            const name = localStorage.getItem("loggedname");
-           console.log(passdevuniid);
+           //console.log(passdevuniid);
            const response = await fetch(fetchurl+'/check-pasakey', {
                method: 'POST',
                headers: {
@@ -317,7 +317,7 @@ async function passkey1(){
            })
 
            const passkeycheck = await response.json()
-           console.log(passkeycheck)
+           //console.log(passkeycheck)
            const { no } = passkeycheck// Server side challenge
 if (no ==  0){
  document.getElementById("loader").style.display="block"; 
@@ -327,7 +327,7 @@ if (no ==  0){
 
        const { startRegistration, startAuthentication } = SimpleWebAuthnBrowser;
 
-           console.log(weburl)
+           //console.log(weburl)
            const response = await fetch(fetchurl+'/register-challenge', {
                method: 'POST',
                headers: {
@@ -340,10 +340,10 @@ if (no ==  0){
            const { options } = challengeResult // Server side challenge
 
            const authenticationResult = await startRegistration({optionsJSON: options})
-           console.log(authenticationResult)
+           //console.log(authenticationResult)
 
            var urlorigin= location.protocol+"//"+location.host;
-           console.log(urlorigin)
+           //console.log(urlorigin)
            var create_passkey = await fetch(fetchurl+'/register-verify', {
                method: 'POST',
                headers: {
@@ -352,11 +352,11 @@ if (no ==  0){
                body: JSON.stringify({ username, cred: authenticationResult, challenge: options.challenge, devUniId:passdevuniid[0], weburl,urlorigin })
            })
            const create_passkeyResult = await create_passkey.json();
-           console.log(create_passkeyResult.result)
+           //console.log(create_passkeyResult.result)
            
            
 passkeysss = create_passkeyResult.info;
-console.log(create_passkeyResult.info);
+//console.log(create_passkeyResult.info);
 if (create_passkeyResult.info.userVerified){
  //localStorage.setItem("Passkey-uniqueID",passdevuniid[0]);
  document.getElementById("loader").style.display="none"; 
@@ -385,7 +385,7 @@ setTimeout(function () {
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
 var updatestring = uid+"/"+status;
-console.log(updatestring)
+//console.log(updatestring)
  
 fetch(
 
@@ -457,7 +457,7 @@ socket. emit( 'user_connected', newUserId);
 
 
 socket.on("disconnect", () => {
-console.log(socket.id); // undefined
+//console.log(socket.id); // undefined
 
 });
 const handleFocus = async () => {

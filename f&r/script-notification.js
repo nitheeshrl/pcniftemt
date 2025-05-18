@@ -12,7 +12,7 @@ async function deletesub(id){
 async function checksub(){
     var uniqueID2 = localStorage.getItem("Notification-uniqueID");
     var permission = await Notification.permission;
-    console.log(permission)
+    //console.log(permission)
     if (uniqueID2!==""||uniqueID2!==undefined){
     if (permission =="default"||permission =="default"){
         deletesub(uniqueID2);
@@ -104,7 +104,7 @@ const requestNotificationPermission = async () => {
     const permission = await Notification.requestPermission();
 
     if (permission !== 'granted') {
-        console.log("Notification permission not granted")
+        //console.log("Notification permission not granted")
     }
 else if(permission == 'granted'){
 
@@ -116,7 +116,7 @@ else if(permission == 'granted'){
         })
     
         const response = await saveSubscription(subscription)
-        console.log(response)
+        //console.log(response)
 
 
 }
@@ -124,14 +124,14 @@ else if(permission == 'granted'){
 async function registerPWASW() {
     if ('serviceWorker' in navigator) {
       try {
-        console.log("running")
+        //console.log("running")
         await navigator
               .serviceWorker
               .register('serviceworker.js');
-              console.log("SW registration")
+              //console.log("SW registration")
       }
       catch (e) {
-        console.log('SW registration failed');
+        //console.log('SW registration failed');
       }
     }
   }
