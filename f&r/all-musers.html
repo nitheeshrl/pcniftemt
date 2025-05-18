@@ -211,7 +211,8 @@ uservalue= (accessid == 0&&uservalue=="Owned") ? "No" : uservalue;
   labelseach.forEach((label, labid) => {
   var labelid = label.children[0].value;
   var isAllOption = labelid === "All";
-  var isOwnedOption = label.querySelector('span')?.textContent.includes("Owned"); // Optional chaining for safety
+  var span = label.querySelector('span');
+  var isOwnedOption = span?.textContent.includes("Owned") || span?.textContent.includes("No");// Optional chaining for safety
   
   // Case 1: When uservalue is "All"
   if (uservalue === "All") {
@@ -516,6 +517,14 @@ features[1].parentElement.style.display="flex";
 else if(role=="User"){
   features[1].parentElement.style.display="none";
 }
+if(ddatas[1]==localStorage.getItem("loggedname")){
+  var todaa = document.getElementsByClassName("access-check");
+  for (var i = 0; i < todaa.length; i++) {
+    var each = todaa[i];
+    each.parentElement.style.display="none";
+  }
+}
+
 document.getElementById("popup-1").classList.toggle("active");
 var dinputs = document.getElementById("popup-inner").querySelectorAll("div")
 console.log(dinputs[dinputs.length-1].children[1])
@@ -1352,7 +1361,7 @@ eus_access = userdetails.us_access;
 us_access.forEach((access,accessid)=>{
   var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
   var nro1 = (accessid ===  1) ? "No" : "Owned";
-  //var nrodisplay = (accessid ===  1) ? `style="display: none;"` : "";
+  var nrodisplay = (accessid ===  1) ? `style="display: none;"` : "";
 
 //console.log(nro,accessid)
 if(access == "All"){
@@ -1384,7 +1393,7 @@ var perlabel =
 var grouplabels = "";
 ugroups.forEach((group) => {
   var groupname = group[2];
-  grouplabels += `<label for="`+groupname+`">
+  grouplabels += `<label for="`+groupname+`" `+nrodisplay+`>
   <input
 onclick="checkdisabled(this)"
   onchange="checkboxvalue(this)"
@@ -1462,7 +1471,18 @@ if (!document.getElementById("popup-40").className.includes("active")){
 }
 else if (access !== "No"&&access !== "All"){
 var perlabel =
-`
+`<label for="All" style="display: none;">
+                                            <input
+                                            disabled
+                                             style="display: none;"
+                                            onchange="checkboxvalue(this)"
+                                            type="checkbox"
+                                            id="All"
+                                            value="All"
+                                            onclick="checkdisabled(this)"
+                                            />
+                                            <span  style="display: none;">All</span>
+                                            </label>
                                         <label for="Owned">
                                           <input
                                       checked
@@ -1479,7 +1499,7 @@ var grouplabels = "";
 ugroups.forEach((group) => {
   var groupname = group[2];
   if(access.includes(groupname))
-  grouplabels += `<label for="`+groupname+`">
+  grouplabels += `<label for="`+groupname+`" `+nrodisplay+`>
   <input
 onclick="checkdisabled(this)"
   onchange="checkboxvalue(this)"
@@ -2010,7 +2030,9 @@ otherselected.push(true)
         otherselected.push(false)
       }
     }
-    //console.log(otherselected)
+    console.log(checks,checks[1].children[0].checked,checks[1].children[1].innerHTML,otherselected.includes(true))
+    console.log(checks[1].children[0].checked==false&&otherselected.includes(true)&&(checks[1].children[1].innerHTML=="No"))
+    console.log(otherselected)
     if((button.parentElement.children[1].innerHTML=="No")){
       if(checks[1].children[0].checked==true&&(checks[1].children[1].innerHTML=="No")){
       for(var i= 0; i<checks.length;i++){
@@ -2021,6 +2043,7 @@ checks[i].style.display="none";
 checks[i].children[0].checked=false;
       }
     }
+   
  else   if(checks[1].children[0].checked==false&&otherselected.includes(true)&&(checks[1].children[1].innerHTML=="No")){
 checks[1].style.display="none";
 checks[1].children[0].checked=false;
@@ -2046,6 +2069,11 @@ checks[i].children[0].checked=false;
  else   if(checks[0].children[0].checked==false&&otherselected.includes(true)&&(checks[0].children[1].innerHTML=="All")){
 checks[0].style.display="none";
 checks[0].children[0].checked=false;
+ if(checks[1].children[0].checked==true&&otherselected.includes(true)&&(checks[1].children[1].innerHTML=="No")){
+checks[1].style.display="none";
+checks[1].children[0].checked=false;
+      
+    }
       
     }
     else if(checks[0].children[0].checked==false&&(checks[0].children[1].innerHTML=="All")){
@@ -2058,6 +2086,7 @@ checks[i].style.display="initial";
 //checks[i].children[0].checked=false;
       }
     }
+
   }
     for(var i= 0; i<checks.length;i++){
 //console.log(checks[i].children[0].checked,checks[i].children[0].value)
