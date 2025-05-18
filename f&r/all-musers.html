@@ -105,7 +105,7 @@ document.getElementById("popup-3").classList.toggle("active");
 var ddatas = [];
 function editPopup(edit){
   alert("Under Maintenance, will be available soon")
-  return
+ return
   console.log(edit)
   console.log(vdatas)
   var udata = vdatas[edit-2];
@@ -147,8 +147,8 @@ eus_access.forEach((access,accessid)=>{
   var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
   var nro1 = (accessid ===  1) ? "No" : "Owned";
 
-console.log(nro,accessid)
-if(access == "All"){
+console.log(access, nro,accessid)
+//if(access == "All"){
 var perlabel =
 `<label for="All" style="display: none;">
                                             <input
@@ -189,15 +189,159 @@ eugroups.forEach((group) => {
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check");
-console.log(todaa)
+//console.log(todaa)
   var ecah = todaa[accessid];
  // console.log(ecah)
 if (!document.getElementById("popup-1").className.includes("active")){
-  console.log(ecah)
+  //console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
+  var uservalue = ecah.parentElement.querySelectorAll("input[type=hidden]")[0].value;
+uservalue= (accessid == 0&&uservalue=="Owned") ? "No" : uservalue;
+  console.log(uservalue)
   console.log(ecah)
+  var labelseach = ecah.querySelectorAll("label");
+  labelseach.forEach((label, labid) => {
+  var labelid = label.children[0].value;
+  var isAllOption = labelid === "All";
+  var isOwnedOption = label.querySelector('span').textContent.includes("Owned");
+  
+  // Case 1: When uservalue is "All"
+  if (uservalue === "All") {
+    if (isAllOption) {
+      label.style.display = "initial";
+      label.children[0].checked = true;
+      label.children[0].disabled = false;
+    } else {
+      label.style.display = "none";
+      label.children[0].checked = false;
+    }
+    return;
+  }
+
+  // Case 2: When uservalue is not "All" (has other values)
+  if (isAllOption) {
+    // Hide the "All" option when uservalue has specific values
+    label.style.display = "none";
+    label.children[0].checked = false;
+    return;
+  }
+
+  // Case 3: Special handling for "Owned" options
+  if (isOwnedOption) {
+    label.style.display = "initial";
+    label.children[0].disabled = false; // Always enable Owned options
+    label.children[0].checked = uservalue.includes(labelid);
+    return;
+  }
+
+  // Case 4: For all other options when uservalue is not "All"
+  if (access === "All" || access.includes(labelid)) {
+    label.style.display = "initial";
+    label.children[0].disabled = false;
+    label.children[0].checked = uservalue.includes(labelid);
+  } else {
+    label.style.display = "initial";  // Show but disable if no access
+    label.children[0].disabled = true;
+    label.children[0].checked = uservalue.includes(labelid);
+  }
+});
+  /*labelseach.forEach((label, labid) => {
+  var labelid = label.children[0].value;
+  var isAllOption = labelid === "All";
+  
+  // Case 1: When uservalue is "All"
+  if (uservalue === "All") {
+    if (isAllOption) {
+      label.style.display = "initial";
+      label.children[0].checked = true;
+      label.children[0].disabled = false;
+    } else {
+      label.style.display = "none";
+      label.children[0].checked = false;
+    }
+    return;
+  }
+
+  // Case 2: When uservalue is not "All" (has other values)
+  if (isAllOption) {
+    // Hide the "All" option when uservalue has specific values
+    label.style.display = "none";
+    label.children[0].checked = false;
+    return;
+  }
+
+  // Case 3: For all other options when uservalue is not "All"
+  if (access === "All" || access.includes(labelid)) {
+    label.style.display = "initial";
+    label.children[0].disabled = false;
+    label.children[0].checked = uservalue.includes(labelid);
+  } else {
+    label.style.display = "initial";  // Show but disable if no access
+    label.children[0].disabled = true;
+    label.children[0].checked = uservalue.includes(labelid);
+  }
+});
+  labelseach.forEach((label, labid) => {
+  var labelid = label.children[0].value;
+  
+  // If uservalue is "All", only show the "All" option
+  if (uservalue === "All") {
+    if (labelid === "All") {
+      label.style.display = "initial";
+      label.children[0].checked = true;
+      label.children[0].disabled = false;
+    } else {
+      label.style.display = "none";
+      label.children[0].checked = false;
+    }
+    return; // Skip further checks for other labels
+  }
+
+  // Original logic for non-"All" cases
+  if (access.includes(labelid) || access == "All") {
+    label.style.display = "initial";
+    label.children[0].disabled = false;
+    label.children[0].checked = uservalue.includes(labelid);
+  } else {
+    label.children[0].disabled = true;
+    label.children[0].checked = uservalue.includes(labelid);
+  }
+})
+  labelseach.forEach((label,labid)=>{
+    var labelid = label.children[0].value;
+    console.log(label.children[0])
+  //(accessid ===  "No") ? "No" : "Owned";
+    console.log(uservalue,labelid)
+    if(access.includes(labelid)||access=="All"){
+      label.style.display = "initial";
+      //label.children[0].checked = false;
+      label.children[0].disabled = false;
+      if(uservalue.includes(labelid)){
+        label.children[0].checked = true;
+      //  label.children[0].disabled = true;
+      }
+      else{
+        label.children[0].checked = false;
+       // label.children[0].disabled = false;
+      }
+    }
+
+    else{
+     // label.style.display = "none";
+      label.children[0].disabled = true;
+      //label.children[0].checked = true;
+      if(uservalue.includes(labelid)){
+        label.children[0].checked = true;
+      //  label.children[0].disabled = true;
+      }
+      else{
+        label.children[0].checked = false;
+       // label.children[0].disabled = false;
+      }
+    }
+  })*/
 }
-}
+/*}
 else if(access == "No"){
   var perlabel =
 `
@@ -243,13 +387,13 @@ eugroups.forEach((group) => {
   </label>`;
 });
 var todaa = document.getElementsByClassName("access-check");
-console.log(todaa)
+//console.log(todaa)
   var ecah = todaa[accessid];
  // console.log(ecah)
 if (!document.getElementById("popup-1").className.includes("active")){
-  console.log(ecah)
+ // console.log(ecah)
   ecah.innerHTML = perlabel//+grouplabels;
-  console.log(ecah)
+ // console.log(ecah)
 }
 }
 else if (access !== "No"&&access !== "All"){
@@ -298,16 +442,18 @@ else{
 }
 });
 var todaa = document.getElementsByClassName("access-check");
-console.log(todaa)
+//console.log(todaa)
   var ecah = todaa[accessid];
   
   if (!document.getElementById("popup-1").className.includes("active")){
-    console.log(ecah)
+   // console.log(ecah)
   ecah.innerHTML = perlabel+grouplabels;
-  console.log(ecah)
+//  console.log(ecah)
 }
 
-}
+}*/
+var eachlabel = todaa[accessid];
+console.log(eachlabel)
 })
 var role = vrole[edit-2];
 var features = document.getElementsByClassName("access-check");
@@ -1767,8 +1913,10 @@ checks[1].children[0].checked=false;
     }
     else if(checks[1].children[0].checked==false&&(checks[1].children[1].innerHTML=="No")){
       for(var i= 0; i<checks.length;i++){
-     
+if(checks[i].children[0].disabled==false){
+    
 checks[i].style.display="initial";
+}
 //checks[i].children[0].checked=false;
       }
     }
@@ -1787,15 +1935,18 @@ checks[0].children[0].checked=false;
     }
     else if(checks[0].children[0].checked==false&&(checks[0].children[1].innerHTML=="All")){
       for(var i= 0; i<checks.length;i++){
-     
+if(checks[i].children[0].disabled==false){
+    
 checks[i].style.display="initial";
+}
 //checks[i].children[0].checked=false;
       }
     }
   }
     for(var i= 0; i<checks.length;i++){
-
+console.log(checks[i].children[0].checked,checks[i].children[0].value)
       if (checks[i].children[0].checked){
+        console.log("INkied")
     var    cvalue = checks[i].children[0].value;
         console.log(value)
         if (value == ""){
