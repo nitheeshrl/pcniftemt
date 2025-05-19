@@ -852,6 +852,7 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
                 const imgUrl = datas[r][d].includes("google.com") 
                     ? datas[r][d] 
                     : `https://spcniftemt.pages.dev/user/${datas[r][d]}`;
+                    datas[r][d] = imgUrl;
                 
                 td += `<td><div style="background-color: rgb(237, 235, 235); border-radius: 110px; height: 110px; width: 110px; margin: 0 auto;">
                       <img style="border-radius: 50px; width: 100px; height: 100px; object-fit: cover; margin: 5px 5px 5px 5px;" 
