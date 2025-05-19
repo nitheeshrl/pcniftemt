@@ -762,8 +762,8 @@ function handleResponse(response) {
 function processData(result) {
     const userdetails = result.data2;
     const currentHash = generateDataHash(userdetails);
-    console.log("currentHash", currentHash);
-    console.log("lastDataHash", lastDataHash);
+   // console.log("currentHash", currentHash);
+    //console.log("lastDataHash", lastDataHash);
     // Only update if data has changed
     if (currentHash !== lastDataHash) {
         lastDataHash = currentHash;
