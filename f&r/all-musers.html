@@ -1316,7 +1316,9 @@ alert("PassKey is already created for this Device")
            function fetchd (){
   //console.log("Members Details Fetching....")
 var loggedname = localStorage.getItem("loggedname");
-    var formDataString =loggedname;
+var rid  = localStorage.getItem("loggeduserdetails");
+var uid = JSON.parse(rid).id;
+    var formDataString =uid;
     console.log(formDataString)
 
     fetch(
