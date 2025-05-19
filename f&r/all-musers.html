@@ -1317,7 +1317,7 @@ alert("PassKey is already created for this Device")
   //console.log("Members Details Fetching....")
 var loggedname = localStorage.getItem("loggedname");
     var formDataString =loggedname;
-    //console.log(formDataString)
+    console.log(formDataString)
 
     fetch(
       "https://script.google.com/macros/s/AKfycbxOQy-T69wvZFcRbPFGbrK1tzna8cJU0EqxeUoZCZDzy46ZH5wrcwDaY6kDJZ7uGb6K/exec",
@@ -1344,7 +1344,7 @@ var loggedname = localStorage.getItem("loggedname");
       .then(async function (data) {
         const result1 = await data.json();
 var userdetails = result1.data2;
-//console.log(userdetails)
+console.log(userdetails)
 vheads = userdetails.heads;
 var heads = userdetails.heads;
 vdatas = userdetails.datas;
