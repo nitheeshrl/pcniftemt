@@ -726,7 +726,7 @@ function fetchData() {
     if (isFetching) return;
     
     isFetching = true;
-    
+    console.log("Fetching data...");
     
     const loggedname = localStorage.getItem("loggedname");
     const rid = localStorage.getItem("loggeduserdetails");
@@ -809,6 +809,7 @@ function updateTable(userdetails) {
     
     // Only update if HTML has changed
     if (elements.tabdetails.innerHTML !== tableHTML) {
+      console.log("Table updated");
         elements.tabdetails.innerHTML = tableHTML;
     }
 }
