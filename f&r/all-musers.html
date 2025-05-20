@@ -1313,8 +1313,9 @@ alert("PassKey is already created for this Device")
            var eus_access = [];
            var vrole ; 
            var uongoing="";
+           let oldhash = null;
            function fetchd (){
-  //console.log("Members Details Fetching....")
+  console.log("Members Details Fetching....")
 var loggedname = localStorage.getItem("loggedname");
 var rid  = localStorage.getItem("loggeduserdetails");
 var uid = JSON.parse(rid).id;
@@ -1346,7 +1347,7 @@ var uid = JSON.parse(rid).id;
       .then(async function (data) {
         const result1 = await data.json();
 var userdetails = result1.data2;
-console.log(userdetails)
+//console.log(userdetails)
 vheads = userdetails.heads;
 var heads = userdetails.heads;
 vdatas = userdetails.datas;
@@ -1598,8 +1599,14 @@ var newhtml = '<span style="margin-top: 20px;">Admin Details</span><table>'+thea
 ////console.log(newhtml.replace(oldhtml,""))
 ////console.log(oldhtml.replace(newhtml,""))
 if(search2==""){
-  if(oldhtml!==newhtml){
-document.getElementById("table__body").innerHTML = newhtml;;
+  var newhash = JSON.stringify(userdetails)
+  if(oldhash!==newhash){
+    oldhash = newhash;
+document.getElementById("table__body").innerHTML = newhtml;
+console.log("Table Updated")
+}
+else{
+  console.log("Table Not Updated. Same Data")
 }
 }
 if (uongoing==""){
