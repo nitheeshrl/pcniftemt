@@ -124,7 +124,7 @@ console.log(umembers)
 var allotnamee="";
 umembers.forEach((h,inf) =>{
  
-  if (h[0]==udata[6]){
+  if (h[0]==udata[7]){
     var option = `<option value="`+umembersids[inf][0]+`" selected>`+h[0]+`</option>`;
   }
   else{
@@ -135,22 +135,22 @@ umembers.forEach((h,inf) =>{
 
 console.log(udata[6])
 console.log(allotnamee)
-inputs[5].children[1].selectedIndex = allotnamee;
-console.log(inputs[5].children[1].selectedIndex)
+inputs[6].children[1].selectedIndex = allotnamee;
+console.log(inputs[6].children[1].selectedIndex)
 document.getElementById("Alloted Member").innerHTML =  allotoption;
-if (udata[3].includes("M.Tech")){
-    document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
-      document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
+if (udata[5].includes("M.Tech")){
+    document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
+      document.getElementById("popup-inner").querySelectorAll("div")[11].style.display="none"
 }
 else{
   console.log(vrole)
   if(vrole=="Admin"){
-      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="flex"
+      document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="flex"
   }
   else{
-    document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none" 
+    document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none" 
   }
-      document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="flex"
+      document.getElementById("popup-inner").querySelectorAll("div")[11].style.display="flex"
 }
 document.getElementById("popup-1").classList.toggle("active");
 console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
@@ -362,7 +362,16 @@ document.getElementById("popup-40").classList.toggle("active");
               <span class="q">Email ID</span>
               <input type="text" name="Email ID" id="Email ID"  placeholder="Enter your Email ID" />
               </div>
-              
+                               <div class="form-element">
+                <span class="q">Account Status</span>
+                <select required name="Degree" >
+                  <option value="">Select the Account Status</option>
+                  <option style="background-color: rgb(6, 191, 6); color: green;" value="Active">Active</option>
+                  <option disabled value="Requested">Requested</option>
+                  <option  style="background-color: rgb(212, 100, 100); color: rgb(172, 5, 5);"  value="Deactivated">Deactivated</option>
+                 
+                </select>
+                </div>  
               <div class="form-element">
               <span class="q">Degree</span>
               <input type="text" name="Degree" id="Degree"  placeholder="Enter your Degree" />
@@ -467,7 +476,7 @@ document.getElementById("popup-40").classList.toggle("active");
                 <span class="q">Email ID</span>
                 <input required type="text" name="Email ID"  placeholder="Enter your Email ID" />
                 </div>
-                
+            
                 <div class="form-element">
                 <span class="q">Degree</span>
                 <select required name="Degree" >
@@ -881,16 +890,16 @@ function adjustUIBasedOnRole(role) {
     
     if (role === "User") {
         // Hide elements for regular users
-        [3, 5, 6, 7, 9, 11, 12].forEach(index => {
+        [3, 6, 7, 8, 10, 12, 13].forEach(index => {
             if (divs[index]) divs[index].style.display = "none";
         });
         if (elements.addbtnpop) elements.addbtnpop.style.display = "none";
     } else {
         // Adjust UI for admin users
-        [3, 5, 6,9,12].forEach(index => {
+        [3, 6, 7, 10,13].forEach(index => {
             if (divs[index]) divs[index].style.display = "none";
         });
-        [7, 11].forEach(index => {
+        [8, 12].forEach(index => {
             if (divs[index]) divs[index].style.display = "flex";
         });
         if (elements.addbtnpop) elements.addbtnpop.style.display = "initial";
@@ -1116,6 +1125,8 @@ vheads.push(updatas[f].name)
             values.push("M.Tech")
             vheads.push("UG or PG")
            }
+           vheads.push("Account Status");
+            values.push("Active");
            for (var f =0;f<updatas.length-1;f++ ){
            updatas[f].value="";
            }
