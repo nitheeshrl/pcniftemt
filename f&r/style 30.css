@@ -169,6 +169,11 @@ z-index: 550;
   .out-items{
     display: none;
   }
+  .Batch-Degree-Links div{
+  display: flex;
+  flex-direction: column;
+  
+}
   #sidebar{
     height: 60px;
     width: 100%;

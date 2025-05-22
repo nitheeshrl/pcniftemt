@@ -8,7 +8,7 @@
   <link rel="icon" href="white_logo.png" type="image/x-icon">
   <script type="text/javascript" src="app.js" defer></script>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" href="style 1.css" />
+  
   <link rel="stylesheet" type="text/css" href="style 2.css">
   <link rel="manifest" href="manifest.json">
   <script src="script-notification.js"></script>
@@ -33,6 +33,118 @@ background-color: red;
 margin-right: 20px;
 text-decoration: none;
 cursor: pointer;
+}
+.Batch-Degree-Links{
+  display: flex;
+  position: relative;
+z-index: 8;
+  height: 100px;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.Batch-Degree-Links div:first-child{
+width: 40%;
+}
+.Batch-Degree-Links div:nth-last-child(2){
+width: 60%;
+}
+.Batch-Degree-Links .collapse-btn { 
+width: 40px;
+}
+
+.Batch-Degree-Links:first-child{
+
+padding: 20px;
+background-color: rgb(217, 216, 237);
+border-radius: 10px;
+margin-left: 0px;
+margin: 5px;
+
+}
+
+.Table-Data{
+  display: none;
+  position: relative;
+  z-index: 5;
+background-color: rgb(246, 246, 248);
+padding: 10px;
+margin: 20px;
+margin-top: -30px;
+border-radius: 20px;
+}
+.Batch.active .Table-Data{
+  transition: all 0.5s;
+  
+  display: block;
+
+}
+.Batch  .Batch-Degree-Links .collapse-btn svg{ 
+cursor: pointer;
+}
+.Batch.active .Batch-Degree-Links .collapse-btn svg{ 
+transform: rotate(180deg);
+}
+.Table-Data table{
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 20px;
+  border-color: none;
+  background-color: white;
+
+}
+
+.Table-Data table th{
+  padding: 10px 0 10px 0;
+  text-align: center;
+  background-color: rgb(0, 0, 88);
+  color: white;
+  width: 25%;
+}
+.Table-Data table td{
+   padding: 10px 0 10px 0;
+  text-align: center;
+  width: 25%;
+}
+.Table-Data table thead th:first-child{
+  border-top-left-radius: 20px;
+}
+.Table-Data table thead th:last-child{
+  border-top-right-radius: 20px;
+}
+.Table-Data table tbody{
+  border-bottom: 1px solid rgb(0, 0, 88);
+}
+.Table-Data .Links{
+  display: flex;
+  flex-wrap:wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+
+}
+.Table-Data .Links button{
+width: 300px;
+  padding: 15px;
+  text-align: center;
+
+}
+.download{
+       border-radius: 20px;
+       padding: 10px;
+       color: white;
+       font-weight: bolder;
+background-color: rgb(0, 0, 88);
+margin-right: 20px;
+text-decoration: none;
+cursor: pointer;
+border: none;
+
+font-size: 13px;
+
 }
 .tablebee{
   width: 99%;
@@ -80,76 +192,7 @@ document.getElementById("popup-3").classList.toggle("active");
 }
 function editPopup(edit){
   console.log(edit)
-  console.log(vdatas)
-  var udata = vdatas[edit-2];
-  console.log(udata)
-var inputs = document.getElementById("popup-inner").querySelectorAll("div");
-console.log(inputs)
-var now = 0;
-//inputs.splice(1,1)
-inputs.forEach((i,jk) =>{
-  console.log(i.children,udata[now])
-  if(jk==1){
-  
-}
-else{
-  if(jk==0){
-   /* if (udata[now].includes("google.com")){
-    udata[now] = "https://google.com"+udata[now];
-  }
-  
-  else{
-    udata[now] = "https://spcniftemt.pages.dev/user/"+udata[now];
-  }*/
-    i.children[0].children[0].src = udata[now];
-  }
-  else{
-    i.children[1].value = udata[now];
-  }
-//  i.children[1].value = udata[now];
-
-  now++
-}
-  
-})
-
-
-var allotoption = "";
-console.log(umembers)
-var allotnamee="";
-umembers.forEach((h,inf) =>{
- 
-  if (h[0]==udata[6]){
-    var option = `<option value="`+umembersids[inf][0]+`" selected>`+h[0]+`</option>`;
-  }
-  else{
-    var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
-  }
-  allotoption += option;
-})
-
-console.log(udata[6])
-console.log(allotnamee)
-inputs[5].children[1].selectedIndex = allotnamee;
-console.log(inputs[5].children[1].selectedIndex)
-document.getElementById("Alloted Member").innerHTML =  allotoption;
-if (udata[3].includes("M.Tech")){
-    document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none"
-      document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="none"
-}
-else{
-  console.log(vrole)
-  if(vrole=="Admin"){
-      document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="flex"
-  }
-  else{
-    document.getElementById("popup-inner").querySelectorAll("div")[8].style.display="none" 
-  }
-      document.getElementById("popup-inner").querySelectorAll("div")[10].style.display="flex"
-}
-document.getElementById("popup-1").classList.toggle("active");
-console.log(document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1])
-document.getElementById("popup-inner").querySelectorAll("div")[inputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
+  alert("Under Development, will be available soon")
 }
 function addPopup(){
 var allotoption = "";
@@ -264,27 +307,56 @@ document.getElementById("popup-40").classList.toggle("active");
   <main style="overflow: hidden;">
     <div class="container" onclick="closeAllSubMenus()">
       <main style="margin-top: 30px;" class="table" id="customers_table">
-        <section class="table__header">
-
-            <div class="input-group">
-                <input  type="search" placeholder="Search..." >
-                <img src="images/search.png" alt="">
-            </div>
-<div id="addbtnpop" style="width: auto;padding: 10px;display: none;">
-  <button onclick="addPopup()" class="btn">Add Student</button>
- 
+  <section id="Batch-full-details">
+    <div style="height: 100vh; display: flex;align-items: center;justify-content: center;">
+<span>Fetching details....</span>
+    </div>
+<!-- <div class="Batch active">
+  <div class="Batch-Degree-Links">
+    <div>
+    <div>
+    <span><b>Batch : </b></span>
+    <span>2021</span>
+    </div>
+<div>
+  <span><b>Degree : </b></span>
+  <span>B.Tech - Food Technology</span>
 </div>
-        </section>
+</div>
 
-       <section id="tablebee" class="tablebee">         
-        <section  class="table__body" >
+<div class="collapse-btn">
+       <svg onclick="showdetails(this)" fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>
+</div>
+  </div>
+  <div class="Table-Data active">
+    <div class="Links">
+  <button class="download" href="http://">Combined Rules & Regulations</button>
+  <button class="download" href="http://">Declaration Form</button>
+  <button class="download" href="http://">Internship Rules & Regulations</button>
+  <button class="download" href="http://">Placement Rules & Regulations</button>
+</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID Number</th>
+            <th>Alloted Member</th>
+            <th >Alloted Member ID Number</th>
 
-          
- <table  id="tabdetails">
-               </table>
-          
-        </section>
-    </section> 
+          </tr>
+        </thead>
+        </thead>
+        <tbody>
+          <tr><td>Nitheesh R L</td><td>2021U1049</td><td>Nithish J P</td><td>2021U1050</td></tr>
+          <tr><td>Nitheesh R L</td><td>2021U1049</td><td>Nithish J P</td><td>2021U1050</td></tr>
+        </tbody>
+      </table>
+    </div>
+  
+</div>-->
+  </section>
+
+
 
     <section class="msg" >
 
@@ -616,6 +688,10 @@ else{
 alert("PassKey is already created for this Device")
 }
 }
+function showdetails(btn){
+  console.log(btn.parentElement.parentElement.parentElement)
+  btn.parentElement.parentElement.parentElement.classList.toggle("active");
+}
        function approvePopup(id){
            console.log("ok")
    document.getElementById("popup-1").classList.toggle("active");
@@ -656,451 +732,130 @@ alert("PassKey is already created for this Device")
     sessionStorage.setItem("lastpage",window.location.pathname)
     window.location="../index.html";
   }
-   document.getElementById("load").style.display="initial";
+  /* document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Students Details Fetching....";
-           var allotdiv;
-           var vdatas = [];
-           var vheads = [];
-           var vrole ; 
-           var umembers = [];
-           var umembersids = [];
-           var uongoing="";
-           function fetchd (){
-  console.log("Students Details Fetching....")
-var loggedname = localStorage.getItem("loggedname");
-var rid  = localStorage.getItem("loggeduserdetails");
-var uid = JSON.parse(rid).id;
-    var formDataString =uid;
-    console.log(formDataString)
+           document.getElementById("message").textContent = "Students Details Fetching....";*/
+         var lasthash = [];
+var students_details = [];
+var name_list = [];
+var old_students = [];
+function getuserdetailsonload(){
+    console.log("Registration Details Fetching....")
 
-    fetch(
-      "https://script.google.com/macros/s/AKfycbxhdNnGyV_dfCe2nAlWj7VzHdyRsuQFW4q_aFYpCh9w2WtaP3i6mWTiJx97MgRH3G4jUw/exec",
-      {
-        redirect: "follow",
-        method: "POST",
-        body: formDataString,
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-      }
-    )
 
-      .then(function (response) {
-
-        // Check if the request was successful
-        if (response) {
-     
-          return response; // Assuming your script returns JSON response
-        } else {
-          throw new Error("Failed to fetch");
-        }
-      })
-      .then(async function (data) {
-        const result1 = await data.json();
-var userdetails = result1.data2;
-console.log(userdetails)
-vheads = userdetails.heads;
-var heads = userdetails.heads;
-vdatas = userdetails.datas;
-var datas = userdetails.datas;
-umembers = userdetails.members;
-umembersids = userdetails.membersids;
-var allots = userdetails.allots;
-var role = userdetails.role;
-vrole = userdetails.role;
-var access = userdetails.access;
-var uaccess = userdetails.uaccess;
-var th = "";
-
-/*if (document.getElementById('Alloted Member')!==null){
-allotdiv = document.getElementById('Alloted Member').parentElement;
-}
-console.log(allotdiv)*/
-if (role == "User"){
- // heads.splice(5,1);
-  document.getElementById("popup-inner").querySelectorAll("div")[3].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[5].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[11].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[12].style.display="none"
-  document.getElementById("addbtnpop").style.display="none";
-
-/*if(allotdiv!==undefined){
-  allotdiv.remove();
-}*/
-}
-else{
-  document.getElementById("popup-inner").querySelectorAll("div")[3].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[5].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[6].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[7].style.display="flex"
-  document.getElementById("popup-inner").querySelectorAll("div")[9].style.display="none"
-  document.getElementById("popup-inner").querySelectorAll("div")[11].style.display="flex"
-  document.getElementById("popup-inner").querySelectorAll("div")[12].style.display="none";
-  document.getElementById("addbtnpop").style.display="initial";
-//  if (document.getElementById('Alloted Member')==null){
-   
- // document.getElementById("popup-inner").querySelectorAll("div")[4].insertAdjacentElement("afterend",allotdiv) 
-}
-//}
-for (var i=0; i<heads.length;i++){
-  if (role == "User"&&i==5){
-continue;
-}
-th +="<th>"+heads[i]+"</th>";
-
-}
-var thead = "<thead><th>Edit</th>"+th+"</thead>";
-var tr ="";
-for (var r=0; r<datas.length;r++){
-  var td ="";
-
-  if ((access == "No"||(!access.includes(uaccess[r])&&access !== "All"))&&loggedname!==allots[r]){
-   // datas.splice(r,1)
-   continue;
-   console.log(r)
-  }
-  for (var d=0; d<datas[r].length;d++){
-    if (role == "User"&&d==5){
-continue;
-}
-if (d==0){
-  if (datas[r][d].includes("google.com")){
-    datas[r][d] = datas[r][d];
-  }
-  else{
-    datas[r][d] = "https://spcniftemt.pages.dev/user/"+datas[r][d];
-  }
-
- td +="<td>"+ `<div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
-                <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;margin-left: 5px;" src="`+datas[r][d]+`" alt="" srcset="">
-              </div>`+"</td>";
-            //  td +="<td>"+ ` <img  style="object-fit: cover;width: 100px; height: 100px;" src="`+datas[r][d]+`" alt="">`+"</td>";
-            
-//  td +="<td>"+datas[r][d]+"</td>";
-
-}
-else{
-td +="<td>"+datas[r][d]+"</td>";
-}
-}
-var editno = Number(r)+2;
-tr +="<tr><td>"+`<svg onclick="editPopup(`+editno+`)"  fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 494.936 494.936" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M389.844,182.85c-6.743,0-12.21,5.467-12.21,12.21v222.968c0,23.562-19.174,42.735-42.736,42.735H67.157 c-23.562,0-42.736-19.174-42.736-42.735V150.285c0-23.562,19.174-42.735,42.736-42.735h267.741c6.743,0,12.21-5.467,12.21-12.21 s-5.467-12.21-12.21-12.21H67.157C30.126,83.13,0,113.255,0,150.285v267.743c0,37.029,30.126,67.155,67.157,67.155h267.741 c37.03,0,67.156-30.126,67.156-67.155V195.061C402.054,188.318,396.587,182.85,389.844,182.85z"></path> <path d="M483.876,20.791c-14.72-14.72-38.669-14.714-53.377,0L221.352,229.944c-0.28,0.28-3.434,3.559-4.251,5.396l-28.963,65.069 c-2.057,4.619-1.056,10.027,2.521,13.6c2.337,2.336,5.461,3.576,8.639,3.576c1.675,0,3.362-0.346,4.96-1.057l65.07-28.963 c1.83-0.815,5.114-3.97,5.396-4.25L483.876,74.169c7.131-7.131,11.06-16.61,11.06-26.692 C494.936,37.396,491.007,27.915,483.876,20.791z M466.61,56.897L257.457,266.05c-0.035,0.036-0.055,0.078-0.089,0.107 l-33.989,15.131L238.51,247.3c0.03-0.036,0.071-0.055,0.107-0.09L447.765,38.058c5.038-5.039,13.819-5.033,18.846,0.005 c2.518,2.51,3.905,5.855,3.905,9.414C470.516,51.036,469.127,54.38,466.61,56.897z"></path> </g> </g> </g></svg>`+"</td>"+td+"</tr>";
-}
-
-var tbody = "<tbody>"+tr+"</tbody>";
-var search2 = document.querySelector('.input-group input').value;
-var oldhtml = document.getElementById("tabdetails").innerHTML;
-var newhtml = thead+tbody;
-//console.log(newhtml)
-//console.log(oldhtml)
-if(search2==""){
-  if(oldhtml!==newhtml){
-    document.getElementById("tabdetails").innerHTML = thead+tbody;
-  }
-//document.getElementById("tabdetails").innerHTML = thead+tbody;
-}
-if (uongoing==""){
-document.getElementById("load").style.display="none";
-           document.getElementById("loader").style.display="none"; 
-           document.getElementById("message").textContent = "";
-}
-fetchd ();
-      })
-
-      .catch(function (error) {
-        // Handle errors, you can display an error message here
-        console.error(error);
-        fetchd ();
-      });
-    
-       }
-      fetchd ();
-   
-      /*function updatelogstatus(status){
-      var updatestring = localStorage.getItem("loggedname")+"/"+status;
- 
-           
-       fetch(
-    
-    "https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
-    {
-      redirect: "follow",
-      method: "POST",
-      body: updatestring,
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-    }
-   )
-   
-    .then(function (response) {
-   
-      // Check if the request was successful
-      if (response) {
-   
-        return response; // Assuming your script returns JSON response
-      } else {
-        throw new Error("Failed to fetch.");
-      }
-    })
-    .then(async function (data) {
-   const result1 = await data.json();
-   
-   var r = result1.data2;
+      var formDataString ="/2";
+      //console.log(formDataString)
   
-   
-   })
-   
-   .catch(function (error) {
-   // Handle errors, you can display an error message here
-   console.error(error);
-
-   });
-   }*/
-   var qupdatas = document.getElementById("popup-inner").querySelectorAll("input,select");
-
-   //console.log(qupdatas)
-   function updatedetails(id){
-    var loggedname = localStorage.getItem("loggedname");
-    uongoing = "Going"
-  var tobeupdatedata = [];
-  var tobeupdatehead = [];
-
-           var updatas = document.getElementById("popup-inner").querySelectorAll("input,select");
-           for (var f =0;f<updatas.length-2;f++ ){
-         //   console.log(vheads,updatas)
-console.log(updatas[f+1].value,vdatas[id-2][f]);
-            if(vheads[f]=="Alloted Member"){
-              var foptions = updatas[f+1].options;
-              console.log(foptions)
-  var coption = updatas[f+1].selectedIndex;
-  //console.log(coption, foptions[coption],foptions[coption].innerHTML)
-  var check_data = foptions[coption].innerHTML;
-            }
-            else{
-              var check_data = updatas[f+1].value;
-            }
-            console.log(check_data,vdatas[id-2][f])
-            if (String(check_data) !== String(vdatas[id-2][f])){
-            //  console.log(updatas[f+1].value,vdatas[id-2][f])
-
-              if(updatas[f+1].parentElement.style.display!=="none"){
-                if(vheads[f]=="Profile Pic"&&updatas[f+1].value==""){
-             console.log("profilepic")
-              }
-              else{
-               // console.log(updatas[f+1].value,vdatas[id-2][f])
-                tobeupdatehead.push(vheads[f]);
-                tobeupdatedata.push(updatas[f+1].value);
-                if(vheads[f]=="Profile Pic"){
-                   updatas[f+1].value = "";
-                }
-              }
-              }
-       
-            }
-           }
-           if (tobeupdatedata.length==0){
-            alert("No Changes Done")
-           }
-           else{
-            togglePopup()
-            document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Updating....";
-            var datastring = JSON.stringify({
-        index:id,
-        heads:tobeupdatehead,
-        datas:tobeupdatedata,
-        name:loggedname
-      });
-      console.log(datastring)
-       fetch(
-    
-    "https://script.google.com/macros/s/AKfycbzLylL8kY3apC-laODAruF34VvDqCZEUJEg7lH3P1Gx0JgLieMqhQgKHmXIQfF-6ksG/exec",
-    {
-      redirect: "follow",
-      method: "POST",
-      body: datastring,
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-    }
-   )
-   
-    .then(function (response) {
-   
-      // Check if the request was successful
-      if (response) {
-   
-        return response; // Assuming your script returns JSON response
-      } else {
-        throw new Error("Failed to fetch.");
-      }
-    })
-    .then(async function (data) {
-   const result1 = await data.json();
-   
-   var r = result1.data2;
-   console.log(r);
-   fetchd ();
-   if (r=="Success"){
-   document.getElementById("loader").style.display="none"; 
-     document.getElementById("message").textContent = "Updated";
-    document.getElementById("message").style.display = "block";
-     setTimeout(function () { document.getElementById("load").style.display="none";
-   uongoing="";
-  
-   },2000);
-  }
-   })
-   
-   .catch(function (error) {
-   // Handle errors, you can display an error message here
-   console.error(error);
-   document.getElementById("loader").style.display="none"; 
-   document.getElementById("message").textContent =
-   "Failed to update.";
-   document.getElementById("message").style.display = "block";
-   setTimeout(function () { document.getElementById("load").style.display="none";
-   uongoing="";
-  
-   },2000);
-   });
-  }
-   }
-function addstudent(button){
-  uongoing = "Going"
-var values = [];
-var vheads = [];
-           var updatas = document.getElementById("popup-inner-add").querySelectorAll("input,select");
-           for (var f =1;f<updatas.length-1;f++ ){
-            console.log(updatas[f].value,updatas[f].required);
-            console.log(updatas[f].value==""&&updatas[f].required);
-            if(updatas[f].value==""&&updatas[f].required){
-              if(updatas[f].name=="Profile Pic"){
-                alert("Upload the "+updatas[f].name);
-              }
-              else{
-              alert("Enter the "+updatas[f].name);
-              }
-              return;
-            }
-            else{
-values.push(updatas[f].value)
-vheads.push(updatas[f].name)
-
-            }
-           }
-           console.log(updatas[5].value)
-           if(updatas[5].value.includes("B.Tech")){
-            values.push("B.Tech");
-            vheads.push("UG or PG")
-           }
-           else{
-            values.push("M.Tech")
-            vheads.push("UG or PG")
-           }
-           for (var f =0;f<updatas.length-1;f++ ){
-           updatas[f].value="";
-           }
-           updatas[0].previousElementSibling.src="";
-            togglePopup40()
-            document.getElementById("load").style.display="initial";
-           document.getElementById("loader").style.display="block"; 
-           document.getElementById("message").textContent = "Adding Student....";
-           console.log(values,vheads)
-            var datastring = JSON.stringify({
-  data:values,
-  head:vheads
-      });
-      console.log(datastring)
       fetch(
-    
-    "https://script.google.com/macros/s/AKfycbx1fm56dXBmieFrmmVAUDcP_WtIIsYwrS_z071c_vkcxczt6lV_nC0-idhsTsjqdPnLiA/exec",
-    {
-      redirect: "follow",
-      method: "POST",
-      body: datastring,
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-    }
-   )
-   
-    .then(function (response) {
-   
-      // Check if the request was successful
-      if (response) {
-   
-        return response; // Assuming your script returns JSON response
-      } else {
-        throw new Error("Failed to fetch.");
-      }
-    })
-    .then(async function (data) {
-   const result1 = await data.json();
-   
-   var r = result1.data2;
-   console.log(r);
-   fetchd ();
-   if (r=="Success"){
-   document.getElementById("loader").style.display="none"; 
-     document.getElementById("message").textContent = "Student Added";
-    document.getElementById("message").style.display = "block";
-     setTimeout(function () { document.getElementById("load").style.display="none";
-   uongoing="";
+        "https://script.google.com/macros/s/AKfycbyuypZgac5N95Vs8yrB6pokprdJXZ6gK56CRfzc8srYa-4AKHHZ1m3CuslPA8Mbt0c3bA/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: formDataString,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
   
-   },2000);
-  }
-  else if(r=="reject"){
-    document.getElementById("loader").style.display="none"; 
-     document.getElementById("message").textContent = "ID Number already present. So, Student not added";
-    document.getElementById("message").style.display = "block";
-     setTimeout(function () { document.getElementById("load").style.display="none";
-   uongoing="";
+        .then(function (response) {
   
-   },2000);
-  }
-   })
-   
-   .catch(function (error) {
-   // Handle errors, you can display an error message here
-   console.error(error);
-   document.getElementById("loader").style.display="none"; 
-   document.getElementById("message").textContent =
-   "Failed to update.";
-   document.getElementById("message").style.display = "block";
-   setTimeout(function () { document.getElementById("load").style.display="none";
-   uongoing="";
-  
-   },2000);
-   });
-  } 
+          // Check if the request was successful
+          if (response) {
+       
+            return response; // Assuming your script returns JSON response
+          } else {
+            throw new Error("Failed to fetch");
+          }
+        })
+        .then(async function (data) {
+          getuserdetailsonload();
+          const result1 = await data.json();
+  var userdetails = result1.data2;
+  //console.log(userdetails);
+  var batch_select = document.getElementById("Batch-full-details");
+ var batchs = userdetails.students;
 
-   
-  /*setTimeout(() => {
+   var full_batch = '';
+batchs.forEach((batch) => {
+//console.log(batch);
+var studeents_details = batch[5];
+//console.log(batch[5]);
+var students_html = `      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID Number</th>
+            <th>Alloted Member</th>
+            <th >Alloted Member ID Number</th>
+
+          </tr>
+       
+        </thead>
+        <tbody>
+  `;
+studeents_details.forEach((student) => {
+  //console.log(student);
+  students_html += `<tr><td>${student[0]}</td><td>${student[1]}</td><td>${student[2]}</td><td>${student[3]}</td></tr>`;
+})
+students_html +=`</tbody> </table>`;
+ var batch_html = `
+  <div class="Batch">
+  <div class="Batch-Degree-Links">
+ <div>
+    <div>
+    <span><b>Batch : </b></span>
+    <span>${batch[0].split(" / ")[0]}</span>
+    </div>
+<div>
+  <span><b>Degree : </b></span>
+  <span>${batch[0].split(" / ")[1]}</span>
+</div>
+</div>
+<div class="collapse-btn">
+      <td><svg onclick="editPopup(`+"`"+`${batch[0]}`+"`"+`)" fill="#0042aa" height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 494.936 494.936" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M389.844,182.85c-6.743,0-12.21,5.467-12.21,12.21v222.968c0,23.562-19.174,42.735-42.736,42.735H67.157 c-23.562,0-42.736-19.174-42.736-42.735V150.285c0-23.562,19.174-42.735,42.736-42.735h267.741c6.743,0,12.21-5.467,12.21-12.21 s-5.467-12.21-12.21-12.21H67.157C30.126,83.13,0,113.255,0,150.285v267.743c0,37.029,30.126,67.155,67.157,67.155h267.741 c37.03,0,67.156-30.126,67.156-67.155V195.061C402.054,188.318,396.587,182.85,389.844,182.85z"></path> <path d="M483.876,20.791c-14.72-14.72-38.669-14.714-53.377,0L221.352,229.944c-0.28,0.28-3.434,3.559-4.251,5.396l-28.963,65.069 c-2.057,4.619-1.056,10.027,2.521,13.6c2.337,2.336,5.461,3.576,8.639,3.576c1.675,0,3.362-0.346,4.96-1.057l65.07-28.963 c1.83-0.815,5.114-3.97,5.396-4.25L483.876,74.169c7.131-7.131,11.06-16.61,11.06-26.692 C494.936,37.396,491.007,27.915,483.876,20.791z M466.61,56.897L257.457,266.05c-0.035,0.036-0.055,0.078-0.089,0.107 l-33.989,15.131L238.51,247.3c0.03-0.036,0.071-0.055,0.107-0.09L447.765,38.058c5.038-5.039,13.819-5.033,18.846,0.005 c2.518,2.51,3.905,5.855,3.905,9.414C470.516,51.036,469.127,54.38,466.61,56.897z"></path> </g> </g> </g></svg>
+</div>
+<div class="collapse-btn">
+       <svg onclick="showdetails(this)" fill="#0042aa" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#0042aa"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path> </g></svg>
+</div>
+  </div>
+  <div class="Table-Data">
+    <div class="Links">
+  <button class="download" onclick="window.open('${batch[1]}','_blank')">Combined Rules & Regulations</button>
+  <button class="download" onclick="window.open('${batch[2]}','_blank')">Declaration Form</button>
+  <button class="download" onclick="window.open('${batch[3]}','_blank')">Internship Rules & Regulations</button>
+  <button class="download" onclick="window.open('${batch[4]}','_blank')">Placement Rules & Regulations</button>
+
+
+      ${students_html}
+    </div>
+    </div>
+</div>
+  `;
+  //console.log(batch_html);
+  full_batch += batch_html; 
+})
+    if(lasthash != JSON.stringify(userdetails)){
+batch_select.innerHTML = full_batch;
+    lasthash = JSON.stringify(userdetails);
+    console.log("Details Updated");
+    }
+    else{
+      console.log("Details Not Updated");
+    }
+        })
   
-  updatelogstatus("Online");
-  
-  }, 2000)
-  window.addEventListener("blur", () => {
-    updatelogstatus("Offline");   
-    });
-    window.addEventListener("focus", () => {
-    updatelogstatus("Online");   
-    });
-  //window.unblur = colse();
-  const beforeUnloadHandler = (event) => {  
-    updatelogstatus("Offline");  
-  };
-  window.addEventListener("beforeunload", beforeUnloadHandler);*/
-     </script>
-       <script>
+        .catch(function (error) {
+          // Handle errors, you can display an error message here
+          console.error(error);
+          getuserdetailsonload();
+        });
+      }
+
+  window.onload= function() {
+    getuserdetailsonload();
+  }
+      
         function formfileupload(button){
         let file1 = button;
     

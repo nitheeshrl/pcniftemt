@@ -183,6 +183,7 @@ function sidebari(){
    <div>
      <li><a href="all-users.html">Students</a></li>
      <li><a  href="all-musers.html">Members</a></li>
+     <li><a  href="register_details.html">Registration Setup</a></li>
    </div>
  </ul>
 </li>
