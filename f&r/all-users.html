@@ -24,6 +24,16 @@ margin-right: 20px;
 text-decoration: none;
 cursor: pointer;
 }
+    table .download{
+       border-radius: 20px;
+       padding: 10px;
+       color: white;
+       font-weight: bolder;
+background-color: rgb(0, 0, 88);
+margin-right: 20px;
+text-decoration: none;
+cursor: pointer;
+}
 table .decline{
 border-radius: 20px;
 padding: 10px;
@@ -879,9 +889,10 @@ function updateTable(userdetails) {
     const allots = userdetails.allots;
     const access = userdetails.access;
     const uaccess = userdetails.uaccess;
+    const reg_details = userdetails.reg_details;
     
     // Generate table HTML
-    const tableHTML = generateTableHTML(vheads, vdatas, vrole, access, uaccess, loggedname, allots);
+    const tableHTML = generateTableHTML(vheads, vdatas, vrole, access, uaccess, loggedname, allots,reg_details);
     
     // Only update if HTML has changed
     if (elements.tabdetails.innerHTML !== tableHTML) {
@@ -900,17 +911,27 @@ function filterTable(searchTerm) {
 }
 
 // Generate table HTML
-function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allots) {
+function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allots,reg_details) {
     // Generate headers
     let th = "";
     let rth = "";
     for (let i = 0; i < heads.length; i++) {
         if (role === "User" && i === 5) continue;
         th += `<th>${heads[i]}</th>`;
-       if(i == 4 || i == 12 || i == 9 || i == 10 || i == 13 || i == 14) continue;
+       if(i == 12 || i == 9 ||  i == 14) continue;
+     else  if(i == 4) {
+        rth += `<th>Reference No.</th><th>Declaration Link</th>`;
+       }
+       else if(i == 13){
+         rth += `<th>Placement Rules Link</th>`;
+       }
+          else    if(i == 10){
+         rth += `<th>Internship Rules Link</th>`;
+       }
+       else{
         rth += `<th>${heads[i]}</th>`;
     }
-    
+  }
     const thead = `<thead><th>Edit</th>${th}</thead>`;
     const rthead = `<thead><th>Respond</th>${rth}</thead>`;
     // Generate rows
@@ -926,9 +947,43 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
         let td = "";
         for (let d = 0; d < datas[r].length; d++) {
             if (role === "User" && d === 5) continue;
-            if(datas[r][4] === "Requested" && (  d == 4 || d == 12|| d == 9 || d == 10 || d == 13 || d == 14)){
+            if(datas[r][4] === "Requested"  ){
                 // Skip certain columns for "Requested" status  
-                continue;
+           if( d == 12|| d == 9  || d == 14)     continue;
+
+       if(d == 4) {
+        if(reg_details[r][1]!==null && reg_details[r][1]!==undefined && reg_details[r][1]!==""){
+          td += `<td>`+reg_details[r][0]+`</td><td>`+`<a   class="download" href="`+reg_details[r][1]+`" >Download</a>` +`</td>`;
+        }
+        else{
+          td += `<td>`+reg_details[r][0]+`</td><td>`+`Not Applicable` +`</td>`;
+        }
+     
+        continue
+       }
+       else if(d == 13){
+        console.log(reg_details[r])
+        if(reg_details[r][3]!==null && reg_details[r][3]!==undefined && reg_details[r][3]!=="No"){
+          td += `<td>`+`<a  class="download" href="`+reg_details[r][3]+`" >Download</a>` +`</td>`;
+        }
+        else{
+          td += `<td>`+`Not Applicable` +`</td>`;
+        }
+       
+         continue;
+       }
+          else    if(d == 10){
+            
+            if(reg_details[r][2]!==null && reg_details[r][2]!==undefined && reg_details[r][2]!=="No"){
+              td += `<td>`+`<a  class="download" href="`+reg_details[r][2]+`" >Download</a>` +`</td>`;
+            }
+            else{
+              td += `<td>`+`Not Applicable` +`</td>`;
+            }
+
+          continue;
+       }
+ 
             }
             
             if (d === 0) {
@@ -941,7 +996,8 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
                 td += `<td><div style="background-color: rgb(237, 235, 235); border-radius: 110px; height: 110px; width: 110px; margin: 0 auto;">
                       <img style="border-radius: 50px; width: 100px; height: 100px; object-fit: cover; margin: 5px 5px 5px 5px;" 
                       src="${imgUrl}" alt=""></div></td>`;
-            } else {
+            } 
+            else {
                 td += `<td>${datas[r][d]}</td>`;
             }
         }
