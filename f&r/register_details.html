@@ -71,9 +71,11 @@ margin: 5px;
   z-index: 5;
 background-color: rgb(246, 246, 248);
 padding: 10px;
-margin: 20px;
+
 margin-top: -30px;
 border-radius: 20px;
+width:  100%;
+
 }
 .Batch.active .Table-Data{
   transition: all 0.5s;
@@ -96,7 +98,9 @@ transform: rotate(180deg);
   background-color: white;
 
 }
-
+.Table-Data-Table{
+  overflow: scroll;
+}
 .Table-Data table th{
   padding: 10px 0 10px 0;
   text-align: center;
@@ -309,7 +313,7 @@ document.getElementById("popup-40").classList.toggle("active");
   </nav>
   <main style="overflow: hidden;">
     <div class="container" onclick="closeAllSubMenus()">
-      <main style="margin-top: 30px;" class="table" id="customers_table">
+      <main class="table" id="customers_table">
         <div id="addbtnpop" style="width: auto;padding: 10px;width: 100%; display: flex;align-items: end;justify-content: end;">
   <button onclick="addPopup()" class="btn">Add Batch</button>
 </div>
@@ -832,10 +836,10 @@ students_html +=`</tbody> </table>`;
   <button class="download" onclick="window.open('${batch[2]}','_blank')">Declaration Form</button>
   <button class="download" onclick="window.open('${batch[3]}','_blank')">Internship Rules & Regulations</button>
   <button class="download" onclick="window.open('${batch[4]}','_blank')">Placement Rules & Regulations</button>
-
-
+ </div>
+<div class="Table-Data-Table">
       ${students_html}
-    </div>
+   </div>
     </div>
 </div>
   `;
