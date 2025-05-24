@@ -515,7 +515,7 @@ document.getElementById("popup-40").classList.toggle("active");
           </div>
             </div>
           </div>
-            <div class="popup" id="popup-40">
+            <div class="popup active" id="popup-40">
  
               <div class="overlay"></div>
           
@@ -523,29 +523,9 @@ document.getElementById("popup-40").classList.toggle("active");
           
               <div class="close-btn" onclick="togglePopup40()">&times;</div>
           <div class="popup-inner" id="popup-inner-add"  style="padding: 50px;">
-              <h1>Add Student</h1>
-              <div class="form-element" style="margin-top: 20px;margin-bottom: 20px;">
-                <div style="background-color: rgb(237, 235, 235); border-radius: 110px;height: 110px;width: 110px;margin-top: 0px;margin-left: auto;margin-right: auto;">
-                  <img  style=" border-radius: 50px; width: 100px; height: 100px; object-fit: cover;margin-top: 5px;" src="" alt="" srcset="">
-  <input  type="file" accept=".JPG,.jpg,.JPEG,.jpeg,.PNG,.png" onclick="formfileupload(this)"/>
-  <input required type="hidden" name="Profile Pic" class="1lz0E2hzYz0x1Z2GVVwYQlgAAJVk6paTx" value=""/>
-  
-                </div>
-              </div>             
-              <div class="form-element">
-                <span class="q">Name</span>
-                <input required type="text" name="Name"   placeholder="Enter your Name" />
-                </div>
-                
-                <div class="form-element">
-                <span class="q">ID Number</span>
-                <input required type="text" name="ID Number"  placeholder="Enter your ID Number" />
-                </div>
-                
-                <div class="form-element">
-                <span class="q">Email ID</span>
-                <input required type="text" name="Email ID"  placeholder="Enter your Email ID" />
-                </div>
+              <h1>Add Batch</h1>
+            
+
                 
                 <div class="form-element">
                 <span class="q">Degree</span>
@@ -557,55 +537,71 @@ document.getElementById("popup-40").classList.toggle("active");
                   <option value="M.Tech - Food safety and Quality Assurance">M.Tech - Food safety and Quality Assurance</option>
                 </select>
                 </div>
-                
-                <div class="form-element">
+
+                <div class="form-element batch-info">
                 <span class="q">Batch</span>
-                <input required type="text" name="Batch"  placeholder="Enter your Batch" />
+                <input required type="number" name="Batch"  placeholder="Enter your Batch" />
+                </div>
+                <div class="form-element batch-info">
+                <span class="q">Combined Rules Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
+                <input required type="text" name="Combined Rules Drive Link"  placeholder="Enter your Combined Rules Drive Link" />
+                </div>
+                                <div class="form-element batch-info">
+                <span class="q">Declaration Form Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
+                <input required type="text" name="Declaration Form Template Drive Link"  placeholder="Enter your Declaration Form Template Drive Link" />
+                </div>
+                                <div class="form-element batch-info">
+                <span class="q">Internship Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
+                <input required type="text" name="Internship Rules & Regulations Template Drive Link"  placeholder="Enter your Internship Rules & Regulations Template Drive Link" />
+                </div>
+                                <div class="form-element batch-info">
+                <span class="q">Placement Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
+                <input required type="text" name="Placement Rules & Regulations Template Drive Link"  placeholder="Enter your Placement Rules & Regulations Template Drive Link" />
                 </div>
                 
+                <div id="full-students">
+                <span class="q">Student Details</span>
+                 <div>
+                <div class="each-student" style="background-color: rgb(245, 245, 245);padding: 10px;border-radius: 10px; ">
+                  <div style="display: flex; justify-content: space-between;align-items: center;padding:10px 30px 0 30px;">
+                 <span class="q">Student 1</span>
+                     <button onclick="removequestion(this)" type="button" style="background: none;border: none;">
+      <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>
+                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element">
+              <span class="q">Name</span>
+              <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">ID Number</span>
+              <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
+              </div><br>
                 <div class="form-element">
-                <span class="q">Alloted Member</span>
-                <select required name="Alloted Member" >
-                </select>
+              <span class="q">Alloted Member</span>
+              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
+              </div><div class="form-element">
+              <span class="q">Alloted Member ID Number</span>
+              <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
+              </div>
+              </div>
                 </div>
-                
-                <div class="form-element">
-                <span class="q">Internship Preference</span>
-                <select required name="Internship Preference" >
-                  <option value="">Select the Internship Preference</option>
-                  <option value="Internship through Institute ">Internship through Institute </option>
-                  <option value="Internship by own">Internship by own</option>
-                </select>
-                </div>
-                
-                <div class="form-element">
-                <span class="q">Internship Company</span>
-                <input type="text" name="Internship Company"placeholder="Enter your Internship Company" />
-                </div>
-                
-                <div class="form-element">
-                <span class="q">Placement Preference</span>
-            
-                <select required name="Placement Preference" >
-                  <option value="">Select the Placement Preference</option>
-                  <option value="Entrepreneurship">Entrepreneurship</option>
-                  <option value="Higher Studies">Higher Studies</option>
-                  <option value="Placement">Placement</option>
-                </select>
+               </div>
+                    <div style="display: flex;align-items: center;justify-content: center;">
+  <button onclick="addeachstudent()" type="button" style="background: none;width: 40px; border: none;">
+    <svg fill="#0042aa" width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 45.402 45.402" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141 c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27 c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435 c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"></path> </g> </g></svg>
+    </button>
+ 
+    </div>
                 </div>
 
-                <div class="form-element">
-                <span class="q">1st Placement Company</span>
-                <input type="text" name="1st Placement Company"  placeholder="Enter your 1st Placement Company" />
-                </div>
                 
-                <div class="form-element">
-                <span class="q">2nd Placement Company</span>
-                <input type="text" name="2nd Placement Company" placeholder="Enter your 2nd Placement Company" />
-                </div>
+               
               <div class="popup-btn">
                   <input id="aid" type="hidden" value="">
-          <a class="btn" id="apbt" onclick="addstudent(this)">Add</a>
+          <a class="btn" id="apbt" onclick="addbatchinfo()">Add</a>
           <a class="btn" onclick="togglePopup40()">Cancel</a>
               </div>
               </div>
@@ -710,6 +706,53 @@ function showdetails(btn){
    document.getElementById("aid").value = id;
    
    }
+  function removequestion(btn){
+    var eachstudent = btn.parentElement.parentElement;
+    console.log(eachstudent)
+    eachstudent.remove();
+  }
+   function addeachstudent(){
+    var students_details = document.getElementById("full-students");
+
+
+    var no_of_students = students_details.children[1].children.length + 1;
+        var addplace = students_details.children[1];
+
+    console.log(addplace)
+    var each_student = 
+    `                <div class="each-student" style="background-color: rgb(245, 245, 245);padding: 10px;border-radius: 10px; ">
+                  <div style="display: flex; justify-content: space-between;align-items: center;padding:10px 30px 0 30px;">
+                 <span class="q">Student ${no_of_students}</span>
+                     <button onclick="removequestion(this)" type="button" style="background: none;border: none;">
+      <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>
+                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element">
+              <span class="q">Name</span>
+              <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">ID Number</span>
+              <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
+              </div><br>
+                <div class="form-element">
+              <span class="q">Alloted Member</span>
+              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
+              </div><div class="form-element">
+              <span class="q">Alloted Member ID Number</span>
+              <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
+              </div>
+              </div>
+                </div>`;
+                if(addplace.children.length > 0){
+                  addplace.children[addplace.children.length - 1].insertAdjacentHTML('afterend', each_student);
+                }
+                else{
+                addplace.innerHTML +=  each_student;
+              }
+   }
 
    function togglePopup(){
    document.getElementById("popup-1").classList.toggle("active");
@@ -731,6 +774,65 @@ function showdetails(btn){
    }
    function togglePopup40(){
    document.getElementById("popup-40").classList.toggle("active");
+   }
+   function addbatchinfo(){
+    var batch_info = document.getElementsByClassName("batch-info");
+    var batch = [];
+  for (var i = 0; i < batch_info.length; i++){
+      var info = batch_info[i];
+      var info_value = info.children[1].value;
+      var info_name = info.children[1].name;
+      if(info_value == ""){
+        alert("Please fill all the details");
+        batch = [];
+        return;
+      }
+      if (info_name.includes("Drive Link")){
+        if (!info_value.includes("drive.google.com/")){
+          alert("Please enter a valid Drive Link");
+          batch = [];
+          return;
+        }
+      }
+
+      console.log(info_value)
+      batch.push(info_value);
+    }
+    var batch_students = document.getElementById("full-students").children[1].children;
+    console.log(batch_students)
+    if (batch_students.length == 0){
+      alert("Please add at least one student");
+      batch = [];
+      return;
+    }
+    var students = [];
+for (var g = 0; g < batch_students.length; g++){
+  console.log(g)
+      var student = batch_students[g];
+      var student_info = student.children[1].querySelectorAll("input");
+      var student_details = [];
+  for (var h = 0; h < student_info.length; h++){
+        var info = student_info[h];
+        //console.log(info)
+        var info_value = info.value;
+        if(info_value == ""){
+        alert("Please fill all the details");
+        students = [];
+        batch = [];
+        return;
+      }
+      //
+      //   console.log(info_value)
+        student_details.push(info_value);
+      }
+      students.push(student_details);
+    }
+    console.log(students)
+    var batch_details = {
+      batch: batch,
+      students: students
+    }
+    console.log(batch_details)
    }
    var uname ;
   
