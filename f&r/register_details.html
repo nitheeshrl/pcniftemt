@@ -309,16 +309,16 @@ document.getElementById("popup-40").classList.toggle("active");
   </nav>
   <main style="overflow: hidden;">
     <div class="container" onclick="closeAllSubMenus()">
-      
+      <main style="margin-top: 30px; height: 100vh;" class="table" id="customers_table">
         <div id="addbtnpop" style="width: auto;padding: 10px;width: 100%; display: flex;align-items: end;justify-content: end;">
   <button onclick="addPopup()" class="btn">Add Batch</button>
 </div>
   <section id="Batch-full-details">
     
-   <div style="height: 100vh; display: flex;align-items: center;justify-content: center;">
+  <!-- <div style="height: 100vh; display: flex;align-items: center;justify-content: center;">
 <span>Fetching details....</span>
-    </div>
-  <!--<div class="Batch active">
+    </div>-->
+  <div class="Batch active">
   <div class="Batch-Degree-Links">
     <div>
     <div>
@@ -361,22 +361,21 @@ document.getElementById("popup-40").classList.toggle("active");
       </table>
     </div>
   
-</div>-->
+</div>
   </section>
 
 
 
-    <section class="msg" >
+
+ 
+    </main>
+        <section class="msg" >
 
         <h1 style="text-align: center;"></h1>
         <div   id="dfiled" style="align-content:normal; margin-left: 0px;margin-right: auto; margin-top: 30px;"><p style="text-align: left;">
             <div ></div> <span id = "status" style="color: black;"></span></p></div>
             </p>
             </section>
-            <section style="height: 100px; display: flex;justify-content: center;">
-      
-            </section>
-
     <div id="load" class="load" style="z-index: 700;"> 
         <div class="loader" id="loader"> 
       
@@ -755,7 +754,7 @@ function getuserdetailsonload(){
       //console.log(formDataString)
   
       fetch(
-        "https://script.google.com/macros/s/AKfycbyuypZgac5N95Vs8yrB6pokprdJXZ6gK56CRfzc8srYa-4AKHHZ1m3CuslPA8Mbt0c3bA/exec",
+        "httsps://script.google.com/macros/s/AKfycbyuypZgac5N95Vs8yrB6pokprdJXZ6gK56CRfzc8srYa-4AKHHZ1m3CuslPA8Mbt0c3bA/exec",
         {
           redirect: "follow",
           method: "POST",
