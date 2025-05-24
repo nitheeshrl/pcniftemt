@@ -884,13 +884,14 @@ function generateDataHash(data) {
 // Update the table with current data
 function updateTable(userdetails) {
     if (currentSearchTerm !== "") return; // Don't update if searching
-    
-    const loggedname = localStorage.getItem("loggedname");
+    const  rid = localStorage.getItem("loggeduserdetails");
+    const uid = JSON.parse(rid).id;
+    const loggedname = uid;
     const allots = userdetails.allots;
     const access = userdetails.access;
     const uaccess = userdetails.uaccess;
     const reg_details = userdetails.reg_details;
-    
+    console.log(allots)
     // Generate table HTML
     const tableHTML = generateTableHTML(vheads, vdatas, vrole, access, uaccess, loggedname, allots,reg_details);
     
@@ -941,6 +942,7 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
     for (let r = 0; r < datas.length; r++) {
         // Skip rows the user doesn't have access to
         if ((access === "No" || (!access.includes(uaccess[r]) && access !== "All")) && loggedname !== allots[r]) {
+          console.log(allots[r],r)
             continue;
         }
         
