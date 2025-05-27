@@ -713,7 +713,7 @@ if (userdsta !=="done"){
   <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Higher Studies</label>
   <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Entrepreneurship</label>`;
   var ot =  document.getElementById("uservaluess").children;
-  for(var e=0;e<uservalues.length-1; e++){
+  for(var e=0;e<uservalues.length; e++){
    
     var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+uservalues[e][0]+`" value="`+uservalues[e][1]+`">`+uservalues[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
     valuess += value;
