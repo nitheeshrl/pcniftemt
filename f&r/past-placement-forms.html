@@ -77,6 +77,88 @@ margin-left: 20px;
   justify-content: left;
   gap: 20px;
 }
+.sel-users {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  height: 100px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+margin-bottom: 10px;
+overflow-y: scroll;
+
+}
+.sel-users::-webkit-scrollbar {
+display: none;
+}
+.each-user {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  background-color: white ;
+  padding: 10px;
+  border-radius: 40px;
+  border: 1px solid #182d8b;
+  width: fit-content;
+  height: 30px;
+}
+.each-user span {
+  font-size: 12px;
+}
+.sel-users-show {
+  display: block;
+  width: 100%;
+height: 200px;
+  background-color: #f1f1f1;
+  min-width: 160px;
+    border-radius: 10px;
+padding: 10px;
+  z-index: 1;
+overflow-y: scroll;
+margin-bottom: 40px;
+}
+.sel-users-show::-webkit-scrollbar {
+display: none;
+}
+.sel-users-show label {
+margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 20px;
+}
+.sel-group-add{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.sel-group-add select{
+  width: 100%;
+  height: 30px;
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+.sel-group-add button{
+  background-color: #182d8b;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+border: none;
+width: 50%;
+}
 </style>
 <script>
   function logout(){
@@ -102,10 +184,10 @@ document.getElementById("inbt").setAttribute("onclick",val);;
 console.log(document.getElementById("inbt").onclick)
 }
 function activePopup(fore){
-  var ot =  document.getElementById("uservaluess").children;
+var ot =  document.getElementById("uservaluess").children;
 fore = fore.split("/ll/")
 var formname = fore [0];
-/*var userss = fore[1];
+ /* var userss = fore[1];
 console.log(fore);
 for (var h=0; h<ot.length; h++){
 
@@ -122,17 +204,17 @@ for (var h=0; h<ot.length; h++){
 }
 ot[0].style.display="flex";
 ot[1].style.display="flex";
+
 if (userss==""){
   ot[0].children[0].checked=true;
 ot[1].children[0].checked=true;
 }*/
-getSelectedValues();
-        console.log("ok")
+//getSelectedValues();
 document.getElementById("popup-7").classList.toggle("active");
-console.log(document.getElementById("actbt").onclick)
+
 var val = "formactive(`"+formname+"`)"
 document.getElementById("actbt").setAttribute("onclick",val);;
-console.log(document.getElementById("actbt").onclick)
+
 }
 </script>
 </head>
@@ -404,13 +486,13 @@ value="Set Time and Date"
   
               <div class="overlay"></div>
           
-              <div class="content" style="height:450px;">
+              <div class="content" style="height:95vh;" >
           
               <div class="close-btn" onclick="togglePopup7()">&times;</div>
           
               <h1 style="margin-top: 50px;">Make form active</h1>
           
-              <div >
+              <div  >
   <div class="form-element radio-buttons" style="display: flex;flex-direction: column;align-items: center;align-items: first baseline; left: 20px;width: 100%;margin-top: 40px;margin-left: 60px;">
   <label for="Immediately">
   <input
@@ -438,19 +520,70 @@ value="Set Time and Date"
   />
   <span>Set Time and Date</span>
   </label>
-  <input min=""  type="datetime-local" id="setactive time" style="display: none;width: 60%;">
+  <input min=""  type="datetime-local" id="setactive time" style="display: none;width: 60%;" value="">
   </div>
-  <div class="dropdown" style="display: flex;flex-direction: column;width: 100%; margin-top: -20px; margin-bottom: 50px;justify-content: left;align-items: start;">
-    <span class="q">Change form access</span>
-    <div style="display: flex;width: 100%;">
-    <input type="text" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech">
-   <button style="margin-left: -20px;height: 20px;padding: 20px;text-align: center;" onclick="sel()"> V </button>
+  <div>
+     <span class="q">Change form access</span>
+        <div style="display: flex;width: 100%;">
+         
+    <input type="hidden" placeholder="Select the peoples" style="width: 100%;" value="All M.Tech, All B.Tech" id="selectedfinalvalues" />
+   
   </div>
-   <div class="dropdown-content" style="margin-top: 60px;width: 100%;overflow:scroll; height:200px;" id ="uservaluess" ">
+  <div class="sel-users" id="selectedusers">
+    <div class="each-user">
+      <span>All M.Tech</span>
+      <input type="hidden" value="All M.Tech">
+                           <button onclick="delseluser(this)" type="button" style="background: none;border: none;">
+      <svg width="10px" height="10px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>
+        <div class="each-user">
+      <span>All B.Tech</span>
+      <input type="hidden" value="All B.Tech">
+                           <button onclick="delseluser(this)" type="button" style="background: none;border: none;">
+      <svg width="10px" height="10px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>
+  </div>
+  <div class="sel-group-add" id="selgroupadd">
+    <select name="" id="sel_batch_option">
+        <option value="">Select Batch</option>
+      <option value="All M.Tech Batches">All M.Tech Batches</option>
+      <option value="All B.Tech Batches">All B.Tech Batches</option>
+    
+    </select>
+       <select name="" id="sel_degree_option">
+        <option value="">Select Degree</option>
+      <option value="All M.Tech Degrees">All M.Tech Degrees</option>
+      <option value="All B.Tech Degrees">All B.Tech Degrees</option>
+    
+    </select>
+    <select name="" id="sel_group_option">
+        <option value="">Select Group</option>
+        <option value="All Users">All Users</option>
+      <option value="Placement">Placement</option>
+      <option value="Higher Studies">Higher Studies</option>
+      <option value="Entrepreneurship">Entrepreneurship</option>
+      <option value="Placement Considered">Placement Considered</option>
+      <option value="Placement not considered">Placement not considered</option>
+
+      <option value="Internship Considered">Internship Considered</option>
+      <option value="Internship not considered">Internship not considered</option>
+    
+    </select>
+    <div style="display: flex;width: 100%;gap: 10px;">
+    <button onclick="addgroupusers()">Add Users</button>
+     <button style="background-color: rgb(186, 0, 0);">Remove Users</button>
+     </div>
+
+      <button style="background-color: rgb(222, 222, 222);color: black;" onclick="delselall()">Deselect all Users</button>
+  </div>
+     <div class="sel-users-show"  id ="uservaluess">
     <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All M.Tech">All M.Tech</label>
     <label onclick="getSelectedValues(this)"><input type="checkbox" checked value="All B.Tech">All B.Tech</label>
    </div>
-    </div>
+  </div>
+
                       <input id="actid" type="hidden" value="">
           <a class="btn" id="actbt" onclick="" style="background-color: red;">Make Active</a>
           <a class="btn" onclick="togglePopup7()">Cancel</a>
@@ -468,6 +601,45 @@ value="Set Time and Date"
 <script src="https://web-socket-1-kmp6.onrender.com/socket.io/socket.io.js"></script>
 <script src="socket.js"></script>
 <script>
+  function delseluser(btn){
+    var user = btn.parentElement;
+    user.remove();
+         var checkboxes = document.querySelectorAll('.sel-users-show input[type="checkbox"]');
+    for(var g= 0;g<checkboxes.length;g++){
+          //  checkboxes[g].parentElement.style.display="none";
+          if(checkboxes[g].name == user.textContent.trim()){
+            checkboxes[g].checked = false;
+          }
+        
+    }
+    getvaluesselected();
+  }
+  function delselall(){
+    var users = document.getElementById("selectedusers");
+    users.innerHTML = "";
+     var checkboxes = document.querySelectorAll('.sel-users-show input[type="checkbox"]');
+    for(var g= 0;g<checkboxes.length;g++){
+          //  checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked = false;
+    }
+      getvaluesselected();
+  }
+  function getvaluesselected (){
+    var checkboxes = document.querySelectorAll('.sel-users-show input[type="checkbox"]');
+    var selectedValues = [];
+    var iselectedValues = [];
+    for(var g= 0;g<checkboxes.length;g++){
+          if(checkboxes[g].checked){
+            selectedValues.push(checkboxes[g].value);
+            iselectedValues.push(checkboxes[g].name);
+          }
+    }
+    var values = selectedValues.join(", ");
+    var ivalues = iselectedValues.join(", ");
+    document.getElementById("selectedfinalvalues").value = values;
+
+    return values;
+  }
   var userdsta = "";
   var porfilepicback = sessionStorage.getItem("backprofilepic");
   if (porfilepicback!==null){
@@ -613,21 +785,45 @@ alert("PassKey is already created for this Device")
    console.log(d)
    d[0].value = 0
    }
+  function togglePopup6(){
+    uncheckoptions()
+   document.getElementById("popup-6").classList.toggle("active");
+   document.getElementById("setinactive time").style.display="none";
+   const d =   document.querySelectorAll('input[type=datetime-local]');
+   
+   d[0].value = 0
+   }
    function togglePopup7(){
     uncheckoptions()
    document.getElementById("popup-7").classList.toggle("active");
    document.getElementById("setactive time").style.display="none";
    const d =   document.querySelectorAll('input[type=datetime-local]');
-   console.log(d)
-   d[1].value = 0
-      document.getElementById("uservaluess").style.display="none";
-      var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
-   for(var g= 2;g<checkboxes.length;g++){
-          checkboxes[g].parentElement.style.display="none";
-          checkboxes[g].checked=false;
+   
+   d[1].value = 0;
+  // document.getElementById("uservaluess").style.display="none";
+   var checkboxes = document.querySelectorAll('.sel-users-show input[type="checkbox"]');
+     var preview_user = document.getElementById("selectedusers");
+     var sel_users = "";
+   for(var g= 0;g<checkboxes.length;g++){
+      //    checkboxes[g].parentElement.style.display="none";
+          checkboxes[g].checked=true;
+              var sel_user_temp = 
+    `    <div class="each-user">
+      <span>`+checkboxes[g].name+`</span>
+      <input type="hidden" value="`+checkboxes[g].value+`">
+                           <button onclick="delseluser(this)" type="button" style="background: none;border: none;">
+      <svg width="10px" height="10px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>`;
+  sel_users += sel_user_temp;
       }
-      checkboxes[0].checked=true;
-      checkboxes[1].checked=true;
+    preview_user.innerHTML = sel_users;
+     // checkboxes[0].checked=true;
+      //checkboxes[1].checked=true;
+   //var inputno =document.getElementById("uservaluess").previousElementSibling.children[0];
+   //inputno.setAttribute("value","")
+   //console.log(inputno.value="")
+   //document.getElementById("uservaluess").previousElementSibling.children[0].value="";
    }
    function uncheckoptions(){
     if(ustatus!=="Going"){
@@ -656,6 +852,7 @@ alert("PassKey is already created for this Device")
            var pconsider = [];
            var iselect = [];
            var pselect = [];
+           var uuservalues = [];
       function fetchd (){
        console.log("fetch")
        var details ="";
@@ -691,35 +888,48 @@ alert("PassKey is already created for this Device")
    var r = result1.data2[0];
    var userrole =result1.data2[1];
    var uservalues = result1.data2[2];
+      uuservalues = uservalues;
+   console.log(uservalues)
    var uservaluesuorp = result1.data2[3];
    iconsider =  result1.data2[4];
            pconsider =  result1.data2[5];
            iselect =  result1.data2[6];
            pselect =  result1.data2[7];
+                      var sel_batch = result1.data2[8];
+   var sel_degree = result1.data2[9];
 if (userdsta !=="done"){
   var valuess = 
-  `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All M.Tech" value="All M.Tech">All M.Tech</label>
-  <label onclick="getSelectedValues(this)"><input type="checkbox" checked name="All B.Tech" value="All B.Tech">All B.Tech</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Placement Considered</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Placement Not Considered</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Internship Considered</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Internship Not Considered</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Placement</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Higher Studies</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All B.Tech Entrepreneurship</label>
-    <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Placement Considered</label>
-<label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Placement Not Considered</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Placement</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Higher Studies</label>
-  <label onclick="getSelectedValues(this)"  style="display: none;"  ><input type="checkbox"  name="" value="">All M.Tech Entrepreneurship</label>`;
+ "";
+ var selectusers = "";
   var ot =  document.getElementById("uservaluess").children;
+  var sel_batches_set = `<option value="">Select Batch</option>`;
+  for(var fg=0; fg<sel_batch.length;fg++){
+    var optionc=`<option value="`+sel_batch[fg]+`">`+sel_batch[fg]+`</option>`;
+    sel_batches_set += optionc;
+  }
+  document.getElementById("sel_batch_option").innerHTML=sel_batches_set;
+    var sel_degrees_set =  `<option value="">Select Degree</option>`;
+  for(var fg=0; fg<sel_degree.length;fg++){
+    var optionc=`<option value="`+sel_degree[fg]+`">`+sel_degree[fg]+`</option>`;
+    sel_degrees_set += optionc;
+  }
+  document.getElementById("sel_degree_option").innerHTML=sel_degrees_set;
   for(var e=0;e<uservalues.length; e++){
-   
-    var value = `<label style="display: none;" onclick="getSelectedValues(this)"><input type="checkbox" name="`+uservalues[e][0]+`" value="`+uservalues[e][1]+`">`+uservalues[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
+       var sel_user_temp = 
+    `    <div class="each-user">
+      <span>`+uservalues[e][0]+`</span>
+      <input type="hidden" value="`+uservalues[e][1]+`">
+                           <button onclick="delseluser(this)" type="button" style="background: none;border: none;">
+      <svg width="10px" height="10px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>`;
+selectusers += sel_user_temp;
+    var value = `<label onclick="getSelectedValues(this)"><input type="checkbox" checked name="`+uservalues[e][0]+`" value="`+uservalues[e][1]+`">`+uservalues[e][0]+" ("+uservaluesuorp[e]+")"+`</label>`
     valuess += value;
 
   }
   document.getElementById("uservaluess").innerHTML=valuess;
+  document.getElementById("selectedusers").innerHTML=selectusers;
   userdsta ="done";
 }
    if(userrole=="Admin"){
@@ -834,7 +1044,95 @@ if (userdsta !=="done"){
    });
       }
       fetchd ();
-   
+                function adduserss(user){
+            var checkboxes = document.querySelectorAll('.sel-users-show input[type="checkbox"]');
+            for(var g= 0;g<checkboxes.length;g++){
+          if(checkboxes[g].value == user[1]){
+checkboxes[g].checked = true;
+          }
+    }
+ 
+    var sel_user_temp = 
+    `    <div class="each-user">
+      <span>`+user[0]+`</span>
+      <input type="hidden" value="`+user[1]+`">
+                           <button onclick="delseluser(this)" type="button" style="background: none;border: none;">
+      <svg width="10px" height="10px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>`;
+  return sel_user_temp;
+           }
+      function addgroupusers(){
+  var sel_batch = document.getElementById("sel_batch_option").value;
+  var sel_degree = document.getElementById("sel_degree_option").value;
+  var sel_group = document.getElementById("sel_group_option").value;
+  var selectedusers = getvaluesselected();
+  var checkboxes = document.querySelectorAll('.sel-users-show input[type="checkbox"]');
+  var selecteduser = document.getElementById("selectedusers");
+  var finalusers = ""
+  if(sel_batch!==""){
+    if(sel_degree!==""){
+      if(sel_group!==""){
+        console.log("Selected Batch: "+sel_batch);
+          var sel_users = selectedusers.split(", ");
+          var sel_users_final = "";
+          for(var i=0;i<uuservalues.length;i++){
+            console.log("Selected User: "+uuservalues[i]);
+           if(sel_batch == uuservalues[i][2]|| sel_batch =="All M.Tech Batches" || sel_batch =="All B.Tech Batches"){
+if(sel_degree == uuservalues[i][3] || sel_degree =="All M.Tech Degrees" || sel_degree =="All B.Tech Degrees"){
+if(sel_group == "All Users"&&!sel_users.includes(uuservalues[i][1])){
+    var gettemp =adduserss(uuservalues[i]);
+    finalusers += gettemp;
+
+     }
+  else  if(sel_group == "Placement Considered"&&uuservalues[i][6]=="Yes" &&!sel_users.includes(uuservalues[i][1])){
+    var gettemp =adduserss(uuservalues[i]);
+    finalusers += gettemp;
+
+     }
+else if(sel_group == "Placement not considered"&&uuservalues[i][6]=="No" &&!sel_users.includes(uuservalues[i][1])){
+    var gettemp =adduserss(uuservalues[i]);
+    finalusers += gettemp;
+
+     }
+        if(sel_group == "Internship Considered"&&uuservalues[i][5]=="Yes" &&!sel_users.includes(uuservalues[i][1])){
+    var gettemp =adduserss(uuservalues[i]);
+    finalusers += gettemp;
+
+     }
+else if(sel_group == "Internship not considered"&&uuservalues[i][5]=="No" &&!sel_users.includes(uuservalues[i][1])){
+    var gettemp =adduserss(uuservalues[i]);
+    finalusers += gettemp;
+
+     } 
+ else if(sel_group == uuservalues[i][8]&&!sel_users.includes(uuservalues[i][1])){
+    var gettemp =adduserss(uuservalues[i]);
+    finalusers += gettemp;
+
+     }
+}
+           }
+
+          }
+getvaluesselected();
+  selecteduser.innerHTML += finalusers;
+  if(finalusers==""){
+    alert("No Users");
+  }
+      }
+      else{
+        alert("Select Group")
+      }
+    }
+    else{
+      alert("Select Degree")
+    }
+  }
+  else{
+    alert("Select Batch")
+  }
+}
+
    function approve(){
      var id =  document.getElementById("aid").value;
      id = id.split("/");
@@ -1227,7 +1525,7 @@ else if(data=="Not Found"){
    
      var type =  document.querySelector('input[name="Type of Active Status Change"]:checked').value;
      if(type=="Immediately"){
-      var userac = getSelectedValues();
+      var userac = getvaluesselected();
       updatestatus(formname,"Live",userac);
      }
      else if(type=="Set Time and Date"){
@@ -1235,7 +1533,7 @@ else if(data=="Not Found"){
       console.log(rawtime);
       //var time = formatDate(rawtime);
       //console.log(time);
-      var userac = getSelectedValues();
+      var userac = getvaluesselected();
       timeupdatestatus(formname,"Live",rawtime,userac);
      }
     }
@@ -1440,7 +1738,28 @@ window.addEventListener("beforeunload", beforeUnloadHandler);*/
     }
     
 
-    function getSelectedValues(button) {
+  function getSelectedValues(button) {
+    var sel_user_temp = 
+    `    <div class="each-user">
+      <span>`+button.children[0].name+`</span>
+      <input type="hidden" value="`+button.children[0].value+`">
+                           <button onclick="delseluser(this)" type="button" style="background: none;border: none;">
+      <svg width="10px" height="10px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>`;
+    var preview_user = document.getElementById("selectedusers");
+    //console.log(preview_user.innerHTML.includes(sel_user_temp))
+    //console.log((button.children[0].checked&&!preview_user.innerHTML.includes(sel_user_temp)))
+  if(button.children[0].checked&&!preview_user.innerHTML.includes(sel_user_temp)){
+      preview_user.innerHTML += sel_user_temp;
+  }
+  else{
+    //console.log(sel_user_temp);
+
+    preview_user.innerHTML = preview_user.innerHTML.replace(sel_user_temp,"");
+  }
+    getvaluesselected();
+  return
     var checkboxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]');
     var selectedValues = [];
     var iselectedValues = [];
