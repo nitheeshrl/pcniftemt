@@ -317,7 +317,7 @@ else if (userdetails[0]=="Not Found"){
           await new Promise(resolve => setTimeout(resolve, 1000));
         }
         
-        startWebcam();
+        
   const labeledFaceDescriptors = await getLabeledFaceDescriptions(user[4]);
         if (labeledFaceDescriptors.length === 0) {
           alert("No face data found for this user");
@@ -327,12 +327,14 @@ else if (userdetails[0]=="Not Found"){
         console.log(labeledFaceDescriptors)
 
   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
-        checkface(labeledFaceDescriptors,faceMatcher);
+        
         document.getElementById("loader").style.display="none"; 
         document.getElementById("message").textContent="ID Verified Successfully";
         setTimeout(function () { 
           document.getElementById("load").style.display="none";
           togglePopup6();
+          startWebcam();
+          checkface(labeledFaceDescriptors,faceMatcher);
           //window.location ="check face/index.html";
         },2000);
       } else {
