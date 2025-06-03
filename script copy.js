@@ -99,140 +99,143 @@ image_location = `./f&r/${image_location}`;
 
 }
 
-let faceCheckStarted = false;
+function checkface(labeledFaceDescriptors,faceMatcher){
+video.addEventListener("play", async () => {
 
-function checkface(labeledFaceDescriptors, faceMatcher) {
-  if (faceCheckStarted) return; // Prevent re-entry
-  faceCheckStarted = true;
 
-  const onPlayHandler = async () => {
-    console.log(faceMatcher);
-    console.log(labeledFaceDescriptors);
+  console.log(faceMatcher)
+  console.log(labeledFaceDescriptors)
 
-    const canvas = faceapi.createCanvasFromMedia(video);
-    document.body.append(canvas);
+  const canvas = faceapi.createCanvasFromMedia(video);
+  document.body.append(canvas);
 
-    const displaySize = { width: video.width, height: video.height };
-    faceapi.matchDimensions(canvas, displaySize);
+  const displaySize = { width: video.width, height: video.height };
+  faceapi.matchDimensions(canvas, displaySize);
 
-    let checkingname;
-    let findname;
-    username = ["unknown"]; // reset
-
-    checkingname = setInterval(async () => {
-      console.log(toggle_state);
-      while (toggle_state !== true) {
-        console.log("Waiting for popup to be active");
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        return; // Prevent looping infinitely if toggle_state is false
-      }
-
-      document.getElementById("nostatus").style = "color: black;";
-      document.getElementById("nostatus").textContent = "Verifying your face";
-
-      const detections = await faceapi
-        .detectAllFaces(video)
-        .withFaceLandmarks()
-        .withFaceDescriptors();
-
-      const resizedDetections = faceapi.resizeResults(detections, displaySize);
-      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-
-      const results = resizedDetections.map((d) => {
-        return faceMatcher.findBestMatch(d.descriptor);
-      });
-
-      results.forEach((result, i) => {
-        const box = resizedDetections[i].detection.box;
-        const drawBox = new faceapi.draw.DrawBox(box, { label: result });
-     //   drawBox.draw(canvas);
-
-        if (username[0] === "unknown" && result.label !== "unknown" && result.distance > 0.4) {
-          username[0] = result.label;
-        } else if (result.distance > 0.4) {
-          username.push(result.label);
-        }
-      });
-    }, 100);
-
-    findname = setInterval(() => {
-      const allEqual = arr => arr.every(val => val === arr[0]);
-      const finalcheck = allEqual(username);
-      let namechecked = "unknown";
-
-      if (finalcheck && username[0] !== "unknown") {
-        const mostFrequent = Array.from(new Set(username)).reduce((prev, curr) =>
-          username.filter(el => el === curr).length > username.filter(el => el === prev).length ? curr : prev
-        );
-
-        namechecked = mostFrequent;
-        if (namechecked !== "unknown") {
-          clearInterval(checkingname);
-          clearInterval(findname);
-          sessionStorage.setItem("namestu", namechecked);
-          vidOff();
-          document.getElementById("nostatus").textContent = "Face Verified Successfully";
-          onuploadcomplete("Face Verified Successfully");
-        }
-      } else {
-        console.log("no match yet");
-        document.getElementById("nostatus").style = "color: red;";
-        document.getElementById("nostatus").textContent = "Could not get your face. Try in good lighting";
-        username = ["unknown"];
-      }
-    }, 2000);
-
-    setTimeout(() => {
-      const allEqual = arr => arr.every(val => val === arr[0]);
-      const finalcheck = allEqual(username);
-      let namechecked = "";
-
-      if (finalcheck && username[0] !== "unknown") {
-        clearInterval(checkingname);
-        clearInterval(findname);
-
-        const mostFrequent = Array.from(new Set(username)).reduce((prev, curr) =>
-          username.filter(el => el === curr).length > username.filter(el => el === prev).length ? curr : prev
-        );
-
-        namechecked = mostFrequent;
-
-        sessionStorage.setItem("namestu", namechecked);
-        vidOff();
-        document.getElementById("nostatus").textContent = "Face Verified Successfully";
-        onuploadcomplete("Face Verified Successfully");
-      } else {
-        // Final failure case — cleanly stop everything
-        clearInterval(checkingname);
-        clearInterval(findname);
-        vidOff();
-        toggle_state = false;
-        user_fetch_complete = false;
-        username = ["unknown"];
-        faceCheckStarted = false;
-
-        const canvas = document.querySelector("canvas");
-        if (canvas) canvas.remove();
-
-        document.getElementById("nostatus").textContent = "";
-        togglePopup6();
-        document.getElementById("message").textContent = "Unable to Verify the Face. Refresh the page to retry again.";
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("load").style.display = "initial";
-
-        setTimeout(() => {
-          document.getElementById("load").style.display = "none";
-          document.getElementById("loader").style.display = "none";
-        }, 2000);
-      }
-    }, 10000);
-  };
-
-  video.addEventListener("play", onPlayHandler, { once: true });
+  var checkingname = setInterval(async () => {
+    console.log(toggle_state)
+while(toggle_state !== true){
+  console.log("Waiting for popup to be active")
+  await new Promise(resolve => setTimeout(resolve, 1000));
 }
+    document.getElementById("nostatus").style="color: black;";
+    document.getElementById("nostatus").textContent="Verifying your face";
+    const detections = await faceapi
+      .detectAllFaces(video)
+      .withFaceLandmarks()
+      .withFaceDescriptors();
+
+    const resizedDetections = faceapi.resizeResults(detections, displaySize);
+
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+
+    const results = resizedDetections.map((d) => {
+      console.log(faceMatcher.findBestMatch(d.descriptor))
+      return faceMatcher.findBestMatch(d.descriptor);
+    });
+    results.forEach((result, i) => {
+      const box = resizedDetections[i].detection.box;
+      const drawBox = new faceapi.draw.DrawBox(box, {
+        label: result,
+      });
+      console.log(result.distance)
+      if (username[0]=="unknown" && result.label!=="unknown" &&result.distance > 0.4 ){
+        username[0] = result.label;
+
+      }
+      else if (result.distance > 0.4){
+        username.push(result.label);
+
+      }
+ 
+    });
+  }, 100);
+  var findname = setInterval(function( ) { 
+    
+
+const allEqual = arr => arr.every(val => val === arr[0]);
+const finalcheck = allEqual(username);
+var namechecked ="unknown";
+if (finalcheck && username[0] !== "unknown"){
+  console.log(username)
+const mostFrequent = Array.from(new Set(username)).reduce((prev, curr) =>
+  username.filter(el => el === curr).length > username.filter(el => el === prev).length ? curr : prev
+);
+console.log(mostFrequent); 
+namechecked = mostFrequent;
+console.log(namechecked)
+
+if (namechecked !== "unknown" && username[0] !== "unknown" ){
+  console.log("done")
+  clearInterval( checkingname ); 
+  clearInterval( findname ); 
+  sessionStorage.setItem("namestu",namechecked);
+  vidOff();
+document.getElementById("nostatus").textContent="Face Verified Successfully";
+onuploadcomplete("Face Verified Successfully");
+ 
+ }   
+}
+else{
+  console.log("noo")
+  document.getElementById("nostatus").style="color: red;";
+  document.getElementById("nostatus").textContent="Could not get your face. Try in good lighting";
+  toogle_state = true;
+  username = ["unknown"];
+}
+  }, 2000);
+  setTimeout(function( ) { 
 
 
+const allEqual = arr => arr.every(val => val === arr[0]);
+const finalcheck = allEqual(username);
+var namechecked ="";
+console.log(finalcheck)
+if (finalcheck && username[0] !== "unknown" ){
+  clearInterval( checkingname ); 
+  clearInterval( findname ); 
+  console.log(username)
+const mostFrequent = Array.from(new Set(username)).reduce((prev, curr) =>
+  username.filter(el => el === curr).length > username.filter(el => el === prev).length ? curr : prev
+);
+console.log(mostFrequent);  
+namechecked = mostFrequent; 
+console.log(namechecked)
 
+if (namechecked !== "unknown"){
+  console.log("done")
+  sessionStorage.setItem("namestu",namechecked);
+  vidOff();
+document.getElementById("nostatus").textContent="Face Verified Successfully";
+
+onuploadcomplete("Face Verified Successfully");
+ }
+}  
+else{
+  vidOff();
+  document.getElementById("nostatus").textContent="";
+  
+togglePopup6();
+ // document.getElementById("bg").style.display="none"; 
+  document.getElementById("message").textContent="Unable to Verify the Face. Refresh the page to retry again.";
+  document.getElementById("loader").style.display="none"; 
+  document.getElementById("load").style.display="initial";
+  toggle_state = false;
+  console.log(checkingname, findname)
+    clearInterval(checkingname); 
+  clearInterval(findname); 
+ user_fetch_complete = false;
+  username = ["unknown"];
+  setTimeout(function () { 
+document.getElementById("load").style.display="none";
+document.getElementById("loader").style.display="none";
+return;
+ },2000);
+}  
+  }, 10000);
+});
+
+}
 
 
 function getuserdetails(user){
