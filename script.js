@@ -342,5 +342,5 @@ else if (userdetails[0]=="Not Found"){
     }
   }
   if (GetUniqueID() !== "Not"){
-window.location ="check face/index.html";
+//window.location ="check face/index.html";
   }
