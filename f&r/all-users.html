@@ -916,6 +916,8 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
     // Generate headers
     let th = "";
     let rth = "";
+    let ftd =  "";
+    let fth = "<thead><th>Profile Pic</th><th>Name</th><th>ID Number</th><th>Reference No.</th></thead>";
     for (let i = 0; i < heads.length; i++) {
         if (role === "User" && i === 5) continue;
         th += `<th>${heads[i]}</th>`;
@@ -939,6 +941,7 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
     let tbody = "<tbody>";
     let rtbody = "<tbody>";
       let dtbody = "<tbody>";
+        let fbody = "<tbody>";
     for (let r = 0; r < datas.length; r++) {
         // Skip rows the user doesn't have access to
         if ((access === "No" || (!access.includes(uaccess[r]) && access !== "All")) && loggedname !== allots[r]) {
@@ -947,8 +950,26 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
         }
         
         let td = "";
+                    if(datas[r][4] === "Entered" ||datas[r][4] === "Job List Added" ){
+                      //  console.log(r, d, datas[r][4]);
+                // Handle image cells
+                var imgUrl = datas[r][0].includes("google.com") 
+                    ? datas[r][0] 
+                    : `https://spcniftemt.pages.dev/user/${datas[r][0]}`;
+                    imgUrl = imgUrl==="https://spcniftemt.pages.dev/user/" ? "https://drive.google.com/thumbnail?id=1nOLFcYJUGcJTxJEcH4jqoDFZWUgiGq0F&sz=w1000" : imgUrl;
+                
+                ftd += `<tr><td><div style="background-color: rgb(237, 235, 235); border-radius: 110px; height: 110px; width: 110px; margin: 0 auto;">
+                      <img style="border-radius: 50px; width: 100px; height: 100px; object-fit: cover; margin: 5px 5px 5px 5px;" 
+                      src="${imgUrl}" alt=""></div></td>`;
+                       ftd += `<td>${datas[r][1]}</td>`;
+                        ftd += `<td>${datas[r][2]}</td>`;
+            
+              ftd+=`<td>`+reg_details[r][0]+`</td></tr>`;
+                continue;
+            }
         for (let d = 0; d < datas[r].length; d++) {
             if (role === "User" && d === 5) continue;
+
             if(datas[r][4] === "Requested"  ){
                 // Skip certain columns for "Requested" status  
            if( d == 12|| d == 9  || d == 14)     continue;
@@ -1019,7 +1040,7 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
     tbody += "</tbody>";
     rtbody += "</tbody>";
     dtbody += "</tbody>";
-
+var fhtml = fth+ fbody+ftd+"</tbody>";
     if (tbody === "<tbody></tbody>" && dtbody === "<tbody></tbody>"){
       var newhtml = '<span style="margin-top: 20px;">Requested Registrations</span><table>'+rthead+rtbody+"</table>";
     }
@@ -1040,6 +1061,9 @@ else     if(rtbody === "<tbody></tbody>"){
     }
     else{
     var newhtml = '<span style="margin-top: 20px;">Requested Registrations</span><table>'+rthead+rtbody+"</table><span>Active User Details</span><table>"+thead+tbody+"</table>"+ "<span>Deactivated User Details</span><table>"+thead+dtbody+"</table>";
+  }
+  if(ftd!==""){
+    newhtml = '<span style="margin-top: 20px;">Failed Registrations</span><table>'+fhtml +"</table>" + newhtml;
   }
     return newhtml;
 }
