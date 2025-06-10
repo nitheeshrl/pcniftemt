@@ -146,6 +146,7 @@ function sidebari(){
           <div>
             <li><a href="index.html">Active Requests</a></li>
             <li><a href="past.html">Completed Requests</a></li>
+            <li><a href="brochure_export.html">Brochure Details Export</a></li>
             <li><a  target="_blank" href="https://niftemt-placementcell-forms.pages.dev/B2K21%20Brochure%20Details%20Update/user">Request Form</a></li>
           </div>
         </ul>
