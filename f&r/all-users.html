@@ -71,9 +71,46 @@ font-weight: bold;
   height: 100%;
   overflow: scroll;
 }
+.sel-users {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  height: auto;
+align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 10px;
+margin-bottom: 10px;
 
+}
+
+.each-user {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  background-color: white ;
+  padding: 10px;
+  border-radius: 40px;
+  border: 1px solid #182d8b;
+  width: fit-content;
+  height: 30px;
+}
+.each-user span {
+  font-size: 14px;
+}
+.each-user.active {
+  background-color: #182d8b;
+  color: white;
+}
+.each-user.active span {
+  color: white;
+}
 </style>
 <script>
+var batchstorage = "";
   function logout(){
     updatelogstatus("Offline");  
     localStorage.removeItem("loggedname")
@@ -307,9 +344,15 @@ document.getElementById("popup-40").classList.toggle("active");
   <button onclick="addPopup()" class="btn">Add Student</button>
  
 </div>
-        </section>
 
-       <section id="tablebee" class="tablebee">         
+        </section>
+        <input type="hidden" value="">
+   <div class="sel-users" id="selectedusers">
+    
+
+</div> 
+       <section id="tablebee" class="tablebee"> 
+       
         <section  class="table__body" id="tabdetails">
 
           
@@ -731,6 +774,30 @@ alert("PassKey is already created for this Device")
    function togglePopup40(){
    document.getElementById("popup-40").classList.toggle("active");
    }
+   function filteruser(btn){
+    var batch = btn.children[0].textContent;
+    if(btn.parentElement.classList.contains("active")){
+        btn.parentElement.classList.remove("active");
+        var val = document.getElementById("selectedusers").previousElementSibling.value;
+        var replace = val.split("; ").filter((item) => item !== batch).join("; ");
+        console.log(replace);
+
+        document.getElementById("selectedusers").previousElementSibling.value =replace;
+    }
+    else{
+        btn.parentElement.classList.add("active");
+        console.log(elements.selUsers.previousElementSibling);
+        document.getElementById("selectedusers").previousElementSibling.value += "; "+batch;
+    }
+    if(document.getElementById("selectedusers").previousElementSibling.value==""){
+        updateTable(lastuserHash)
+    }
+    else{
+       filterBatch(document.getElementById("selectedusers").previousElementSibling.value)
+    }
+    
+    
+   }
    var uname ;
   
   uname = localStorage.getItem("loggedname");
@@ -745,10 +812,12 @@ alert("PassKey is already created for this Device")
   }
   // Global variables
 let lastDataHash = null;
+let lastuserHash = null;
 let isFetching = false;
 let pollingInterval = null;
 const POLL_INTERVAL = 1000; // 3 seconds
 let currentSearchTerm = "";
+let currentBatchTerm = "";
 
 // DOM elements cache
 const elements = {
@@ -758,7 +827,9 @@ const elements = {
     tabdetails: document.getElementById("tabdetails"),
     popupInner: document.getElementById("popup-inner"),
     addbtnpop: document.getElementById("addbtnpop"),
-    searchInput: document.querySelector('.input-group input')
+    searchInput: document.querySelector('.input-group input'),
+    selUsers: document.getElementById("selectedusers"),
+    selbatch: document.getElementById("selectedusers").previousElementSibling,
 };
 
 // Data variables
@@ -781,12 +852,13 @@ function setupEventListeners() {
         elements.searchInput.addEventListener('input', (e) => {
             currentSearchTerm = e.target.value.toLowerCase();
             if (currentSearchTerm === "") {
-                updateTable(); // Refresh table when search is cleared
+                updateTable(lastuserHash); // Refresh table when search is cleared
             } else {
                 filterTable(currentSearchTerm);
             }
         });
     }
+
     
     window.addEventListener('beforeunload', stopPolling);
 }
@@ -853,7 +925,7 @@ function processData(result) {
     // Only update if data has changed
     if (currentHash !== lastDataHash) {
         lastDataHash = currentHash;
-        
+        lastuserHash = userdetails;
         // Update global variables
         vheads = userdetails.heads;
         vdatas = userdetails.datas;
@@ -883,7 +955,8 @@ function generateDataHash(data) {
 
 // Update the table with current data
 function updateTable(userdetails) {
-    if (currentSearchTerm !== "") return; // Don't update if searching
+    if (currentSearchTerm !== "") return;
+    if (currentBatchTerm !== "") return; // Don't update if searching
     const  rid = localStorage.getItem("loggeduserdetails");
     const uid = JSON.parse(rid).id;
     const loggedname = uid;
@@ -894,11 +967,23 @@ function updateTable(userdetails) {
     console.log(allots)
     // Generate table HTML
     const tableHTML = generateTableHTML(vheads, vdatas, vrole, access, uaccess, loggedname, allots,reg_details);
+   // var lastbatch = sessionStorage.getItem("batches");
     
+     var batchstore = JSON.stringify(tableHTML[2]);
+     console.log(batchstore, batchstorage);
+    if(batchstore !== batchstorage){
+      // Update batches in sessionStorage
+      console.log("Batches updated");
+      elements.addbtnpop.style.display = "block";
+     // var batchstore = tableHTML[2];
+    elements.selUsers.innerHTML = tableHTML[1];
+      batchstorage =  batchstore;
+    }
     // Only update if HTML has changed
-    if (elements.tabdetails.innerHTML !== tableHTML) {
+    if (elements.tabdetails.innerHTML !== tableHTML[0]) {
       console.log("Table updated");
-        elements.tabdetails.innerHTML = tableHTML;
+        elements.tabdetails.innerHTML = tableHTML[0];
+        
     }
 }
 
@@ -910,13 +995,55 @@ function filterTable(searchTerm) {
         row.style.display = rowText.includes(searchTerm) ? "" : "none";
     });
 }
+function filterBatch(searchTerm) {
+console.log("Filtering by batch:", searchTerm);
+    const rows = elements.tabdetails.querySelectorAll('tbody tr');
+    var rawbatches = searchTerm.split("; ").filter(item => item !== "");
+    rawbatches = rawbatches.map(item => item.split(","));
+    rawbatches.forEach((item, index) => {
+        rawbatches[index] = [item[0].split("Batch ")[1].trim(), item[1].trim()];
+ 
+    });
+    console.log(rawbatches);  
+    rows.forEach(row => {
+      if(row.children.length < 8) return; // Ensure row has enough children
+        //console.log(row.children[7],row.children[6])
+        // Check if the row's batch matches any of the selected batches
+        //console.log(row.children[7].textContent, row.children[6].textContent)
+        //
+      console.log([row.children[7].textContent.trim(),row.children[6].textContent.trim()])
+      console.log(rawbatches)
+        // Check if the row's batch is in the selected batches
+        //console.log(rawbatches.includes([row.children[7].textContent,row.children[6].textContent]))
+        //console.log(row.children[7].textContent,row.children[6].textContent)
+        //console.log(row.children[7].textContent,row.children[6].textContent)
+        //
+  const valueToCheck = [row.children[7].textContent.trim(), row.children[6].textContent.trim()];
 
+const exists = rawbatches.some(
+  batch => batch[0] === valueToCheck[0] && batch[1] === valueToCheck[1]
+);
+
+console.log(exists);
+        // If the row's batch is in the selected batches, show it; otherwise, hide it
+        //console.log(row.children[7].textContent,row.children[6].textContent)
+if(exists){
+            row.style.display = "";
+        }
+        else{
+            row.style.display = "none";
+        }
+        //const rowText = row.textContent.toLowerCase();
+        //row.style.display = rowText.includes(searchTerm) ? "" : "none";
+    });
+}
 // Generate table HTML
 function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allots,reg_details) {
     // Generate headers
     let th = "";
     let rth = "";
     let ftd =  "";
+    var batches = [];
     let fth = "<thead><th>Profile Pic</th><th>Name</th><th>ID Number</th><th>Reference No.</th></thead>";
     for (let i = 0; i < heads.length; i++) {
         if (role === "User" && i === 5) continue;
@@ -948,6 +1075,10 @@ function generateTableHTML(heads, datas, role, access, uaccess, loggedname, allo
           console.log(allots[r],r)
             continue;
         }
+        if(batches.indexOf("Batch "+datas[r][6]+", "+datas[r][5]) === -1){
+            batches.push("Batch "+datas[r][6]+", "+datas[r][5]);
+        }
+//batches.push(uaccess[r]);
         
         let td = "";
                     if(datas[r][4] === "Entered" ||datas[r][4] === "Job List Added" ){
@@ -1065,7 +1196,20 @@ else     if(rtbody === "<tbody></tbody>"){
   if(ftd!==""){
     newhtml = '<span style="margin-top: 20px;">Failed Registrations</span><table>'+fhtml +"</table>" + newhtml;
   }
-    return newhtml;
+  var batchhtml = ""; 
+  console.log(batches)
+  batches.forEach(batch=>{
+batchhtml += ` <div class="each-user">
+  
+       <button onclick="filteruser(this)" type="button" style="background: none;border: none;">
+          <span>`+batch+`</span>
+    </button>
+    </div>`
+  })
+  var batchstore = JSON.stringify(batches);
+
+    return [newhtml,batchhtml,batchstore];
+
 }
 
 // Adjust UI based on user role
