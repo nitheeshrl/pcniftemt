@@ -202,13 +202,41 @@ function editPopup(edit){
 function addPopup(){
 var allotoption = "";
   alert("Under Development, will be available soon")
-  return;
-console.log(umembers)
-umembers.forEach((h,inf) =>{
-  var option = `<option value="`+umembersids[inf][0]+`">`+h[0]+`</option>`;
-  allotoption += option;
-})
-document.getElementById("popup-inner-add").querySelectorAll("div")[7].children[1].innerHTML = `<option value="">Select the Alloted Member</option>` + allotoption;
+  //return;
+   var batch_info = document.getElementsByClassName("batch-info");
+  
+  for (var i = 0; i < batch_info.length; i++){
+batch_info[i].children[1].value = "";
+
+      
+    }
+document.getElementById("full-students").children[1].innerHTML =
+`         <div class="each-student" style="background-color: rgb(245, 245, 245);padding: 10px;border-radius: 10px; ">
+                  <div style="display: flex; justify-content: space-between;align-items: center;padding:10px 30px 0 30px;">
+                 <span class="q">Student 1</span>
+                     <button onclick="removequestion(this)" type="button" style="background: none;border: none;">
+      <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
+    </button>
+    </div>
+                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element">
+              <span class="q">Name</span>
+              <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
+              </div>
+              
+              <div class="form-element">
+              <span class="q">ID Number</span>
+              <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
+              </div><br>
+                <div class="form-element">
+              <span class="q">Alloted Member</span>
+              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
+              </div><div class="form-element">
+              <span class="q">Alloted Member ID Number</span>
+              <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
+              </div>
+              </div>
+                </div>`
 document.getElementById("popup-40").classList.toggle("active");
 }
 </script>
@@ -527,9 +555,9 @@ document.getElementById("popup-40").classList.toggle("active");
             
 
                 
-                <div class="form-element">
+                <div class="form-element batch-info">
                 <span class="q">Degree</span>
-                <select required name="Degree" >
+                <select required name="Degree" onchange="checkbatch()" >
                   <option value="">Select the Degree</option>
                   <option value="B.Tech - Food Technology ">B.Tech - Food Technology </option>
                   <option value="M.Tech - Food Process Technology">M.Tech - Food Process Technology</option>
@@ -538,25 +566,25 @@ document.getElementById("popup-40").classList.toggle("active");
                 </select>
                 </div>
 
-                <div class="form-element batch-info">
+                <div class="form-element batch-info error">
                 <span class="q">Batch</span>
-                <input required type="number" name="Batch"  placeholder="Enter your Batch" />
+                <input required type="number" name="Batch"  placeholder="Enter your Batch"  onchange="checkbatch()" />
                 </div>
                 <div class="form-element batch-info">
                 <span class="q">Combined Rules Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
-                <input required type="text" name="Combined Rules Drive Link"  placeholder="Enter your Combined Rules Drive Link" />
+                <input required type="text" name="Combined Rules Drive Link" onchange="checkaccess(this)"  placeholder="Enter your Combined Rules Drive Link" />
                 </div>
                                 <div class="form-element batch-info">
                 <span class="q">Declaration Form Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
-                <input required type="text" name="Declaration Form Template Drive Link"  placeholder="Enter your Declaration Form Template Drive Link" />
+                <input required type="text" name="Declaration Form Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Declaration Form Template Drive Link" />
                 </div>
                                 <div class="form-element batch-info">
                 <span class="q">Internship Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
-                <input required type="text" name="Internship Rules & Regulations Template Drive Link"  placeholder="Enter your Internship Rules & Regulations Template Drive Link" />
+                <input required type="text" name="Internship Rules & Regulations Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Internship Rules & Regulations Template Drive Link" />
                 </div>
                                 <div class="form-element batch-info">
                 <span class="q">Placement Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
-                <input required type="text" name="Placement Rules & Regulations Template Drive Link"  placeholder="Enter your Placement Rules & Regulations Template Drive Link" />
+                <input required type="text" name="Placement Rules & Regulations Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Placement Rules & Regulations Template Drive Link" />
                 </div>
                 
                 <div id="full-students">
@@ -784,14 +812,22 @@ function showdetails(btn){
       var info_name = info.children[1].name;
       if(info_value == ""){
         alert("Please fill all the details");
+        info.children[1].style.border = "1px solid red";
         batch = [];
         return;
       }
+         else{
+          info.children[1].style.border = "1px solid #d0d2e2";
+        }
       if (info_name.includes("Drive Link")){
-        if (!info_value.includes("drive.google.com/")){
+        if (!info_value.includes("drive.google.com/")&&!info_value.includes("docs.google.com/")){
           alert("Please enter a valid Drive Link");
+         info.children[1].style.border = "1px solid red";
           batch = [];
           return;
+        }
+        else{
+          info.children[1].style.border = "1px solid #d0d2e2";
         }
       }
 
@@ -817,6 +853,7 @@ for (var g = 0; g < batch_students.length; g++){
         var info_value = info.value;
         if(info_value == ""){
         alert("Please fill all the details");
+        info.style.border = "1px solid red";
         students = [];
         batch = [];
         return;
@@ -833,7 +870,74 @@ for (var g = 0; g < batch_students.length; g++){
       students: students
     }
     console.log(batch_details)
-   }
+    document.getElementById("loader").style.display="block"; 
+           document.getElementById("load").style.display="initial";
+           document.getElementById("message").textContent="Adding Batch Details....";
+  
+      var batch_detailss = JSON.stringify(batch_details);
+      console.log(batch_detailss)
+     fetch(
+        "https://script.google.com/macros/s/AKfycbz_Ing1S2hda1D-FZ0pj-l1uQQUuR3fgvtae_ronFwj5W2nNtAAJE2Q4BrT6N238e4g/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: batch_detailss,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+  
+        .then(function (response) {
+  
+          // Check if the request was successful
+          if (response) {
+       
+            return response; // Assuming your script returns JSON response
+          } else {
+            throw new Error("Failed to fetch");
+          }
+        })
+        .then(async function (data) {
+   
+          const result1 = await data.json();
+  var userdetails = result1.data2;
+  if(userdetails == "success"){
+           console.log("Batch Details Added Successfully");
+  
+  document.getElementById("loader").style.display="none"; 
+       
+           document.getElementById("message").textContent="Batch Details Added Successfully";
+           setTimeout(function () { 
+            document.getElementById("load").style.display="none";
+             togglePopup40();
+           },2000);
+          }
+          else if(userdetails == "duplicate"){
+           console.log("Batch Details Already Exists");{
+            document.getElementById("loader").style.display="none"; 
+       
+           document.getElementById("message").textContent="Batch Details Already Exists ";
+           setTimeout(function () { 
+            document.getElementById("load").style.display="none";
+       
+           },2000);
+          }
+        }
+        })
+  
+        .catch(function (error) {
+          // Handle errors, you can display an error message here
+          console.error(error);
+     document.getElementById("loader").style.display="none"; 
+           
+           document.getElementById("message").textContent="Failed to Add Batch Details";
+           setTimeout(function () { 
+                  document.getElementById("load").style.display="none";
+             togglePopup40();
+           },2000);
+        }); 
+  }
    var uname ;
   
   uname = localStorage.getItem("loggedname");
@@ -853,6 +957,7 @@ for (var g = 0; g < batch_students.length; g++){
 var students_details = [];
 var name_list = [];
 var old_students = [];
+var batch_list = [];
 function getuserdetailsonload(){
     console.log("Registration Details Fetching....")
 
@@ -908,11 +1013,13 @@ var students_html = `      <table>
         </thead>
         <tbody>
   `;
+  batch_list = [];
 studeents_details.forEach((student) => {
   //console.log(student);
   students_html += `<tr><td>${student[0]}</td><td>${student[1]}</td><td>${student[2]}</td><td>${student[3]}</td></tr>`;
 })
 students_html +=`</tbody> </table>`;
+batch_list.push(batch[0])
  var batch_html = `
   <div class="Batch">
   <div class="Batch-Degree-Links">
@@ -968,7 +1075,73 @@ batch_select.innerHTML = full_batch;
   window.onload= function() {
     getuserdetailsonload();
   }
-      
+
+  function checkbatch(){
+    var batch = document.getElementsByClassName("batch-info");
+    var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
+    console.log(batch_value)
+    if (batch_list.includes(batch_value)){
+      alert("Batch Already Exists");
+      batch[1].children[1].value = "";
+      batch[0].children[1].value = "";
+      batch[1].children[1].style.border = "1px solid red";
+      batch[0].children[1].style.border = "1px solid red";
+      return;
+    }
+    else{
+      batch[1].children[1].style.border = "1px solid #d0d2e2";
+      batch[0].children[1].style.border = "1px solid #d0d2e2";
+    }
+  }
+    
+  function checkaccess(this){
+
+         fetch(
+        "https://script.google.com/macros/s/AKfycbxgnapDrmpiFYrfK_-AHphjF16LPtqDBYFWTvIE8lNq3AF4MtGVeOrsF0j8NjxcWGRToA/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: this.value,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+  
+        .then(function (response) {
+  
+          // Check if the request was successful
+          if (response) {
+       
+            return response; // Assuming your script returns JSON response
+          } else {
+            throw new Error("Failed to fetch");
+          }
+        })
+        .then(async function (data) {
+   
+          const result1 = await data.json();
+  var userdetails = result1.data2;
+  if(userdetails == "success"){
+           console.log("Access Granted");
+          }
+          else if(userdetails){
+           console.log("No Access");
+
+    
+          alert(this.previousElementSibling.textContent+" link you had given is not valid or you have not given access to the iacniftemt@gmail.com. Please check the link or access.");
+          }
+          else {
+           console.log("No Access");
+        }
+        })
+  
+        .catch(function (error) {
+          // Handle errors, you can display an error message here
+          console.error(error);
+
+        }); 
+      }
         function formfileupload(button){
         let file1 = button;
     

@@ -71,6 +71,16 @@ input, textarea {
     padding: 5px; 
     border-radius: 5px;
 }
+
+
+.form-element .error  input, textarea {
+    border: 1px solid red;
+  width: 50%;
+    line-height: 2; 
+    padding: 5px; 
+    border-radius: 5px;
+}
+
 .form-element label { 
     margin-bottom: 10px;
     cursor: pointer;
