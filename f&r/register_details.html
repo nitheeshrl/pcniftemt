@@ -1094,14 +1094,14 @@ batch_select.innerHTML = full_batch;
     }
   }
     
-  function checkaccess(this){
-
+  function checkaccess(btn){
+console.log(btn.value)
          fetch(
         "https://script.google.com/macros/s/AKfycbxgnapDrmpiFYrfK_-AHphjF16LPtqDBYFWTvIE8lNq3AF4MtGVeOrsF0j8NjxcWGRToA/exec",
         {
           redirect: "follow",
           method: "POST",
-          body: this.value,
+          body: btn.value,
           headers: {
             "Content-Type": "text/plain;charset=utf-8",
           },
@@ -1122,16 +1122,16 @@ batch_select.innerHTML = full_batch;
    
           const result1 = await data.json();
   var userdetails = result1.data2;
-  if(userdetails == "success"){
+  console.log(userdetails);
+  if(userdetails){
            console.log("Access Granted");
           }
-          else if(userdetails){
+          else {
            console.log("No Access");
 
     
-          alert(this.previousElementSibling.textContent+" link you had given is not valid or you have not given access to the iacniftemt@gmail.com. Please check the link or access.");
-          }
-          else {
+          alert(btn.previousElementSibling.textContent+" link you had given is not valid or you have not given access to the iacniftemt@gmail.com. Please check the link or access.");
+       
            console.log("No Access");
         }
         })
