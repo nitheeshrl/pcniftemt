@@ -823,6 +823,13 @@ function showdetails(btn){
       if (info_name.includes("Drive Link")){
         if (!info_value.includes("drive.google.com/")&&!info_value.includes("docs.google.com/")){
           alert("Please enter a valid Drive Link");
+          if(!info_value.includes("docs.google.com/")&&!info.children[0].textContent.includes("Combined Rules Drive Link")){
+            alert("Please enter a valid Drive Link in formaet of word document");
+            info.children[1].style.border = "1px solid red";
+          }
+          else{
+            info.children[1].style.border = "1px solid #d0d2e2";
+          }
          info.children[1].style.border = "1px solid red";
           batch = [];
           return;
@@ -1096,13 +1103,24 @@ batch_select.innerHTML = full_batch;
   }
     
   function checkaccess(btn){
-console.log(btn.value)
+
+    var link = btn.value;
+                  if(!link.includes("docs.google.com/")&&!btn.previousElementSibling.textContent.includes("Combined Rules Drive Link")){
+            alert("Please enter a valid Drive Link in formaet of word document");
+            btn.style.border = "1px solid red";
+            btn.value = "";
+            return
+          }
+          else{
+            btn.style.border = "1px solid #d0d2e2";
+          }
+console.log(link)
          fetch(
         "https://script.google.com/macros/s/AKfycbxgnapDrmpiFYrfK_-AHphjF16LPtqDBYFWTvIE8lNq3AF4MtGVeOrsF0j8NjxcWGRToA/exec",
         {
           redirect: "follow",
           method: "POST",
-          body: btn.value,
+          body: link,
           headers: {
             "Content-Type": "text/plain;charset=utf-8",
           },
