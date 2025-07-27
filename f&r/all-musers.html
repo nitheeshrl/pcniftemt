@@ -109,7 +109,7 @@ function editPopup(edit){
   //console.log(edit)
   //console.log(vdatas)
   var udata = vdatas[edit-2];
-  //console.log(udata)
+  console.log(udata[9])
 var inputs = document.getElementById("popup-inner").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
 //console.log(inputs)
 var now = 0;
@@ -132,20 +132,32 @@ inputs.forEach((i,innow) =>{
 
   if(now == 6 ){
     now = 9;
-    ddatas.push(udata[8])
+   // console.log("check",i, i.value, now, udata[6])
+    inputs[6].value = udata[6];
+   // i.value = udata[6];
+    ddatas.push(udata[6])
     return
   }
+
   //else if(now == 14){
     //return
   //}
 
   else{
-    console.log(i,i.value,now, udata[now])
+    if(now == 9){
+     // console.log(i,i.value,now, udata[6])
+    ddatas.push(udata[6])
+  i.value = udata[6];
+}
+else{
+    //  console.log(i,i.value,now, udata[now])
     ddatas.push(udata[now])
   i.value = udata[now];
+}
+
   //console.log(i.value)
 
-  console.log(ddatas)
+  //console.log(ddatas)
   now++
   }
 })
@@ -205,7 +217,7 @@ if (!document.getElementById("popup-1").className.includes("active")){
   ecah.innerHTML = perlabel+grouplabels;
   var uservalue = ecah.parentElement.querySelectorAll("input[type=hidden]")[0].value;
 uservalue= (accessid == 0&&uservalue=="Owned") ? "No" : uservalue;
-  //console.log(uservalue)
+  console.log(uservalue)
   //console.log(ecah)
   var labelseach = ecah.querySelectorAll("label");
   labelseach.forEach((label, labid) => {
@@ -521,7 +533,16 @@ if(ddatas[1]==localStorage.getItem("loggedname")){
   var todaa = document.getElementsByClassName("access-check");
   for (var i = 0; i < todaa.length; i++) {
     var each = todaa[i];
+    console.log(each)
     each.parentElement.style.display="none";
+  }
+}
+else{
+  var todaa = document.getElementsByClassName("access-check");
+  for (var i = 0; i < todaa.length; i++) {
+    var each = todaa[i];
+    console.log(each)
+    each.parentElement.style.display="initial";
   }
 }
 
@@ -529,6 +550,7 @@ document.getElementById("popup-1").classList.toggle("active");
 var dinputs = document.getElementById("popup-inner").querySelectorAll("div")
 console.log(dinputs[dinputs.length-1].children[1])
 dinputs[dinputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
+ddatas = [];
 }
 function addPopup(){
 document.getElementById("popup-40").classList.toggle("active");
@@ -748,6 +770,14 @@ document.getElementById("popup-40").classList.toggle("active");
                   <option value="Admin">Admin</option>
                 </select>
                 </div>
+                                  <div class="form-element">
+                  <span class="q">Account Status</span>
+                  <select required name="Account Status" >
+                   
+                    <option value="Active">Active</option>
+                    <option value="Deactivated">Deactivated</option>
+                  </select>
+                  </div>
                 <div class="form-element radio-buttons">
                   <span class="q">User Details Access</span>
                   <span></span>
@@ -982,6 +1012,7 @@ document.getElementById("popup-40").classList.toggle("active");
                     <option value="Admin">Admin</option>
                   </select>
                   </div>
+
                       <div class="form-element radio-buttons">
                         <span class="q">User Details Access</span>
                         <span></span>
@@ -1561,11 +1592,11 @@ for (var r=0; r<datas.length;r++){
 //  td +="<td>"+datas[r][d]+"</td>";
 
 }
-else if (d==6){
-if (datas[r][d] == "Offline"){
+else if (d==6||d==7){
+if (datas[r][d] == "Offline"||datas[r][d] == "Deactivated"){
   td +='<td  style="color: red;">'+datas[r][d]+"</td>";
 }
-else if (datas[r][d] =="Online"){
+else if (datas[r][d] =="Online"||datas[r][d] == "Active"){
   td +='<td style="color: green;">'+datas[r][d]+"</td>";
 }
 }
