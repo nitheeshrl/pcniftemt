@@ -270,7 +270,8 @@ var userdetails = result1.data2;
 muserdetails =  result1.data2;
 
 console.log(userdetails)
-
+  var accountraw = JSON.parse(userdetails[7]);
+   console.log(accountraw.account)
 if (userdetails[0]!=="Not Found"){
      if(accountraw.account !== "Active"){
   document.getElementById("loader").style.display="none"; 
