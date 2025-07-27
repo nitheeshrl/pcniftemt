@@ -142,6 +142,14 @@ var userdetails = result1.data2;
 console.log(userdetails)
 
 if (userdetails[0]!=="Not Found"){
+     if(accountraw.account !== "Active"){
+  document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="Your account is not active. Contact administrator";
+    setTimeout(function () {
+      document.getElementById("load").style.display="none";
+    },5000);
+    return;
+  }
 //passkey(userdetails[2],passdevuniid,userdetails[3],userdetails[4],userdetails[5],userdetails[7]);
 localStorage.setItem("loggedname",userdetails[2]);
 localStorage.setItem("loggeduorp", userdetails[3]);
@@ -316,8 +324,18 @@ var userdetails = result1.data2;
 muserdetails =  result1.data2;
 
 console.log(userdetails)
+  var accountraw = JSON.parse(userdetails[7]);
+   console.log(accountraw.account)
 
 if (userdetails[0]!=="Not Found"){
+     if(accountraw.account !== "Active"){
+  document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="Your account is not active. Contact administrator";
+    setTimeout(function () {
+      document.getElementById("load").style.display="none";
+    },5000);
+    return;
+  }
   var password = "Niftem@iac";
   if (pass == password&&userdetails[0]==""){
     sessionStorage.setItem("setname",user);

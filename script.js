@@ -272,6 +272,14 @@ muserdetails =  result1.data2;
 console.log(userdetails)
 
 if (userdetails[0]!=="Not Found"){
+     if(accountraw.account !== "Active"){
+  document.getElementById("loader").style.display="none"; 
+document.getElementById("message").textContent="Your account is not active. Contact administrator";
+    setTimeout(function () {
+      document.getElementById("load").style.display="none";
+    },5000);
+    return;
+  }
   user_fetch_complete = true;
 return userdetails;
 }
