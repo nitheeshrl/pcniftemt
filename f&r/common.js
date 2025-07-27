@@ -58,6 +58,8 @@ function getuserdetailsonload(user){
           getuserdetailsonload(uid+"/12");
           const result1 = await data.json();
   var userdetails = result1.data2;
+  var accountraw = JSON.parse(userdetails[7]);
+   console.log(accountraw.account)
   if 
   (userdetails[0] == "Not Found") {
     //console.log("User Not Found");
@@ -65,6 +67,32 @@ function getuserdetailsonload(user){
     document.getElementById("internetstatus").classList.toggle('msg')
     document.getElementById("internetstatus-box").classList.toggle('msg')
     document.getElementById("internetstatus").children[0].textContent="Can't find your details. Contact administrator";
+    document.getElementById("internetstatus-box").style.display="flex"
+    setTimeout(function () { 
+      document.getElementById("internetstatus").classList.remove('msg')
+      document.getElementById("internetstatus-box").classList.remove('msg')
+      document.getElementById("internetstatus").children[0].textContent="You are online";
+      document.getElementById("internetstatus-box").style.display="flex"
+      localStorage.removeItem("loggedname");
+      localStorage.removeItem("loggeduorp");
+      localStorage.removeItem("loggedpic");
+      localStorage.removeItem("loggedmail");
+      localStorage.removeItem("loggeduserdetails");
+      window.location="../index.html";
+    udecide ="";
+
+     },5000);
+
+    return;
+  }
+ 
+   else if 
+  (accountraw.account !== "Active") {
+    //console.log("User Not Found");
+    udecide ="deny";
+    document.getElementById("internetstatus").classList.toggle('msg')
+    document.getElementById("internetstatus-box").classList.toggle('msg')
+    document.getElementById("internetstatus").children[0].textContent="Your account is not active. Contact administrator";
     document.getElementById("internetstatus-box").style.display="flex"
     setTimeout(function () { 
       document.getElementById("internetstatus").classList.remove('msg')
