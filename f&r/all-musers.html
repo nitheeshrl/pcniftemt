@@ -550,7 +550,7 @@ document.getElementById("popup-1").classList.toggle("active");
 var dinputs = document.getElementById("popup-inner").querySelectorAll("div")
 console.log(dinputs[dinputs.length-1].children[1])
 dinputs[dinputs.length-1].children[1].setAttribute("onclick","updatedetails("+edit+")")
-ddatas = [];
+
 }
 function addPopup(){
 document.getElementById("popup-40").classList.toggle("active");
@@ -1300,6 +1300,7 @@ alert("PassKey is already created for this Device")
 
    function togglePopup(){
    document.getElementById("popup-1").classList.toggle("active");
+   ddatas = [];
    }
    function declinePopup(id){
        //console.log("ok")
@@ -1709,7 +1710,7 @@ fetchd ();
   var updatas = document.getElementById("popup-inner").querySelectorAll("input[type=text],input[type=number],input[type=hidden],select");
   console.log(updatas,ddatas)
            for (var f =0;f<updatas.length-1;f++ ){
-     
+     console.log(ddatas)
             console.log(String(updatas[f].value),String(ddatas[f]))
             if (String(updatas[f].value) !== String(ddatas[f])){
               tobeupdatehead.push(updatas[f].name);
