@@ -1782,6 +1782,15 @@ fetchd ();
   
    },2000);
   }
+    else if(r=="Mail Failed"){
+ document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Updated but Mail Sending Failed";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
+  }
    })
    
    .catch(function (error) {
