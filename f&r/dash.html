@@ -308,7 +308,7 @@ function getcurrentstatus(){
     brochureprogressbar.getElementsByClassName("actual")[0].children[0].textContent = brochureprogressremainingwidth
     brochureprogressbar.getElementsByClassName("remaining")[0].style.width =brochureprogresswidth;
      brochureprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = brochureprogresswidth;
-     if (brochureprogressremainingwidth === "100%") {
+    /* if (brochureprogressremainingwidth === "100%") {
         brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
         brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
          brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
@@ -322,6 +322,37 @@ function getcurrentstatus(){
      else if(brochureprogressremaining < 50){
         brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
         brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+     }*/
+
+
+        if (brochureprogressremainingwidth === "100%") {
+        brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
+        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+         brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+         brochureprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+     }
+     else if(brochureprogressremainingwidth === "0%"){
+        brochureprogressbar.getElementsByClassName("actual")[0].style.display = "none";
+        brochureprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "red";
+         brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "white";
+          brochureprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = brochureprogressremainingwidth;
+          brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+     }
+     else if(brochureprogressremaining < 50){
+        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+        brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+        brochureprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
+         brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
+         brochureprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+     }
+         else{
+        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
+        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "black";
+         brochureprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
+         brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
+          brochureprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+         brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
      }
        console.log(brochureprogressbar.getElementsByClassName("actual")[0].style.width,brochureprogressbar.getElementsByClassName("remaining")[0].style.width);
     brochurestatusinfo.innerHTML = `<span>Active Requests : ${userActiveRequest}</span><span>Completed Requests : ${userRequests - userActiveRequest}</span>`;
@@ -329,6 +360,7 @@ function getcurrentstatus(){
   internshipplacementstatus(batchDatas, userBatch);
   document.getElementById("curstatus-initial").style.display = "none";
   document.getElementById("curstatus").style.display = "block";
+  document.getElementById("currentstatusrefreshstatus").textContent="";
     //Internship Status
 
     console.log(result1.data2)
@@ -347,6 +379,7 @@ getcurrentstatus();
 function currentstatusrefresh(btn){
   console.log("refreshing current status");
   btn.style.rotate = "180deg";
+   document.getElementById("currentstatusrefreshstatus").textContent="Fetching Current Status...";
   setTimeout(() => {
     btn.style.rotate = "0deg";
   }, 200);
@@ -646,8 +679,9 @@ document.getElementById("popup-3").classList.toggle("active");
             </div>
                         <div class="up-companies">
               <div style="display: flex;justify-content: space-between;">
-            <span style="margin-bottom: 15px;">Current Status <svg fill="#182d8b" onclick="currentstatusrefresh(this)" style="cursor:pointer" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#182d8b"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M511.957,185.214L512,15.045l-67.587,67.587l-7.574-7.574c-48.332-48.332-112.593-74.95-180.946-74.95 C114.792,0.107,0,114.901,0,256s114.792,255.893,255.893,255.893S511.785,397.099,511.785,256h-49.528 c0,113.79-92.575,206.365-206.365,206.365S49.528,369.79,49.528,256S142.103,49.635,255.893,49.635 c55.124,0,106.947,21.467,145.925,60.445l7.574,7.574l-67.58,67.58L511.957,185.214z"></path> </g> </g> </g></svg></span>
-            </div>
+            <span style="margin-bottom: 15px;">Current Status <span id="currentstatusrefreshstatus" style="font-size: 10px; font-weight: normal;"></span> <svg fill="#182d8b" onclick="currentstatusrefresh(this)" style="cursor:pointer" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#182d8b"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M511.957,185.214L512,15.045l-67.587,67.587l-7.574-7.574c-48.332-48.332-112.593-74.95-180.946-74.95 C114.792,0.107,0,114.901,0,256s114.792,255.893,255.893,255.893S511.785,397.099,511.785,256h-49.528 c0,113.79-92.575,206.365-206.365,206.365S49.528,369.79,49.528,256S142.103,49.635,255.893,49.635 c55.124,0,106.947,21.467,145.925,60.445l7.574,7.574l-67.58,67.58L511.957,185.214z"></path> </g> </g> </g></svg> </span>
+           
+          </div>
             <div class="com-table"id="form-listu" style="flex-direction: column;">
               <div style="display: none;" id="curstatus">
                             <div class="Placementstatus">
