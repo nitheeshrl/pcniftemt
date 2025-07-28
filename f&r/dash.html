@@ -327,6 +327,8 @@ function getcurrentstatus(){
     brochurestatusinfo.innerHTML = `<span>Active Requests : ${userActiveRequest}</span><span>Completed Requests : ${userRequests - userActiveRequest}</span>`;
   
   internshipplacementstatus(batchDatas, userBatch);
+  document.getElementById("curstatus-initial").style.display = "none";
+  document.getElementById("curstatus").style.display = "block";
     //Internship Status
 
     console.log(result1.data2)
@@ -615,6 +617,7 @@ document.getElementById("popup-3").classList.toggle("active");
             <span style="margin-bottom: 15px;">Current Status</span>
             </div>
             <div class="com-table"id="form-listu" style="flex-direction: column;">
+              <div style="display: none;" id="curstatus">
                             <div class="Placementstatus">
               <div class="progessmain">
 <span>Brochure Request Status</span>
@@ -681,7 +684,8 @@ document.getElementById("popup-3").classList.toggle("active");
               </div>
                </div>
                </div>
-              <span  style="display:none;">Data Loading.....</span>
+               </div>
+              <span  id="curstatus-initial">Data Loading.....</span>
           
             </div>
             </div>
@@ -689,11 +693,13 @@ document.getElementById("popup-3").classList.toggle("active");
               <div style="display: flex;justify-content: space-between;">
               <span style="margin-bottom: 15px;">Circulated Company Forms</span>
               </div>
+           
               <div class="com-table"id="cir-company-list">
                 <span >Company Forms Loading.....</span>
             
               </div>
-              </div>
+                 </div>
+              
             
         
 
