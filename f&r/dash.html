@@ -179,7 +179,7 @@ var totalinternship = batchData[userBatch].totalinternship;
           internshipprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = internshipprogresswidth;
           internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
      }
-     else if(internshipprogress < 50){
+     else if(internshipprogress < 20){
         internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
         internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
         internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
@@ -238,7 +238,7 @@ var totalplacement = batchData[userBatch].totalplacement;
           placementprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = placementprogresswidth;
           placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
      }
-     else if(placementprogress < 50){
+     else if(placementprogress < 20){
         placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
         placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
         placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
