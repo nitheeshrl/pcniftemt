@@ -287,10 +287,10 @@ function getcurrentstatus(){
     if(userAccesslist.includes(batchNamesid[itemindex])||userAccess=="All"){
   
     if(item === userBatch){
-      batchoption += `<option selected value="${item}">${item}</option>`;
+      batchoption += `<option selected style="text-align: center;" value="${item}">${item}</option>`;
     }
     else{
-      batchoption += `<option value="${item}">${item}</option>`;
+      batchoption += `<option style="text-align: center;" value="${item}">${item}</option>`;
     }
   }
    document.getElementById("batchstatusoptions").innerHTML = batchoption;
@@ -457,6 +457,16 @@ justify-content: center;
 font-size: auto;
 
   color: #182d8b;
+}
+#batchstatusoptions{
+  width: 100%;
+  height: 35px;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  color: black;
+  font-weight: bold;
+  border: none;
 }
 </style>
 <script>
