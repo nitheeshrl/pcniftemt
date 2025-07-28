@@ -41,10 +41,22 @@ document.getElementById("lat-notifications").style.display="block";
     document.getElementById("lat-notifications").innerHTML=`<span >No Latest Notifications</span>`;
     document.getElementById("lat-notifications").style.display="flex";
   }
+  document.getElementById("notificationrefreshstatus").textContent="";
    })
    .catch((error) => console.error('!!!!!!!!', error));
 }
 getnotifications()
+
+function notificationrefresh(btn){
+  console.log("refreshing notifications");
+  btn.style.rotate = "180deg";
+   document.getElementById("notificationrefreshstatus").textContent="Fetching Notifications...";
+  setTimeout(() => {
+    btn.style.rotate = "0deg";
+  }, 200);
+  getnotifications();
+}
+
 function getcompanies(){
 const url = "https://script.google.com/macros/s/AKfycbwMvTiwQJN-p_X__ExMbDjMhyk02AbI7ZHqWHte99-YPD9zYOQt9RdHBvu_uHF_d2Ol/exec" 
 
@@ -770,7 +782,7 @@ document.getElementById("popup-3").classList.toggle("active");
 
   <div class="notification">
     <div style="display: flex;justify-content: space-between;">
-  <span>Latest Notifications</span>
+  <span>Latest Notifications <span id="notificationrefreshstatus" style="font-size: 10px; font-weight: normal;"></span> <svg fill="#182d8b" onclick="notificationrefresh(this)" style="cursor:pointer" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#182d8b"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M511.957,185.214L512,15.045l-67.587,67.587l-7.574-7.574c-48.332-48.332-112.593-74.95-180.946-74.95 C114.792,0.107,0,114.901,0,256s114.792,255.893,255.893,255.893S511.785,397.099,511.785,256h-49.528 c0,113.79-92.575,206.365-206.365,206.365S49.528,369.79,49.528,256S142.103,49.635,255.893,49.635 c55.124,0,106.947,21.467,145.925,60.445l7.574,7.574l-67.58,67.58L511.957,185.214z"></path> </g> </g> </g></svg> </span>
   <button class="btn11" onclick=" window.open('edit-notification.html', '_blank')" >Edit</button>
 </div>
   <div class="slider" id="lat-notifications">
