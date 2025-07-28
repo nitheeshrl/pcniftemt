@@ -284,7 +284,7 @@ function getcurrentstatus(){
     var userAccesslist =  userAccess.split(", ");
     console.log(userAccesslist);
   batchNames = batchNames.map((item,itemindex) => {
-    if(userAccesslist.includes(batchNamesid[itemindex])||userAccess=="All"||(userAccess=="Owned"&&item === userBatch)){
+    if(userAccesslist.includes(batchNamesid[itemindex])||userAccess=="All"||(userAccess=="No"&&item === userBatch)){
   
     if(item === userBatch){
       batchoption += `<option selected style="text-align: center;" value="${item}">${item}</option>`;
