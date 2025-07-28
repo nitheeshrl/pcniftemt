@@ -348,7 +348,12 @@ width: 120px;
 .dash-whole{
   display: flex;
   flex-direction: row;
+
 height: 100%;
+align-items: center;
+justify-content: center;
+display: flex;
+flex-wrap: wrap;
 }
 .dash-whole span{
 font-weight: bold;
@@ -357,10 +362,12 @@ font-size: 20px;
 .dash-whole p{
 color: #000;
 text-align: center;
+
   }
 .notification{
   height: 50%;
-  width: 100%;
+   min-width: 400px;
+  width: 50%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -371,7 +378,8 @@ width: 50%;
 height: 100%;
 }
 .up-companies{
-  width: 100%;
+  width: 33%;
+min-width:250px;
   height:50%;
   overflow: visible;
   display: flex;
@@ -408,6 +416,16 @@ width: 100%;
   text-align: center;
   width: 50%; 
   }
+    @media (max-width: 1200px) {
+.up-companies{
+  width: 100%;
+min-width: 100%;
+}
+.notification{
+  width: 100%;
+min-width: 100%;
+}
+    }
   @media (max-width: 1000px) {
 body{
   height: 100vh;
@@ -445,22 +463,7 @@ margin-bottom: 20px;
        margin-left: 10px;
        margin-top: -20px;
     }
-    .dash-whole{
 
-      flex-direction: column;
-
-    }
-    .left-com{
-      width: 100%;
-      }
-    .notification{
-      width: 100%;
-      height: 50vh;
-    }
-    .up-companies{
-      width: 100%;
-      height: 40vh;
-    }
 }
 
 @-webkit-keyframes scroll {

@@ -133,6 +133,219 @@ document.getElementById("cir-company-list").style.display="block";
    .catch((error) => console.error('!!!!!!!!', error));
 }
 getcompanyforms()
+var batchDatae = {};
+function internshipplacementstatus(batchData, userBatch) {
+  console.log(batchData,userBatch)
+
+      var internshipprogressbar = document.getElementById("internship-progress-bar");
+   var internshipstatusinfo = document.getElementById("internship-status-info");
+//userActiveRequest = userRequests/1.5;
+var gotinternship = batchData[userBatch].internship
+var totalinternship = batchData[userBatch].totalinternship;
+//gotinternship = 52;
+   var internshipprogress = Math.floor( (gotinternship / totalinternship) * 100);
+   var internshipprogresswidth = internshipprogress + "%";
+   var internshipprogressremaining =  100 - internshipprogress;
+   var internshipprogressremainingwidth = internshipprogressremaining + "%";
+   console.log(internshipprogresswidth, internshipprogressremainingwidth);
+   console.log(internshipprogressbar.getElementsByClassName("actual")[0].style.width,internshipprogressbar.getElementsByClassName("remaining")[0].style.width);
+    internshipprogressbar.getElementsByClassName("actual")[0].style.width = internshipprogresswidth;
+    internshipprogressbar.getElementsByClassName("actual")[0].children[0].textContent = internshipprogresswidth
+    internshipprogressbar.getElementsByClassName("remaining")[0].style.width =internshipprogressremainingwidth;
+     internshipprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = internshipprogressremainingwidth;
+     console.log(internshipprogresswidth )
+     if (internshipprogresswidth === "100%") {
+        internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
+        internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+         internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+         internshipprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+     }
+     else if(internshipprogresswidth === "0%"){
+        internshipprogressbar.getElementsByClassName("actual")[0].style.display = "none";
+        internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "red";
+         internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "white";
+          internshipprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = internshipprogresswidth;
+          internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+     }
+     else if(internshipprogress < 50){
+        internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+        internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+        internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+        internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
+         internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
+         internshipprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+     }
+         else{
+        internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
+        internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "black";
+         internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
+         internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
+          internshipprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+         internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+     }
+       console.log(internshipprogressbar.getElementsByClassName("actual")[0].style.width,internshipprogressbar.getElementsByClassName("remaining")[0].style.width);
+    internshipstatusinfo.innerHTML = `<span>Got Internship : ${gotinternship}</span><span>Remaining : ${totalinternship - gotinternship}</span>`;
+   
+if(totalinternship === 0){  
+  internshipprogressbar.parentElement.style.display = "none";
+}
+else{
+  internshipprogressbar.parentElement.style.display = "flex";
+}
+    console.log(batchData[userBatch])
+    console.log(gotinternship,totalinternship)
+
+    //Placement Status
+      
+      var placementprogressbar = document.getElementById("placement-progress-bar");
+   var placementstatusinfo = document.getElementById("placement-status-info");
+//userActiveRequest = userRequests/1.5;
+var gotplacement = batchData[userBatch].placement
+var totalplacement = batchData[userBatch].totalplacement;
+//gotplacement = 52;
+   var placementprogress = Math.floor( (gotplacement / totalplacement) * 100);
+   var placementprogresswidth = placementprogress + "%";
+   var placementprogressremaining =  100 - placementprogress;
+   var placementprogressremainingwidth = placementprogressremaining + "%";
+   console.log(placementprogresswidth, placementprogressremainingwidth);
+   console.log(placementprogressbar.getElementsByClassName("actual")[0].style.width,placementprogressbar.getElementsByClassName("remaining")[0].style.width);
+    placementprogressbar.getElementsByClassName("actual")[0].style.width = placementprogresswidth;
+    placementprogressbar.getElementsByClassName("actual")[0].children[0].textContent = placementprogresswidth
+    placementprogressbar.getElementsByClassName("remaining")[0].style.width =placementprogressremainingwidth;
+     placementprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = placementprogressremainingwidth;
+     if (placementprogresswidth === "100%") {
+        placementprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
+        placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+         placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+         placementprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+     }
+     else if(placementprogresswidth === "0%"){
+        placementprogressbar.getElementsByClassName("actual")[0].style.display = "none";
+        placementprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "red";
+         placementprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "white";
+          placementprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = placementprogresswidth;
+          placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+     }
+     else if(placementprogress < 50){
+        placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+        placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+        placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+        placementprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
+         placementprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
+         placementprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+     }
+         else{
+        placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
+        placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "black";
+         placementprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
+         placementprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
+          placementprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
+         placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
+     }
+       console.log(placementprogressbar.getElementsByClassName("actual")[0].style.width,placementprogressbar.getElementsByClassName("remaining")[0].style.width);
+    placementstatusinfo.innerHTML = `<span>Got placement : ${gotplacement}</span><span>Remaining : ${totalplacement - gotplacement}</span>`;
+   
+}
+
+function getcurrentstatus(){
+      var updatestring = JSON.parse(localStorage.getItem("loggeduserdetails")).id;
+ 
+           
+       fetch(
+    
+    "https://script.google.com/macros/s/AKfycbz3ZEkqPr4tq-D0QCMsKB1ykaRo4Yax6NP5GLplV5yirl8XqWNb54rVstRsF955zem6qw/exec",
+    {
+      redirect: "follow",
+      method: "POST",
+      body: updatestring,
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }
+   )
+   
+    .then(function (response) {
+   
+      // Check if the request was successful
+      if (response) {
+   
+        return response; // Assuming your script returns JSON response
+      } else {
+        throw new Error("Failed to fetch.");
+      }
+    })
+    .then(async function (data) {
+   const result1 = await data.json();
+   
+   var {userBatch,userAccess,userRequests,userActiveRequest,batchDatas,batchNames,batchNamesid} = result1.data2;
+   batchDatae = batchDatas;
+ 
+     var batchoption = "";
+    var userAccesslist =  userAccess.split(", ");
+    console.log(userAccesslist);
+  batchNames = batchNames.map((item,itemindex) => {
+    if(userAccesslist.includes(batchNamesid[itemindex])||userAccess=="All"){
+  
+    if(item === userBatch){
+      batchoption += `<option selected value="${item}">${item}</option>`;
+    }
+    else{
+      batchoption += `<option value="${item}">${item}</option>`;
+    }
+  }
+   document.getElementById("batchstatusoptions").innerHTML = batchoption;
+
+   var brochureprogressbar = document.getElementById("brochure-progress-bar");
+   var brochurestatusinfo = document.getElementById("brochure-status-info");
+//userActiveRequest = userRequests/1.5;
+   var brochureprogress = Math.floor((userActiveRequest / userRequests) * 100);
+   var brochureprogresswidth = brochureprogress + "%";
+   var brochureprogressremaining =  100 - brochureprogress;
+   var brochureprogressremainingwidth = brochureprogressremaining + "%";
+   console.log(brochureprogresswidth, brochureprogressremainingwidth);
+   console.log(brochureprogressbar.getElementsByClassName("actual")[0].style.width,brochureprogressbar.getElementsByClassName("remaining")[0].style.width);
+    brochureprogressbar.getElementsByClassName("actual")[0].style.width = brochureprogressremainingwidth;
+    brochureprogressbar.getElementsByClassName("actual")[0].children[0].textContent = brochureprogressremainingwidth
+    brochureprogressbar.getElementsByClassName("remaining")[0].style.width =brochureprogresswidth;
+     brochureprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = brochureprogresswidth;
+     if (brochureprogressremainingwidth === "100%") {
+        brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
+        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+         brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+     }
+     else if(brochureprogressremainingwidth === "0%"){
+        brochureprogressbar.getElementsByClassName("actual")[0].style.display = "none";
+        brochureprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "red";
+         brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "white";
+          brochureprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = brochureprogressremainingwidth;
+     }
+     else if(brochureprogressremaining < 50){
+        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
+     }
+       console.log(brochureprogressbar.getElementsByClassName("actual")[0].style.width,brochureprogressbar.getElementsByClassName("remaining")[0].style.width);
+    brochurestatusinfo.innerHTML = `<span>Active Requests : ${userActiveRequest}</span><span>Completed Requests : ${userRequests - userActiveRequest}</span>`;
+  
+  internshipplacementstatus(batchDatas, userBatch);
+    //Internship Status
+
+    console.log(result1.data2)
+   })
+   console.log(result1.data2)
+   })
+   
+   .catch(function (error) {
+   // Handle errors, you can display an error message here
+   console.error(error);
+
+   });
+   }
+getcurrentstatus();
+
+function statusbatchchange(btn){
+  var batch = btn.value;
+  internshipplacementstatus(batchDatae, batch);
+}
 </script>
  <style>
     table .approve{
@@ -176,6 +389,72 @@ border-radius: 20px;
 padding:12px;
 cursor: pointer;
 font-weight: bold;
+}
+.Placementstatus{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+.progessmain{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 80px;
+  align-items: start;
+  justify-content: center;
+  padding:  0px 20px 0px 20px;
+
+}
+.progessbar{
+  width: 100%;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  padding: 5px;
+}
+.progessbar .actual {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+  
+  background-color: #76c7c0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.3s ease-in-out;
+}
+.progessbar .remaining {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 60%;
+  background-color: #e0e0e0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: width 0.3s ease-in-out;
+}
+.status-info{
+  display: flex;
+align-items: center;
+justify-content: center;
+  gap: 5px;
+  width: 100%;
+  padding: 0px 20px;
+}
+.status-info span{
+font-size: auto;
+
+  color: #182d8b;
 }
 </style>
 <script>
@@ -320,7 +599,7 @@ document.getElementById("popup-3").classList.toggle("active");
         <section class="msg" >
 
           <div class="dash-whole">
-            <div class="left-com">
+            
 
             <div class="up-companies">
               <div style="display: flex;justify-content: space-between;">
@@ -328,6 +607,81 @@ document.getElementById("popup-3").classList.toggle("active");
             </div>
             <div class="com-table"id="form-list">
               <span >Forms Loading.....</span>
+          
+            </div>
+            </div>
+                        <div class="up-companies">
+              <div style="display: flex;justify-content: space-between;">
+            <span style="margin-bottom: 15px;">Current Status</span>
+            </div>
+            <div class="com-table"id="form-listu" style="flex-direction: column;">
+                            <div class="Placementstatus">
+              <div class="progessmain">
+<span>Brochure Request Status</span>
+             
+              <div class="progessbar" id="brochure-progress-bar">
+                <div class="actual">
+                  <span>40%</span>
+                </div>
+                <div class="remaining">
+                 
+                <span>60%</span>
+                </div>
+              </div>
+              <div class="status-info" id="brochure-status-info">
+          
+              <span>Active Requests : 60</span>
+              <span>Completed Requests : 40</span>
+              </div>
+               </div>
+ 
+               </div>
+              <div class="Placementstatus">
+                <div>
+                  <span>Batch</span>
+                  <select style="width: 50%;" name="" id="batchstatusoptions" onchange="statusbatchchange(this)">
+                    <option  value="">Select the batch</option>
+                    <option selected value="2021">2021</option>
+                  </select>
+                </div>
+              <div class="progessmain">
+<span>Internship Status</span>
+             
+              <div class="progessbar" id="internship-progress-bar">
+                <div class="actual">
+                  <span>40%</span>
+                </div>
+                <div class="remaining">
+                 
+                <span>60%</span>
+                </div>
+              </div>
+              <div class="status-info" id="internship-status-info">
+               <span>Got Internship : 40</span>
+              <span>Remaining : 60</span>
+              </div>
+               </div>
+                             <div class="progessmain">
+<span>Placement Status</span>
+             
+              <div class="progessbar" id="placement-progress-bar">
+                <div class="actual">
+                  <span>40%</span>
+                </div>
+                <div class="remaining">
+                 
+                <span>60%</span>
+                </div>
+                
+              </div>
+              <div class="status-info"  id="placement-status-info">
+            
+              <span>Got Placement : 40</span>
+              <span>Remaining : 60</span>
+              </div>
+               </div>
+               </div>
+              <span  style="display:none;">Data Loading.....</span>
           
             </div>
             </div>
@@ -340,8 +694,8 @@ document.getElementById("popup-3").classList.toggle("active");
             
               </div>
               </div>
-            </div>
-            <div class="left-com">
+            
+        
 
   <div class="notification">
     <div style="display: flex;justify-content: space-between;">
@@ -364,7 +718,7 @@ document.getElementById("popup-3").classList.toggle("active");
 
   </div>
   </div>
-  </div>
+
 
 </div>
       </section>
