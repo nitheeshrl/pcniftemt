@@ -145,6 +145,24 @@ document.getElementById("cir-company-list").style.display="block";
    .catch((error) => console.error('!!!!!!!!', error));
 }
 getcompanyforms()
+
+   function getColor(percent) {
+      let r, g;
+
+      if (percent < 50) {
+        // Red (255, 0, 0) → Orange (255, 165, 0)
+        r = 255;
+        g = Math.round((percent / 50) * 165);
+      } else {
+        // Orange (255,165,0) → Dark Green (0,100,0)
+        const ratio = (percent - 50) / 50;
+        r = Math.round(255 - ratio * 255); // 255 → 0
+        g = Math.round(165 - ratio * 65);  // 165 → 100
+      }
+
+      return `rgb(${r}, ${g}, 0)`;
+    }
+
 var batchDatae = {};
 function internshipplacementstatus(batchData, userBatch) {
   console.log(batchData,userBatch)
@@ -154,7 +172,7 @@ function internshipplacementstatus(batchData, userBatch) {
 //userActiveRequest = userRequests/1.5;
 var gotinternship = batchData[userBatch].internship
 var totalinternship = batchData[userBatch].totalinternship;
-//gotinternship = 52;
+//gotinternship = 0;
    var internshipprogress = Math.floor( (gotinternship / totalinternship) * 100);
    var internshipprogresswidth = internshipprogress + "%";
    var internshipprogressremaining =  100 - internshipprogress;
@@ -165,22 +183,31 @@ var totalinternship = batchData[userBatch].totalinternship;
     internshipprogressbar.getElementsByClassName("actual")[0].children[0].textContent = internshipprogresswidth
     internshipprogressbar.getElementsByClassName("remaining")[0].style.width =internshipprogressremainingwidth;
      internshipprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = internshipprogressremainingwidth;
-     console.log(internshipprogresswidth )
+     
+    internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = getColor(internshipprogress);
+      if(internshipprogress > 90){
+        internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.display = "initial";
+        internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.display = "none";
+    }
+    else if(internshipprogress < 10){
+        internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.display = "initial";
+        internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.display = "none";
+}
      if (internshipprogresswidth === "100%") {
         internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
-        internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+     //   internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
          internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
          internshipprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
      }
      else if(internshipprogresswidth === "0%"){
         internshipprogressbar.getElementsByClassName("actual")[0].style.display = "none";
-        internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "red";
+       internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "red";
          internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "white";
           internshipprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = internshipprogresswidth;
           internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
      }
      else if(internshipprogress < 20){
-        internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+        //internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
         internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
         internshipprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
         internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
@@ -188,8 +215,8 @@ var totalinternship = batchData[userBatch].totalinternship;
          internshipprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
      }
          else{
-        internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
-        internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "black";
+    //    internshipprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
+        internshipprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
          internshipprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
          internshipprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
           internshipprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
@@ -214,7 +241,7 @@ else{
 //userActiveRequest = userRequests/1.5;
 var gotplacement = batchData[userBatch].placement
 var totalplacement = batchData[userBatch].totalplacement;
-//gotplacement = 52;
+//gotplacement = 12;
    var placementprogress = Math.floor( (gotplacement / totalplacement) * 100);
    var placementprogresswidth = placementprogress + "%";
    var placementprogressremaining =  100 - placementprogress;
@@ -225,9 +252,18 @@ var totalplacement = batchData[userBatch].totalplacement;
     placementprogressbar.getElementsByClassName("actual")[0].children[0].textContent = placementprogresswidth
     placementprogressbar.getElementsByClassName("remaining")[0].style.width =placementprogressremainingwidth;
      placementprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = placementprogressremainingwidth;
+     placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = getColor(placementprogress);
+      if(placementprogress > 90){
+        placementprogressbar.getElementsByClassName("actual")[0].children[0].style.display = "initial";
+        placementprogressbar.getElementsByClassName("remaining")[0].children[0].style.display = "none";
+    }
+    else if(placementprogress < 10){
+        placementprogressbar.getElementsByClassName("remaining")[0].children[0].style.display = "initial";
+        placementprogressbar.getElementsByClassName("actual")[0].children[0].style.display = "none";
+}
      if (placementprogresswidth === "100%") {
         placementprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
-        placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+     //   placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
          placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
          placementprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
      }
@@ -239,7 +275,7 @@ var totalplacement = batchData[userBatch].totalplacement;
           placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
      }
      else if(placementprogress < 20){
-        placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+        //placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
         placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
         placementprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
         placementprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
@@ -247,8 +283,8 @@ var totalplacement = batchData[userBatch].totalplacement;
          placementprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
      }
          else{
-        placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
-        placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "black";
+    //    placementprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
+        placementprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
          placementprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
          placementprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
           placementprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
@@ -309,7 +345,7 @@ function getcurrentstatus(){
 
    var brochureprogressbar = document.getElementById("brochure-progress-bar");
    var brochurestatusinfo = document.getElementById("brochure-status-info");
-//userActiveRequest = userRequests/1.5;
+//userActiveRequest = 23;
    var brochureprogress = Math.floor((userActiveRequest / userRequests) * 100);
    var brochureprogresswidth = brochureprogress + "%";
    var brochureprogressremaining =  100 - brochureprogress;
@@ -320,6 +356,7 @@ function getcurrentstatus(){
     brochureprogressbar.getElementsByClassName("actual")[0].children[0].textContent = brochureprogressremainingwidth
     brochureprogressbar.getElementsByClassName("remaining")[0].style.width =brochureprogresswidth;
      brochureprogressbar.getElementsByClassName("remaining")[0].children[0].textContent = brochureprogresswidth;
+     brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = getColor(brochureprogressremaining );
     /* if (brochureprogressremainingwidth === "100%") {
         brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
         brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
@@ -336,10 +373,17 @@ function getcurrentstatus(){
         brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
      }*/
 
-
+if(brochureprogressremaining > 90){
+        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.display = "initial";
+        brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.display = "none";
+    }
+    else if(brochureprogressremaining < 10){
+        brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.display = "initial";
+        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.display = "none";
+}
         if (brochureprogressremainingwidth === "100%") {
         brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "none";
-        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
+    //    brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "green";
          brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
          brochureprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
      }
@@ -351,7 +395,7 @@ function getcurrentstatus(){
           brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
      }
      else if(brochureprogressremaining < 50){
-        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
+///brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "red";
         brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
         brochureprogressbar.getElementsByClassName("remaining")[0].style.display = "initial";
         brochureprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
@@ -359,8 +403,8 @@ function getcurrentstatus(){
          brochureprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
      }
          else{
-        brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
-        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "black";
+      //  brochureprogressbar.getElementsByClassName("actual")[0].style.backgroundColor = "#76c7c0";
+        brochureprogressbar.getElementsByClassName("actual")[0].children[0].style.color = "white";
          brochureprogressbar.getElementsByClassName("remaining")[0].style.backgroundColor = "#e0e0e0";
          brochureprogressbar.getElementsByClassName("remaining")[0].children[0].style.color = "black";
           brochureprogressbar.getElementsByClassName("actual")[0].style.display = "initial";
