@@ -129,13 +129,18 @@ inputs.forEach((i,innow) =>{
   }
   else{*/
   //console.log(udata[now])
-
-  if(now == 6 ){
-    now = 9;
-   // console.log("check",i, i.value, now, udata[6])
-    inputs[6].value = udata[6];
+//console.log(i,i.value,now, udata[now])
+if(now == 7 ){
+  ddatas.push(udata[now])
+  now = 8;
+return
+}
+ else if(now == 8 ){
+    now = 11;
+   // console.log("check",i, i.value, now, udata[7],inputs[8])
+    inputs[8].value = udata[7];
    // i.value = udata[6];
-    ddatas.push(udata[6])
+    ddatas.push(udata[7])
     return
   }
 
@@ -144,16 +149,11 @@ inputs.forEach((i,innow) =>{
   //}
 
   else{
-    if(now == 9){
-     // console.log(i,i.value,now, udata[6])
-    ddatas.push(udata[6])
-  i.value = udata[6];
-}
-else{
-    //  console.log(i,i.value,now, udata[now])
+
+     // console.log(i,i.value,now, udata[now])
     ddatas.push(udata[now])
   i.value = udata[now];
-}
+
 
   //console.log(i.value)
 
@@ -161,8 +161,9 @@ else{
   now++
   }
 })
-inputs[6].value = vrole[edit-2];
-ddatas[6]= vrole[edit-2];
+console.log(ddatas)
+inputs[7].value = vrole[edit-2];
+ddatas[7]= vrole[edit-2];
 eus_access.forEach((access,accessid)=>{
   var nro = (accessid === 0 || accessid === 1) ? "No" : "Owned";
   var nro1 = (accessid ===  1) ? "No" : "Owned";
@@ -533,7 +534,7 @@ if(ddatas[1]==localStorage.getItem("loggedname")){
   var todaa = document.getElementsByClassName("access-check");
   for (var i = 0; i < todaa.length; i++) {
     var each = todaa[i];
-    console.log(each)
+   // console.log(each)
     each.parentElement.style.display="none";
   }
 }
@@ -541,7 +542,7 @@ else{
   var todaa = document.getElementsByClassName("access-check");
   for (var i = 0; i < todaa.length; i++) {
     var each = todaa[i];
-    console.log(each)
+  // console.log(each)
     each.parentElement.style.display="initial";
   }
 }
@@ -762,6 +763,16 @@ document.getElementById("popup-40").classList.toggle("active");
                     <option value="M.Tech">M.Tech</option>
                   </select>
                   </div>
+                                  <div class="form-element">
+                <span class="q">Degree</span>
+                <select required name="Degree" >
+                  <option value="">Select the Degree</option>
+                  <option value="B.Tech - Food Technology ">B.Tech - Food Technology </option>
+                  <option value="M.Tech - Food Process Technology">M.Tech - Food Process Technology</option>
+                  <option value="M.Tech - Food Process Engineering">M.Tech - Food Process Engineering</option>
+                  <option value="M.Tech - Food safety and Quality Assurance">M.Tech - Food safety and Quality Assurance</option>
+                </select>
+                </div>
               <div class="form-element">
                 <span class="q">Role</span>
                 <select onchange="editrolefeatures(this)" required name="Role" >
@@ -1004,6 +1015,16 @@ document.getElementById("popup-40").classList.toggle("active");
                       <option value="M.Tech">M.Tech</option>
                     </select>
                     </div>
+                                    <div class="form-element">
+                <span class="q">Degree</span>
+                <select required name="Degree" >
+                  <option value="">Select the Degree</option>
+                  <option value="B.Tech - Food Technology ">B.Tech - Food Technology </option>
+                  <option value="M.Tech - Food Process Technology">M.Tech - Food Process Technology</option>
+                  <option value="M.Tech - Food Process Engineering">M.Tech - Food Process Engineering</option>
+                  <option value="M.Tech - Food safety and Quality Assurance">M.Tech - Food safety and Quality Assurance</option>
+                </select>
+                </div>
                 <div class="form-element">
                   <span class="q">Role</span>
                   <select required name="Role" onchange="rolefeatures(this)">
@@ -1042,7 +1063,7 @@ document.getElementById("popup-40").classList.toggle("active");
                           </label>
                            
                             </div>
-                            <input type="hidden" name="All User Details Access" value="Owned">
+                            <input type="hidden" required name="All User Details Access" value="Owned">
                            </div>
                            <div class="form-element radio-buttons" style="display: none;">
                             <span class="q">Member Details Access</span>
@@ -1072,7 +1093,7 @@ document.getElementById("popup-40").classList.toggle("active");
                               </label>
                                
                                 </div>
-                                <input type="hidden" name="All M-User Details Access" value="Owned">
+                                <input type="hidden" name="All M-User Details Access" value="No">
                                </div>
                                <div class="form-element radio-buttons">
                                 <span class="q">Forms Access</span>
@@ -1102,7 +1123,7 @@ document.getElementById("popup-40").classList.toggle("active");
                                   </label>
                                    
                                     </div>
-                                    <input type="hidden" name="Forms Access" value="Owned">
+                                    <input type="hidden" required name="Forms Access" value="Owned">
                                    </div>
                                    <div class="form-element radio-buttons">
                                     <span class="q">Company Details Access</span>
@@ -1162,7 +1183,7 @@ document.getElementById("popup-40").classList.toggle("active");
                                           </label>
                                            
                                             </div>
-                                            <input type="hidden" name="Request Access" value="Owned">
+                                            <input type="hidden" required name="Request Access" value="Owned">
                                            </div>
            
         <!-- <div class="form-element">
@@ -1593,7 +1614,7 @@ for (var r=0; r<datas.length;r++){
 //  td +="<td>"+datas[r][d]+"</td>";
 
 }
-else if (d==6||d==7){
+else if (d==7||d==8){
 if (datas[r][d] == "Offline"||datas[r][d] == "Deactivated"){
   td +='<td  style="color: red;">'+datas[r][d]+"</td>";
 }
@@ -1835,7 +1856,22 @@ vheads.push(updatas[f].name)
            //console.log(updatas[3].value)
 
            for (var f =0;f<updatas.length-1;f++ ){
+            console.log(updatas[f].type,updatas[f].name,updatas[f].value, updatas[f].name.includes("Access"),updatas[f].type=="hidden",(updatas[f].type=="hidden"&& updatas[f].name.includes("Access")))
+            if(updatas[f].type=="hidden"&& updatas[f].name.includes("Access")){
+              console.log("fgfg")
+              if(updatas[f].name=="All M-User Details Access"){
+                console.log("12fgfg")
+                  updatas[f].value="No";
+              }
+              else{
+          updatas[f].value="Owned";
+              }
+               console.log(updatas[f].type,updatas[f].name,updatas[f].value)
+            }
+            else{
+             //console.log(updatas[f].value)
            updatas[f].value="";
+            }
            }
            updatas[0].parentElement.children[0].src=""
             togglePopup40()
@@ -1848,6 +1884,7 @@ vheads.push(updatas[f].name)
   data:values,
   head:vheads
       });
+      console.log(datastring)
       //console.log(datastring)
       fetch(
     
@@ -1889,6 +1926,15 @@ uongoing="";
 
 },2000);
 },2000);
+  }
+      else if(r=="Mail Failed"){
+ document.getElementById("loader").style.display="none"; 
+     document.getElementById("message").textContent = "Member Added but Mail Sending Failed check the email ID";
+    document.getElementById("message").style.display = "block";
+     setTimeout(function () { document.getElementById("load").style.display="none";
+   uongoing="";
+  
+   },2000);
   }
   else if(r=="reject"){
     document.getElementById("loader").style.display="none"; 
@@ -2019,12 +2065,15 @@ name:vdatas[id-2][0]
  
 var role = button.value;
 var features = document.getElementsByClassName("access-check-add");
+console.log(features[1].parentElement.children[3])
 if(role=="Admin"){
 features[1].parentElement.style.display="flex";
+features[1].parentElement.querySelector("input[type=hidden]").required = true;
 }
 else if(role=="User"){
   features[1].parentElement.style.display="none";
   features[1].parentElement.querySelector("input[type=hidden]").value = "No";
+  features[1].parentElement.querySelector("input[type=hidden]").required = false;
   var labels = features[1].querySelectorAll("label");
   labels.forEach((label)=>{
    if(label.children[1].innerHTML=="No"){
@@ -2044,11 +2093,15 @@ else if(role=="User"){
  
  var role = button.value;
  var features = document.getElementsByClassName("access-check");
+ console.log(features[1])
  if(role=="Admin"){
  features[1].parentElement.style.display="flex";
+ features[1].parentElement.querySelector("input[type=hidden]").required = true;
  }
  else if(role=="User"){
    features[1].parentElement.style.display="none";
+   features[1].parentElement.querySelector("input[type=hidden]").value = "No";
+   features[1].parentElement.querySelector("input[type=hidden]").required = false;
    var labels = features[1].querySelectorAll("label");
    labels.forEach((label)=>{
     if(label.children[1].innerHTML=="No"){
