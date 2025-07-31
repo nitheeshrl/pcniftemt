@@ -178,7 +178,21 @@ font-weight: bold;
   height: 100%;
   overflow: scroll;
 }
+.stud-det{
+  width: 45%;
+}
+.student input,.student select{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 11px;
+  background-color: white;
+transition: background-color 0.3s ease;
 
+ 
+}
 </style>
 <script>
   function logout(){
@@ -224,20 +238,20 @@ batch_info[i].children[1].value = batch_details_1[edit][i-1];
       <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
     </button>
     </div>
-                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
-               <div class="form-element">
+                 <div style="display: flex;justify-content: center; align-items:start; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element student stud-det">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" value="${student[0]}"/>
               </div>
               
-              <div class="form-element">
+              <div class="form-element student stud-det">
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number"  value="${student[1]}"/>
-              </div><br>
-                <div class="form-element">
+              </div>
+                <div class="form-element student stud-det">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member"  value="${student[2]}"/>
-              </div><div class="form-element">
+              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number"  value="${student[3]}"/>
               </div>
@@ -271,20 +285,20 @@ document.getElementById("full-students").children[1].innerHTML =
       <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
     </button>
     </div>
-                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
-               <div class="form-element">
+                 <div style="display: flex;justify-content: center; align-items:start; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element student stud-det">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
               </div>
               
-              <div class="form-element">
+              <div class="form-element student stud-det">
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
-              </div><br>
-                <div class="form-element">
+              </div>
+                <div class="form-element student stud-det">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element">
+              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -621,23 +635,23 @@ document.getElementById("popup-40").classList.toggle("active");
                 </select>
                 </div>
 
-                <div class="form-element batch-info edit">
+                <div class="form-element batch-info edit student">
                 <span class="q">Batch</span>
                 <input required type="number" name="Batch"  placeholder="Enter your Batch"  />
                 </div>
-                <div class="form-element batch-info edit">
+                <div class="form-element batch-info edit student">
                 <span class="q">Combined Rules Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Combined Rules Drive Link" onchange="checkaccess(this)"  placeholder="Enter your Combined Rules Drive Link" />
                 </div>
-                                <div class="form-element batch-info edit">
+                                <div class="form-element batch-info edit student">
                 <span class="q">Declaration Form Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Declaration Form Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Declaration Form Template Drive Link" />
                 </div>
-                                <div class="form-element batch-info edit">
+                                <div class="form-element batch-info edit student">
                 <span class="q">Internship Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Internship Rules & Regulations Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Internship Rules & Regulations Template Drive Link" />
                 </div>
-                                <div class="form-element batch-info edit">
+                                <div class="form-element batch-info edit student">
                 <span class="q">Placement Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Placement Rules & Regulations Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Placement Rules & Regulations Template Drive Link" />
                 </div>
@@ -653,19 +667,19 @@ document.getElementById("popup-40").classList.toggle("active");
     </button>
     </div>
                  <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
-               <div class="form-element">
+               <div class="form-element student">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
               </div>
               
-              <div class="form-element">
+              <div class="form-element student">
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
               </div><br>
-                <div class="form-element">
+                <div class="form-element student">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element">
+              </div><div class="form-element student">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -704,7 +718,7 @@ document.getElementById("popup-40").classList.toggle("active");
             
 
                 
-                <div class="form-element batch-info add">
+                <div class="form-element batch-info add student">
                 <span class="q">Degree</span>
                 <select required name="Degree" onchange="checkbatch()" >
                   <option value="">Select the Degree</option>
@@ -715,23 +729,23 @@ document.getElementById("popup-40").classList.toggle("active");
                 </select>
                 </div>
 
-                <div class="form-element batch-info add">
+                <div class="form-element batch-info add student">
                 <span class="q">Batch</span>
                 <input required type="number" name="Batch"  placeholder="Enter your Batch"  onchange="checkbatch()" />
                 </div>
-                <div class="form-element batch-info add">
+                <div class="form-element batch-info add student">
                 <span class="q">Combined Rules Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Combined Rules Drive Link" onchange="checkaccess(this)"  placeholder="Enter your Combined Rules Drive Link" />
                 </div>
-                                <div class="form-element batch-info add">
+                                <div class="form-element batch-info add student">
                 <span class="q">Declaration Form Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Declaration Form Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Declaration Form Template Drive Link" />
                 </div>
-                                <div class="form-element batch-info add">
+                                <div class="form-element batch-info add student">
                 <span class="q">Internship Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Internship Rules & Regulations Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Internship Rules & Regulations Template Drive Link" />
                 </div>
-                                <div class="form-element batch-info add">
+                                <div class="form-element batch-info add student">
                 <span class="q">Placement Rules & Regulations Template Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
                 <input required type="text" name="Placement Rules & Regulations Template Drive Link" onchange="checkaccess(this)" placeholder="Enter your Placement Rules & Regulations Template Drive Link" />
                 </div>
@@ -747,19 +761,19 @@ document.getElementById("popup-40").classList.toggle("active");
     </button>
     </div>
                  <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
-               <div class="form-element">
+               <div class="form-element student">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
               </div>
               
-              <div class="form-element">
+              <div class="form-element student">
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
               </div><br>
-                <div class="form-element">
+                <div class="form-element student">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element">
+              </div><div class="form-element student">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -905,20 +919,20 @@ function showdetails(btn){
       <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
     </button>
     </div>
-                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
-               <div class="form-element">
+                 <div style="display: flex;justify-content: center; align-items:start; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element student stud-det">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
               </div>
               
-              <div class="form-element">
+              <div class="form-element student stud-det">
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
-              </div><br>
-                <div class="form-element">
+              </div>
+                <div class="form-element student stud-det">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element">
+              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -948,20 +962,20 @@ function showdetails(btn){
       <svg width="20px" height="20px" fill="#0042aa" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 41.756 41.756" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M27.948,20.878L40.291,8.536c1.953-1.953,1.953-5.119,0-7.071c-1.951-1.952-5.119-1.952-7.07,0L20.878,13.809L8.535,1.465 c-1.951-1.952-5.119-1.952-7.07,0c-1.953,1.953-1.953,5.119,0,7.071l12.342,12.342L1.465,33.22c-1.953,1.953-1.953,5.119,0,7.071 C2.44,41.268,3.721,41.755,5,41.755c1.278,0,2.56-0.487,3.535-1.464l12.343-12.342l12.343,12.343 c0.976,0.977,2.256,1.464,3.535,1.464s2.56-0.487,3.535-1.464c1.953-1.953,1.953-5.119,0-7.071L27.948,20.878z"></path> </g> </g></svg>
     </button>
     </div>
-                 <div style="display: flex;justify-content: center; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
-               <div class="form-element">
+                 <div style="display: flex;justify-content: center; align-items:start; flex-wrap: wrap;gap: 20px;margin-top: 20px;">
+               <div class="form-element student stud-det">
               <span class="q">Name</span>
               <input type="text" name="Name" id="Name"  placeholder="Enter your Name" />
               </div>
               
-              <div class="form-element">
+              <div class="form-element student stud-det">
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
-              </div><br>
-                <div class="form-element">
+              </div>
+                <div class="form-element student stud-det">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element">
+              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
