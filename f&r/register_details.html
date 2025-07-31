@@ -201,17 +201,17 @@ transition: background-color 0.3s ease;
     window.location="../logout.html";
   }
   function userPopup(){
-        console.log("ok")
+        //console.log("ok")
 document.getElementById("popup-4").classList.toggle("active");
 }
 function logoutPopup(){
-        console.log("ok")
+        //console.log("ok")
 document.getElementById("popup-3").classList.toggle("active");
 
 }
 function editPopup(edit){
-  console.log(edit)
-  console.log(batch_details_1[edit])
+  //console.log(edit)
+  //console.log(batch_details_1[edit])
    alert("Under Development, please inform the developer if you face any issues")
   var allotoption = "";
   //alert("Under Development, will be available soon")
@@ -219,7 +219,7 @@ function editPopup(edit){
   //return;
    var batch_info = document.getElementsByClassName("batch-info edit");
   var batch_name = batch_details_1[edit][0].split(" / ");
-  console.log(batch_name)
+  //console.log(batch_name)
   batch_info[0].children[1].value = batch_name[1];
   batch_info[1].children[1].value = batch_name[0];
   for (var i = 2; i < batch_info.length; i++){
@@ -830,7 +830,7 @@ return uniqueID;
 }
 async function passkey(){
            var passdevuniid =GetUniqueID();
-           console.log(passdevuniid);
+           //console.log(passdevuniid);
 if (passdevuniid[1] ==  "New"){
  document.getElementById("loader").style.display="block"; 
            document.getElementById("load").style.display="initial";
@@ -842,7 +842,7 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
            const url = new URL(window.location)
            const username = localStorage.getItem("loggedname");
            var weburl = location.hostname;
-           console.log(weburl)
+           //console.log(weburl)
            const response = await fetch(fetchurl+'/register-challenge', {
                method: 'POST',
                headers: {
@@ -855,10 +855,10 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
            const { options } = challengeResult // Server side challenge
 
            const authenticationResult = await startRegistration({optionsJSON: options})
-           console.log(authenticationResult)
+           //console.log(authenticationResult)
 
            var urlorigin= location.protocol+"//"+location.host;
-           console.log(urlorigin)
+           //console.log(urlorigin)
            var create_passkey = await fetch(fetchurl+'/register-verify', {
                method: 'POST',
                headers: {
@@ -867,11 +867,11 @@ var fetchurl = "https://passkey-5ev6.onrender.com";
                body: JSON.stringify({ username, cred: authenticationResult, challenge: options.challenge, devUniId:passdevuniid[0], weburl,urlorigin })
            })
            const create_passkeyResult = await create_passkey.json();
-           console.log(create_passkeyResult.result)
+           //console.log(create_passkeyResult.result)
            
            
 passkeysss = create_passkeyResult.info;
-console.log(create_passkeyResult.info);
+//console.log(create_passkeyResult.info);
 if (create_passkeyResult.info.userVerified){
  localStorage.setItem("Passkey-uniqueID",passdevuniid[0]);
  document.getElementById("loader").style.display="none"; 
@@ -888,18 +888,18 @@ alert("PassKey is already created for this Device")
 }
 }
 function showdetails(btn){
-  console.log(btn.parentElement.parentElement.parentElement)
+  //console.log(btn.parentElement.parentElement.parentElement)
   btn.parentElement.parentElement.parentElement.classList.toggle("active");
 }
        function approvePopup(id){
-           console.log("ok")
+           //console.log("ok")
    document.getElementById("popup-1").classList.toggle("active");
    document.getElementById("aid").value = id;
    
    }
   function removequestion(btn){
     var eachstudent = btn.parentElement.parentElement;
-    console.log(eachstudent)
+    //console.log(eachstudent)
     eachstudent.remove();
   }
 
@@ -910,7 +910,7 @@ function showdetails(btn){
     var no_of_students = students_details.children[1].children.length + 1;
         var addplace = students_details.children[1];
 
-    console.log(addplace)
+    //console.log(addplace)
     var each_student = 
     `                <div class="each-student" style="background-color: rgb(245, 245, 245);padding: 10px;border-radius: 10px; ">
                   <div style="display: flex; justify-content: space-between;align-items: center;padding:10px 30px 0 30px;">
@@ -953,7 +953,7 @@ function showdetails(btn){
     var no_of_students = students_details.children[1].children.length + 1;
         var addplace = students_details.children[1];
 
-    console.log(addplace)
+    //console.log(addplace)
     var each_student = 
     `                <div class="each-student" style="background-color: rgb(245, 245, 245);padding: 10px;border-radius: 10px; ">
                   <div style="display: flex; justify-content: space-between;align-items: center;padding:10px 30px 0 30px;">
@@ -993,7 +993,7 @@ function showdetails(btn){
    document.getElementById("popup-1").classList.toggle("active");
    }
    function declinePopup(id){
-       console.log("ok")
+       //console.log("ok")
    document.getElementById("popup-2").classList.toggle("active");
    document.getElementById("did").value = id;
    
@@ -1048,11 +1048,11 @@ function showdetails(btn){
         }
       }
 
-      console.log(info_value)
+      //console.log(info_value)
       batch.push(info_value);
     }
     var batch_students = document.getElementById("full-students").children[1].children;
-    console.log(batch_students)
+    //console.log(batch_students)
     if (batch_students.length == 0){
       alert("Please add at least one student");
       batch = [];
@@ -1060,13 +1060,13 @@ function showdetails(btn){
     }
     var students = [];
 for (var g = 0; g < batch_students.length; g++){
-  console.log(g)
+  //console.log(g)
       var student = batch_students[g];
       var student_info = student.children[1].querySelectorAll("input");
       var student_details = [];
   for (var h = 0; h < student_info.length; h++){
         var info = student_info[h];
-        //console.log(info)
+        ////console.log(info)
         var info_value = info.value;
         if(info_value == ""){
         alert("Please fill all the details");
@@ -1076,23 +1076,23 @@ for (var g = 0; g < batch_students.length; g++){
         return;
       }
       //
-      //   console.log(info_value)
+      //   //console.log(info_value)
         student_details.push(info_value);
       }
       students.push(student_details);
     }
-    console.log(students)
+    //console.log(students)
     var batch_details = {
       batch: batch,
       students: students
     }
-    console.log(batch_details)
+    //console.log(batch_details)
     document.getElementById("loader").style.display="block"; 
            document.getElementById("load").style.display="initial";
            document.getElementById("message").textContent="Adding Batch Details....";
   
       var batch_detailss = JSON.stringify(batch_details);
-      console.log(batch_detailss)
+      //console.log(batch_detailss)
      fetch(
         "https://script.google.com/macros/s/AKfycbz_Ing1S2hda1D-FZ0pj-l1uQQUuR3fgvtae_ronFwj5W2nNtAAJE2Q4BrT6N238e4g/exec",
         {
@@ -1120,7 +1120,7 @@ for (var g = 0; g < batch_students.length; g++){
           const result1 = await data.json();
   var userdetails = result1.data2;
   if(userdetails == "success"){
-           console.log("Batch Details Added Successfully");
+           //console.log("Batch Details Added Successfully");
   
   document.getElementById("loader").style.display="none"; 
        
@@ -1131,7 +1131,7 @@ for (var g = 0; g < batch_students.length; g++){
            },2000);
           }
           else if(userdetails == "duplicate"){
-           console.log("Batch Details Already Exists");{
+           //console.log("Batch Details Already Exists");{
             document.getElementById("loader").style.display="none"; 
        
            document.getElementById("message").textContent="Batch Details Already Exists ";
@@ -1139,7 +1139,7 @@ for (var g = 0; g < batch_students.length; g++){
             document.getElementById("load").style.display="none";
        
            },2000);
-          }
+          
         }
         })
   
@@ -1195,7 +1195,7 @@ for (var g = 0; g < batch_students.length; g++){
         }
       }
 
-      console.log(info_value)
+      //console.log(info_value)
       if(i === 2){
         batch.push([info_value,i-1]);
       }
@@ -1204,7 +1204,7 @@ for (var g = 0; g < batch_students.length; g++){
       }
     }
     var batch_students = document.getElementById("full-students-edit").children[1].children;
-    console.log(batch_students)
+    //console.log(batch_students)
     if (batch_students.length == 0){
       alert("Please add at least one student");
       batch = [];
@@ -1212,13 +1212,13 @@ for (var g = 0; g < batch_students.length; g++){
     }
     var students = [];
 for (var g = 0; g < batch_students.length; g++){
-  console.log(g)
+  //console.log(g)
       var student = batch_students[g];
       var student_info = student.children[1].querySelectorAll("input");
       var student_details = [];
   for (var h = 0; h < student_info.length; h++){
         var info = student_info[h];
-        //console.log(info)
+        ////console.log(info)
         var info_value = info.value;
         if(info_value == ""){
         alert("Please fill all the details");
@@ -1228,25 +1228,25 @@ for (var g = 0; g < batch_students.length; g++){
         return;
       }
       //
-      //   console.log(info_value)
+      //   //console.log(info_value)
         student_details.push(info_value);
       }
        student_details.push(g+7);
       students.push(student_details);
     }
-    console.log(students)
+    //console.log(students)
     var remove_student_indexs = [];
     var remove_batch_indexs = [];
     batch[0]= [batch[1][0]+ " / " + batch[0][0],6];
     batch.splice(1, 1); // Remove the second element (old batch name)
     students.forEach((student, index) => {
-      console.log(student)
-      console.log(old_batch_info_students[index])
-      console.log(student[0] == old_batch_info_students[index][0])
-      console.log(student[1] == old_batch_info_students[index][1])
-      console.log(student[2] == old_batch_info_students[index][2])
-      console.log(student[3] == old_batch_info_students[index][3])
-      console.log(index)
+      //console.log(student)
+      //console.log(old_batch_info_students[index])
+      //console.log(student[0] == old_batch_info_students[index][0])
+      //console.log(student[1] == old_batch_info_students[index][1])
+      //console.log(student[2] == old_batch_info_students[index][2])
+      //console.log(student[3] == old_batch_info_students[index][3])
+      //console.log(index)
       if (student[0] == old_batch_info_students[index][0] && student[1] == old_batch_info_students[index][1] && student[2] == old_batch_info_students[index][2] && student[3] == old_batch_info_students[index][3]){
  //student.splice(index, 1);
         remove_student_indexs.push(index);
@@ -1260,21 +1260,21 @@ for (var g = 0; g < batch_students.length; g++){
     
   }
     })
-    console.log("Remove Student Indexes: " + remove_student_indexs);
-    console.log("Remove Batch Indexes: " + remove_batch_indexs);
+    //console.log("Remove Student Indexes: " + remove_student_indexs);
+    //console.log("Remove Batch Indexes: " + remove_batch_indexs);
 
 remove_student_indexs
   .sort((a, b) => b - a) // sort in descending order
   .forEach((index) => {
-    console.log("Removing student at index: " + index);
-    console.log(students[index]);
+    //console.log("Removing student at index: " + index);
+    //console.log(students[index]);
     students.splice(index, 1);
   });
 /*remove_batch_indexs
   .sort((a, b) => b - a) // sort in descending order
   .forEach((index) => {
-    console.log("Removing batch info at index: " + index);
-    console.log(ba[index]);
+    //console.log("Removing batch info at index: " + index);
+    //console.log(ba[index]);
       batch.splice(index, 1);
   });*/
 
@@ -1282,14 +1282,18 @@ remove_student_indexs
   .sort((a, b) => b - a) // descending order
   .forEach((index) => {
     if(batch[index]){
-        console.log("Removing batch info at index: " + index);
-    console.log(batch[index]);
+        //console.log("Removing batch info at index: " + index);
+    //console.log(batch[index]);
     batch.splice(index, 1);
     }
   });
-
-    if(student.length == 0 && batch.length == 0){
-     console.log("No changes made to the batch details");
+//console.log(students.length,batch.length)
+//console.log(students.length === 0 )
+//console.log(batch.length === 0)
+//console.log(students.length === 0 && batch.length === 0)
+    if(students.length === 0 && batch.length === 0){
+      
+     //console.log("No changes made to the batch details");
      alert("No changes made to the batch details");
       return;
       }
@@ -1298,13 +1302,13 @@ remove_student_indexs
       batch: batch,
       students: students
     }
-    console.log(batch_details)
+    //console.log(batch_details)
     document.getElementById("loader").style.display="block"; 
            document.getElementById("load").style.display="initial";
            document.getElementById("message").textContent="Updating Batch Details....";
   
       var batch_detailss = JSON.stringify(batch_details);
-      console.log(batch_detailss)
+      //console.log(batch_detailss)
      fetch(
         "https://script.google.com/macros/s/AKfycbx0sxgODlsol5a8kUF4JlPgJSOhYrsLF6PlBYoAkG5nwvsCFS2JgeHSEbKh5QDA_QX7Xw/exec",
         {
@@ -1332,7 +1336,7 @@ remove_student_indexs
           const result1 = await data.json();
   var userdetails = result1.data2;
   if(userdetails == "success"){
-           console.log("Batch Details Edited Successfully");
+           //console.log("Batch Details Edited Successfully");
   
   document.getElementById("loader").style.display="none"; 
        
@@ -1343,7 +1347,7 @@ remove_student_indexs
            },2000);
           }
           else if(userdetails == "duplicate"){
-           console.log("Batch Details Already Exists");{
+           //console.log("Batch Details Already Exists");{
             document.getElementById("loader").style.display="none"; 
        
            document.getElementById("message").textContent="Batch Details Already Exists ";
@@ -1351,10 +1355,10 @@ remove_student_indexs
             document.getElementById("load").style.display="none";
        
            },2000);
-          }
+          
         }
          else if(userdetails == "Batch not found"){
-           console.log("Batch not found");{
+           //console.log("Batch not found");{
             document.getElementById("loader").style.display="none"; 
        
            document.getElementById("message").textContent="Batch not found ";
@@ -1362,7 +1366,7 @@ remove_student_indexs
             document.getElementById("load").style.display="none";
        
            },2000);
-          }
+          
         }
         })
   
@@ -1382,8 +1386,8 @@ remove_student_indexs
    var uname ;
   
   uname = localStorage.getItem("loggedname");
-  console.log(uname)
-  console.log(document.getElementById("profileimage").src)
+  //console.log(uname)
+  //console.log(document.getElementById("profileimage").src)
   document.getElementById("mname").innerHTML = uname;
   
   if (uname==undefined){
@@ -1405,7 +1409,7 @@ function getuserdetailsonload(){
 
 
       var formDataString ="/2";
-      //console.log(formDataString)
+      ////console.log(formDataString)
   
       fetch(
         "https://script.google.com/macros/s/AKfycbyuypZgac5N95Vs8yrB6pokprdJXZ6gK56CRfzc8srYa-4AKHHZ1m3CuslPA8Mbt0c3bA/exec",
@@ -1433,18 +1437,18 @@ function getuserdetailsonload(){
           getuserdetailsonload();
           const result1 = await data.json();
   var userdetails = result1.data2;
-  console.log(userdetails);
+  //console.log(userdetails);
   var batch_select = document.getElementById("Batch-full-details");
  var batchs = userdetails.students;
  batch_details_1 = batchs;
- console.log(batchs)
+ //console.log(batchs)
 var reversedbatchs = batchs.reverse();
-  console.log(reversedbatchs);
+  //console.log(reversedbatchs);
    var full_batch = '';
 reversedbatchs.forEach((batch,batch_index) => {
-//console.log(batch);
+////console.log(batch);
 var studeents_details = batch[5];
-//console.log(batch[5]);
+////console.log(batch[5]);
 var students_html = `      <table>
         <thead>
           <tr>
@@ -1460,7 +1464,7 @@ var students_html = `      <table>
   `;
   batch_list = [];
 studeents_details.forEach((student) => {
-  //console.log(student);
+  ////console.log(student);
   students_html += `<tr><td>${student[0]}</td><td>${student[1]}</td><td>${student[2]}</td><td>${student[3]}</td></tr>`;
 })
 students_html +=`</tbody> </table>`;
@@ -1497,16 +1501,16 @@ batch_list.push(batch[0])
     </div>
 </div>
   `;
-  //console.log(batch_html);
+  ////console.log(batch_html);
   full_batch += batch_html; 
 })
     if(lasthash != JSON.stringify(userdetails)){
 batch_select.innerHTML = full_batch;
     lasthash = JSON.stringify(userdetails);
-    console.log("Details Updated");
+    //console.log("Details Updated");
     }
     else{
-      console.log("Details Not Updated");
+      //console.log("Details Not Updated");
     }
         })
   
@@ -1524,7 +1528,7 @@ batch_select.innerHTML = full_batch;
   function checkbatch(){
     var batch = document.getElementsByClassName("batch-info");
     var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
-    console.log(batch_value)
+    //console.log(batch_value)
     if (batch_list.includes(batch_value)){
       alert("Batch Already Exists");
       batch[1].children[1].value = "";
@@ -1551,7 +1555,7 @@ batch_select.innerHTML = full_batch;
           else{
             btn.style.border = "1px solid #d0d2e2";
           }
-console.log(link)
+//console.log(link)
          fetch(
         "https://script.google.com/macros/s/AKfycbxgnapDrmpiFYrfK_-AHphjF16LPtqDBYFWTvIE8lNq3AF4MtGVeOrsF0j8NjxcWGRToA/exec",
         {
@@ -1578,17 +1582,17 @@ console.log(link)
    
           const result1 = await data.json();
   var userdetails = result1.data2;
-  console.log(userdetails);
+  //console.log(userdetails);
   if(userdetails){
-           console.log("Access Granted");
+           //console.log("Access Granted");
           }
           else {
-           console.log("No Access");
+           //console.log("No Access");
 
     
           alert(btn.previousElementSibling.textContent+" link you had given is not valid or you have not given access to the iacniftemt@gmail.com. Please check the link or access.");
        btn.value = "";
-           console.log("No Access");
+           //console.log("No Access");
         }
         })
   
@@ -1605,18 +1609,18 @@ console.log(link)
         var fol = fileurl1.className;
         file1.addEventListener('change',()=>{
         let fr = new FileReader();
-        console.log(file1.value)
+        //console.log(file1.value)
         var rawformats = file1.accept;
-        console.log(rawformats)
+        //console.log(rawformats)
     var formats = rawformats.split(",");
-    console.log(formats)
+    //console.log(formats)
     var supformat = false;
     for(var i=0;i<formats.length;i++){
       if(file1.value.includes(formats[i])){
         supformat = true;
       }
     }
-    console.log(supformat)
+    //console.log(supformat)
         if (supformat){
           document.getElementById("load").style.display="initial";
            document.getElementById("loader").style.display="block"; 
