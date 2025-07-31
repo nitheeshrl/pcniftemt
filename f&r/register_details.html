@@ -247,7 +247,7 @@ batch_info[i].children[1].value = batch_details_1[edit][i-1];
     });
 
 document.getElementById("full-students-edit").children[1].innerHTML =studentshtml;
-
+document.getElementById("edit-batch-btn").setAttribute("onclick",`editbatchinfo(${edit})`);
 document.getElementById("popup-100").classList.toggle("active");
 }
 function addPopup(){
@@ -611,7 +611,7 @@ document.getElementById("popup-40").classList.toggle("active");
                 
                 <div class="form-element batch-info edit">
                 <span class="q">Degree</span>
-                <select required name="Degree" onchange="checkbatch()" >
+                <select required name="Degree"  >
                   <option value="">Select the Degree</option>
                   <option value="B.Tech - Food Technology ">B.Tech - Food Technology </option>
                   <option value="M.Tech - Food Process Technology">M.Tech - Food Process Technology</option>
@@ -622,7 +622,7 @@ document.getElementById("popup-40").classList.toggle("active");
 
                 <div class="form-element batch-info edit">
                 <span class="q">Batch</span>
-                <input required type="number" name="Batch"  placeholder="Enter your Batch"  onchange="checkbatch()" />
+                <input required type="number" name="Batch"  placeholder="Enter your Batch"  />
                 </div>
                 <div class="form-element batch-info edit">
                 <span class="q">Combined Rules Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
@@ -683,7 +683,7 @@ document.getElementById("popup-40").classList.toggle("active");
                
               <div class="popup-btn">
                   <input id="aid" type="hidden" value="">
-          <a class="btn" id="apbt" onclick="addbatchinfo()">Update</a>
+          <a class="btn" id="edit-batch-btn">Update</a>
           <a class="btn" onclick="togglePopup100()">Cancel</a>
               </div>
               </div>
@@ -999,7 +999,7 @@ function showdetails(btn){
    document.getElementById("popup-100").classList.toggle("active");
    }
    function addbatchinfo(){
-    var batch_info = document.getElementsByClassName("batch-info");
+    var batch_info = document.getElementsByClassName("batch-info add");
     var batch = [];
   for (var i = 0; i < batch_info.length; i++){
       var info = batch_info[i];
@@ -1140,6 +1140,230 @@ for (var g = 0; g < batch_students.length; g++){
            },2000);
         }); 
   }
+
+   function editbatchinfo(batch_no){
+    var old_batch_info = batch_details_1[batch_no];
+    var old_batch_info_students = old_batch_info[5];
+    var batch_column = old_batch_info[6];
+    var old_batch_name = batch_details_1[batch_no][0].split(" / ");
+    var batch_info = document.getElementsByClassName("batch-info edit");
+    var batch = [];
+  for (var i = 0; i < batch_info.length; i++){
+      var info = batch_info[i];
+      var info_value = info.children[1].value;
+      var info_name = info.children[1].name;
+      if(info_value == ""){
+        alert("Please fill all the details");
+        info.children[1].style.border = "1px solid red";
+        batch = [];
+        return;
+      }
+         else{
+          info.children[1].style.border = "1px solid #d0d2e2";
+        }
+      if (info_name.includes("Drive Link")){
+        if (!info_value.includes("drive.google.com/")&&!info_value.includes("docs.google.com/")){
+          alert("Please enter a valid Drive Link");
+          if(!info_value.includes("docs.google.com/")&&!info.children[0].textContent.includes("Combined Rules Drive Link")){
+            alert("Please enter a valid Drive Link in formaet of word document");
+            info.children[1].style.border = "1px solid red";
+          }
+          else{
+            info.children[1].style.border = "1px solid #d0d2e2";
+          }
+         info.children[1].style.border = "1px solid red";
+          batch = [];
+          return;
+        }
+        else{
+          info.children[1].style.border = "1px solid #d0d2e2";
+        }
+      }
+
+      console.log(info_value)
+      if(i === 2){
+        batch.push([info_value,i-1]);
+      }
+      else{
+      batch.push([info_value,i]);
+      }
+    }
+    var batch_students = document.getElementById("full-students-edit").children[1].children;
+    console.log(batch_students)
+    if (batch_students.length == 0){
+      alert("Please add at least one student");
+      batch = [];
+      return;
+    }
+    var students = [];
+for (var g = 0; g < batch_students.length; g++){
+  console.log(g)
+      var student = batch_students[g];
+      var student_info = student.children[1].querySelectorAll("input");
+      var student_details = [];
+  for (var h = 0; h < student_info.length; h++){
+        var info = student_info[h];
+        //console.log(info)
+        var info_value = info.value;
+        if(info_value == ""){
+        alert("Please fill all the details");
+        info.style.border = "1px solid red";
+        students = [];
+        batch = [];
+        return;
+      }
+      //
+      //   console.log(info_value)
+        student_details.push(info_value);
+      }
+       student_details.push(g+7);
+      students.push(student_details);
+    }
+    console.log(students)
+    var remove_student_indexs = [];
+    var remove_batch_indexs = [];
+    batch[0]= [batch[1][0]+ " / " + batch[0][0],6];
+    batch.splice(1, 1); // Remove the second element (old batch name)
+    students.forEach((student, index) => {
+      console.log(student)
+      console.log(old_batch_info_students[index])
+      console.log(student[0] == old_batch_info_students[index][0])
+      console.log(student[1] == old_batch_info_students[index][1])
+      console.log(student[2] == old_batch_info_students[index][2])
+      console.log(student[3] == old_batch_info_students[index][3])
+      console.log(index)
+      if (student[0] == old_batch_info_students[index][0] && student[1] == old_batch_info_students[index][1] && student[2] == old_batch_info_students[index][2] && student[3] == old_batch_info_students[index][3]){
+ //student.splice(index, 1);
+        remove_student_indexs.push(index);
+      }
+    });
+       batch.forEach((batch_info, index) => {
+
+      if (batch_info[0] == old_batch_info[index]){
+       // batch.splice(index, 1);
+       remove_batch_indexs.push(index);
+    
+  }
+    })
+    console.log("Remove Student Indexes: " + remove_student_indexs);
+    console.log("Remove Batch Indexes: " + remove_batch_indexs);
+
+remove_student_indexs
+  .sort((a, b) => b - a) // sort in descending order
+  .forEach((index) => {
+    console.log("Removing student at index: " + index);
+    console.log(students[index]);
+    students.splice(index, 1);
+  });
+/*remove_batch_indexs
+  .sort((a, b) => b - a) // sort in descending order
+  .forEach((index) => {
+    console.log("Removing batch info at index: " + index);
+    console.log(ba[index]);
+      batch.splice(index, 1);
+  });*/
+
+ remove_batch_indexs
+  .sort((a, b) => b - a) // descending order
+  .forEach((index) => {
+    if(batch[index]){
+        console.log("Removing batch info at index: " + index);
+    console.log(batch[index]);
+    batch.splice(index, 1);
+    }
+  });
+
+    if(student.length == 0 || batch.length == 0){
+     console.log("No changes made to the batch details");
+     alert("No changes made to the batch details");
+      return;
+      }
+   var batch_details = {
+    batch_no: batch_column,
+      batch: batch,
+      students: students
+    }
+    console.log(batch_details)
+    document.getElementById("loader").style.display="block"; 
+           document.getElementById("load").style.display="initial";
+           document.getElementById("message").textContent="Updating Batch Details....";
+  
+      var batch_detailss = JSON.stringify(batch_details);
+      console.log(batch_detailss)
+     fetch(
+        "https://script.google.com/macros/s/AKfycbx0sxgODlsol5a8kUF4JlPgJSOhYrsLF6PlBYoAkG5nwvsCFS2JgeHSEbKh5QDA_QX7Xw/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: batch_detailss,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+  
+        .then(function (response) {
+  
+          // Check if the request was successful
+          if (response) {
+       
+            return response; // Assuming your script returns JSON response
+          } else {
+            throw new Error("Failed to fetch");
+          }
+        })
+        .then(async function (data) {
+   
+          const result1 = await data.json();
+  var userdetails = result1.data2;
+  if(userdetails == "success"){
+           console.log("Batch Details Edited Successfully");
+  
+  document.getElementById("loader").style.display="none"; 
+       
+           document.getElementById("message").textContent="Batch Details Updated Successfully";
+           setTimeout(function () { 
+            document.getElementById("load").style.display="none";
+             togglePopup100();
+           },2000);
+          }
+          else if(userdetails == "duplicate"){
+           console.log("Batch Details Already Exists");{
+            document.getElementById("loader").style.display="none"; 
+       
+           document.getElementById("message").textContent="Batch Details Already Exists ";
+           setTimeout(function () { 
+            document.getElementById("load").style.display="none";
+       
+           },2000);
+          }
+        }
+         else if(userdetails == "Batch not found"){
+           console.log("Batch not found");{
+            document.getElementById("loader").style.display="none"; 
+       
+           document.getElementById("message").textContent="Batch not found ";
+           setTimeout(function () { 
+            document.getElementById("load").style.display="none";
+       
+           },2000);
+          }
+        }
+        })
+  
+        .catch(function (error) {
+          // Handle errors, you can display an error message here
+          console.error(error);
+     document.getElementById("loader").style.display="none"; 
+           
+           document.getElementById("message").textContent="Failed to Update Batch Details";
+           setTimeout(function () { 
+                  document.getElementById("load").style.display="none";
+             togglePopup100();
+           },2000);
+        }); 
+  }
+
    var uname ;
   
   uname = localStorage.getItem("loggedname");
@@ -1194,12 +1418,13 @@ function getuserdetailsonload(){
           getuserdetailsonload();
           const result1 = await data.json();
   var userdetails = result1.data2;
-  //console.log(userdetails);
+  console.log(userdetails);
   var batch_select = document.getElementById("Batch-full-details");
  var batchs = userdetails.students;
  batch_details_1 = batchs;
  console.log(batchs)
 var reversedbatchs = batchs.reverse();
+  console.log(reversedbatchs);
    var full_batch = '';
 reversedbatchs.forEach((batch,batch_index) => {
 //console.log(batch);
@@ -1303,7 +1528,7 @@ batch_select.innerHTML = full_batch;
 
     var link = btn.value;
                   if(!link.includes("docs.google.com/")&&!btn.previousElementSibling.textContent.includes("Combined Rules Drive Link")){
-            alert("Please enter a valid Drive Link in formaet of word document");
+            alert("Please enter a valid Drive Link in format of word document");
             btn.style.border = "1px solid red";
             btn.value = "";
             return
