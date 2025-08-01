@@ -262,6 +262,10 @@ batch_info[i].children[1].value = batch_details_1[edit][i-1];
 
 document.getElementById("full-students-edit").children[1].innerHTML =studentshtml;
 document.getElementById("edit-batch-btn").setAttribute("onclick",`editbatchinfo(${edit})`);
+var batch = document.getElementsByClassName("form-element batch-info edit student");
+console.log(batch)
+batch[1].children[1].setAttribute("onchange",`editcheckbatch(${edit})`);
+batch[0].children[1].setAttribute("onchange",`editcheckbatch(${edit})`);
 document.getElementById("popup-100").classList.toggle("active");
 }
 function addPopup(){
@@ -624,9 +628,9 @@ document.getElementById("popup-40").classList.toggle("active");
             
 
                 
-                <div class="form-element batch-info edit">
+                <div class="form-element batch-info edit student">
                 <span class="q">Degree</span>
-                <select required name="Degree"  >
+                <select required name="Degree"  onchange="editcheckbatch()">
                   <option value="">Select the Degree</option>
                   <option value="B.Tech - Food Technology ">B.Tech - Food Technology </option>
                   <option value="M.Tech - Food Process Technology">M.Tech - Food Process Technology</option>
@@ -637,7 +641,7 @@ document.getElementById("popup-40").classList.toggle("active");
 
                 <div class="form-element batch-info edit student">
                 <span class="q">Batch</span>
-                <input required type="number" name="Batch"  placeholder="Enter your Batch"  />
+                <input required type="number" name="Batch"  placeholder="Enter your Batch"  onchange="editcheckbatch()" />
                 </div>
                 <div class="form-element batch-info edit student">
                 <span class="q">Combined Rules Drive Link <br> (With edit access to "iacniftemt@gmail.com")</span>
@@ -1403,7 +1407,8 @@ var students_details = [];
 var name_list = [];
 var old_students = [];
 var batch_details_1 = [];
-var batch_list = [];
+var batch_list_1 = [];
+var pc_data_1 = [];
 function getuserdetailsonload(){
     console.log("Registration Details Fetching....")
 
@@ -1437,6 +1442,9 @@ function getuserdetailsonload(){
           getuserdetailsonload();
           const result1 = await data.json();
   var userdetails = result1.data2;
+  var {pc_data} = result1.data2;
+  pc_data_1 = pc_data;
+  //console.log(pc_data);
   //console.log(userdetails);
   var batch_select = document.getElementById("Batch-full-details");
  var batchs = userdetails.students;
@@ -1469,6 +1477,7 @@ studeents_details.forEach((student) => {
 })
 students_html +=`</tbody> </table>`;
 batch_list.push(batch[0])
+batch_list_1.push(batch[0])
  var batch_html = `
   <div class="Batch">
   <div class="Batch-Degree-Links">
@@ -1526,10 +1535,13 @@ batch_select.innerHTML = full_batch;
   }
 
   function checkbatch(){
-    var batch = document.getElementsByClassName("batch-info");
+    var batch = document.getElementsByClassName("form-element batch-info add student");
     var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
-    //console.log(batch_value)
-    if (batch_list.includes(batch_value)){
+    console.log(batch_value)
+    console.log(batch_list_1)
+    console.log(batch_list_1.includes(batch_value))
+    if(batch[1].children[1].value=="" || batch[0].children[1].value=="") return
+    if (batch_list_1.includes(batch_value)){
       alert("Batch Already Exists");
       batch[1].children[1].value = "";
       batch[0].children[1].value = "";
@@ -1541,8 +1553,70 @@ batch_select.innerHTML = full_batch;
       batch[1].children[1].style.border = "1px solid #d0d2e2";
       batch[0].children[1].style.border = "1px solid #d0d2e2";
     }
+console.log(pc_data_1[batch_value]==[])
+console.log(pc_data_1[batch_value]==undefined)
+
+    if(pc_data_1[batch_value]==undefined || pc_data_1[batch_value]==[]){
+      alert("No members found for this batch. Please add members to this batch before proceeding.");
+      batch[1].children[1].value = "";
+      batch[0].children[1].value = "";
+      batch[1].children[1].style.border = "1px solid red";
+      batch[0].children[1].style.border = "1px solid red";
+      return;
+    }
+    else{
+      batch[1].children[1].style.border = "1px solid #d0d2e2";
+      batch[0].children[1].style.border = "1px solid #d0d2e2";
+    }
+
   }
     
+  function editcheckbatch(batch_no){
+    var batch = document.getElementsByClassName("form-element batch-info edit student");
+    var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
+   // console.log(batch_value)
+    //console.log(batch_list_1)
+    //console.log(batch_list_1.includes(batch_value))
+    console.log(batch_no)
+console.log(batch_details_1[batch_no][0])
+if(batch[1].children[1].value=="" || batch[0].children[1].value=="") return
+if(batch_value == batch_details_1[batch_no][0]) {
+ 
+      batch[1].children[1].style.border = "1px solid #d0d2e2";
+      batch[0].children[1].style.border = "1px solid #d0d2e2";
+     
+  return;
+}
+    if (batch_list_1.includes(batch_value)){
+      alert("Batch Already Exists");
+      batch[1].children[1].value = "";
+      batch[0].children[1].value = "";
+      batch[1].children[1].style.border = "1px solid red";
+      batch[0].children[1].style.border = "1px solid red";
+      return;
+    }
+    else{
+      batch[1].children[1].style.border = "1px solid #d0d2e2";
+      batch[0].children[1].style.border = "1px solid #d0d2e2";
+    }
+console.log(pc_data_1[batch_value]==[])
+console.log(pc_data_1[batch_value]==undefined)
+
+    if(pc_data_1[batch_value]==undefined || pc_data_1[batch_value]==[]){
+      alert("No members found for this batch. Please add members to this batch before proceeding.");
+      batch[1].children[1].value = "";
+      batch[0].children[1].value = "";
+      batch[1].children[1].style.border = "1px solid red";
+      batch[0].children[1].style.border = "1px solid red";
+      return;
+    }
+    else{
+      batch[1].children[1].style.border = "1px solid #d0d2e2";
+      batch[0].children[1].style.border = "1px solid #d0d2e2";
+    }
+
+  }
+
   function checkaccess(btn){
 
     var link = btn.value;
