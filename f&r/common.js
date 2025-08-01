@@ -26,7 +26,7 @@ function checkinternet(){
 setInterval(checkinternet,100)
 
 function getuserdetailsonload(user){
-    //console.log("User Detail Fetching....")
+    console.log("User Detail Fetching....")
     var ruserdetails = localStorage.getItem("loggeduserdetails");
 
       var formDataString =user+"/2";

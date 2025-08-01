@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corperate Contact Form Responses</title>
+  <link rel="icon" href="white_logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="style 3.css">
+  <script type="text/javascript" src="app.js" defer></script>
+  <link rel="manifest" href="manifest.json">
+  <script src="script-notification.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="style 1.css" />
+  <link rel="stylesheet" type="text/css" href="style 2.css">
+  <style>
+    table .approve {
+      border-radius: 20px;
+      padding: 10px;
+      color: white;
+      font-weight: bolder;
+      background-color: green;
+      margin-right: 20px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    table .decline {
+      border-radius: 20px;
+      padding: 10px;
+      color: white;
+      font-weight: bolder;
+      background-color: red;
+      margin-right: 20px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .tablebee {
+      display: none;
+    }
+    .btn {
+      background-color: #182d8b;
+      margin-right: 20px;
+      text-decoration: none;
+      color: white;
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+    }
+    .btn1 {
+      background-color: #182d8b;
+      height: 40px;
+      text-decoration: none;
+      color: white;
+      border-radius: 20px;
+      padding: 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+ 
+  </style>
+</head>
+<body>
+  <div class="internetstatus-box" id="internetstatus-box">
+    <div class="internetstatus" id="internetstatus">
+      <span>You are Online</span>
+    </div>
+  </div>
+  <script src="common.js"></script>
+  <nav id="sidebar">
+    <!-- Your sidebar content here -->
+  </nav>
+  <main>
+    <div class="container">
+      <main class="table" id="customers_table">
+        <section class="table__header">
+          <div class="input-group">
+            <input type="search" id="searchInput" placeholder="Search...">
+            <img src="images/search.png" alt="">
+          </div>
+        </section>
+
+        <section id="tablebee" class="tablebee">         
+          <section class="table__body">
+            <table id="tabdetails"></table>
+          </section>
+        </section> 
+
+        <section class="msg">
+          <h1 style="text-align: center;"></h1>
+          <div id="dfiled" style="align-content:normal; margin-left: 0px;margin-right: auto; margin-top: 30px;">
+            <p style="text-align: left;">
+              <div></div> 
+              <span id="status" style="color: black;"></span>
+            </p>
+          </div>
+        </section>
+      </main>
+      
+      <!-- Popup elements -->
+      <div class="popup" id="popup-1">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="close-btn" onclick="togglePopup()">&times;</div>
+          <h1 style="margin-top: 50px;">Confirm Update Approval</h1>
+          <p style="margin-bottom: 40px;color: black;margin-top: 10px;">Are you sure you wish to approve the Brochure details update? </p>
+          <div>
+            <input id="aid" type="hidden" value="">
+            <a class="btn" id="apbt" onclick="approve()">Confirm</a>
+            <a class="btn" onclick="togglePopup()">Cancel</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="popup" id="popup-2">
+        <div class="overlay"></div>
+        <div class="content" style="height:400px;">
+          <div class="close-btn" onclick="togglePopup2()">&times;</div>
+          <h1 style="margin-top: 50px;">Confirm Update Decline</h1>
+          <p style="margin-bottom: 40px;color: black;margin-top: 10px;">Are you sure you wish to decline the Brochure details update? </p>
+          <div>
+            <div class="form-element" style="flex-direction: column;align-items: flex-start; width: 100%;margin-bottom: 40px;">
+              <span class="q">Reason for decline</span>
+              <input type="text" name="Reason" id="Reason" style="width: 100%;" placeholder="Enter the reason" />
+            </div>
+            <input id="did" type="hidden" value="">
+            <a class="btn" id="decbt" onclick="decline()" style="background-color: red;">Decline</a>
+            <a class="btn" onclick="togglePopup2()">Cancel</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="popup" id="popup-3">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="close-btn" onclick="togglePopup3()">&times;</div>
+          <h1 style="margin-top: 50px;">Are you sure to logout?</h1>
+          <p style="margin-bottom: 40px;"></p>
+          <div>
+            <a class="btn" onclick="logout()">Yes</a>
+            <a class="btn" onclick="togglePopup3()">Cancel</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="load" id="load" > 
+        <div class="loader" id="loader"></div> 
+        <div id="message" class="message" style="width: 350px;"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/@simplewebauthn/browser/dist/bundle/index.umd.min.js"></script>
+  <script src="scriptform.js"></script>
+  <script src="https://web-socket-1-kmp6.onrender.com/socket.io/socket.io.js"></script>
+  <script src="socket.js"></script>
+
+  <script>
+    // Global variables
+    let cachedData = null;
+    let ustatus1 = "";
+    let debounceTimer;
+    let fetchInterval;
+    
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set profile picture if available
+      var porfilepicback = sessionStorage.getItem("backprofilepic");
+      if (porfilepicback !== null) {
+        document.getElementById("profileimage").src = porfilepicback;
+        document.getElementById("profileimage1").src = porfilepicback;
+      }
+
+      // Check if user is logged in
+      var uname = localStorage.getItem("loggedname");
+      if (!uname) {
+        alert("You are not logged in. Please log in");
+        sessionStorage.setItem("lastpage", window.location.pathname);
+        window.location = "../index.html";
+        return;
+      }
+      
+      document.getElementById("mname").innerHTML = uname;
+      document.getElementById("status").style.display = "initial";
+      document.getElementById("status").textContent = "Fetching responses....";
+      
+      // Setup search functionality
+      document.getElementById('searchInput').addEventListener('input', function(e) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          searchTable(e.target.value);
+        }, 300);
+      });
+      
+      // Initial data fetch
+      fetchd();
+      
+      // Set up periodic refresh every 30 seconds
+      fetchInterval = setInterval(fetchd, 30000);
+      
+      // Set up beforeunload handler
+      window.addEventListener('beforeunload', function() {
+        clearInterval(fetchInterval);
+      });
+    });
+
+    function searchTable(searchTerm) {
+      if (!cachedData) return;
+      
+      const rows = document.querySelectorAll('#tabdetails tbody');
+      if (searchTerm.trim() === "") {
+        rows.forEach(row => row.style.display = '');
+        return;
+      }
+      
+      searchTerm = searchTerm.toLowerCase();
+      let anyVisible = false;
+      
+      rows.forEach(row => {
+        const rowText = row.textContent.toLowerCase();
+        if (rowText.includes(searchTerm)) {
+          row.style.display = '';
+          anyVisible = true;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+      
+      document.getElementById("status").style.display = anyVisible ? "none" : "initial";
+      document.getElementById("status").textContent = "No matching responses found";
+    }
+
+    function fetchd() {
+     //ader("Fetching responses...");
+      
+      var rid = localStorage.getItem("loggeduserdetails");
+      if (!rid) {
+        hideLoader();
+        return;
+      }
+      
+      var uid = JSON.parse(rid).id;
+      
+      fetch(
+        "https://script.google.com/macros/s/AKfycby_ELy_Nulv6CSTuZ8livezXP00bWixs4Xipe_ldyabS9T43lHm0cHUmNHgvFtbOY5w_g/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: uid,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+      .then(function(response) {
+        if (response) {
+          return response;
+        } else {
+          throw new Error("Failed to fetch.");
+        }
+      })
+      .then(async function(data) {
+        const result1 = await data.json();
+        var {head,r} = result1.data2;
+   
+        cachedData = { r, head };
+        renderTable(cachedData);
+          if (ustatus1 !== "Going") {
+        hideLoader();
+          }
+         fetchd();
+      })
+      .catch(function(error) {
+        console.error(error);
+        if (ustatus1 !== "Going") {
+         // showLoader("Failed to Fetch Requests. Try refreshing.", true);
+        }
+        // Retry after 5 seconds
+       fetchd();
+      });
+    }
+  let ionce = "";
+    function renderTable(dataObj) {
+      const r = dataObj.r;
+ 
+      const head = dataObj.head
+      let details = "";
+    
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      // Create table header based on user role
+      let tabheadsdetail = `<thead>`;
+       head.forEach((headItem, index) => {
+
+          tabheadsdetail += `<th>${headItem}</th>`;
+  
+      });
+
+tabheadsdetail += `</thead>`;
+      // Process each row of data
+      let anyVisible = false;
+      console.log(r);
+      for (let k = r.length-1; k >= 0; k--) {
+        const rowHtml = createTableRow(r[k]);
+        const rowVisible = searchTerm === "" || rowHtml.toLowerCase().includes(searchTerm);
+        
+        if (rowVisible) {
+          details += rowHtml;
+          anyVisible = true;
+        }
+      }
+      
+      // Update the DOM
+      if (details !== "") {
+        document.getElementById("tabdetails").innerHTML = tabheadsdetail + details;
+        document.getElementById("tablebee").style.display = "initial";
+        document.getElementById("status").style.display = "none";
+      } else {
+        document.getElementById("tablebee").style.display = "none";
+        document.getElementById("status").style.display = "initial";
+        document.getElementById("status").textContent = searchTerm === "" ? 
+          "No Responses" : "No matching responses found";
+      }
+    }
+
+    function createTableRow(r) {
+      console.log(r);
+      let detail = "<tr>";
+      
+      for (let j = 0; j < r.length; j++) {
+        const isFile = r.includes("CV") || r.includes("Files");
+        
+detail += `<td>${r[j]}</td>`;
+      
+      }
+      detail +="</tr>"
+      
+      return detail;
+    }
+
+ 
+    function approvePopup(id) {
+      document.getElementById("popup-1").classList.toggle("active");
+      document.getElementById("aid").value = id;
+    }
+
+    function togglePopup() {
+      document.getElementById("popup-1").classList.toggle("active");
+    }
+
+    function declinePopup(id) {
+      document.getElementById("popup-2").classList.toggle("active");
+      document.getElementById("did").value = id;
+      document.getElementById("Reason").value = "";
+    }
+
+    function togglePopup2() {
+      document.getElementById("popup-2").classList.toggle("active");
+    }
+
+    function togglePopup3() {
+      document.getElementById("popup-3").classList.toggle("active");
+    }
+
+    function approve() {
+      var id = document.getElementById("aid").value;
+      id = id.split("/");
+      togglePopup();
+      console.log(id);
+      var updatede = id[0] + "/Approve//" + id[2];
+      updatedetails(updatede, id[0], id[1],id[2]);
+    }
+
+    function decline() {
+      var id = document.getElementById("did").value;
+      id = id.split("/");
+      var Reason = document.getElementById("Reason").value;
+      if (Reason !== "") {
+        togglePopup2();
+        var updatede = id[0] + "/Decline/" + Reason + "/" + id[2];
+        updatedetails(updatede, id[0], id[1],id[2]);
+      } else {
+        alert("Enter the reason for decline");
+      }
+    }
+
+    function updatedetails(updatestring, id, name,uorp) {
+      ustatus1 = "Going";
+      showLoader("Processing the request...");
+      
+      fetch(
+        "https://script.google.com/macros/s/AKfycbxnl13iMMpRvTpLJW0I5JzGq5jkk4v2f1N7YyjCUVVYAdbrlrLdDjP5Mr517_fG2QOn/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: updatestring,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+      .then(function(response) {
+        if (response) {
+          return response;
+        } else {
+          throw new Error("Failed to fetch.");
+        }
+      })
+      .then(async function(data) {
+        const result1 = await data.json();
+        var r = result1.data2;
+        showLoader("Request processed successfully", false, true);
+        setTimeout(function() {
+          hideLoader();
+          sendmail(name, id,uorp);
+          fetchd(); // Refresh data
+        }, 2000);
+      })
+      .catch(function(error) {
+        console.error(error);
+        showLoader("Failed to Process the Request. Please try again later.", true);
+      });
+    }
+
+    function sendmail(name, id,uorp) {
+      showLoader("Sending Mail to " + name + "...");
+      
+      var rid = localStorage.getItem("loggeduserdetails");
+      var fetchurl = JSON.parse(rid).surl;
+      
+      fetch(
+        fetchurl,
+        {
+          redirect: "follow",
+          method: "POST",
+          body: id + "/" + uorp,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+      .then(function(response) {
+        if (response) {
+          return response;
+        } else {
+          throw new Error("Failed to send the mail.");
+        }
+      })
+      .then(async function(data) {
+        const result1 = await data.json();
+        var r = result1.data2;
+        if (r == "sent") {
+          showLoader("Mail Sent to " + name, false, true);
+          setTimeout(function() {
+            hideLoader();
+            ustatus1 = "";
+          }, 2000);
+        }
+      })
+      .catch(function(error) {
+        console.error(error);
+        showLoader("Failed to Send the Mail.", true);
+      });
+    }
+
+    function showLoader(message, isError = false, isSuccess = false) {
+      document.getElementById("load").style.display = "initial";
+      document.getElementById("loader").style.display = isError || isSuccess ? "none" : "block";
+      document.getElementById("message").textContent = message;
+      document.getElementById("message").style.color = isError ? "red" : isSuccess ? "green" : "white";
+      document.getElementById("message").style.backgroundColor = isError ? "white" : isSuccess ? "white" : "#182d8b";
+      document.getElementById("message").style.border = isError ? "1px solid red" : isSuccess ? "1px solid green" : "1px solid #182d8b";
+    }
+
+    function hideLoader() {
+      document.getElementById("load").style.display = "none";
+    }
+
+    function logout() {
+      clearInterval(fetchInterval);
+      updatelogstatus("Offline");
+      localStorage.removeItem("loggedname");
+      window.location = "../logout.html";
+    }
+
+  /*  function updatelogstatus(status) {
+      var updatestring = localStorage.getItem("loggedname") + "/" + status;
+      fetch(
+        "https://script.google.com/macros/s/AKfycbxEoNGPxEXxwtSXqRvPhgGK_btTmbVO4Tq6ZW002Q7Olap6cyoi5hmNAwYTS3OfLJCLug/exec",
+        {
+          redirect: "follow",
+          method: "POST",
+          body: updatestring,
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+        }
+      )
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error("Failed to update status");
+        }
+      })
+      .catch(function(error) {
+        console.error("Status update error:", error);
+      });
+    }
+
+    // Set up status tracking
+    window.addEventListener("focus", function() {
+      updatelogstatus("Online");
+    });
+
+    window.addEventListener("blur", function() {
+      updatelogstatus("Away");
+    });
+
+    window.addEventListener("beforeunload", function() {
+      updatelogstatus("Offline");
+    });*/
+  </script>
+</body>
+</html>
