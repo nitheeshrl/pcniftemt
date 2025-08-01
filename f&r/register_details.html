@@ -209,6 +209,19 @@ function logoutPopup(){
 document.getElementById("popup-3").classList.toggle("active");
 
 }
+
+function generateEditAllotOption(batch_members, alloted_member) {
+    var members_options = `<option value="">Select the Alloted Member</option>`;
+  batch_members.forEach((member) => {
+    if( member[0] === alloted_member) {
+      members_options += `<option value="${member[0]}" selected>${member[0]}</option>`;
+    } else {
+      members_options += `<option value="${member[0]}">${member[0]}</option>`;
+    }
+  });
+  return members_options;
+}
+
 function editPopup(edit){
   //console.log(edit)
   //console.log(batch_details_1[edit])
@@ -220,6 +233,10 @@ function editPopup(edit){
    var batch_info = document.getElementsByClassName("batch-info edit");
   var batch_name = batch_details_1[edit][0].split(" / ");
   //console.log(batch_name)
+  var batch_members = pc_data_1[batch_details_1[edit][0]];
+  if(batch_members === undefined||batch_members.length === 0){
+    alert("No members found for this batch, please add members first");
+  }
   batch_info[0].children[1].value = batch_name[1];
   batch_info[1].children[1].value = batch_name[0];
   for (var i = 2; i < batch_info.length; i++){
@@ -230,6 +247,7 @@ batch_info[i].children[1].value = batch_details_1[edit][i-1];
     var batch_students = batch_details_1[edit][5];
     var studentshtml =``
     batch_details_1[edit][5].forEach((student,student_no) => {
+      var members_options = generateEditAllotOption(batch_members, student[2]) 
          var each_student = 
     `                <div class="each-student" style="background-color: rgb(245, 245, 245);padding: 10px;border-radius: 10px; ">
                   <div style="display: flex; justify-content: space-between;align-items: center;padding:10px 30px 0 30px;">
@@ -248,12 +266,15 @@ batch_info[i].children[1].value = batch_details_1[edit][i-1];
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number"  value="${student[1]}"/>
               </div>
+              <div class="form-element student stud-det">
+                <span class="q">Alloted Member</span>
+                <select required name="Alloted Member" onchange="setallotmemberid(this)" value="${student[2]}">
+                  ${members_options}
+                </select>
+                </div>
                 <div class="form-element student stud-det">
-              <span class="q">Alloted Member</span>
-              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member"  value="${student[2]}"/>
-              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
-              <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number"  value="${student[3]}"/>
+              <input disabled type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number"  value="${student[3]}"/>
               </div>
               </div>
                 </div>`;
@@ -299,10 +320,13 @@ document.getElementById("full-students").children[1].innerHTML =
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
               </div>
+            <div class="form-element student stud-det">
+                <span class="q">Alloted Member</span>
+                <select required name="Alloted Member" onchange="setallotmemberid(this)" >
+                  <option value="">Select the Alloted Member</option>
+                </select>
+                </div>
                 <div class="form-element student stud-det">
-              <span class="q">Alloted Member</span>
-              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -774,10 +798,17 @@ document.getElementById("popup-40").classList.toggle("active");
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
               </div><br>
+               <div class="form-element batch-info add student">
+                <span class="q">Alloted Member</span>
+                <select required name="Alloted Member" onchange="setallotmemberid(this)" >
+                  <option value="">Select the Alloted Member</option>
+                </select>
+                </div>
                 <div class="form-element student">
               <span class="q">Alloted Member</span>
               <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element student">
+              </div>
+              <div class="form-element student">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -909,7 +940,11 @@ function showdetails(btn){
 
    function editeachstudent(){
     var students_details = document.getElementById("full-students-edit");
+    var batch = document.getElementsByClassName("form-element batch-info edit student");
 
+    var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
+        var batch_members = pc_data_1[batch_value];
+var allotoptions = generateEditAllotOption(batch_members,"");
 
     var no_of_students = students_details.children[1].children.length + 1;
         var addplace = students_details.children[1];
@@ -933,10 +968,13 @@ function showdetails(btn){
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
               </div>
+                              <div class="form-element student stud-det">
+                <span class="q">Alloted Member</span>
+                <select required name="Alloted Member" onchange="setallotmemberid(this)" >
+                  ${allotoptions}
+                </select>
+                </div>
                 <div class="form-element student stud-det">
-              <span class="q">Alloted Member</span>
-              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -952,8 +990,11 @@ function showdetails(btn){
 
    function addeachstudent(){
     var students_details = document.getElementById("full-students");
+    var batch = document.getElementsByClassName("form-element batch-info add student");
 
-
+    var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
+        var batch_members = pc_data_1[batch_value];
+var allotoptions = generateEditAllotOption(batch_members,"");
     var no_of_students = students_details.children[1].children.length + 1;
         var addplace = students_details.children[1];
 
@@ -976,10 +1017,13 @@ function showdetails(btn){
               <span class="q">ID Number</span>
               <input  type="text" name="ID Number" id="ID Number"  placeholder="Enter your ID Number" />
               </div>
+                             <div class="form-element student stud-det">
+                <span class="q">Alloted Member</span>
+                <select required name="Alloted Member" onchange="setallotmemberid(this)" >
+                ${allotoptions}
+                </select>
+                </div>
                 <div class="form-element student stud-det">
-              <span class="q">Alloted Member</span>
-              <input  type="text" name="Alloted Member" id="Alloted Member"  placeholder="Enter your Alloted Member" />
-              </div><div class="form-element student stud-det">
               <span class="q">Alloted Member ID Number</span>
               <input  type="text" name="Alloted Member ID Number" id="Alloted Member ID Number"  placeholder="Enter your Alloted Member ID Number" />
               </div>
@@ -1066,7 +1110,7 @@ function showdetails(btn){
 for (var g = 0; g < batch_students.length; g++){
   //console.log(g)
       var student = batch_students[g];
-      var student_info = student.children[1].querySelectorAll("input");
+      var student_info = student.children[1].querySelectorAll("input,select");
       var student_details = [];
   for (var h = 0; h < student_info.length; h++){
         var info = student_info[h];
@@ -1079,8 +1123,11 @@ for (var g = 0; g < batch_students.length; g++){
         batch = [];
         return;
       }
+      else{
+        info.style.border = "1px solid #d0d2e2";
+      }
       //
-      //   //console.log(info_value)
+      console.log(info_value,info.name)
         student_details.push(info_value);
       }
       students.push(student_details);
@@ -1218,7 +1265,7 @@ for (var g = 0; g < batch_students.length; g++){
 for (var g = 0; g < batch_students.length; g++){
   //console.log(g)
       var student = batch_students[g];
-      var student_info = student.children[1].querySelectorAll("input");
+      var student_info = student.children[1].querySelectorAll("input,select");
       var student_details = [];
   for (var h = 0; h < student_info.length; h++){
         var info = student_info[h];
@@ -1231,8 +1278,11 @@ for (var g = 0; g < batch_students.length; g++){
         batch = [];
         return;
       }
+            else{
+        info.style.border = "1px solid #d0d2e2";
+      }
       //
-      //   //console.log(info_value)
+      console.log(info_value, info.name)
         student_details.push(info_value);
       }
        student_details.push(g+7);
@@ -1536,11 +1586,14 @@ batch_select.innerHTML = full_batch;
 
   function checkbatch(){
     var batch = document.getElementsByClassName("form-element batch-info add student");
+    var allot_select = document.getElementById("full-students").children[1].querySelectorAll("select");
+    console.log(allot_select)
     var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
     console.log(batch_value)
     console.log(batch_list_1)
     console.log(batch_list_1.includes(batch_value))
     if(batch[1].children[1].value=="" || batch[0].children[1].value=="") return
+
     if (batch_list_1.includes(batch_value)){
       alert("Batch Already Exists");
       batch[1].children[1].value = "";
@@ -1567,12 +1620,21 @@ console.log(pc_data_1[batch_value]==undefined)
     else{
       batch[1].children[1].style.border = "1px solid #d0d2e2";
       batch[0].children[1].style.border = "1px solid #d0d2e2";
+        var batch_members = pc_data_1[batch_value];
+var allotoptions = generateEditAllotOption(batch_members,"");
+      //console.log(allotoptions)
+      allot_select.forEach((select) => {
+        select.innerHTML = allotoptions;
+        select.value = "";
+      });
     }
 
   }
     
   function editcheckbatch(batch_no){
     var batch = document.getElementsByClassName("form-element batch-info edit student");
+        var allot_select = document.getElementById("full-students-edit").children[1].querySelectorAll("select");
+    console.log(allot_select)
     var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
    // console.log(batch_value)
     //console.log(batch_list_1)
@@ -1613,9 +1675,25 @@ console.log(pc_data_1[batch_value]==undefined)
     else{
       batch[1].children[1].style.border = "1px solid #d0d2e2";
       batch[0].children[1].style.border = "1px solid #d0d2e2";
+              var batch_members = pc_data_1[batch_value];
+var allotoptions = generateEditAllotOption(batch_members,"");
+      //console.log(allotoptions)
+      allot_select.forEach((select) => {
+        select.innerHTML = allotoptions;
+        select.value = "";
+      });
     }
 
   }
+
+function setallotmemberid(btn){
+var select_value = btn.value;
+var select_index = btn.selectedIndex;
+    var batch = btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".batch-info");
+    console.log(batch)
+    var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
+btn.parentElement.nextElementSibling.children[1].value= pc_data_1[batch_value][select_index-1][1];
+}
 
   function checkaccess(btn){
 
