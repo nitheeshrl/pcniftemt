@@ -1692,6 +1692,10 @@ var select_index = btn.selectedIndex;
     var batch = btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".batch-info");
     console.log(batch)
     var batch_value = batch[1].children[1].value+" / "+batch[0].children[1].value;
+    if(select_index == 0) {
+      btn.parentElement.nextElementSibling.children[1].value = "";
+      return;
+    }
 btn.parentElement.nextElementSibling.children[1].value= pc_data_1[batch_value][select_index-1][1];
 }
 
