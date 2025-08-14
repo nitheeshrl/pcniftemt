@@ -229,7 +229,7 @@ function sidebari(){
     document.getElementById("profileimage1").src = localStorage.getItem("loggedpic");
     document.getElementById("mname").innerHTML = localStorage.getItem("loggedname");
        if(wnrid.mprole!=="No"){
-    document.getElementById("m-user-link").style.display="block";
+    document.getElementById("m-user-link").style.display="initial";
     }
     else{
 document.getElementById("m-user-link").style.display="none";
